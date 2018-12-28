@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "scripts": {
+    "format": "npm run prettier -- --write",
+    "prettier": "prettier \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|mdx|graphql)\"",
+    "prettier:validate": "npm run prettier -- --list-different",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|mdx|graphql)": [
+      "yarn format",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "husky": "1.2.1",
+    "lerna": "3.8.0",
+    "lint-staged": "8.1.0",
+    "prettier": "1.15.3"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

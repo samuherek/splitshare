@@ -1,0 +1,19 @@
+{
+  "name": "default",
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "samuherek",
+  "password": "",
+  "database": "splitshare",
+  "logging": true,
+  "synchronize": true,
+  "entities": ["src/entity/**/*.*"],
+  "migrations": ["src/migration/**/*.*"],
+  "subscribers": ["src/subscriber/**/*.*"],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
+}
