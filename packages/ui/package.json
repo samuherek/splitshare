@@ -28,6 +28,6 @@
   "devDependencies": {
     "@types/styled-components": "4.1.4",
     "docz": "latest",
-    "docz-theme-default": "0.13.5"
+    "docz-theme-default": "0.13.7"
   }
 }
