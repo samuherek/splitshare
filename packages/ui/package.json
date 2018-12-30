@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "4.1.4",
-    "docz": "latest",
+    "docz": "0.12.17",
     "docz-theme-default": "0.13.7"
   }
 }

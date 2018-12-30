@@ -1,3 +1,3 @@
 export * from './components/Button';
-export { default as GlobalStyles } from './styles/global';
+export * from './styles/styled-components';
 export { default as theme } from './styles/theme';
