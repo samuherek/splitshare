@@ -22,6 +22,11 @@ const startServer = async () => {
     schema: await buildSchema({
       resolvers: [UserResolver],
     }),
+    context: ({ req }: any) => ({
+      req,
+      redis,
+      session: req ? req.session : undefined,
+    }),
   });
 
   app.use(
