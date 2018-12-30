@@ -17,7 +17,7 @@ export class UserResolver {
     });
 
     if (userAlreadyExists) {
-      return false;
+      throw new Error('User already exists');
     }
 
     const user = await User.create({

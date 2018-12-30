@@ -13,7 +13,7 @@ import * as bcrypt from 'bcrypt';
 export class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  readonly id: string;
 
   @Field()
   @Column({ type: 'text', unique: true })
@@ -26,12 +26,12 @@ export class User extends BaseEntity {
   confirmed: boolean;
 
   @Field(() => String, { nullable: true })
-  @Column({ type: 'text', nullable: true })
-  displayName: string | null;
+  @Column({ nullable: true })
+  displayName?: string;
 
   @Field(() => String, { nullable: true })
-  @Column({ type: 'text', nullable: true })
-  photoUrl: string | null;
+  @Column({ nullable: true })
+  photoUrl?: string;
 
   @BeforeInsert()
   async hashPasswordBeforeInsert() {
