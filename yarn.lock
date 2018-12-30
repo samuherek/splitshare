@@ -5765,7 +5765,7 @@ doctrine@^2.0.0:
   dependencies:
     esutils "^2.0.2"
 
-docz-core@^0.13.5, docz-core@^0.13.7:
+docz-core@^0.13.7:
   version "0.13.7"
   resolved "https://registry.yarnpkg.com/docz-core/-/docz-core-0.13.7.tgz#524239fc82abc6e2ac0111455fa047648ac61efd"
   integrity sha512-VPQJj8yKepZMCTX/u/dxq3iW/1i8WkKaY1Aiet4NGz/pcvRHFHu1Pcwsp/3QM1wGNqbXw+96DJBOO7OpRVECXg==
@@ -5892,32 +5892,7 @@ docz-utils@^0.13.6:
     unist-util-is "^2.1.2"
     unist-util-visit "^1.4.0"
 
-docz@0.13.5:
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/docz/-/docz-0.13.5.tgz#a7a9e478e6a2d366d2359219beff2ab1109837eb"
-  integrity sha512-6XUY9ItqRXGF53zF7H0plEkAjeSrjKpyoA7ZygwNOf6/c2H368526rqLGZuINfW9gNUQh2sjyexdpOKvqT1xbw==
-  dependencies:
-    "@mdx-js/tag" "^0.16.6"
-    "@sindresorhus/slugify" "^0.6.0"
-    array-sort "^1.0.0"
-    callbag-observe "^1.0.0"
-    callbag-subject "^1.0.2"
-    capitalize "^2.0.0"
-    deepmerge "^3.0.0"
-    docz-core "^0.13.5"
-    fast-deep-equal "^2.0.1"
-    lodash "^4.17.11"
-    prop-types "^15.6.2"
-    react "^16.6.3"
-    react-dom "^16.6.3"
-    react-imported-component "^5.2.4"
-    react-router "^4.3.1"
-    react-router-dom "^4.3.1"
-    react-router-hash-link "^1.2.1"
-    ulid "^2.3.0"
-    yargs "^12.0.5"
-
-docz@^0.13.7:
+docz@0.13.7, docz@^0.13.7:
   version "0.13.7"
   resolved "https://registry.yarnpkg.com/docz/-/docz-0.13.7.tgz#dcf6bd4bcdec121cbd973a21da25eef2108a4ac3"
   integrity sha512-kxbluFEkkIZFC6P2AYNDCi2qQAyRXj6AL0z3mebptvctu0veuB1YqEL1GqTZ9DtuUr4ZLsqmg34MqJrJNzhlHw==
@@ -12744,7 +12719,7 @@ react-docgen@^3.0.0-rc.1:
     node-dir "^0.1.10"
     recast "^0.16.0"
 
-react-dom@16.7.0, react-dom@^16.6.3, react-dom@^16.7.0:
+react-dom@16.7.0, react-dom@^16.7.0:
   version "16.7.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.7.0.tgz#a17b2a7ca89ee7390bc1ed5eb81783c7461748b8"
   integrity sha512-D0Ufv1ExCAmF38P2Uh1lwpminZFRXEINJe53zRAbm4KPwSyd6DY/uDoS0Blj9jvPpn1+wivKpZYc8aAAN/nAkg==
@@ -12917,7 +12892,7 @@ react-sizes@^1.0.4:
     lodash.throttle "^4.1.1"
     prop-types "^15.6.0"
 
-react@16.7.0, react@^16.6.3, react@^16.7.0:
+react@16.7.0, react@^16.7.0:
   version "16.7.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.7.0.tgz#b674ec396b0a5715873b350446f7ea0802ab6381"
   integrity sha512-StCz3QY8lxTb5cl2HJxjwLFOXPIFQp+p+hxQfc8WE0QiLfCtIlKj8/+5tjjKm8uSTlAW+fCPaavGFS06V9Ar3A==
