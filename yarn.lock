@@ -1814,6 +1814,11 @@
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.0.3.tgz#389e2e5b83ecdb376d9f98fae2094297bc112c1c"
   integrity sha512-TcFkpEjcQK7w8OcrQcd7iIBPjU0rdyi3ldj6d0iJ4PPSzbWqPBvXj9KSwO14hTOX2dm9RoiH7VuxksJLNYdXUQ==
 
+"@types/history@*":
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
+  integrity sha512-ui3WwXmjTaY73fOQ3/m3nnajU/Orhi6cEu5rzX+BrAAJxa3eITXZ5ch9suPqtM03OWhAHhPSyBGCN4UKoxO20Q==
+
 "@types/ioredis@^4.0.4":
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.0.4.tgz#c0a809064c05e4c2663803128d46042e73c92558"
@@ -1875,6 +1880,14 @@
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
+
+"@types/reach__router@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/reach__router/-/reach__router-1.2.2.tgz#1bd96626c2866a61937758ef6be2f06309124805"
+  integrity sha512-ktF+0xWesuojMlU8UR+7O9qU9Ff76gO/0Lc+QXQYpTDK0qz4a0l/fJYOLmMJKVY7LKGLBmB3TBs7Fvg4nibQsA==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
 
 "@types/react-dom@16.0.11":
   version "16.0.11"

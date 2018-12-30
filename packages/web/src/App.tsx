@@ -1,20 +1,29 @@
+import { Router } from '@reach/router';
+import { GlobalStyles, theme, ThemeProvider } from '@splitshare/ui';
 import * as React from 'react';
 
-import { Button, theme, ThemeProvider } from '@splitshare/ui';
+import AuthLayout from './layout/Auth';
+import DashLayout from './layout/DashLayout';
+import Home from './routes/Home';
+import Login from './routes/Login';
+import Signup from './routes/Signup';
 
 class App extends React.Component {
   public render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className="App">
-          <header className="App-header">
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-          <p className="App-intro">
-            To get started, edit <code>src/App.tsx</code> and save to reload.
-            <Button>Something</Button>
-          </p>
-        </div>
+        <>
+          <GlobalStyles />
+          <Router>
+            <DashLayout path="/">
+              <Home path="/" />
+            </DashLayout>
+            <AuthLayout path="auth">
+              <Login path="login" />
+              <Signup path="signup" />
+            </AuthLayout>
+          </Router>
+        </>
       </ThemeProvider>
     );
   }
