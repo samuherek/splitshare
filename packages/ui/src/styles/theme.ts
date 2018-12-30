@@ -13,9 +13,14 @@ export interface ITheme {
 const theme: ITheme = {
   colors: {
     primary: 'black',
+    secondary: 'gray',
     warning: '#FCCC2F',
+    danger: 'red',
+    success: 'green',
   },
-  text: {},
+  text: {
+    primary: '#000000',
+  },
   fonts: {},
 };
 

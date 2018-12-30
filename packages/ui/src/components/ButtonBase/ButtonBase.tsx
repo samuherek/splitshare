@@ -3,9 +3,9 @@ import * as React from 'react';
 import styled, { css } from '../../styles/styled-components';
 
 export interface IBaseButtonProps {
-  children: Node;
+  children: any; // TODO: I can't figure out what the type here should be. It's giving me errors for JSX.Element.
   onClick?: any;
-  component: React.ComponentType | 'button' | 'a';
+  component?: React.ComponentType | JSX.Element;
   to?: string;
   disabled?: boolean;
   tabIndex?: string | number;
@@ -67,7 +67,7 @@ const ButtonBaseStyled: any = styled.button`
   } */
 `;
 
-class Button extends React.PureComponent<IBaseButtonProps, void> {
+export class ButtonBase extends React.PureComponent<IBaseButtonProps, {}> {
   static defaultProps = {
     tabIndex: '0',
     component: 'button',
@@ -94,7 +94,7 @@ class Button extends React.PureComponent<IBaseButtonProps, void> {
       ...other
     } = this.props;
 
-    let ComponentProp = component;
+    // let ComponentProp = component;
 
     const buttonProps: IButtonHTMLProps = {};
     buttonProps.className = className;
@@ -107,16 +107,17 @@ class Button extends React.PureComponent<IBaseButtonProps, void> {
       }
     });
 
-    if (ComponentProp === 'button' && other.href) {
-      ComponentProp = 'a';
-    }
+    // TODO: Come back to this part and figure out how it's supposed to be done in Typescript
+    // if (ComponentProp === 'button' && other.href) {
+    // ComponentProp = 'a';
+    // }
 
-    if (ComponentProp === 'button') {
-      buttonProps.type = other.type || 'button';
-      buttonProps.disabled = disabled;
-    } else {
-      buttonProps.role = 'button';
-    }
+    // if (ComponentProp === 'button') {
+    //   buttonProps.type = other.type || 'button';
+    //   buttonProps.disabled = disabled;
+    // } else {
+    //   buttonProps.role = 'button';
+    // }
 
     return (
       <ButtonBaseStyled
@@ -124,7 +125,8 @@ class Button extends React.PureComponent<IBaseButtonProps, void> {
         as={component}
         tabIndex={disabled ? -1 : Number(tabIndex)}
         to={other.href || to}
-        href={component === 'a' && other.href ? other.href : null}
+        // href={component === 'a' && other.href ? other.href : null}
+        href={other.href ? other.href : null}
         target={other && other.withNewTab ? '_blank' : null}
         {...buttonProps}
       >
@@ -133,5 +135,3 @@ class Button extends React.PureComponent<IBaseButtonProps, void> {
     );
   }
 }
-
-export default Button;

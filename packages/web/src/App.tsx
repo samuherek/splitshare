@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { ThemeProvider } from 'styled-components';
 
-import { Button } from '@splitshare/ui';
-import { theme } from '@splitshare/ui';
+import { Button, theme, ThemeProvider } from '@splitshare/ui';
 
 class App extends React.Component {
   public render() {
@@ -14,7 +12,7 @@ class App extends React.Component {
           </header>
           <p className="App-intro">
             To get started, edit <code>src/App.tsx</code> and save to reload.
-            <Button />
+            <Button>Something</Button>
           </p>
         </div>
       </ThemeProvider>

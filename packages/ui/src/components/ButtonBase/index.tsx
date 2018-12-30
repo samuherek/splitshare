@@ -1,1 +1,1 @@
-export { default } from './ButtonBase';
+export { ButtonBase } from './ButtonBase';

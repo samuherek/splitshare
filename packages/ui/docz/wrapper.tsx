@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '../src/styles/styled-components';
 import theme from '../src/styles/theme';
 
 const Wrapper = ({ children }) => (
