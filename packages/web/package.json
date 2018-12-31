@@ -19,7 +19,7 @@
     "gen": "gql-gen"
   },
   "devDependencies": {
-    "@types/jest": "23.3.10",
+    "@types/jest": "23.3.11",
     "@types/node": "10.12.18",
     "@types/reach__router": "^1.2.2",
     "@types/react": "16.7.18",
