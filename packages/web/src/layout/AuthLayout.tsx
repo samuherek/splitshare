@@ -1,6 +1,6 @@
 import { RouteComponentProps } from '@reach/router';
 import * as React from 'react';
-import styled from 'styled-components';
+import { styled } from '@splitshare/ui';
 
 interface IAuthLayoutProps extends RouteComponentProps {
   children: JSX.Element | JSX.Element[];

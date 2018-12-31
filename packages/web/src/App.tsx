@@ -2,7 +2,7 @@ import { Router } from '@reach/router';
 import { GlobalStyles, theme, ThemeProvider } from '@splitshare/ui';
 import * as React from 'react';
 
-import AuthLayout from './layout/Auth';
+import AuthLayout from './layout/AuthLayout';
 import DashLayout from './layout/DashLayout';
 import Home from './routes/Home';
 import Login from './routes/Login';
