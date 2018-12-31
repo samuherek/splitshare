@@ -26,6 +26,8 @@ export interface User {
 
 export interface Mutation {
   register: User;
+
+  login: User;
 }
 
 // ====================================================
@@ -37,4 +39,9 @@ export interface MeQueryArgs {
 }
 export interface RegisterMutationArgs {
   registerInput: RegisterInput;
+}
+export interface LoginMutationArgs {
+  password: string;
+
+  email: string;
 }

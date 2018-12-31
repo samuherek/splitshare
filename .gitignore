@@ -5,3 +5,5 @@ tmp/
 temp/
 dist
 .docz
+dump.rdb
+.env

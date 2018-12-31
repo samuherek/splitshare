@@ -10,6 +10,7 @@ import * as session from 'express-session';
 import { createTypeormConn } from './createTypeormConn';
 import { redis } from './redis';
 import { UserResolver } from './resolvers/user';
+import { redisSessionPrefix } from './constants';
 
 const RedisStore = connectRedis(session);
 
@@ -29,17 +30,24 @@ const startServer = async () => {
     }),
   });
 
-  app.use(
-    cors({
-      credentials: true,
-      origin: process.env.FRONTEND_URL,
-    })
-  );
+  // app.use((req, _, next) => {
+  //   const authorization = req.headers.authorization;
+  //   console.log('authorize', req.headers.authorization);
+  //   if (authorization) {
+  //     try {
+  //       const qid = authorization.split(' ')[1];
+  //       req.headers.cookie = `qid=${qid}`;
+  //     } catch (_) {}
+  //   }
+
+  //   return next();
+  // });
 
   app.use(
     session({
       store: new RedisStore({
         client: redis as any,
+        prefix: redisSessionPrefix,
       }),
       name: 'qid',
       secret: process.env.SESSION_SECRET,
@@ -52,6 +60,22 @@ const startServer = async () => {
       },
     } as any)
   );
+
+  app.use(
+    cors({
+      credentials: true,
+      origin: process.env.FRONTEND_URL,
+    })
+  );
+
+  // Comment: This is necessary to overwrite the cors otherwise it gives it "*" and then it doesn't work. https://github.com/expressjs/cors/issues/134
+  server.applyMiddleware({
+    app,
+    path: '/',
+    cors: false,
+  });
+
+  app.set('trust proxy', 1);
 
   server.applyMiddleware({ app }); // app is from an existing express app
 

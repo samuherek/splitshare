@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { styled, TextField, Button } from '@splitshare/ui';
+import LoginContainer from './containers/LoginContainer';
 
 interface IState {
   email?: string;
@@ -14,7 +15,7 @@ const WrapStyled: any = styled.div`
   min-height: 100vh;
 `;
 
-const FormStyled: any = styled.div`
+const FormStyled: any = styled.form`
   width: 100%;
   max-width: 250px;
   display: flex;
@@ -32,35 +33,46 @@ class Login extends React.PureComponent<RouteComponentProps, IState> {
     this.setState({ [name]: value } as Partial<IState>);
   };
 
-  public handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-    ev.preventDefault();
-    console.log('submitting', this.state);
-  };
+  // public handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+  //   ev.preventDefault();
+  //   console.log('submitting', this.state);
+  // };
 
   public render() {
     const { email, password } = this.state;
 
     return (
-      <WrapStyled>
-        <FormStyled onSubmit={this.handleSubmit}>
-          <TextField
-            label="Email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-          <TextField
-            label="Password"
-            name="password"
-            id="password"
-            value={password}
-            type="password"
-            onChange={this.handleChange}
-          />
-          <Button type="submit">Login</Button>
-        </FormStyled>
-      </WrapStyled>
+      <LoginContainer variables={this.state}>
+        {({ login, loading, user }) => (
+          <WrapStyled>
+            <FormStyled
+              onSubmit={async (ev: React.FormEvent<HTMLFormElement>) => {
+                ev.preventDefault();
+                console.log('here', this.state);
+                const res = await login();
+                console.log('all done', res);
+              }}
+            >
+              <TextField
+                label="Email"
+                name="email"
+                id="email"
+                value={email}
+                onChange={this.handleChange}
+              />
+              <TextField
+                label="Password"
+                name="password"
+                id="password"
+                value={password}
+                type="password"
+                onChange={this.handleChange}
+              />
+              <Button type="submit">Login</Button>
+            </FormStyled>
+          </WrapStyled>
+        )}
+      </LoginContainer>
     );
   }
 }
