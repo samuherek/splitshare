@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps, Link } from '@reach/router';
 import { styled, TextField, Button } from '@splitshare/ui';
 
-import LoginContainer from './containers/LoginContainer';
+import RegisterContainer from './containers/RegisterContainer';
 import { AppContext } from 'src/context/AppProvider';
 
 interface IState {
@@ -25,7 +25,7 @@ const FormStyled: any = styled.form`
   flex-direction: column;
 `;
 
-class Login extends React.PureComponent<RouteComponentProps, IState> {
+class Signup extends React.PureComponent<RouteComponentProps, IState> {
   public state = {
     email: '',
     password: '',
@@ -36,24 +36,19 @@ class Login extends React.PureComponent<RouteComponentProps, IState> {
     this.setState({ [name]: value } as Partial<IState>);
   };
 
-  // public handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-  //   ev.preventDefault();
-  //   console.log('submitting', this.state);
-  // };
-
   public render() {
     const { email, password } = this.state;
 
     return (
       <AppContext.Consumer>
         {({ ctxLogin }) => (
-          <LoginContainer variables={this.state}>
-            {({ login, loading }) => (
+          <RegisterContainer registerInput={this.state}>
+            {({ register, loading }) => (
               <WrapStyled>
                 <FormStyled
                   onSubmit={async (ev: React.FormEvent<HTMLFormElement>) => {
                     ev.preventDefault();
-                    await login();
+                    await register();
                     ctxLogin();
                   }}
                 >
@@ -72,16 +67,16 @@ class Login extends React.PureComponent<RouteComponentProps, IState> {
                     type="password"
                     onChange={this.handleChange}
                   />
-                  <Button type="submit">Login</Button>
+                  <Button type="submit">Register</Button>
                 </FormStyled>
-                <Link to="/auth/signup">I'm new here</Link>
+                <Link to="/auth/login">Already have an account</Link>
               </WrapStyled>
             )}
-          </LoginContainer>
+          </RegisterContainer>
         )}
       </AppContext.Consumer>
     );
   }
 }
 
-export default Login;
+export default Signup;

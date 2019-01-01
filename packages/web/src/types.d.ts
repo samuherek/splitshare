@@ -25,7 +25,7 @@ export interface User {
 }
 
 export interface Mutation {
-  register: User;
+  register: boolean;
 
   login: boolean;
 

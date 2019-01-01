@@ -10,8 +10,11 @@ import { userSessionIdPrefix } from '../../constants';
 export class UserResolver {
   constructor() {}
 
-  @Mutation(() => User)
-  async register(@Arg('registerInput') registerInput: RegisterInput) {
+  @Mutation(() => Boolean)
+  async register(
+    @Arg('registerInput') registerInput: RegisterInput,
+    @Ctx() ctx: MyContext
+  ) {
     // console.log('stuff', registerInput);
     const { email, password } = registerInput;
 
@@ -29,8 +32,17 @@ export class UserResolver {
       password,
     }).save();
 
-    // console.log(userAlreadyExists);
-    return user;
+    // registration successful
+    ctx.req.session!.userId = user.id;
+
+    if (ctx.req.sessionID) {
+      await ctx.redis.lpush(
+        `${userSessionIdPrefix}${user.id}`,
+        ctx.req.sessionID
+      );
+    }
+
+    return true;
   }
 
   @Mutation(() => Boolean)
@@ -72,6 +84,8 @@ export class UserResolver {
         console.log(err);
         res(!!err);
       });
+
+      // TODO: Remove all the sessions associated with the user.
 
       ctx.res.clearCookie('qid');
       return true;
