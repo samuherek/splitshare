@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { User, LoginMutationArgs } from 'src/types';
+import { ME_QUERY } from 'src/containers/MeContainer';
 
 // TODO: This doesn't use the generated types. We need to make sure of that.
 interface IMutationData {
@@ -35,9 +36,12 @@ export const LOGIN_MUTATION = gql`
 class LoginMutation extends Mutation<IMutationData, LoginMutationArgs> {}
 
 const LoginContainer = ({ children, variables }: IContainerProps) => (
-  <LoginMutation mutation={LOGIN_MUTATION} variables={{ ...variables }}>
+  <LoginMutation
+    mutation={LOGIN_MUTATION}
+    variables={{ ...variables }}
+    refetchQueries={[{ query: ME_QUERY }]}
+  >
     {(login, other) => {
-      // console.log(other);
       if (other.error) {
         console.log(other.error);
       }

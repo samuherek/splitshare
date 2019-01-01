@@ -10,27 +10,30 @@ import Login from './routes/Login';
 import Signup from './routes/Signup';
 import NotFound from './routes/NotFound';
 import client from './apollo';
+import AppProvider from './context/AppProvider';
 
 class App extends React.Component {
   public render() {
     return (
       <ApolloProvider client={client}>
-        <ThemeProvider theme={theme}>
-          <>
-            <GlobalStyles />
-            <Router>
-              <DashLayout path="/">
-                <Home path="/" />
-                <NotFound default={true} />
-              </DashLayout>
-              <AuthLayout path="auth">
-                <Login path="login" />
-                <Signup path="signup" />
-                <NotFound default={true} />
-              </AuthLayout>
-            </Router>
-          </>
-        </ThemeProvider>
+        <AppProvider apolloClient={client}>
+          <ThemeProvider theme={theme}>
+            <>
+              <GlobalStyles />
+              <Router>
+                <DashLayout path="/">
+                  <Home path="/" />
+                  <NotFound default={true} />
+                </DashLayout>
+                <AuthLayout path="auth">
+                  <Login path="login" />
+                  <Signup path="signup" />
+                  <NotFound default={true} />
+                </AuthLayout>
+              </Router>
+            </>
+          </ThemeProvider>
+        </AppProvider>
       </ApolloProvider>
     );
   }
