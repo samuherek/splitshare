@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RouteComponentProps } from '@reach/router';
+import { RouteComponentProps, navigate } from '@reach/router';
 import { styled, TextField, Button } from '@splitshare/ui';
 import LoginContainer from './containers/LoginContainer';
 
@@ -48,9 +48,8 @@ class Login extends React.PureComponent<RouteComponentProps, IState> {
             <FormStyled
               onSubmit={async (ev: React.FormEvent<HTMLFormElement>) => {
                 ev.preventDefault();
-                console.log('here', this.state);
-                const res = await login();
-                console.log('all done', res);
+                await login();
+                navigate('/');
               }}
             >
               <TextField

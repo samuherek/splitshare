@@ -1,27 +1,10 @@
-import {
-  Resolver,
-  Query,
-  Arg,
-  Mutation,
-  Ctx,
-  Field,
-  ObjectType,
-} from 'type-graphql';
+import { Resolver, Query, Arg, Mutation, Ctx } from 'type-graphql';
 import { RegisterInput } from './registerInput';
 import { MyContext } from 'src/types/Context';
 import * as bcrypt from 'bcrypt';
 
 import { User } from '../../entity/User';
 import { userSessionIdPrefix } from '../../constants';
-
-@ObjectType()
-class LoginResponse {
-  @Field()
-  sessionId: string;
-
-  @Field()
-  user: User;
-}
 
 @Resolver(User)
 export class UserResolver {
@@ -50,7 +33,7 @@ export class UserResolver {
     return user;
   }
 
-  @Mutation(() => LoginResponse)
+  @Mutation(() => Boolean)
   async login(
     @Arg('email') email: string,
     @Arg('password') password: string,
@@ -67,9 +50,10 @@ export class UserResolver {
     if (!valid) {
       throw new Error("Either your email or password doesn't match");
     }
-    console.log('session id', ctx.req.sessionID);
+
     // login successful
-    ctx.session.userId = user.id;
+    ctx.req.session!.userId = user.id;
+
     if (ctx.req.sessionID) {
       await ctx.redis.lpush(
         `${userSessionIdPrefix}${user.id}`,
@@ -77,20 +61,12 @@ export class UserResolver {
       );
     }
 
-    // console.log('ctx', ctx, ctx.session);
-
-    return {
-      user,
-      sessionId: ctx.req.sessionID,
-    };
+    return true;
   }
 
   @Query(() => User, { nullable: true })
-  async me(@Arg('id', { nullable: true }) id: string) {
-    if (id) {
-      return User.find({ id });
-    } else {
-      return null;
-    }
+  async me(@Ctx() ctx: MyContext) {
+    const { userId } = ctx.req.session!;
+    return userId ? User.findOne(userId) : null;
   }
 }

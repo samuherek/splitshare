@@ -44,7 +44,7 @@ class LoginMutation extends Mutation<IMutationData, IMutationVariables> {}
 const LoginContainer = ({ children, variables }: IContainerProps) => (
   <LoginMutation mutation={LOGIN_MUTATION} variables={{ ...variables }}>
     {(login, other) => {
-      console.log(other);
+      // console.log(other);
       if (other.error) {
         console.log(other.error);
       }

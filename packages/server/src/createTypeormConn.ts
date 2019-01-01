@@ -15,7 +15,7 @@ export const createTypeormConn = async () => {
         username: 'samuherek',
         password: '',
         database: 'splitshare',
-        logging: true,
+        logging: false,
         synchronize: true,
         entities: ['src/entity/**/*.*'],
         migrations: ['src/migration/**/*.*'],

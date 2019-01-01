@@ -11,6 +11,7 @@ import { createTypeormConn } from './createTypeormConn';
 import { redis } from './redis';
 import { UserResolver } from './resolvers/user';
 import { redisSessionPrefix } from './constants';
+import { GraphQLSchema } from 'graphql';
 
 const RedisStore = connectRedis(session);
 
@@ -20,21 +21,17 @@ const startServer = async () => {
   const app = express();
 
   const server = new ApolloServer({
-    schema: await buildSchema({
+    schema: (await buildSchema({
       resolvers: [UserResolver],
-    }),
-    context: ({ req }: any) => ({
-      req,
-      redis,
-      session: req ? req.session : undefined,
-    }),
+    })) as GraphQLSchema | undefined,
+    context: ({ req, res }: any) => ({ req, res, redis }),
   });
 
   // app.use((req, _, next) => {
   //   const authorization = req.headers.authorization;
   //   console.log('authorize', req.headers.authorization);
   //   if (authorization) {
-  //     try {
+  //     try {s
   //       const qid = authorization.split(' ')[1];
   //       req.headers.cookie = `qid=${qid}`;
   //     } catch (_) {}
