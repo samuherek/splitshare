@@ -1,17 +1,18 @@
 import 'reflect-metadata';
 require('dotenv-safe').config();
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, ApolloError } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import * as connectRedis from 'connect-redis';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as session from 'express-session';
+import { v4 } from 'uuid';
 
 import { createTypeormConn } from './createTypeormConn';
 import { redis } from './redis';
 import { UserResolver } from './resolvers/user';
 import { redisSessionPrefix } from './constants';
-import { GraphQLSchema } from 'graphql';
+import { GraphQLSchema, GraphQLError } from 'graphql';
 
 const RedisStore = connectRedis(session);
 
@@ -23,22 +24,23 @@ const startServer = async () => {
   const server = new ApolloServer({
     schema: (await buildSchema({
       resolvers: [UserResolver],
+      authChecker: ({ context }) => {
+        return context.req.session && context.req.session.userId; // or false if access denied
+      },
     })) as GraphQLSchema | undefined,
     context: ({ req, res }: any) => ({ req, res, redis }),
+    formatError: (error: GraphQLError) => {
+      if (error.originalError instanceof ApolloError) {
+        return error;
+      }
+
+      const errId = v4();
+      console.log('errId: ', errId);
+      console.log(error);
+
+      return new GraphQLError(`Internal Error: ${errId}`);
+    },
   });
-
-  // app.use((req, _, next) => {
-  //   const authorization = req.headers.authorization;
-  //   console.log('authorize', req.headers.authorization);
-  //   if (authorization) {
-  //     try {s
-  //       const qid = authorization.split(' ')[1];
-  //       req.headers.cookie = `qid=${qid}`;
-  //     } catch (_) {}
-  //   }
-
-  //   return next();
-  // });
 
   app.use(
     session({

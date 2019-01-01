@@ -13,6 +13,7 @@
     "@types/graphql": "14.0.4",
     "@types/ioredis": "4.0.4",
     "@types/node": "10.12.18",
+    "@types/uuid": "^3.4.4",
     "nodemon": "1.18.9",
     "ts-node": "7.0.1",
     "typescript": "3.2.2"
@@ -34,7 +35,8 @@
     "pg": "7.7.1",
     "reflect-metadata": "0.1.12",
     "type-graphql": "0.16.0",
-    "typeorm": "0.2.9"
+    "typeorm": "0.2.9",
+    "uuid": "^3.3.2"
   },
   "workspaces": {
     "nohoist": [

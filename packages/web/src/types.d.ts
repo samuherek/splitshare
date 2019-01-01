@@ -27,16 +27,15 @@ export interface User {
 export interface Mutation {
   register: User;
 
-  login: User;
+  login: boolean;
+
+  logout: boolean;
 }
 
 // ====================================================
 // Arguments
 // ====================================================
 
-export interface MeQueryArgs {
-  id?: Maybe<string>;
-}
 export interface RegisterMutationArgs {
   registerInput: RegisterInput;
 }

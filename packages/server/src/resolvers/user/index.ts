@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Mutation, Ctx } from 'type-graphql';
+import { Resolver, Query, Arg, Mutation, Ctx, Authorized } from 'type-graphql';
 import { RegisterInput } from './registerInput';
 import { MyContext } from 'src/types/Context';
 import * as bcrypt from 'bcrypt';
@@ -62,6 +62,20 @@ export class UserResolver {
     }
 
     return true;
+  }
+
+  @Authorized()
+  @Mutation(() => Boolean)
+  async logout(@Ctx() ctx: MyContext) {
+    return new Promise(res => {
+      ctx.req.session!.destroy(err => {
+        console.log(err);
+        res(!!err);
+      });
+
+      ctx.res.clearCookie('qid');
+      return true;
+    });
   }
 
   @Query(() => User, { nullable: true })

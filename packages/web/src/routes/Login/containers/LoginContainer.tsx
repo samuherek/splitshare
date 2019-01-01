@@ -2,8 +2,9 @@
 import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { gql } from 'apollo-boost';
-import { User } from 'src/types';
+import { User, LoginMutationArgs } from 'src/types';
 
+// TODO: This doesn't use the generated types. We need to make sure of that.
 interface IMutationData {
   [key: string]: any;
 }
@@ -26,20 +27,12 @@ interface IContainerProps {
 
 export const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
-    login(password: $password, email: $email) {
-      user {
-        id
-        email
-        displayName
-        photoUrl
-      }
-      sessionId
-    }
+    login(password: $password, email: $email)
   }
 `;
 
 // Apollo Flow Types
-class LoginMutation extends Mutation<IMutationData, IMutationVariables> {}
+class LoginMutation extends Mutation<IMutationData, LoginMutationArgs> {}
 
 const LoginContainer = ({ children, variables }: IContainerProps) => (
   <LoginMutation mutation={LOGIN_MUTATION} variables={{ ...variables }}>
@@ -52,7 +45,6 @@ const LoginContainer = ({ children, variables }: IContainerProps) => (
       return children({
         loading: other.loading,
         login,
-        user: other.data ? other.data.login.user : undefined,
       });
     }}
   </LoginMutation>
