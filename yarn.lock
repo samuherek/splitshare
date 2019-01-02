@@ -1918,7 +1918,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-gravatar@^2.6.6":
+"@types/react-gravatar@2.6.6":
   version "2.6.6"
   resolved "https://registry.yarnpkg.com/@types/react-gravatar/-/react-gravatar-2.6.6.tgz#96e5662a7ab2df61431f783ce8f6a6b13696d55a"
   integrity sha512-LtZwXaK4DMd02v0+md7xHL3UikV4ckvfx0gNpSpqbV24mD7pjmnHeXl8UDRXi1XzzcOrKm7X24cUomQCJcHiFQ==
@@ -12959,7 +12959,7 @@ react-feather@^1.1.5:
   resolved "https://registry.yarnpkg.com/react-feather/-/react-feather-1.1.5.tgz#f7f9384c17d2d061b5b8298f46efc0e497f48469"
   integrity sha512-hAPWatSFnhTNp9Ub96B7LMgOnWzXonA/LxqC2ANfUuc57jJocuWyO96yow2flUUDpitodh9mf6iOZzkyGYmAng==
 
-react-gravatar@^2.6.3:
+react-gravatar@2.6.3:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/react-gravatar/-/react-gravatar-2.6.3.tgz#5407eb6ac87e830e2a34deb760d2a4c404eb1dac"
   integrity sha1-VAfrash+gw4qNN63YNKkxATrHaw=

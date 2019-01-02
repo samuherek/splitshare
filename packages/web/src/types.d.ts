@@ -6,6 +6,19 @@ export interface RegisterInput {
   password: string;
 }
 
+export interface BillInput {
+  name: string;
+
+  users?: Maybe<string[]>;
+}
+
+/** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+export type DateTime = any;
+
+// ====================================================
+// Scalars
+// ====================================================
+
 // ====================================================
 // Types
 // ====================================================
@@ -22,6 +35,8 @@ export interface User {
   displayName?: Maybe<string>;
 
   photoUrl?: Maybe<string>;
+
+  createdAt: DateTime;
 }
 
 export interface Mutation {
@@ -30,6 +45,22 @@ export interface Mutation {
   login: boolean;
 
   logout: boolean;
+
+  createBill: Bill;
+}
+
+export interface Bill {
+  id: string;
+
+  name: string;
+
+  creatorId: string;
+
+  createdAt: DateTime;
+
+  updatedAt: DateTime;
+
+  users: User[];
 }
 
 // ====================================================
@@ -43,4 +74,7 @@ export interface LoginMutationArgs {
   password: string;
 
   email: string;
+}
+export interface CreateBillMutationArgs {
+  billInput: BillInput;
 }
