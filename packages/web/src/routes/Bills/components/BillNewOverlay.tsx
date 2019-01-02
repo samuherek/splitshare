@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { Button, styled } from '@splitshare/ui';
+import { Button, styled, TextField } from '@splitshare/ui';
+import CreateBillContainer from '../containers/CreateBillContainer';
 
-interface IBillNewOverlayProps {
+interface IProps {
   onCancel: () => void;
+}
+interface IState {
+  name?: string;
 }
 
 const WrapStyled = styled.div`
@@ -13,13 +17,52 @@ const WrapStyled = styled.div`
   min-height: 100%;
 `;
 
-const BillNewOverlay: React.FunctionComponent<IBillNewOverlayProps> = ({
-  onCancel,
-}) => (
-  <WrapStyled>
-    <h3>Create new bill</h3>
-    <Button onClick={onCancel}>Cancel</Button>
-  </WrapStyled>
-);
+const FormStyled: any = styled.form`
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+`;
+class BillNewOverlay extends React.PureComponent<IProps, IState> {
+  public state = {
+    name: '',
+  };
+
+  public handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = ev.currentTarget;
+    this.setState({ [name]: value } as Partial<IState>);
+  };
+
+  public render() {
+    const { name } = this.state;
+    return (
+      <CreateBillContainer billInput={{ name }}>
+        {({ createBill, loading }) => (
+          <WrapStyled>
+            <h3>Create new bill</h3>
+            <FormStyled
+              onSubmit={async (ev: React.FormEvent<HTMLFormElement>) => {
+                ev.preventDefault();
+                const bill = await createBill();
+                console.log('success', bill);
+              }}
+            >
+              <TextField
+                label="Name"
+                name="name"
+                id="name"
+                value={name}
+                type="text"
+                onChange={this.handleChange}
+              />
+              <Button type="submit">Create bill</Button>
+            </FormStyled>
+            <Button onClick={this.props.onCancel}>Cancel</Button>
+          </WrapStyled>
+        )}
+      </CreateBillContainer>
+    );
+  }
+}
 
 export default BillNewOverlay;

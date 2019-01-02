@@ -13,7 +13,7 @@ export default class Bills extends React.PureComponent<
   IState
 > {
   public state = {
-    showBillNewOverlay: true,
+    showBillNewOverlay: false,
   };
 
   public toggleBillNewOverlay = () => {
