@@ -5,7 +5,7 @@ import { styled } from '@splitshare/ui';
 import { AppContext } from 'src/context/AppProvider';
 
 interface IAuthLayoutProps extends RouteComponentProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 }
 
 const PageStyled = styled.div`
