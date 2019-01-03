@@ -1,9 +1,10 @@
-import { RouteComponentProps, Redirect, Link } from '@reach/router';
 import * as React from 'react';
+import { RouteComponentProps, Redirect, Link } from '@reach/router';
 import { styled } from '@splitshare/ui';
 
 import { AppContext } from 'src/context/AppProvider';
 import NavLink from 'src/components/NavLink';
+import MenuProfile from './dashboard/MenuProfile';
 
 interface IAuthLayoutProps extends RouteComponentProps {
   children: React.ReactNode;
@@ -35,16 +36,6 @@ const ActionWrapStyled = styled.div`
   }
 `;
 
-const AvatarStyled = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
-  background: #eee;
-`;
-
 const DashLayout = ({ children }: IAuthLayoutProps) => (
   <AppContext.Consumer>
     {({ authenticated }) => {
@@ -59,9 +50,7 @@ const DashLayout = ({ children }: IAuthLayoutProps) => (
             <ActionWrapStyled>
               <NavLink to="/">Dash</NavLink>
               <NavLink to="/bills">Bills</NavLink>
-              <NavLink to="/profile">
-                <AvatarStyled>S</AvatarStyled>
-              </NavLink>
+              <MenuProfile />
             </ActionWrapStyled>
           </TopBar>
           {children}

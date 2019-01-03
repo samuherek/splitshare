@@ -6,10 +6,10 @@ import { ME_QUERY } from '../containers/MeContainer';
 
 interface IAppProviderProps {
   apolloClient: ApolloClient<{}>;
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
-interface IState {
+export interface IAppContext {
   authenticated: boolean;
   ctxLogin: () => void;
   ctxLogout: () => void;
@@ -23,7 +23,7 @@ const AppContext = React.createContext({
   loading: true,
 });
 
-class AppProvider extends React.PureComponent<IAppProviderProps, IState> {
+class AppProvider extends React.PureComponent<IAppProviderProps, IAppContext> {
   public state = {
     authenticated: false,
 
