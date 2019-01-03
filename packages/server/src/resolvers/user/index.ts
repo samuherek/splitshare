@@ -1,10 +1,12 @@
 import { Resolver, Query, Arg, Mutation, Ctx, Authorized } from 'type-graphql';
-import { RegisterInput } from './registerInput';
-import { MyContext } from 'src/types/Context';
+import { getConnection } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
+import { RegisterInput } from './registerInput';
+import { MyContext } from 'src/types/Context';
 import { User } from '../../entity/User';
 import { userSessionIdPrefix } from '../../constants';
+import { MeInput } from './meInput';
 
 @Resolver(User)
 export class UserResolver {
@@ -90,6 +92,32 @@ export class UserResolver {
       ctx.res.clearCookie('qid');
       return true;
     });
+  }
+
+  @Authorized()
+  @Mutation(() => Boolean)
+  async updateMe(@Arg('meInput') meInput: MeInput, @Ctx() ctx: MyContext) {
+    const { email, displayName } = meInput;
+    console.log('meInput', meInput);
+
+    const changes: any = {};
+    if (displayName) {
+      changes.displayName = displayName;
+    }
+    if (email) {
+      changes.email = email;
+    }
+
+    const user = await getConnection()
+      .createQueryBuilder()
+      .update(User)
+      .set({ ...changes })
+      .where('id = :id', { id: ctx.req.session!.userId })
+      .execute();
+
+    console.log(user);
+
+    return true;
   }
 
   @Query(() => User, { nullable: true })
