@@ -1,6 +1,7 @@
 import { Resolver, Query, Arg, Mutation, Ctx, Authorized } from 'type-graphql';
 import { getConnection } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { plainToClass } from 'class-transformer';
 
 import { RegisterInput } from './registerInput';
 import { MyContext } from 'src/types/Context';
@@ -95,29 +96,17 @@ export class UserResolver {
   }
 
   @Authorized()
-  @Mutation(() => Boolean)
+  @Mutation(() => User)
   async updateMe(@Arg('meInput') meInput: MeInput, @Ctx() ctx: MyContext) {
-    const { email, displayName } = meInput;
-    console.log('meInput', meInput);
-
-    const changes: any = {};
-    if (displayName) {
-      changes.displayName = displayName;
-    }
-    if (email) {
-      changes.email = email;
-    }
-
-    const user = await getConnection()
+    const { raw } = await getConnection()
       .createQueryBuilder()
       .update(User)
-      .set({ ...changes })
+      .set({ ...meInput })
       .where('id = :id', { id: ctx.req.session!.userId })
+      .returning('*')
       .execute();
 
-    console.log(user);
-
-    return true;
+    return plainToClass(User, raw[0]);
   }
 
   @Query(() => User, { nullable: true })
