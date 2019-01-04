@@ -33,7 +33,6 @@ class MeQuery extends Query<IQueryData> {}
 const MeContainer = ({ children }: IContainerProps) => (
   <MeQuery query={ME_QUERY}>
     {({ loading, error, data }) => {
-      console.log('happening', data);
       if (loading) {
         return 'loading';
       }

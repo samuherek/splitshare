@@ -32,7 +32,6 @@ class MyBillsQuery extends Query<IQueryData> {}
 const QueryMyBillsContainer = ({ children }: IContainerProps) => (
   <MyBillsQuery query={MY_BILLS_QUERY}>
     {({ loading, error, data }) => {
-      console.log('happening', data);
       if (loading) {
         return 'loading';
       }

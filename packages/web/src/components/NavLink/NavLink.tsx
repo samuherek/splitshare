@@ -14,8 +14,10 @@ interface INavLink {
 // TODO: This is a hack https://github.com/reach/router/pull/118
 const NavLinkBase: React.FunctionComponent<INavLink> = props => (
   <Link
-    getProps={({ isCurrent }) =>
-      isCurrent ? { className: `${props.className} active` } : {}
+    getProps={({ isCurrent, isPartiallyCurrent, href }) =>
+      isCurrent || (isPartiallyCurrent && href !== '/')
+        ? { className: `${props.className} active` }
+        : {}
     }
     {...props}
   />

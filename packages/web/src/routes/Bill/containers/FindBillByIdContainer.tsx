@@ -41,7 +41,6 @@ const FindBillByIdContainer: React.FC<IContainerProps> = ({
 }) => (
   <FindBillByIdQuery query={FIND_BILL_BY_ID_QUERY} variables={{ id: billId }}>
     {({ loading, error, data }) => {
-      console.log('happening', data);
       if (loading) {
         return 'loading';
       }
