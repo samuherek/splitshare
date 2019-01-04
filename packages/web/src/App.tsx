@@ -12,7 +12,6 @@ import NotFound from './routes/NotFound';
 import client from './apollo';
 import AppProvider from './context/AppProvider';
 import Bills from './routes/Bills';
-import Profile from './routes/Profile';
 
 class App extends React.Component {
   public render() {
@@ -26,7 +25,6 @@ class App extends React.Component {
                 <DashLayout path="/">
                   <Dashboard path="/" />
                   <Bills path="/bills" />
-                  <Profile path="/profile" />
                   <NotFound default={true} />
                 </DashLayout>
                 <AuthLayout path="auth">

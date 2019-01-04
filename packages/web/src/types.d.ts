@@ -31,6 +31,8 @@ export type DateTime = any;
 
 export interface Query {
   me?: Maybe<User>;
+
+  myBills: Bill[];
 }
 
 export interface User {
@@ -45,18 +47,6 @@ export interface User {
   createdAt: DateTime;
 }
 
-export interface Mutation {
-  register: boolean;
-
-  login: boolean;
-
-  logout: boolean;
-
-  updateMe: User;
-
-  createBill: Bill;
-}
-
 export interface Bill {
   id: string;
 
@@ -69,6 +59,18 @@ export interface Bill {
   updatedAt: DateTime;
 
   users: User[];
+}
+
+export interface Mutation {
+  register: boolean;
+
+  login: boolean;
+
+  logout: boolean;
+
+  updateMe: User;
+
+  createBill: Bill;
 }
 
 // ====================================================

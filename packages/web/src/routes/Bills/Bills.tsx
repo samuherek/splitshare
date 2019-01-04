@@ -3,6 +3,8 @@ import { RouteComponentProps } from '@reach/router';
 import BillNewOverlay from './components/BillNewOverlay';
 import { Button } from '@splitshare/ui';
 import PageModal, { PageModalInner } from 'src/components/PageModal';
+import QueryMyBillsContainer from './containers/QueryMyBillsContainer';
+import { distanceInWordsStrict } from 'date-fns';
 
 interface IState {
   showBillNewOverlay: boolean;
@@ -27,6 +29,25 @@ export default class Bills extends React.PureComponent<
       <div>
         <div>Bills</div>
         <Button onClick={this.toggleBillNewOverlay}>Add new bill</Button>
+        <QueryMyBillsContainer>
+          {({ bills }) => (
+            <>
+              {bills.map(bill => (
+                <div key={bill.id}>
+                  <span>{bill.name}</span>
+                  --
+                  <span>
+                    {distanceInWordsStrict(
+                      new Date(),
+                      Date.parse(bill.createdAt),
+                      { addSuffix: true }
+                    )}
+                  </span>
+                </div>
+              ))}
+            </>
+          )}
+        </QueryMyBillsContainer>
         {showBillNewOverlay ? (
           <PageModal>
             <PageModalInner>

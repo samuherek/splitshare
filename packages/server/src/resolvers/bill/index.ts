@@ -1,4 +1,4 @@
-import { Resolver, Arg, Mutation, Ctx, Authorized } from 'type-graphql';
+import { Resolver, Arg, Mutation, Ctx, Authorized, Query } from 'type-graphql';
 import { BillInput } from './billInput';
 import { MyContext } from 'src/types/Context';
 import { Bill } from '../../entity/Bill';
@@ -7,6 +7,15 @@ import { User } from '../../entity/User';
 @Resolver(Bill)
 export class BillResolver {
   constructor() {}
+
+  @Authorized()
+  @Query(() => [Bill])
+  async myBills(@Ctx() ctx: MyContext) {
+    return Bill.find({
+      where: { creatorId: ctx.req.session!.userId },
+      order: { createdAt: 'DESC' },
+    });
+  }
 
   @Authorized()
   @Mutation(() => Bill)

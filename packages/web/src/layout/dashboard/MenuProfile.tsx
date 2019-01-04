@@ -110,7 +110,7 @@ class MenuProfile extends React.PureComponent<{}, IState> {
     displayName: '',
     email: '',
     isEditing: false,
-    isOpen: true,
+    isOpen: false,
   };
 
   toggleMenu = () =>
