@@ -55,6 +55,7 @@ class BillNewOverlay extends React.PureComponent<IProps, IState> {
                 id="name"
                 value={name}
                 type="text"
+                autoComplete={false}
                 onChange={this.handleChange}
               />
               <Button type="submit">Create bill</Button>

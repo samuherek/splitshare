@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import BillNewOverlay from './components/BillNewOverlay';
-import { Button } from '@splitshare/ui';
+import { Button, styled } from '@splitshare/ui';
 import PageModal, { PageModalInner } from 'src/components/PageModal';
 import QueryMyBillsContainer from './containers/QueryMyBillsContainer';
-import { distanceInWordsStrict } from 'date-fns';
+import Bill from './components/Bill';
 
 interface IState {
   showBillNewOverlay: boolean;
 }
+
+const WrapStyled = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`;
 
 export default class Bills extends React.PureComponent<
   RouteComponentProps,
@@ -29,25 +36,17 @@ export default class Bills extends React.PureComponent<
       <div>
         <div>Bills</div>
         <Button onClick={this.toggleBillNewOverlay}>Add new bill</Button>
-        <QueryMyBillsContainer>
-          {({ bills }) => (
-            <>
-              {bills.map(bill => (
-                <div key={bill.id}>
-                  <span>{bill.name}</span>
-                  --
-                  <span>
-                    {distanceInWordsStrict(
-                      new Date(),
-                      Date.parse(bill.createdAt),
-                      { addSuffix: true }
-                    )}
-                  </span>
-                </div>
-              ))}
-            </>
-          )}
-        </QueryMyBillsContainer>
+        <WrapStyled>
+          <QueryMyBillsContainer>
+            {({ bills }) => (
+              <>
+                {bills.map(bill => (
+                  <Bill key={bill.id} bill={bill} />
+                ))}
+              </>
+            )}
+          </QueryMyBillsContainer>
+        </WrapStyled>
         {showBillNewOverlay ? (
           <PageModal>
             <PageModalInner>

@@ -33,6 +33,8 @@ export interface Query {
   me?: Maybe<User>;
 
   myBills: Bill[];
+
+  findBillById: Bill;
 }
 
 export interface User {
@@ -54,11 +56,15 @@ export interface Bill {
 
   creatorId: string;
 
+  creator: User;
+
   createdAt: DateTime;
 
   updatedAt: DateTime;
 
   users: User[];
+
+  usersIds: string[];
 }
 
 export interface Mutation {
@@ -77,6 +83,9 @@ export interface Mutation {
 // Arguments
 // ====================================================
 
+export interface FindBillByIdQueryArgs {
+  id: string;
+}
 export interface RegisterMutationArgs {
   registerInput: RegisterInput;
 }

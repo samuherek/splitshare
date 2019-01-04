@@ -87,7 +87,9 @@ class InputBase extends React.PureComponent<IInputBaseProps> {
       <InputBaseStyled
         aria-invalid={error}
         as={inputComponent}
-        autoComplete={autoComplete ? 'true' : 'false'}
+        autoComplete={
+          autoComplete !== undefined && autoComplete ? 'true' : 'off'
+        }
         autoFocus={autoFocus}
         className={className}
         defaultValue={defaultValue}

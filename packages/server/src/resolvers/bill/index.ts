@@ -12,7 +12,6 @@ import { BillInput } from './billInput';
 import { MyContext } from 'src/types/Context';
 import { Bill } from '../../entity/Bill';
 import { User } from '../../entity/User';
-// import { getConnection } from 'typeorm';
 
 @Resolver(Bill)
 export class BillResolver {
@@ -36,6 +35,23 @@ export class BillResolver {
       where: { creatorId: ctx.req.session!.userId },
       order: { createdAt: 'DESC' },
     });
+  }
+
+  @Authorized()
+  @Query(() => Bill)
+  async findBillById(@Arg('id') id: string, @Ctx() ctx: MyContext) {
+    const { userId } = ctx.req.session!;
+
+    const bill = await Bill.findOne({ where: { id } });
+
+    const billHasUserId =
+      bill && bill.usersIds.findIndex(id => id === userId) !== -1;
+
+    if (!billHasUserId) {
+      throw new Error("We couldn't find what you were looking for");
+    }
+
+    return bill;
   }
 
   @Authorized()
