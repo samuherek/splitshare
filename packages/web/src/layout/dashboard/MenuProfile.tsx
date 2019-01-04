@@ -1,10 +1,15 @@
 import * as React from 'react';
-import { styled, ButtonBase, SvgEdit } from '@splitshare/ui';
+import { styled, ButtonBase, SvgEdit, InputBase } from '@splitshare/ui';
 import MeContainer from 'src/containers/MeContainer';
 import LogoutContainer from 'src/containers/LogoutContainer';
 import { AppContext } from 'src/context/AppProvider';
+import { User, Maybe } from 'src/types';
+import UpdateMeContainer from './containers/UpdateMeContainer';
 
 interface IState {
+  displayName?: Maybe<string>;
+  email: string;
+  isEditing: boolean;
   isOpen: boolean;
 }
 
@@ -43,23 +48,27 @@ const HeaderMenuStyled = styled.div`
   padding: 20px 0;
 `;
 
-// TODO: Figure out the typing here
-const CloseBtnStyled: any = styled(ButtonBase)`
-  background: transparent;
+const ActionsStyled = styled.div`
   position: absolute;
   right: 15px;
   top: 50%;
-  padding: 10px 15px;
   transform: translateY(-50%);
+`;
 
-  &:active {
-    transform: translateY(-49%);
-  }
+// TODO: Figure out the typing here
+const CloseBtnStyled: any = styled(ButtonBase)`
+  background: transparent;
+  padding: 10px 15px;
+  margin-left: 15px;
 `;
 
 const ContentMenuStyled = styled.div`
   padding: 25px 0 40px;
   text-align: center;
+
+  input {
+    text-align: center;
+  }
 `;
 
 const AvatarStyled = styled.span`
@@ -98,53 +107,117 @@ const SignOutBtnStyled: any = styled(ButtonBase)`
 
 class MenuProfile extends React.PureComponent<{}, IState> {
   state = {
+    displayName: '',
+    email: '',
+    isEditing: false,
     isOpen: true,
   };
 
-  toggleMenu = () => this.setState(() => ({ isOpen: !this.state.isOpen }));
+  toggleMenu = () =>
+    this.setState(state => ({ isOpen: !state.isOpen, isEditing: false }));
+
+  activateEdit = (me: User) => {
+    const { displayName, email } = me;
+    this.setState({ displayName, email, isEditing: true });
+  };
+
+  deactivateEdit = () => this.setState({ isEditing: false });
+
+  handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = ev.currentTarget;
+    if (name === 'email') {
+      this.setState({ email: value || '' });
+    }
+    if (name === 'displayName') {
+      this.setState({ displayName: value });
+    }
+  };
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, displayName, email, isEditing } = this.state;
 
     return (
       <AppContext.Consumer>
         {({ ctxLogout }) => (
           <MeContainer>
             {({ me }) => (
-              <>
-                <AvatarBtnStyled onClick={this.toggleMenu}>
-                  {me ? me.email.substr(0, 1) : '..'}
-                </AvatarBtnStyled>
-                {isOpen && me ? (
-                  <WrapStyled>
-                    <HeaderMenuStyled>
-                      <h3>Profile</h3>
-                      <SvgEdit />
-                      <CloseBtnStyled onClick={this.toggleMenu}>
-                        x
-                      </CloseBtnStyled>
-                    </HeaderMenuStyled>
-                    <ContentMenuStyled>
-                      <AvatarStyled>{me.email.substr(0, 1)}</AvatarStyled>
-                      <NameStyled>{me.displayName || 'No name'}</NameStyled>
-                      <EmailStyled>{me.email}</EmailStyled>
-                    </ContentMenuStyled>
-                    <LogoutContainer>
-                      {({ logout, loading }) => (
-                        <SignOutBtnStyled
-                          disabled={loading}
-                          onClick={async () => {
-                            await logout();
-                            await ctxLogout();
-                          }}
-                        >
-                          Sign out
-                        </SignOutBtnStyled>
-                      )}
-                    </LogoutContainer>
-                  </WrapStyled>
-                ) : null}
-              </>
+              <UpdateMeContainer meInput={{ email, displayName }}>
+                {({ updateMe, loading }) => (
+                  <>
+                    <AvatarBtnStyled onClick={this.toggleMenu}>
+                      {me ? me.email.substr(0, 1) : '..'}
+                    </AvatarBtnStyled>
+                    {isOpen && me ? (
+                      <WrapStyled>
+                        <HeaderMenuStyled>
+                          <h3>Profile</h3>
+                          <ActionsStyled>
+                            {isEditing ? (
+                              <ButtonBase
+                                disabled={loading}
+                                onClick={async () => {
+                                  await updateMe();
+                                  this.deactivateEdit();
+                                }}
+                              >
+                                save
+                              </ButtonBase>
+                            ) : (
+                              <ButtonBase
+                                onClick={() => {
+                                  this.activateEdit(me);
+                                }}
+                              >
+                                <SvgEdit />
+                              </ButtonBase>
+                            )}
+                            <CloseBtnStyled onClick={this.toggleMenu}>
+                              x
+                            </CloseBtnStyled>
+                          </ActionsStyled>
+                        </HeaderMenuStyled>
+                        <ContentMenuStyled>
+                          <AvatarStyled>{me.email.substr(0, 1)}</AvatarStyled>
+                          {isEditing ? (
+                            <>
+                              <InputBase
+                                value={displayName}
+                                name="displayName"
+                                onChange={this.handleInputChange}
+                              />
+                              <InputBase
+                                value={email}
+                                name="email"
+                                onChange={this.handleInputChange}
+                              />
+                            </>
+                          ) : (
+                            <>
+                              <NameStyled>
+                                {me.displayName || 'No name'}
+                              </NameStyled>
+                              <EmailStyled>{me.email}</EmailStyled>
+                            </>
+                          )}
+                        </ContentMenuStyled>
+                        <LogoutContainer>
+                          {({ logout, loading: loadingLogout }) => (
+                            <SignOutBtnStyled
+                              disabled={loadingLogout}
+                              onClick={async () => {
+                                await logout();
+                                await ctxLogout();
+                              }}
+                            >
+                              Sign out
+                            </SignOutBtnStyled>
+                          )}
+                        </LogoutContainer>
+                      </WrapStyled>
+                    ) : null}
+                  </>
+                )}
+              </UpdateMeContainer>
             )}
           </MeContainer>
         )}

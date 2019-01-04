@@ -6,6 +6,12 @@ export interface RegisterInput {
   password: string;
 }
 
+export interface MeInput {
+  displayName?: Maybe<string>;
+
+  email?: Maybe<string>;
+}
+
 export interface BillInput {
   name: string;
 
@@ -46,6 +52,8 @@ export interface Mutation {
 
   logout: boolean;
 
+  updateMe: User;
+
   createBill: Bill;
 }
 
@@ -74,6 +82,9 @@ export interface LoginMutationArgs {
   password: string;
 
   email: string;
+}
+export interface UpdateMeMutationArgs {
+  meInput: MeInput;
 }
 export interface CreateBillMutationArgs {
   billInput: BillInput;
