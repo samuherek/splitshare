@@ -24,7 +24,7 @@
     "svgr": "npx @svgr/cli --config-file .svgrrc.js --ext tsx icons --out-dir src/components/icons"
   },
   "devDependencies": {
-    "@svgr/cli": "^4.1.0",
+    "@svgr/cli": "4.1.0",
     "@types/jest": "23.3.11",
     "@types/lodash.get": "4.4.4",
     "@types/node": "10.12.18",
