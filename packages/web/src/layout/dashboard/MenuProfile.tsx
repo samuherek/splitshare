@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, ButtonBase } from '@splitshare/ui';
+import { styled, ButtonBase, SvgEdit } from '@splitshare/ui';
 import MeContainer from 'src/containers/MeContainer';
 import LogoutContainer from 'src/containers/LogoutContainer';
 import { AppContext } from 'src/context/AppProvider';
@@ -119,6 +119,7 @@ class MenuProfile extends React.PureComponent<{}, IState> {
                   <WrapStyled>
                     <HeaderMenuStyled>
                       <h3>Profile</h3>
+                      <SvgEdit />
                       <CloseBtnStyled onClick={this.toggleMenu}>
                         x
                       </CloseBtnStyled>
