@@ -1,4 +1,13 @@
-import { Resolver, Arg, Mutation, Ctx, Authorized, Query } from 'type-graphql';
+import {
+  Resolver,
+  Arg,
+  Mutation,
+  Ctx,
+  Authorized,
+  Query,
+  FieldResolver,
+  Root,
+} from 'type-graphql';
 import { BillInput } from './billInput';
 import { MyContext } from 'src/types/Context';
 import { Bill } from '../../entity/Bill';
@@ -7,6 +16,11 @@ import { User } from '../../entity/User';
 @Resolver(Bill)
 export class BillResolver {
   constructor() {}
+
+  @FieldResolver()
+  async creator(@Root() bill: Bill, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(bill.creatorId);
+  }
 
   @Authorized()
   @Query(() => [Bill])

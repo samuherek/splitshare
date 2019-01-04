@@ -22,9 +22,11 @@ export class Bill extends BaseEntity {
   @Column()
   name: string;
 
-  @Field()
   @Column('uuid')
   creatorId: string;
+
+  @Field(() => User)
+  creator: User;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })

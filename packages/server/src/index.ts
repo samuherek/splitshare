@@ -14,6 +14,7 @@ import { UserResolver } from './resolvers/user';
 import { BillResolver } from './resolvers/bill';
 import { redisSessionPrefix } from './constants';
 import { GraphQLSchema, GraphQLError } from 'graphql';
+import { userLoader } from './loaders/userLoader';
 
 const RedisStore = connectRedis(session);
 
@@ -29,7 +30,12 @@ const startServer = async () => {
         return context.req.session && context.req.session.userId; // or false if access denied
       },
     })) as GraphQLSchema | undefined,
-    context: ({ req, res }: any) => ({ req, res, redis }),
+    context: ({ req, res }: any) => ({
+      req,
+      res,
+      redis,
+      userLoader: userLoader(),
+    }),
     formatError: (error: GraphQLError) => {
       if (error.originalError instanceof ApolloError) {
         return error;
