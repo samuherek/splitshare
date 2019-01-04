@@ -52,6 +52,7 @@ export class BillResolver {
       ...billInput,
       creatorId,
       users: Promise.resolve([owner]),
+      usersIds: [creatorId],
     }).save();
 
     return bill;

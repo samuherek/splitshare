@@ -35,6 +35,7 @@ class BillNewOverlay extends React.PureComponent<IProps, IState> {
 
   public render() {
     const { name } = this.state;
+    const { onCancel } = this.props;
     return (
       <CreateBillContainer billInput={{ name }}>
         {({ createBill, loading }) => (
@@ -44,6 +45,7 @@ class BillNewOverlay extends React.PureComponent<IProps, IState> {
               onSubmit={async (ev: React.FormEvent<HTMLFormElement>) => {
                 ev.preventDefault();
                 const bill = await createBill();
+                onCancel();
                 console.log('success', bill);
               }}
             >
@@ -57,7 +59,7 @@ class BillNewOverlay extends React.PureComponent<IProps, IState> {
               />
               <Button type="submit">Create bill</Button>
             </FormStyled>
-            <Button onClick={this.props.onCancel}>Cancel</Button>
+            <Button onClick={onCancel}>Cancel</Button>
           </WrapStyled>
         )}
       </CreateBillContainer>
