@@ -12,6 +12,7 @@ import { BillInput } from './billInput';
 import { MyContext } from 'src/types/Context';
 import { Bill } from '../../entity/Bill';
 import { User } from '../../entity/User';
+// import { getConnection } from 'typeorm';
 
 @Resolver(Bill)
 export class BillResolver {
@@ -20,6 +21,12 @@ export class BillResolver {
   @FieldResolver()
   async creator(@Root() bill: Bill, @Ctx() ctx: MyContext) {
     return ctx.userLoader.load(bill.creatorId);
+  }
+
+  @FieldResolver()
+  async users(@Root() bill: Bill, @Ctx() ctx: MyContext) {
+    const users = await ctx.userLoader.loadMany(bill.usersIds);
+    return users;
   }
 
   @Authorized()
@@ -44,7 +51,7 @@ export class BillResolver {
     const bill = await Bill.create({
       ...billInput,
       creatorId,
-      users: [owner],
+      users: Promise.resolve([owner]),
     }).save();
 
     return bill;

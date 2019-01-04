@@ -22,6 +22,7 @@ export class Bill extends BaseEntity {
   @Column()
   name: string;
 
+  @Field()
   @Column('uuid')
   creatorId: string;
 
@@ -39,5 +40,9 @@ export class Bill extends BaseEntity {
   @Field(() => [User])
   @ManyToMany(() => User, user => user.bills)
   @JoinTable()
-  users: User[];
+  users: Promise<User[]>;
+
+  @Field(() => [String])
+  @Column({ type: 'uuid', array: true })
+  usersIds: string[];
 }
