@@ -18,19 +18,19 @@ export class Receipt extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   comment?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   category?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   company?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   country?: string;
 
