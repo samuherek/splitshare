@@ -6,10 +6,12 @@ import {
   BeforeInsert,
   CreateDateColumn,
   ManyToMany,
+  OneToMany,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import * as bcrypt from 'bcrypt';
 import { Bill } from './Bill';
+import { ReceiptSplit } from './ReceiptSplit';
 
 @Entity()
 @ObjectType()
@@ -40,11 +42,14 @@ export class User extends BaseEntity {
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;
 
+  @ManyToMany(() => Bill, bill => bill.users)
+  bills: Promise<Bill[]>;
+
+  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.user)
+  splits: Promise<ReceiptSplit[]>;
+
   @BeforeInsert()
   async hashPasswordBeforeInsert() {
     this.password = await bcrypt.hash(this.password, 10);
   }
-
-  @ManyToMany(() => Bill, bill => bill.users)
-  bills: Bill[];
 }
