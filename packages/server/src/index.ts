@@ -12,6 +12,7 @@ import { createTypeormConn } from './createTypeormConn';
 import { redis } from './redis';
 import { UserResolver } from './resolvers/user';
 import { BillResolver } from './resolvers/bill';
+import { ReceiptResolver } from './resolvers/receipt';
 import { redisSessionPrefix } from './constants';
 import { GraphQLSchema, GraphQLError } from 'graphql';
 import { userLoader } from './loaders/userLoader';
@@ -25,7 +26,7 @@ const startServer = async () => {
 
   const server = new ApolloServer({
     schema: (await buildSchema({
-      resolvers: [UserResolver, BillResolver],
+      resolvers: [UserResolver, BillResolver, ReceiptResolver],
       authChecker: ({ context }) => {
         return context.req.session && context.req.session.userId; // or false if access denied
       },

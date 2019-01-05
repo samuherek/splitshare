@@ -10,5 +10,5 @@ export class BillInput implements Partial<Bill> {
   name: string;
 
   @Field(() => [String], { nullable: true })
-  users: User[];
+  users: Promise<User[]>;
 }

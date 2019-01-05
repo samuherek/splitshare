@@ -42,7 +42,7 @@ export class Receipt extends BaseEntity {
   paidBy: Promise<User>;
 
   @Field()
-  @Column()
+  @Column({ type: 'numeric', scale: 2 })
   total: number;
 
   @Field()
@@ -65,6 +65,8 @@ export class Receipt extends BaseEntity {
   updatedAt: Date;
 
   @Field(() => [ReceiptSplit])
-  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
+  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt, {
+    nullable: true,
+  })
   splits: Promise<ReceiptSplit[]>;
 }
