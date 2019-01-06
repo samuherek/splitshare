@@ -12,7 +12,8 @@ import { Receipt } from '../../entity/Receipt';
 import { MyContext } from 'src/types/Context';
 import { ReceiptInput } from './receiptInput';
 import { ReceiptSplitInput } from './receiptSplitInput';
-import { User } from '../../entity/User';
+// import { User } from '../../entity/User';
+import { ReceiptSplit } from '../../entity/ReceiptSplit';
 
 @Resolver(Receipt)
 export class ReceiptResolver {
@@ -43,16 +44,29 @@ export class ReceiptResolver {
     splitsInput: ReceiptSplitInput[],
     @Ctx() ctx: MyContext
   ) {
-    const users = await User.findByIds(splitsInput.map(s => s.userId));
+    // const users = await User.findByIds(splitsInput.map(s => s.userId));
     const creatorId = ctx.req.session!.userId;
-    const { paidById } = receiptInput;
+    // const { paidById } = receiptInput;
 
     const receipt = await Receipt.create({
       ...receiptInput,
-      paidBy: Promise.resolve(users.find(u => u.id === paidById)),
+      // paidBy: Promise.resolve(users.find(u => u.id === paidById)),
       creatorId,
-      creator: Promise.resolve(users.find(u => u.id === creatorId)),
+      // creator: Promise.resolve(users.find(u => u.id === creatorId)),
     }).save();
+
+    await Promise.all(
+      splitsInput.map(split => {
+        return ReceiptSplit.create({
+          ...split,
+          receiptId: receipt.id,
+          currency: receiptInput.currency,
+        }).save();
+      })
+    );
+
+    // receipt.splits = Promise.resolve(splits);
+    // const updatedReceipt = await Receipt.save(receipt);
 
     return receipt;
   }

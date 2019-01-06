@@ -7,5 +7,5 @@ export class ReceiptSplitInput implements Partial<ReceiptSplit> {
   userId: string;
 
   @Field()
-  total: number;
+  value: number;
 }

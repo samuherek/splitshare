@@ -18,7 +18,7 @@ export class ReceiptSplit extends BaseEntity {
 
   @Field()
   @Column({ type: 'numeric', scale: 2 })
-  total: number;
+  value: number;
 
   @Field()
   @Column()

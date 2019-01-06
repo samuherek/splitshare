@@ -65,8 +65,6 @@ export class Receipt extends BaseEntity {
   updatedAt: Date;
 
   @Field(() => [ReceiptSplit])
-  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt, {
-    nullable: true,
-  })
+  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
   splits: Promise<ReceiptSplit[]>;
 }
