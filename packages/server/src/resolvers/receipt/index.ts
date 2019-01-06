@@ -114,7 +114,7 @@ export class ReceiptResolver {
 
       return true;
     } catch (err) {
-      return err;
+      throw new Error(err);
     }
   }
 }

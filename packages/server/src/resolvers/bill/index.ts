@@ -12,6 +12,7 @@ import { BillInput } from './billInput';
 import { MyContext } from 'src/types/Context';
 import { Bill } from '../../entity/Bill';
 import { User } from '../../entity/User';
+import { getConnection } from 'typeorm';
 
 @Resolver(Bill)
 export class BillResolver {
@@ -72,5 +73,22 @@ export class BillResolver {
     }).save();
 
     return bill;
+  }
+
+  @Authorized()
+  @Mutation(() => Boolean)
+  async removeBill(@Arg('id') id: string) {
+    try {
+      await getConnection()
+        .createQueryBuilder()
+        .delete()
+        .from(Bill)
+        .where('id = :id', { id })
+        .execute();
+
+      return true;
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }

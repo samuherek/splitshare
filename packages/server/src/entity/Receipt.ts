@@ -6,10 +6,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { User } from './User';
 import { ReceiptSplit } from './ReceiptSplit';
+import { Bill } from './Bill';
 
 @Entity()
 @ObjectType()
@@ -68,4 +70,7 @@ export class Receipt extends BaseEntity {
 
   @Column('uuid')
   billId: string;
+
+  @ManyToOne(() => Bill, bill => bill.receipts, { onDelete: 'CASCADE' })
+  bill: Promise<Bill>;
 }
