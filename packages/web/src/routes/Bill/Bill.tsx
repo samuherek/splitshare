@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import FindBillByIdContainer from './containers/FindBillByIdContainer';
+import BillByIdContainer from './containers/BillByIdContainer';
 
 interface IProps extends RouteComponentProps {
   billId?: string;
@@ -12,7 +12,7 @@ export default class Bill extends React.PureComponent<IProps> {
 
     return (
       <div>
-        <FindBillByIdContainer billId={billId || ''}>
+        <BillByIdContainer billId={billId || ''}>
           {({ bill }) => (
             <>
               {bill ? (
@@ -25,7 +25,7 @@ export default class Bill extends React.PureComponent<IProps> {
               ) : null}
             </>
           )}
-        </FindBillByIdContainer>
+        </BillByIdContainer>
       </div>
     );
   }

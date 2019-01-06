@@ -17,9 +17,9 @@ interface IContainerProps {
   children: (renderProps: IRenderProps) => React.ReactNode;
 }
 
-export const FIND_BILL_BY_ID_QUERY = gql`
-  query findBillById($id: String!) {
-    bill: findBillById(id: $id) {
+export const BILL_BY_ID_QUERY = gql`
+  query billById($id: String!) {
+    bill: billById(id: $id) {
       id
       name
       createdAt
@@ -32,14 +32,8 @@ export const FIND_BILL_BY_ID_QUERY = gql`
   }
 `;
 
-// Apollo Flow Types
-class FindBillByIdQuery extends Query<IQueryData> {}
-
-const FindBillByIdContainer: React.FC<IContainerProps> = ({
-  children,
-  billId,
-}) => (
-  <FindBillByIdQuery query={FIND_BILL_BY_ID_QUERY} variables={{ id: billId }}>
+const BillByIdContainer: React.FC<IContainerProps> = ({ children, billId }) => (
+  <Query<IQueryData> query={BILL_BY_ID_QUERY} variables={{ id: billId }}>
     {({ loading, error, data }) => {
       if (loading) {
         return 'loading';
@@ -53,7 +47,7 @@ const FindBillByIdContainer: React.FC<IContainerProps> = ({
         bill: data ? data.bill : null,
       });
     }}
-  </FindBillByIdQuery>
+  </Query>
 );
 
-export default FindBillByIdContainer;
+export default BillByIdContainer;
