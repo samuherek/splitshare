@@ -148,7 +148,11 @@ export interface Mutation {
 
   createBill: Bill;
 
+  removeBill: boolean;
+
   createReceipt: Receipt;
+
+  removeReceipt: boolean;
 }
 
 // ====================================================
@@ -182,8 +186,16 @@ export interface UpdateMeMutationArgs {
 export interface CreateBillMutationArgs {
   billInput: BillInput;
 }
+export interface RemoveBillMutationArgs {
+  id: string;
+}
 export interface CreateReceiptMutationArgs {
+  billId: string;
+
   splitsInput: ReceiptSplitInput[];
 
   receiptInput: ReceiptInput;
+}
+export interface RemoveReceiptMutationArgs {
+  id: string;
 }
