@@ -18,6 +18,28 @@ export interface BillInput {
   users?: Maybe<string[]>;
 }
 
+export interface ReceiptSplitInput {
+  userId: string;
+
+  value: number;
+}
+
+export interface ReceiptInput {
+  company: string;
+
+  comment?: Maybe<string>;
+
+  category?: Maybe<string>;
+
+  country?: Maybe<string>;
+
+  paidById: string;
+
+  total: number;
+
+  currency: string;
+}
+
 /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
 export type DateTime = any;
 
@@ -34,7 +56,11 @@ export interface Query {
 
   myBills: Bill[];
 
-  findBillById: Bill;
+  bill: Bill;
+
+  receipt: Receipt;
+
+  receipts: Receipt[];
 }
 
 export interface User {
@@ -54,8 +80,6 @@ export interface Bill {
 
   name: string;
 
-  creatorId: string;
-
   creator: User;
 
   createdAt: DateTime;
@@ -63,8 +87,48 @@ export interface Bill {
   updatedAt: DateTime;
 
   users: User[];
+}
 
-  usersIds: string[];
+export interface Receipt {
+  id: string;
+
+  comment?: Maybe<string>;
+
+  category?: Maybe<string>;
+
+  company: string;
+
+  country?: Maybe<string>;
+
+  paidBy: User;
+
+  total: number;
+
+  currency: string;
+
+  creator: User;
+
+  createdAt: DateTime;
+
+  updatedAt: DateTime;
+
+  splits: ReceiptSplit[];
+}
+
+export interface ReceiptSplit {
+  id: string;
+
+  value: number;
+
+  currency: string;
+
+  userId: string;
+
+  user: User;
+
+  receiptId: string;
+
+  receipt: Receipt;
 }
 
 export interface Mutation {
@@ -77,14 +141,26 @@ export interface Mutation {
   updateMe: User;
 
   createBill: Bill;
+
+  createReceipt: Receipt;
 }
 
 // ====================================================
 // Arguments
 // ====================================================
 
-export interface FindBillByIdQueryArgs {
+export interface BillQueryArgs {
   id: string;
+}
+export interface ReceiptQueryArgs {
+  id: string;
+}
+export interface ReceiptsQueryArgs {
+  offset: number;
+
+  limit: number;
+
+  billId: string;
 }
 export interface RegisterMutationArgs {
   registerInput: RegisterInput;
@@ -99,4 +175,9 @@ export interface UpdateMeMutationArgs {
 }
 export interface CreateBillMutationArgs {
   billInput: BillInput;
+}
+export interface CreateReceiptMutationArgs {
+  splitsInput: ReceiptSplitInput[];
+
+  receiptInput: ReceiptInput;
 }

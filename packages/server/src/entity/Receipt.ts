@@ -34,7 +34,6 @@ export class Receipt extends BaseEntity {
   @Column({ nullable: true })
   country?: string;
 
-  @Field()
   @Column('uuid')
   paidById: string;
 
@@ -49,7 +48,6 @@ export class Receipt extends BaseEntity {
   @Column({ default: 'EUR' })
   currency: string;
 
-  @Field()
   @Column('uuid')
   creatorId: string;
 
@@ -67,4 +65,7 @@ export class Receipt extends BaseEntity {
   @Field(() => [ReceiptSplit])
   @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
   splits: Promise<ReceiptSplit[]>;
+
+  @Column('uuid')
+  billId: string;
 }

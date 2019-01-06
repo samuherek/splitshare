@@ -17,9 +17,9 @@ interface IContainerProps {
   children: (renderProps: IRenderProps) => React.ReactNode;
 }
 
-export const BILL_BY_ID_QUERY = gql`
-  query billById($id: String!) {
-    bill: billById(id: $id) {
+export const BILL_QUERY = gql`
+  query bill($id: String!) {
+    bill(id: $id) {
       id
       name
       createdAt
@@ -32,8 +32,11 @@ export const BILL_BY_ID_QUERY = gql`
   }
 `;
 
-const BillByIdContainer: React.FC<IContainerProps> = ({ children, billId }) => (
-  <Query<IQueryData> query={BILL_BY_ID_QUERY} variables={{ id: billId }}>
+const QueryBillContainer: React.FC<IContainerProps> = ({
+  children,
+  billId,
+}) => (
+  <Query<IQueryData> query={BILL_QUERY} variables={{ id: billId }}>
     {({ loading, error, data }) => {
       if (loading) {
         return 'loading';
@@ -50,4 +53,4 @@ const BillByIdContainer: React.FC<IContainerProps> = ({ children, billId }) => (
   </Query>
 );
 
-export default BillByIdContainer;
+export default QueryBillContainer;

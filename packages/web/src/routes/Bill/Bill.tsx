@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import BillByIdContainer from './containers/BillByIdContainer';
+import QueryBillContainer from './containers/QueryBillContainer';
 
 interface IProps extends RouteComponentProps {
   billId?: string;
@@ -12,7 +12,7 @@ export default class Bill extends React.PureComponent<IProps> {
 
     return (
       <div>
-        <BillByIdContainer billId={billId || ''}>
+        <QueryBillContainer billId={billId || ''}>
           {({ bill }) => (
             <>
               {bill ? (
@@ -25,7 +25,7 @@ export default class Bill extends React.PureComponent<IProps> {
               ) : null}
             </>
           )}
-        </BillByIdContainer>
+        </QueryBillContainer>
       </div>
     );
   }

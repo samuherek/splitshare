@@ -39,7 +39,7 @@ export class BillResolver {
 
   @Authorized()
   @Query(() => Bill)
-  async billById(@Arg('id') id: string, @Ctx() ctx: MyContext) {
+  async bill(@Arg('id') id: string, @Ctx() ctx: MyContext) {
     const { userId } = ctx.req.session!;
 
     const bill = await Bill.findOne({ where: { id } });
