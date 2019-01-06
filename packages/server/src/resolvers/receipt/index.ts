@@ -16,6 +16,7 @@ import { ReceiptSplitInput } from './receiptSplitInput';
 import { ReceiptSplit } from '../../entity/ReceiptSplit';
 import { ReceiptsResponse } from './receiptsResponse';
 import { getConnection } from 'typeorm';
+import { ApolloError } from 'apollo-server-core';
 
 @Resolver(Receipt)
 export class ReceiptResolver {
@@ -44,20 +45,26 @@ export class ReceiptResolver {
   }
 
   @Authorized()
-  @Query(() => [Receipt])
+  @Query(() => ReceiptsResponse)
   async receipts(
     @Arg('billId') billId: string,
     @Arg('limit', () => Int) limit: number,
     @Arg('offset', () => Int) offset: number
   ): Promise<ReceiptsResponse> {
+    if (limit > 6) {
+      throw new ApolloError('max limit of 6');
+    }
+
     const receipts = await getConnection()
       .getRepository(Receipt)
-      .createQueryBuilder('receipt')
-      .where('id = :id', { id: billId })
+      .createQueryBuilder('receipts')
+      .where('"billId" = :billId', { billId })
       .skip(offset)
       .take(limit + 1)
       .orderBy('"createdAt"', 'DESC')
       .getMany();
+
+    console.log(receipts);
 
     return {
       hasMore: receipts.length === limit + 1,

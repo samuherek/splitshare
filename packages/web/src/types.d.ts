@@ -60,7 +60,7 @@ export interface Query {
 
   receipt: Receipt;
 
-  receipts: Receipt[];
+  receipts: ReceiptsResponse;
 }
 
 export interface User {
@@ -129,6 +129,12 @@ export interface ReceiptSplit {
   receiptId: string;
 
   receipt: Receipt;
+}
+
+export interface ReceiptsResponse {
+  hasMore: boolean;
+
+  receipts: Receipt[];
 }
 
 export interface Mutation {
