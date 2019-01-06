@@ -29,6 +29,11 @@ export class ReceiptResolver {
     return ctx.userLoader.load(receipt.creatorId);
   }
 
+  @FieldResolver()
+  async splits(@Root() receipt: Receipt) {
+    return ReceiptSplit.find({ where: { receiptId: receipt.id } });
+  }
+
   @Authorized()
   @Query(() => Receipt)
   async receiptById(@Arg('id') id: string) {
