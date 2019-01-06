@@ -37,6 +37,6 @@ export class ReceiptSplit extends BaseEntity {
   receiptId: string;
 
   @Field(() => Receipt)
-  @ManyToOne(() => Receipt, receipt => receipt.splits)
+  @ManyToOne(() => Receipt, receipt => receipt.splits, { onDelete: 'CASCADE' })
   receipt: Promise<Receipt>;
 }

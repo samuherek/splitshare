@@ -64,8 +64,6 @@ export class ReceiptResolver {
       .orderBy('"createdAt"', 'DESC')
       .getMany();
 
-    console.log(receipts);
-
     return {
       hasMore: receipts.length === limit + 1,
       receipts: receipts.slice(0, limit),
@@ -78,15 +76,18 @@ export class ReceiptResolver {
     @Arg('receiptInput') receiptInput: ReceiptInput,
     @Arg('splitsInput', () => [ReceiptSplitInput])
     splitsInput: ReceiptSplitInput[],
+    @Arg('billId') billId: string,
     @Ctx() ctx: MyContext
   ) {
     const creatorId = ctx.req.session!.userId;
 
     const receipt = await Receipt.create({
       ...receiptInput,
+      billId,
       creatorId,
     }).save();
 
+    // TODO: Make this into a transaction with the receipt just in case.
     await Promise.all(
       splitsInput.map(split => {
         return ReceiptSplit.create({
@@ -98,5 +99,22 @@ export class ReceiptResolver {
     );
 
     return receipt;
+  }
+
+  @Authorized()
+  @Mutation(() => Boolean)
+  async removeReceipt(@Arg('id') id: string) {
+    try {
+      await getConnection()
+        .createQueryBuilder()
+        .delete()
+        .from(Receipt)
+        .where('id = :id', { id })
+        .execute();
+
+      return true;
+    } catch (err) {
+      return err;
+    }
   }
 }
