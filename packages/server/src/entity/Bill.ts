@@ -27,7 +27,7 @@ export class Bill extends BaseEntity {
   creatorId: string;
 
   @Field(() => User)
-  creator: User;
+  creator: Promise<User>;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })

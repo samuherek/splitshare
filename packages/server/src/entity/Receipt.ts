@@ -26,7 +26,7 @@ export class Receipt extends BaseEntity {
   @Column({ nullable: true })
   category?: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   @Column({ nullable: true })
   company?: string;
 

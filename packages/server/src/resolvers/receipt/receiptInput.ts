@@ -3,6 +3,9 @@ import { Receipt } from 'src/entity/Receipt';
 
 @InputType()
 export class ReceiptInput implements Partial<Receipt> {
+  @Field()
+  company: string;
+
   @Field({ nullable: true })
   comment: string;
 

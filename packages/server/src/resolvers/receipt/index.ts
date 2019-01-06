@@ -8,34 +8,25 @@ import {
   FieldResolver,
   Root,
 } from 'type-graphql';
-import { Bill } from '../../entity/Bill';
 import { Receipt } from '../../entity/Receipt';
 import { MyContext } from 'src/types/Context';
 import { ReceiptInput } from './receiptInput';
 import { ReceiptSplitInput } from './receiptSplitInput';
 import { User } from '../../entity/User';
 
-@Resolver(Bill)
+@Resolver(Receipt)
 export class ReceiptResolver {
   constructor() {}
 
-  @FieldResolver(() => User)
-  paidBy(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
-    console.log('field resolver', receipt);
+  @FieldResolver()
+  async paidBy(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
     return ctx.userLoader.load(receipt.paidById);
   }
 
   @FieldResolver()
-  creator(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
-    console.log();
+  async creator(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
     return ctx.userLoader.load(receipt.creatorId);
   }
-
-  // @FieldResolver()
-  // async users(@Root() bill: Bill, @Ctx() ctx: MyContext) {
-  //   const users = await ctx.userLoader.loadMany(bill.usersIds);
-  //   return users;
-  // }
 
   @Authorized()
   @Query(() => Receipt)
@@ -62,8 +53,6 @@ export class ReceiptResolver {
       creatorId,
       creator: Promise.resolve(users.find(u => u.id === creatorId)),
     }).save();
-
-    console.log(receiptInput, creatorId, users, receipt);
 
     return receipt;
   }
