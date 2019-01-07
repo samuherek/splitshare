@@ -137,6 +137,7 @@ class ReceiptNewOverlay extends React.PureComponent<IProps, IState> {
                             ev: React.FormEvent<HTMLFormElement>
                           ) => {
                             ev.preventDefault();
+                            await createReceipt();
                             onCancel();
                           }}
                         >
