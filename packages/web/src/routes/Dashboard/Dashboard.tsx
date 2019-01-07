@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { Button } from '@splitshare/ui';
+import { styled, ButtonBase } from '@splitshare/ui';
 import PageModal, { PageModalInner } from 'src/components/PageModal';
 import BillNewOverlay from './components/BillNewOverlay';
 import ReceiptNewOverlay from './components/ReceiptNewOverlay';
@@ -8,6 +8,23 @@ interface IState {
   showBillNewOverlay: boolean;
   showReceiptNewOverlay: boolean;
 }
+
+const ButtonsWrapStyled = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const ButtonStyled: any = styled(ButtonBase)`
+  padding: 50px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin: 0 15px;
+
+  &:hover {
+    opacity: 0.5;
+  }
+`;
+
 export default class Dashboard extends React.PureComponent<
   RouteComponentProps,
   IState
@@ -31,9 +48,15 @@ export default class Dashboard extends React.PureComponent<
     const { showBillNewOverlay, showReceiptNewOverlay } = this.state;
 
     return (
-      <div>
-        <Button onClick={this.toggleBillNewOverlay}>Add new bill</Button>
-        <Button onClick={this.toggleReceiptNewOverlay}>Add new receipt</Button>
+      <>
+        <ButtonsWrapStyled>
+          <ButtonStyled onClick={this.toggleBillNewOverlay}>
+            Add new bill
+          </ButtonStyled>
+          <ButtonStyled onClick={this.toggleReceiptNewOverlay}>
+            Add new receipt
+          </ButtonStyled>
+        </ButtonsWrapStyled>
         {showBillNewOverlay ? (
           <PageModal>
             <PageModalInner>
@@ -48,7 +71,7 @@ export default class Dashboard extends React.PureComponent<
             </PageModalInner>
           </PageModal>
         ) : null}
-      </div>
+      </>
     );
   }
 }

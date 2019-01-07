@@ -5,6 +5,7 @@ import { styled } from '@splitshare/ui';
 import { AppContext } from 'src/context/AppProvider';
 import NavLink from 'src/components/NavLink';
 import MenuProfile from './dashboard/MenuProfile';
+import SvgSplit from 'src/components/icons/Split';
 
 interface IAuthLayoutProps extends RouteComponentProps {
   children: React.ReactNode;
@@ -25,6 +26,13 @@ const TopBar = styled.div`
 const LogoLinkStyled = styled(Link)`
   /* font-size: 14px; */
   text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  svg {
+    display: inline-block;
+    margin-right: 5px;
+  }
 `;
 
 const ActionWrapStyled = styled.div`
@@ -46,7 +54,10 @@ const DashLayout = ({ children }: IAuthLayoutProps) => (
       return (
         <PageStyled>
           <TopBar>
-            <LogoLinkStyled to="/">SplitShare</LogoLinkStyled>
+            <LogoLinkStyled to="/">
+              <SvgSplit />
+              Split Share
+            </LogoLinkStyled>
             <ActionWrapStyled>
               <NavLink to="/">Dash</NavLink>
               <NavLink to="/bills">Bills</NavLink>

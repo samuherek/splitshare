@@ -13,7 +13,7 @@ interface IRenderProps {
 }
 
 interface IContainerProps {
-  children: (renderProps: IRenderProps) => JSX.Element;
+  children: (renderProps: IRenderProps) => React.ReactNode;
 }
 
 export const MY_BILLS_QUERY = gql`
