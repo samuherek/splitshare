@@ -22,6 +22,14 @@ export const MY_BILLS_QUERY = gql`
       id
       name
       createdAt
+      updatedAt
+
+      users {
+        id
+        email
+        displayName
+        photoUrl
+      }
     }
   }
 `;

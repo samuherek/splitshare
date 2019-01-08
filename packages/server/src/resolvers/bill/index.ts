@@ -34,7 +34,7 @@ export class BillResolver {
   async myBills(@Ctx() ctx: MyContext) {
     return Bill.find({
       where: { creatorId: ctx.req.session!.userId },
-      order: { createdAt: 'DESC' },
+      order: { updatedAt: 'DESC' },
     });
   }
 
