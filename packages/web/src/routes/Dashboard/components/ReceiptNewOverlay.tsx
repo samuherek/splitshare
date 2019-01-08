@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Formik } from 'formik';
 import { Button, styled, TextField, ButtonBase } from '@splitshare/ui';
-import QueryMyBillsContainer from 'src/routes/Bills/containers/QueryMyBillsContainer';
+import QueryMyBillsContainer from '../containers/QueryMyBillsContainer';
 import CreateReceiptContainer from '../containers/CreateReceiptContainer';
 import MeContainer from 'src/containers/MeContainer';
 

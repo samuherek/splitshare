@@ -6,6 +6,7 @@ import {
   LayoutTopBar,
   TopBarLeft,
   TopBarRight,
+  LayoutPage,
   CardBillBig,
 } from '@splitshare/ui';
 import PageModal, { PageModalInner } from 'src/components/PageModal';
@@ -33,10 +34,6 @@ const ButtonStyled: any = styled(ButtonBase)`
   &:hover {
     opacity: 0.5;
   }
-`;
-
-const PageStyled = styled.div`
-  min-height: 100vh;
 `;
 
 const LogoLinkStyled = styled(Link)`
@@ -93,7 +90,7 @@ export default class Dashboard extends React.PureComponent<
 
     return (
       <>
-        <PageStyled>
+        <LayoutPage>
           <LayoutTopBar>
             <TopBarLeft>
               <LogoLinkStyled to="/">
@@ -133,7 +130,7 @@ export default class Dashboard extends React.PureComponent<
               Add new receipt
             </ButtonStyled>
           </ButtonsWrapStyled>
-        </PageStyled>
+        </LayoutPage>
         {showBillNewOverlay ? (
           <PageModal>
             <PageModalInner>
