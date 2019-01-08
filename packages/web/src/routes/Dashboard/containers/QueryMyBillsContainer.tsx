@@ -43,7 +43,6 @@ const QueryMyBillsContainer = ({ children }: IContainerProps) => (
       if (loading) {
         return 'loading';
       }
-      // console.log(other);
       if (error) {
         console.log(error);
       }

@@ -1,10 +1,20 @@
 import * as React from 'react';
+import styled from '../../styles/styled-components';
+import { CardLink, ICardLinkProps } from '../CardLink';
 import { distanceInWordsStrict } from 'date-fns';
-import { Bill } from 'src/types';
-import { AvatarUser, CardLink, styled } from '@splitshare/ui';
+import { AvatarUser } from '../AvatarUser';
 
-interface IProps {
-  bill: Bill;
+interface User {
+  id: string;
+  email: string;
+  photoUrl?: string | null;
+}
+
+interface IProps extends ICardLinkProps {
+  title: string;
+  updatedAt: string;
+  users: User[];
+  children?: null;
 }
 
 const CardLinStyled = styled(CardLink)`
@@ -33,20 +43,23 @@ const AvatarsWrapStyled = styled.div`
   }
 `;
 
-const Bill: React.FC<IProps> = ({ bill }) => (
-  <CardLinStyled to={bill.id}>
-    <h4>{bill.name}</h4>
+export const CardBillBig: React.FC<IProps> = ({
+  to,
+  title,
+  updatedAt,
+  users,
+}) => (
+  <CardLinStyled to={to}>
+    <h4>{title}</h4>
     <MetaStyled style={{}}>
-      {distanceInWordsStrict(new Date(), Date.parse(bill.updatedAt), {
+      {distanceInWordsStrict(new Date(), Date.parse(updatedAt), {
         addSuffix: true,
       })}
     </MetaStyled>
     <AvatarsWrapStyled>
-      {bill.users.map(user => (
+      {users.map(user => (
         <AvatarUser key={user.id} name={user.email} url={user.photoUrl} />
       ))}
     </AvatarsWrapStyled>
   </CardLinStyled>
 );
-
-export default Bill;

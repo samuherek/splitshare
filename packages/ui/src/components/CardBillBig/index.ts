@@ -1,0 +1,1 @@
+export { CardBillBig } from './CardBillBig';

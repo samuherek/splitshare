@@ -2,8 +2,8 @@ import * as React from 'react';
 import styled from '../../styles/styled-components';
 import { Link } from '@reach/router';
 
-interface IProps {
-  children: React.ReactNode;
+export interface IProps {
+  children?: React.ReactNode;
   style?: React.CSSProperties;
   component?: React.ReactNode;
   to: string;

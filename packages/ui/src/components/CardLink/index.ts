@@ -1,1 +1,1 @@
-export { CardLink } from './CardLink';
+export { CardLink, IProps as ICardLinkProps } from './CardLink';
