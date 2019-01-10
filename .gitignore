@@ -8,3 +8,4 @@ dist
 dump.rdb
 .env
 notes.md
+packages/server/.env

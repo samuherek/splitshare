@@ -8,4 +8,5 @@ export interface MyContext {
   res: Response;
   redis: Redis;
   userLoader: DataLoader<string, User>;
+  url: string;
 }

@@ -17,6 +17,7 @@ import { ReceiptSplitResolver } from './resolvers/receiptSplit';
 import { redisSessionPrefix } from './constants';
 import { GraphQLSchema, GraphQLError } from 'graphql';
 import { userLoader } from './loaders/userLoader';
+import { confirmEmail } from './routes/confirmEmail';
 
 const RedisStore = connectRedis(session);
 
@@ -42,6 +43,7 @@ const startServer = async () => {
       res,
       redis,
       userLoader: userLoader(),
+      url: req.protocol + '://' + req.get('host'),
     }),
     formatError: (error: GraphQLError) => {
       if (error.originalError instanceof ApolloError) {
@@ -91,6 +93,8 @@ const startServer = async () => {
   app.set('trust proxy', 1);
 
   server.applyMiddleware({ app }); // app is from an existing express app
+
+  app.get('/confirm/:id', confirmEmail);
 
   app.listen({ port: 4000 }, () =>
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
