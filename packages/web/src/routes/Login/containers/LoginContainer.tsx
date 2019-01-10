@@ -39,6 +39,7 @@ const LoginContainer = ({ children, variables }: IContainerProps) => (
   <LoginMutation
     mutation={LOGIN_MUTATION}
     variables={{ ...variables }}
+    fetchPolicy="no-cache"
     refetchQueries={[{ query: ME_QUERY }]}
   >
     {(login, other) => {

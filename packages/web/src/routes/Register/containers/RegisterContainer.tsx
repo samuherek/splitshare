@@ -33,6 +33,7 @@ const RegisterContainer = ({ children, registerInput }: IContainerProps) => (
   <RegisterMutation
     mutation={REGISTER_MUTATION}
     variables={{ registerInput }}
+    fetchPolicy="no-cache"
     refetchQueries={[{ query: ME_QUERY }]}
   >
     {(register, other) => {

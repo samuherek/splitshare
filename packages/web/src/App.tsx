@@ -18,7 +18,7 @@ class App extends React.Component {
   public render() {
     return (
       <ApolloProvider client={client}>
-        <AppProvider apolloClient={client}>
+        <AppProvider client={client}>
           <ThemeProvider theme={theme}>
             <>
               <GlobalStyles />

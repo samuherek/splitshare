@@ -5,7 +5,7 @@ import { navigate } from '@reach/router';
 import { ME_QUERY } from '../containers/MeContainer';
 
 interface IAppProviderProps {
-  apolloClient: ApolloClient<{}>;
+  client: ApolloClient<{}>;
   children: React.ReactNode;
 }
 
@@ -35,16 +35,16 @@ class AppProvider extends React.PureComponent<IAppProviderProps, IAppContext> {
     },
 
     ctxLogout: async () => {
-      const { apolloClient } = this.props;
-      await apolloClient.resetStore();
+      const { client } = this.props;
+      await client.clearStore();
       this.setState({ authenticated: false });
       navigate('/auth/login');
     },
   };
 
   public async componentDidMount() {
-    const { apolloClient } = this.props;
-    const { data } = await apolloClient.query({
+    const { client } = this.props;
+    const { data } = await client.query({
       query: ME_QUERY,
     });
     this.setState({
