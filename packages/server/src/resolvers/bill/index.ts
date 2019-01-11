@@ -25,8 +25,11 @@ export class BillResolver {
 
   @FieldResolver()
   async users(@Root() bill: Bill, @Ctx() ctx: MyContext) {
-    const users = await ctx.userLoader.loadMany(bill.usersIds);
-    return users;
+    // console.log(bill);
+    // const billUsers = await Bill.find({ relations: ['users'] });
+    // console.log(billUsers);
+    return ctx.userLoader.loadMany(bill.usersIds);
+    // return users;
   }
 
   @Authorized()
