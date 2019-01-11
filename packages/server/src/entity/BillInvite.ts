@@ -20,9 +20,6 @@ export class BillInvite extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column()
-  email: string;
-
   @Field()
   @Column({ type: 'boolean', default: false })
   accepted: boolean;
@@ -34,6 +31,12 @@ export class BillInvite extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date;
 
+  @Column('uuid')
+  invitedById: string;
+
+  @Field(() => User)
+  invitedBy: Promise<User>;
+
   @PrimaryColumn('uuid')
   userId: string;
 
@@ -42,7 +45,7 @@ export class BillInvite extends BaseEntity {
 
   @ManyToOne(() => User, user => user.invites)
   @JoinColumn()
-  user: User;
+  user: Promise<User>;
 
   @Field(() => Bill)
   @ManyToOne(() => Bill, bill => bill.invites)

@@ -14,6 +14,11 @@ export class BillInviteResolver {
   constructor() {}
 
   @FieldResolver()
+  async invitedBy(@Root() billInvite: BillInvite, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(billInvite.invitedById);
+  }
+
+  @FieldResolver()
   async bill(@Root() billInvite: BillInvite, @Ctx() ctx: MyContext) {
     return ctx.billLoader.load(billInvite.billId);
   }
