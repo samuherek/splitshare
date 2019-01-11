@@ -8,8 +8,8 @@ import { MyContext } from 'src/types/Context';
 import { User } from '../../entity/User';
 import { userSessionIdPrefix } from '../../constants';
 import { MeInput } from './meInput';
-import { createConfirmEmailLink } from '../../utils/createConfirmEmailLink';
-import { sendEmail } from '../../utils/sendEmail';
+// import { createConfirmEmailLink } from '../../utils/createConfirmEmailLink';
+// import { sendEmail } from '../../utils/sendEmail';
 
 @Resolver(User)
 export class UserResolver {
@@ -47,10 +47,10 @@ export class UserResolver {
       );
     }
 
-    await sendEmail(
-      'samuherekbiz@gmail.com',
-      await createConfirmEmailLink(ctx.url, user.id, ctx.redis)
-    );
+    // await sendEmail(
+    //   'samuherekbiz@gmail.com',
+    //   await createConfirmEmailLink(ctx.url, user.id, ctx.redis)
+    // );
 
     return true;
   }
