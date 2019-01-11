@@ -10,14 +10,11 @@ import { v4 } from 'uuid';
 
 import { createTypeormConn } from './createTypeormConn';
 import { redis } from './redis';
-import { UserResolver } from './resolvers/user';
-import { BillResolver } from './resolvers/bill';
-import { ReceiptResolver } from './resolvers/receipt';
-import { ReceiptSplitResolver } from './resolvers/receiptSplit';
 import { redisSessionPrefix } from './constants';
 import { GraphQLSchema, GraphQLError } from 'graphql';
 import { userLoader } from './loaders/userLoader';
 import { confirmEmail } from './routes/confirmEmail';
+import { billLoader } from './loaders/billLoader';
 
 const RedisStore = connectRedis(session);
 
@@ -28,12 +25,7 @@ const startServer = async () => {
 
   const server = new ApolloServer({
     schema: (await buildSchema({
-      resolvers: [
-        UserResolver,
-        BillResolver,
-        ReceiptResolver,
-        ReceiptSplitResolver,
-      ],
+      resolvers: [__dirname + '/resolvers/**/index.*'],
       authChecker: ({ context }) => {
         return context.req.session && context.req.session.userId; // or false if access denied
       },
@@ -43,6 +35,7 @@ const startServer = async () => {
       res,
       redis,
       userLoader: userLoader(),
+      billLoader: billLoader(),
       url: req.protocol + '://' + req.get('host'),
     }),
     formatError: (error: GraphQLError) => {

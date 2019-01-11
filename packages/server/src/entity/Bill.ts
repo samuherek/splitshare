@@ -12,6 +12,7 @@ import {
 import { ObjectType, Field, ID } from 'type-graphql';
 import { User } from './User';
 import { Receipt } from './Receipt';
+import { BillInvite } from './BillInvite';
 
 @Entity()
 @ObjectType()
@@ -44,8 +45,11 @@ export class Bill extends BaseEntity {
   users: Promise<User[]>;
 
   @Column({ type: 'uuid', array: true })
-  usersIds: string[];
+  usersIds?: string[];
 
   @OneToMany(() => Receipt, receipt => receipt.billId)
   receipts: Promise<Receipt[]>;
+
+  @OneToMany(() => BillInvite, billInvite => billInvite.bill)
+  invites: Promise<BillInvite[]>;
 }

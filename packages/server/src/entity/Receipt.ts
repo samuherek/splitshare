@@ -40,6 +40,7 @@ export class Receipt extends BaseEntity {
   paidById: string;
 
   @Field(() => User)
+  @ManyToOne(() => User, user => user.receipts)
   paidBy: Promise<User>;
 
   @Field()

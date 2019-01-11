@@ -13,6 +13,8 @@ import { MyContext } from 'src/types/Context';
 import { Bill } from '../../entity/Bill';
 import { User } from '../../entity/User';
 import { getConnection } from 'typeorm';
+// import { plainToClass } from 'class-transformer';
+// import { plainToClass } from 'class-transformer';
 
 @Resolver(Bill)
 export class BillResolver {
@@ -25,11 +27,15 @@ export class BillResolver {
 
   @FieldResolver()
   async users(@Root() bill: Bill, @Ctx() ctx: MyContext) {
-    // console.log(bill);
-    // const billUsers = await Bill.find({ relations: ['users'] });
-    // console.log(billUsers);
-    return ctx.userLoader.loadMany(bill.usersIds);
-    // return users;
+    // const res: User[] = await getConnection().query(
+    // `SELECT * FROM "user" LEFT JOIN "bill_users_user" as "b" on "b"."userId" = "user"."id" WHERE "b"."billId" = $1;`,
+    // [bill.id]
+    // );
+    // console.log('first response', res);
+
+    // return res.map(u => plainToClass(User, u));
+
+    return ctx.userLoader.loadMany(bill.usersIds || []);
   }
 
   @Authorized()
@@ -49,7 +55,9 @@ export class BillResolver {
     const bill = await Bill.findOne({ where: { id } });
 
     const billHasUserId =
-      bill && bill.usersIds.findIndex(id => id === userId) !== -1;
+      bill &&
+      bill.usersIds &&
+      bill.usersIds.findIndex(id => id === userId) !== -1;
 
     if (!billHasUserId) {
       throw new Error("We couldn't find what you were looking for");
