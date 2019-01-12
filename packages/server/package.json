@@ -17,7 +17,7 @@
     "@types/uuid": "3.4.4",
     "nodemon": "1.18.9",
     "ts-node": "7.0.1",
-    "ts-node-dev": "^1.0.0-pre.32",
+    "ts-node-dev": "1.0.0-pre.32",
     "typescript": "3.2.2"
   },
   "scripts": {
