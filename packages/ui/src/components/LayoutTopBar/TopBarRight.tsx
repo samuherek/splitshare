@@ -5,7 +5,10 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const WrapStyled = styled.div``;
+const WrapStyled = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 export const TopBarRight: React.FC<IProps> = ({ children }) => (
   <WrapStyled>{children}</WrapStyled>

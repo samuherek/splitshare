@@ -1,21 +1,13 @@
 export type Maybe<T> = T | null;
 
-export interface RegisterInput {
-  email: string;
-
-  password: string;
-}
-
-export interface MeInput {
-  displayName?: Maybe<string>;
-
-  email?: Maybe<string>;
-}
-
 export interface BillInput {
   name: string;
+}
 
-  users?: Maybe<string[]>;
+export interface InviteInput {
+  email: string;
+
+  billId: string;
 }
 
 export interface ReceiptSplitInput {
@@ -40,6 +32,18 @@ export interface ReceiptInput {
   currency: string;
 }
 
+export interface RegisterInput {
+  email: string;
+
+  password: string;
+}
+
+export interface MeInput {
+  displayName?: Maybe<string>;
+
+  email?: Maybe<string>;
+}
+
 /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
 export type DateTime = any;
 
@@ -52,27 +56,17 @@ export type DateTime = any;
 // ====================================================
 
 export interface Query {
-  me?: Maybe<User>;
-
   myBills: Bill[];
 
   bill: Bill;
 
+  myInvites: BillInvite[];
+
   receipt: Receipt;
 
   receipts: ReceiptsResponse;
-}
 
-export interface User {
-  id: string;
-
-  email: string;
-
-  displayName?: Maybe<string>;
-
-  photoUrl?: Maybe<string>;
-
-  createdAt: DateTime;
+  me?: Maybe<User>;
 }
 
 export interface Bill {
@@ -87,6 +81,32 @@ export interface Bill {
   updatedAt: DateTime;
 
   users: User[];
+}
+
+export interface User {
+  id: string;
+
+  email: string;
+
+  displayName?: Maybe<string>;
+
+  photoUrl?: Maybe<string>;
+
+  createdAt: DateTime;
+
+  invites: BillInvite[];
+}
+
+export interface BillInvite {
+  id: string;
+
+  accepted: boolean;
+
+  createdAt: DateTime;
+
+  invitedBy: User;
+
+  bill: Bill;
 }
 
 export interface Receipt {
@@ -138,6 +158,18 @@ export interface ReceiptsResponse {
 }
 
 export interface Mutation {
+  createBill: Bill;
+
+  removeBill: boolean;
+
+  inviteBillUser: boolean;
+
+  acceptBillInvite: boolean;
+
+  createReceipt: Receipt;
+
+  removeReceipt: boolean;
+
   register: boolean;
 
   login: boolean;
@@ -145,14 +177,6 @@ export interface Mutation {
   logout: boolean;
 
   updateMe: User;
-
-  createBill: Bill;
-
-  removeBill: boolean;
-
-  createReceipt: Receipt;
-
-  removeReceipt: boolean;
 }
 
 // ====================================================
@@ -172,21 +196,16 @@ export interface ReceiptsQueryArgs {
 
   billId: string;
 }
-export interface RegisterMutationArgs {
-  registerInput: RegisterInput;
-}
-export interface LoginMutationArgs {
-  password: string;
-
-  email: string;
-}
-export interface UpdateMeMutationArgs {
-  meInput: MeInput;
-}
 export interface CreateBillMutationArgs {
   billInput: BillInput;
 }
 export interface RemoveBillMutationArgs {
+  id: string;
+}
+export interface InviteBillUserMutationArgs {
+  inviteInput: InviteInput;
+}
+export interface AcceptBillInviteMutationArgs {
   id: string;
 }
 export interface CreateReceiptMutationArgs {
@@ -198,4 +217,15 @@ export interface CreateReceiptMutationArgs {
 }
 export interface RemoveReceiptMutationArgs {
   id: string;
+}
+export interface RegisterMutationArgs {
+  registerInput: RegisterInput;
+}
+export interface LoginMutationArgs {
+  password: string;
+
+  email: string;
+}
+export interface UpdateMeMutationArgs {
+  meInput: MeInput;
 }

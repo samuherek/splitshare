@@ -14,6 +14,7 @@ import BillNewOverlay from './components/BillNewOverlay';
 import ReceiptNewOverlay from './components/ReceiptNewOverlay';
 import SvgSplit from 'src/components/icons/Split';
 import MenuProfile from 'src/layout/dashboard/MenuProfile';
+import MenuInvites from '../../layout/dashboard/MenuInvites';
 import QueryMyBillsContainer from './containers/QueryMyBillsContainer';
 interface IState {
   showBillNewOverlay: boolean;
@@ -99,6 +100,7 @@ export default class Dashboard extends React.PureComponent<
               </LogoLinkStyled>
             </TopBarLeft>
             <TopBarRight>
+              <MenuInvites />
               <MenuProfile />
             </TopBarRight>
           </LayoutTopBar>
