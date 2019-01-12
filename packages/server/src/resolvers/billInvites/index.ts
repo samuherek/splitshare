@@ -11,7 +11,7 @@ import {
 import { MyContext } from '../../types/Context';
 import { BillInvite } from '../../entity/BillInvite';
 import { User } from '../../entity/User';
-import { InviteInput } from '../bill/inviteInput';
+import { InviteInput } from './inviteInput';
 import { getConnection } from 'typeorm';
 
 @Resolver(BillInvite)
