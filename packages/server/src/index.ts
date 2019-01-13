@@ -1,12 +1,12 @@
 import 'reflect-metadata';
 require('dotenv-safe').config();
-import { ApolloServer, ApolloError } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import * as connectRedis from 'connect-redis';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as session from 'express-session';
-import { v4 } from 'uuid';
+// import { v4 } from 'uuid';
 
 import { createTypeormConn } from './createTypeormConn';
 import { redis } from './redis';
@@ -39,15 +39,16 @@ const startServer = async () => {
       url: req.protocol + '://' + req.get('host'),
     }),
     formatError: (error: GraphQLError) => {
-      if (error.originalError instanceof ApolloError) {
-        return error;
-      }
+      return error;
+      // if (error.originalError instanceof ApolloError) {
+      //   return error;
+      // }
 
-      const errId = v4();
-      console.log('errId: ', errId);
-      console.log(error);
+      // const errId = v4();
+      // console.log('errId: ', errId);
+      // console.log(error);
 
-      return new GraphQLError(`Internal Error: ${errId}`);
+      // return new GraphQLError(`Internal Error: ${errId}`);
     },
   });
 
