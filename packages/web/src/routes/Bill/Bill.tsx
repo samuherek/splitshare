@@ -11,10 +11,17 @@ import {
   TopBarRight,
   styled,
   AvatarUser,
+  Button,
 } from '@splitshare/ui';
+import PageModal, { PageModalInner } from '../../components/PageModal';
+import InviteOverlay from './components/InviteOverlay';
 
 interface IProps extends RouteComponentProps {
   billId?: string;
+}
+
+interface IState {
+  showInviteOverlay: boolean;
 }
 
 const BillWrapStyled = styled.div`
@@ -43,9 +50,18 @@ const AvatarWrapStyled = styled.div`
   }
 `;
 
-export default class Bill extends React.PureComponent<IProps> {
+export default class Bill extends React.PureComponent<IProps, IState> {
+  state = {
+    showInviteOverlay: false,
+  };
+
+  toggleInviteOverlay = () => {
+    this.setState(state => ({ showInviteOverlay: !state.showInviteOverlay }));
+  };
+
   public render() {
     const { billId } = this.props;
+    const { showInviteOverlay } = this.state;
 
     return (
       <LayoutPage>
@@ -54,6 +70,7 @@ export default class Bill extends React.PureComponent<IProps> {
             <Link to="/">Back</Link>
           </TopBarLeft>
           <TopBarRight>
+            <Button onClick={this.toggleInviteOverlay}>+ Invite</Button>
             <span>right menu</span>
           </TopBarRight>
         </LayoutTopBar>
@@ -102,6 +119,17 @@ export default class Bill extends React.PureComponent<IProps> {
                       }}
                     </QueryReceiptsContainer>
                   </>
+                ) : null}
+                {showInviteOverlay ? (
+                  <PageModal>
+                    <PageModalInner>
+                      <InviteOverlay
+                        onCancel={this.toggleInviteOverlay}
+                        billId={billId || ''}
+                        billTitle={bill ? bill.name : ''}
+                      />
+                    </PageModalInner>
+                  </PageModal>
                 ) : null}
               </>
             )}
