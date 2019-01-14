@@ -37,6 +37,7 @@ export class BillInvite extends BaseEntity {
   @Field(() => User)
   invitedBy: Promise<User>;
 
+  @Field()
   @PrimaryColumn('uuid')
   userId: string;
 
