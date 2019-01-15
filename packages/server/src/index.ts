@@ -25,12 +25,7 @@ const startServer = async () => {
 
   const server = new ApolloServer({
     schema: (await buildSchema({
-      resolvers: [
-        __dirname + '/resolvers/**/index.ts',
-        __dirname + '/resolvers/user/**.ts',
-        __dirname + '/resolvers/bill/**.ts',
-        __dirname + '/resolvers/receipt/**.ts',
-      ],
+      resolvers: [__dirname + '/resolvers/**/**.ts'],
       authChecker: ({ context }) => {
         return context.req.session && context.req.session.userId; // or false if access denied
       },

@@ -1,83 +1,20 @@
-import {
-  Resolver,
-  Ctx,
-  Query,
-  Authorized,
-  FieldResolver,
-  Root,
-  Mutation,
-  Arg,
-} from 'type-graphql';
+import { Resolver, Ctx, Authorized, Mutation, Args } from 'type-graphql';
 import { MyContext } from '../../types/Context';
 import { BillInvite } from '../../entity/BillInvite';
-import { User } from '../../entity/User';
-import { InviteInput } from './inviteInput';
+
 import { getConnection } from 'typeorm';
+import AcceptBillInviteArgs from './acceptBillInvite/AcceptBillInviteArgs';
 
 @Resolver(BillInvite)
-export class BillInviteResolver {
-  constructor() {}
-
-  @FieldResolver()
-  async invitedBy(@Root() billInvite: BillInvite, @Ctx() ctx: MyContext) {
-    return ctx.userLoader.load(billInvite.invitedById);
-  }
-
-  @FieldResolver()
-  async bill(@Root() billInvite: BillInvite, @Ctx() ctx: MyContext) {
-    return ctx.billLoader.load(billInvite.billId);
-  }
-
-  @Authorized()
-  @Query(() => [BillInvite])
-  async myInvites(@Ctx() ctx: MyContext) {
-    return BillInvite.find({
-      where: {
-        userId: ctx.req.session!.userId,
-        accepted: false,
-      },
-    });
-  }
-
-  @Authorized()
-  @Mutation(() => Boolean)
-  async inviteBillUser(
-    @Arg('inviteInput') { email, billId }: InviteInput,
-    @Ctx() ctx: MyContext
-  ) {
-    const user = await User.findOne({ where: { email } });
-
-    // If we don't have a registered user with such email not allow
-    if (!user) {
-      throw new Error('We could not invite such user');
-    }
-
-    const alreadyBillInvite = await BillInvite.findOne({
-      where: { userId: user.id },
-    });
-
-    // Check if there is already an invite for the user
-    if (alreadyBillInvite) {
-      throw new Error('This user is already invited to this bill');
-    }
-
-    await BillInvite.create({
-      userId: user.id,
-      billId,
-      invitedById: ctx.req.session!.userId,
-    }).save();
-
-    return true;
-  }
-
+export class AcceptBillInviteResolver {
   @Authorized()
   @Mutation(() => Boolean)
   async acceptBillInvite(
-    @Arg('id') billInviteId: string,
+    @Args() { id }: AcceptBillInviteArgs,
     @Ctx() ctx: MyContext
   ) {
     const billInvite = await BillInvite.findOne({
-      where: { id: billInviteId },
+      where: { id },
     });
 
     if (!billInvite) {
