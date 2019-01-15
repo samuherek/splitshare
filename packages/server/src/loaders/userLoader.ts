@@ -3,6 +3,7 @@ import { User } from '../entity/User';
 
 export const userLoader = () =>
   new DataLoader(async (keys: string[]) => {
+    console.log('data loader');
     const users = await User.findByIds(keys);
 
     const userMap: { [key: string]: User } = {};

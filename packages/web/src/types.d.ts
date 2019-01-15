@@ -81,6 +81,8 @@ export interface Bill {
   updatedAt: DateTime;
 
   users: User[];
+
+  invites: BillInvite[];
 }
 
 export interface User {
@@ -105,6 +107,8 @@ export interface BillInvite {
   createdAt: DateTime;
 
   invitedBy: User;
+
+  userId: string;
 
   bill: Bill;
 }

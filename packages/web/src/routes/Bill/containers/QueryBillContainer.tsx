@@ -28,6 +28,10 @@ export const BILL_QUERY = gql`
         id
         email
       }
+      invites {
+        userId
+        accepted
+      }
     }
   }
 `;

@@ -82,13 +82,21 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                   <>
                     <h2>{bill.name}</h2>
                     <AvatarWrapStyled>
-                      {bill.users.map(user => (
-                        <AvatarUser
-                          name={user.email}
-                          key={user.id}
-                          url={user.photoUrl}
-                        />
-                      ))}
+                      {bill.invites.map(invite => {
+                        const user = bill.users.find(
+                          u => u.id === invite.userId
+                        );
+                        console.log(user);
+                        return (
+                          user && (
+                            <AvatarUser
+                              name={user.email}
+                              key={user.id}
+                              url={user.photoUrl}
+                            />
+                          )
+                        );
+                      })}
                     </AvatarWrapStyled>
                     <QueryReceiptsContainer billId={billId || ''}>
                       {({ receipts }) => {
