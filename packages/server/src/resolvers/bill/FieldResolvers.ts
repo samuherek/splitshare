@@ -6,7 +6,7 @@ import { plainToClass } from 'class-transformer';
 import { BillInvite } from '../../entity/BillInvite';
 
 @Resolver(Bill)
-export class BillFieldResolverResolver {
+export class BillFieldResolversResolver {
   constructor() {}
 
   @FieldResolver()
