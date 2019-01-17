@@ -21,11 +21,6 @@ export class AcceptBillInviteResolver {
       throw new Error('No such invite');
     }
 
-    const joinPromise = getConnection().query(
-      `INSERT INTO bill_users_user("billId", "userId") VALUES ($1, $2);`,
-      [billInvite.billId, ctx.req.session!.userId]
-    );
-
     const updatePromise = getConnection().query(
       `UPDATE bill SET "usersIds" = array_append("usersIds", $1) WHERE bill.id = $2;`,
       [ctx.req.session!.userId, billInvite.billId]
@@ -38,29 +33,8 @@ export class AcceptBillInviteResolver {
       .where('id = :id', { id: billInvite.id })
       .execute();
 
-    await Promise.all([joinPromise, updatePromise, invitePromise]);
+    await Promise.all([updatePromise, invitePromise]);
 
-    // .createQueryBuilder()
-    // .update(Bill)
-    // .set({ usersIds: [ctx.req.session!.userId] })
-    // .where('id = :id', { id: billInvite.billId })
-    // .returning('*')
-    // .execute();
-
-    // const [user, bill] = await Promise.all([userPromise, billPromise]);
-
-    // console.log(user);
-
-    // const bill = await getConnection()
-    //   .createQueryBuilder()
-    //   .update(Bill)
-    //   .set({ userIds: [billInvite.userIds]})
-    // const bill = await Bill.findOne();
-    // if (!bill) {
-    // throw new Error('No such bill found');
-    // }
-
-    // console.log(billId);
     return true;
   }
 }

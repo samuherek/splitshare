@@ -20,6 +20,7 @@ export const createTypeormConn = async () => {
         entities: ['src/entity/**/*.*'],
         migrations: ['src/migration/**/*.*'],
         subscribers: ['src/subscriber/**/*.*'],
+        // dropSchema: true,
         cli: {
           entitiesDir: 'src/entity',
           migrationsDir: 'src/migration',

@@ -6,7 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
-  JoinTable,
   OneToMany,
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
@@ -41,7 +40,6 @@ export class Bill extends BaseEntity {
 
   @Field(() => [User])
   @ManyToMany(() => User, user => user.bills)
-  @JoinTable()
   users: Promise<User[]>;
 
   @Column({ type: 'uuid', array: true })

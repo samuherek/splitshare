@@ -2,7 +2,6 @@ import {
   Entity,
   Column,
   PrimaryColumn,
-  JoinColumn,
   ManyToOne,
   BaseEntity,
   PrimaryGeneratedColumn,
@@ -48,11 +47,9 @@ export class BillInvite extends BaseEntity {
   billId: string;
 
   @ManyToOne(() => User, user => user.invites)
-  @JoinColumn()
   user: Promise<User>;
 
   @Field(() => Bill)
   @ManyToOne(() => Bill, bill => bill.invites)
-  @JoinColumn()
   bill: Promise<Bill>;
 }
