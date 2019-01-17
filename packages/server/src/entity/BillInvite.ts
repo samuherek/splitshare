@@ -31,6 +31,9 @@ export class BillInvite extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date;
 
+  @Column({ type: 'timestamp with time zone', nullable: true })
+  deletedAt: Date;
+
   @Column('uuid')
   invitedById: string;
 
