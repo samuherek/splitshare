@@ -21,8 +21,8 @@ export class BillInvite extends BaseEntity {
   readonly id: string;
 
   @Field()
-  @Column({ type: 'boolean', default: false })
-  accepted: boolean;
+  @Column({ type: 'boolean', default: true })
+  pending: boolean;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
@@ -31,6 +31,7 @@ export class BillInvite extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date;
 
+  @Field({ nullable: true })
   @Column({ type: 'timestamp with time zone', nullable: true })
   deletedAt: Date;
 
@@ -40,7 +41,6 @@ export class BillInvite extends BaseEntity {
   @Field(() => User)
   invitedBy: Promise<User>;
 
-  @Field()
   @PrimaryColumn('uuid')
   userId: string;
 

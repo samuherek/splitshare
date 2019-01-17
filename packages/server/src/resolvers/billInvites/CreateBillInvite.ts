@@ -1,14 +1,14 @@
 import { Resolver, Ctx, Authorized, Arg, Mutation } from 'type-graphql';
 import { MyContext } from '../../types/Context';
 import { BillInvite } from '../../entity/BillInvite';
-import { InviteInput } from './inviteBillUser/inviteInput';
+import { InviteInput } from './createBillInvite/inviteInput';
 import { User } from '../../entity/User';
 
 @Resolver(BillInvite)
-export class InviteBillUserResolver {
+export class CreateBillInviteResolver {
   @Authorized()
   @Mutation(() => Boolean)
-  async inviteBillUser(
+  async createBillInvite(
     @Arg('inviteInput') { email, billId }: InviteInput,
     @Ctx() ctx: MyContext
   ) {
@@ -20,7 +20,7 @@ export class InviteBillUserResolver {
     }
 
     const alreadyBillInvite = await BillInvite.findOne({
-      where: { userId: user.id },
+      where: { userId: user.id, billId },
     });
 
     // Check if there is already an invite for the user

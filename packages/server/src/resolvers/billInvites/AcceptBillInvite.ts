@@ -34,7 +34,7 @@ export class AcceptBillInviteResolver {
     const invitePromise = getConnection()
       .createQueryBuilder()
       .update(BillInvite)
-      .set({ accepted: true })
+      .set({ pending: false })
       .where('id = :id', { id: billInvite.id })
       .execute();
 
