@@ -56,11 +56,11 @@ export type DateTime = any;
 // ====================================================
 
 export interface Query {
-  myBills: Bill[];
-
   bill: Bill;
 
-  myInvites: BillInvite[];
+  myBills: Bill[];
+
+  myPendingInvites: BillInvite[];
 
   receipt: Receipt;
 
@@ -102,13 +102,13 @@ export interface User {
 export interface BillInvite {
   id: string;
 
-  accepted: boolean;
+  pending: boolean;
 
   createdAt: DateTime;
 
-  invitedBy: User;
+  deletedAt?: Maybe<DateTime>;
 
-  userId: string;
+  invitedBy: User;
 
   bill: Bill;
 }
@@ -166,19 +166,21 @@ export interface Mutation {
 
   removeBill: boolean;
 
-  inviteBillUser: boolean;
-
   acceptBillInvite: boolean;
+
+  createBillInvite: boolean;
+
+  removeBillInvite: boolean;
 
   createReceipt: Receipt;
 
   removeReceipt: boolean;
 
-  register: boolean;
-
   login: boolean;
 
   logout: boolean;
+
+  register: boolean;
 
   updateMe: User;
 }
@@ -194,11 +196,9 @@ export interface ReceiptQueryArgs {
   id: string;
 }
 export interface ReceiptsQueryArgs {
-  offset: number;
+  offset?: Maybe<number>;
 
-  limit: number;
-
-  billId: string;
+  limit?: number;
 }
 export interface CreateBillMutationArgs {
   billInput: BillInput;
@@ -206,10 +206,13 @@ export interface CreateBillMutationArgs {
 export interface RemoveBillMutationArgs {
   id: string;
 }
-export interface InviteBillUserMutationArgs {
+export interface AcceptBillInviteMutationArgs {
+  id: string;
+}
+export interface CreateBillInviteMutationArgs {
   inviteInput: InviteInput;
 }
-export interface AcceptBillInviteMutationArgs {
+export interface RemoveBillInviteMutationArgs {
   id: string;
 }
 export interface CreateReceiptMutationArgs {
@@ -219,16 +222,13 @@ export interface CreateReceiptMutationArgs {
 
   receiptInput: ReceiptInput;
 }
-export interface RemoveReceiptMutationArgs {
-  id: string;
+export interface LoginMutationArgs {
+  email: string;
+
+  password: string;
 }
 export interface RegisterMutationArgs {
   registerInput: RegisterInput;
-}
-export interface LoginMutationArgs {
-  password: string;
-
-  email: string;
 }
 export interface UpdateMeMutationArgs {
   meInput: MeInput;

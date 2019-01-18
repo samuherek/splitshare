@@ -2,11 +2,11 @@
 import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { gql } from 'apollo-boost';
-import { InviteBillUserMutationArgs, InviteInput } from '../../../types';
+import { InviteInput, CreateBillInviteMutationArgs } from '../../../types';
 
 interface IRenderProps {
   loading: boolean;
-  inviteUser: MutationFn<boolean, InviteBillUserMutationArgs>;
+  inviteUser: MutationFn<boolean, CreateBillInviteMutationArgs>;
 }
 
 interface IContainerProps {
@@ -14,18 +14,18 @@ interface IContainerProps {
   inviteInput: InviteInput;
 }
 
-const INVITE_BILL_USER_MUTATION = gql`
+const CREATE_BILL_INVITE_MUTATION = gql`
   mutation inviteBillUser($inviteInput: InviteInput!) {
     inviteBillUser(inviteInput: $inviteInput)
   }
 `;
 
-const InviteBillUserContainer: React.FunctionComponent<IContainerProps> = ({
+const CreateBillInviteContainer: React.FunctionComponent<IContainerProps> = ({
   children,
   inviteInput,
 }) => (
-  <Mutation<boolean, InviteBillUserMutationArgs>
-    mutation={INVITE_BILL_USER_MUTATION}
+  <Mutation<boolean, CreateBillInviteMutationArgs>
+    mutation={CREATE_BILL_INVITE_MUTATION}
     variables={{ inviteInput }}
   >
     {(inviteUser, other) => {
@@ -41,5 +41,5 @@ const InviteBillUserContainer: React.FunctionComponent<IContainerProps> = ({
   </Mutation>
 );
 
-export default InviteBillUserContainer;
-export { INVITE_BILL_USER_MUTATION };
+export default CreateBillInviteContainer;
+export { CREATE_BILL_INVITE_MUTATION };

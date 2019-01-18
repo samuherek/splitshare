@@ -5,7 +5,7 @@ import { gql } from 'apollo-boost';
 import { BillInvite } from '../../../types';
 
 interface IQueryData {
-  myInvites: BillInvite[];
+  myPendingInvites: BillInvite[];
 }
 
 interface IRenderProps {
@@ -16,11 +16,11 @@ interface IContainerProps {
   children: (renderProps: IRenderProps) => React.ReactNode;
 }
 
-export const MY_INVITES_QUERY = gql`
+export const MY_PENDING_INVITES_QUERY = gql`
   query myInvites {
-    myInvites {
+    myPendingInvites {
       id
-      accepted
+      pending
       createdAt
       bill {
         name
@@ -33,8 +33,8 @@ export const MY_INVITES_QUERY = gql`
   }
 `;
 
-const QueryMyInvitesContainer = ({ children }: IContainerProps) => (
-  <Query<IQueryData> query={MY_INVITES_QUERY}>
+const QueryMyPendingInvitesContainer = ({ children }: IContainerProps) => (
+  <Query<IQueryData> query={MY_PENDING_INVITES_QUERY}>
     {({ loading, error, data }) => {
       if (loading) {
         return 'loading';
@@ -44,10 +44,10 @@ const QueryMyInvitesContainer = ({ children }: IContainerProps) => (
       }
 
       return children({
-        invites: data ? data.myInvites : [],
+        invites: data ? data.myPendingInvites : [],
       });
     }}
   </Query>
 );
 
-export default QueryMyInvitesContainer;
+export default QueryMyPendingInvitesContainer;

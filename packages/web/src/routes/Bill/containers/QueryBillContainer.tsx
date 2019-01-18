@@ -30,7 +30,7 @@ export const BILL_QUERY = gql`
       }
       invites {
         userId
-        accepted
+        pending
       }
     }
   }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { styled, ButtonBase } from '@splitshare/ui';
-import QueryMyInvitesContainer from '../../routes/Dashboard/containers/QueryMyInvitesContainer';
 import SvgNotification from '../../components/icons/Notification';
 import { distanceInWordsStrict } from 'date-fns';
+import QueryMyPendingInvitesContainer from '../../routes/Dashboard/containers/QueryMyPendingInvitesContainer';
 
 interface IState {
   isOpen: boolean;
@@ -110,7 +110,7 @@ class MenuInvites extends React.PureComponent<{}, IState> {
     const { isOpen } = this.state;
 
     return (
-      <QueryMyInvitesContainer>
+      <QueryMyPendingInvitesContainer>
         {({ invites }) => (
           <>
             <BaseBtnStyled
@@ -154,7 +154,7 @@ class MenuInvites extends React.PureComponent<{}, IState> {
             ) : null}
           </>
         )}
-      </QueryMyInvitesContainer>
+      </QueryMyPendingInvitesContainer>
     );
   }
 }
