@@ -6,6 +6,5 @@ temp/
 dist
 .docz
 dump.rdb
-.env
+**/.env
 notes.md
-packages/server/.env
