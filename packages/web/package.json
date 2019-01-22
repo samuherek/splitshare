@@ -33,7 +33,7 @@
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
     "@types/react-gravatar": "2.6.6",
-    "graphql-code-generator": "0.15.2",
+    "graphql-code-generator": "0.16.0",
     "graphql-codegen-typescript-common": "0.15.2",
     "graphql-codegen-typescript-server": "0.15.2",
     "typescript": "3.2.4"
