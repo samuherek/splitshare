@@ -1897,10 +1897,10 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
   integrity sha512-ui3WwXmjTaY73fOQ3/m3nnajU/Orhi6cEu5rzX+BrAAJxa3eITXZ5ch9suPqtM03OWhAHhPSyBGCN4UKoxO20Q==
 
-"@types/ioredis@4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.0.5.tgz#248b2a9852de229d9e89ec757cd03dc39b884e21"
-  integrity sha512-ZjmiEJyrNrOBczf+eyrb4ae8toBnSgjgDZ38AJMPRTIQkuqyAEcKCBcyVrhoQue+F1UFcA7CXckMi41bjxUEtQ==
+"@types/ioredis@4.0.6":
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.0.6.tgz#64ef3aebfc406609b72a02dc62b89e8304f89213"
+  integrity sha512-FB8acNZCTLs2zXI3KuAAZJnKkFD04eNoBfgV6gT1ZABNrxbEVkBawPDLBNzhJWSfGT2eh5ELcS1cIwL4OGz/tA==
   dependencies:
     "@types/node" "*"
 
@@ -13366,7 +13366,7 @@ prettier@1.16.0:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.0.tgz#104dd25f5ee3d0c9d0a6ce4bb40ced8481d51219"
   integrity sha512-MCBCYeAuZfejUPdEpkleLWvpRBwLii/Sp5jQs0eb8Ul/drGIDjkL6tAU24tk6yCGf0KPV5rhPPPlczfBmN2pWQ==
 
-prettier@1.16.1:
+prettier@1.16.1, prettier@^1.15.2, prettier@^1.15.3:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.1.tgz#534c2c9d7853f8845e5e078384e71973bd74089f"
   integrity sha512-XXUITwIkGb3CPJ2hforHah/zTINRyie5006Jd2HKy2qz7snEJXl0KLfsJZW/wst9g6R2rFvqba3VpNYdu1hDcA==
