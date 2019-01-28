@@ -54,5 +54,8 @@
       "typeorm",
       "typeorm/**"
     ]
+  },
+  "resolutions": {
+    "graphql": "14.1.1"
   }
 }

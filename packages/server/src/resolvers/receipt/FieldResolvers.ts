@@ -17,6 +17,7 @@ export class ReceiptFieldResolversResolver {
 
   @FieldResolver()
   async splits(@Root() receipt: Receipt) {
-    return ReceiptSplit.find({ where: { receiptId: receipt.id } });
+    const res = await ReceiptSplit.find({ where: { receiptId: receipt.id } });
+    return res;
   }
 }
