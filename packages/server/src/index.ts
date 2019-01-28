@@ -18,6 +18,11 @@ import { billLoader } from './loaders/billLoader';
 
 const RedisStore = connectRedis(session);
 
+// Show unhandled rejections
+process.on('unhandledRejection', function(reason, promise) {
+  console.log(reason, promise);
+});
+
 const startServer = async () => {
   await createTypeormConn();
 

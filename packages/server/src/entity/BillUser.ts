@@ -8,34 +8,35 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './User';
 import { Bill } from './Bill';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 @Entity()
 @ObjectType()
-export class BillInvite extends BaseEntity {
+export class BillUser extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column({ nullable: true })
-  email: string;
-
-  @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date;
 
-  @Field({ nullable: true })
   @Column({ type: 'timestamp with time zone', nullable: true })
   deletedAt: Date;
 
   @PrimaryColumn('uuid')
+  userId: string;
+
+  @ManyToOne(() => User, user => user.bills)
+  user: Promise<User>;
+
+  @PrimaryColumn('uuid')
   billId: string;
 
-  @Field(() => Bill)
-  @ManyToOne(() => Bill, bill => bill.invites)
+  @ManyToOne(() => Bill, bill => bill.users)
   bill: Promise<Bill>;
 }

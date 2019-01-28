@@ -41,7 +41,7 @@ const QueryReceiptsContainer: React.FC<IContainerProps> = ({
 }) => (
   <Query<IQueryData, ReceiptsQueryArgs>
     query={RECEIPTS_QUERY}
-    variables={{ billId, limit: 6, offset: 0 }}
+    variables={{ billId, where: { limit: 6, offset: 0 } }}
   >
     {({ loading, error, data }) => {
       if (loading) {

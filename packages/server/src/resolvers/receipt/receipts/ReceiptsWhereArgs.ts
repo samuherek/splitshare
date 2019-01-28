@@ -3,9 +3,6 @@ import { Min, Max } from 'class-validator';
 
 @InputType()
 export class FilterInput {
-  @Field()
-  billId: string;
-
   @Field(() => Int, { defaultValue: 0 })
   @Min(0)
   offset: number;

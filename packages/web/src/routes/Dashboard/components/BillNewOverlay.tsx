@@ -42,7 +42,6 @@ class BillNewOverlay extends React.PureComponent<IProps, IState> {
   };
 
   afterBillCreated = (data: Bill): void => {
-    console.log('apollo stuff', data);
     this.setState({ page: 1, billId: data.id });
   };
 

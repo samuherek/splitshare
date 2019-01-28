@@ -1,5 +1,11 @@
 export type Maybe<T> = T | null;
 
+export interface FilterInput {
+  offset?: Maybe<number>;
+
+  limit?: number;
+}
+
 export interface BillInput {
   name: string;
 }
@@ -190,9 +196,9 @@ export interface ReceiptQueryArgs {
   id: string;
 }
 export interface ReceiptsQueryArgs {
-  offset?: Maybe<number>;
+  where: FilterInput;
 
-  limit?: number;
+  billId: string;
 }
 export interface CreateBillMutationArgs {
   billInput: BillInput;

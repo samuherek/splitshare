@@ -7,9 +7,10 @@ export class MyBillsResolver {
   @Authorized()
   @Query(() => [Bill])
   async myBills(@Ctx() ctx: MyContext) {
-    return Bill.find({
+    const bill = await Bill.find({
       where: { creatorId: ctx.req.session!.userId },
       order: { updatedAt: 'DESC' },
     });
+    return bill;
   }
 }

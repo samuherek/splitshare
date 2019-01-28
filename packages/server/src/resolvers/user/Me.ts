@@ -8,6 +8,7 @@ export class MeResolver {
   @Query(() => User, { nullable: true })
   async me(@Ctx() ctx: MyContext) {
     const { userId } = ctx.req.session!;
-    return userId ? User.findOne(userId) : null;
+    const user = userId ? User.findOne(userId) : null;
+    return user;
   }
 }

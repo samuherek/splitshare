@@ -42,7 +42,7 @@ class Signup extends React.PureComponent<RouteComponentProps, IState> {
     return (
       <AppContext.Consumer>
         {({ ctxLogin }) => (
-          <RegisterContainer registerInput={this.state}>
+          <RegisterContainer email={email} password={password}>
             {({ register, loading }) => (
               <WrapStyled>
                 <FormStyled

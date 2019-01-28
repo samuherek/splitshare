@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { ME_QUERY } from 'src/containers/MeContainer';
-import { RegisterMutationArgs, RegisterInput } from 'src/types';
+import { RegisterMutationArgs } from 'src/types';
 
 // TODO: This doesn't use the generated types. We need to make sure of that.
 interface IMutationData {
@@ -17,7 +17,8 @@ interface IRenderProps {
 
 interface IContainerProps {
   children: (renderProps: IRenderProps) => JSX.Element;
-  registerInput: RegisterInput;
+  email: string;
+  password: string;
 }
 
 export const REGISTER_MUTATION = gql`
@@ -29,10 +30,10 @@ export const REGISTER_MUTATION = gql`
 // Apollo Flow Types
 class RegisterMutation extends Mutation<IMutationData, RegisterMutationArgs> {}
 
-const RegisterContainer = ({ children, registerInput }: IContainerProps) => (
+const RegisterContainer = ({ children, email, password }: IContainerProps) => (
   <RegisterMutation
     mutation={REGISTER_MUTATION}
-    variables={{ registerInput }}
+    variables={{ email, password }}
     fetchPolicy="no-cache"
     refetchQueries={[{ query: ME_QUERY }]}
   >

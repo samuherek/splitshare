@@ -5,14 +5,12 @@ import {
   BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
   OneToMany,
 } from 'typeorm';
-import { ObjectType, Field, ID, Root, Ctx } from 'type-graphql';
-import { User } from './User';
+import { ObjectType, Field, ID } from 'type-graphql';
 import { Receipt } from './Receipt';
 import { BillInvite } from './BillInvite';
-import { MyContext } from '../types/Context';
+import { BillUser } from './BillUser';
 
 @Entity()
 @ObjectType()
@@ -21,17 +19,13 @@ export class Bill extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Field(() => String)
+  @Field()
   @Column()
   name: string;
 
-  @Column('uuid')
-  creatorId: string;
-
-  @Field(() => User)
-  async creator(@Root() bill: Bill, @Ctx() ctx: MyContext) {
-    return ctx.userLoader.load(bill.creatorId);
-  }
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  icon: string;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
@@ -41,13 +35,18 @@ export class Bill extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date;
 
-  @Field(() => [User])
-  @ManyToMany(() => User, user => user.bills)
-  users: Promise<User[]>;
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  deletedAt: Date;
 
+  @Field(() => [BillUser])
+  @OneToMany(() => BillUser, billUser => billUser.bill)
+  users: Promise<BillUser[]>;
+
+  @Field(() => [Receipt])
   @OneToMany(() => Receipt, receipt => receipt.billId)
   receipts: Promise<Receipt[]>;
 
+  @Field(() => [BillInvite])
   @OneToMany(() => BillInvite, billInvite => billInvite.bill)
-  billInvites: Promise<BillInvite[]>;
+  invites: Promise<BillInvite[]>;
 }

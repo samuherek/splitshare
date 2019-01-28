@@ -29,7 +29,7 @@ export class Receipt extends BaseEntity {
   @Column({ nullable: true })
   category?: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   company?: string;
 
@@ -80,6 +80,6 @@ export class Receipt extends BaseEntity {
   @Column('uuid')
   billId: string;
 
-  @ManyToOne(() => Bill, bill => bill.receipts, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Bill, bill => bill.receipts)
   bill: Promise<Bill>;
 }

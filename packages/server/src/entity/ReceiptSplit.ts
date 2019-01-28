@@ -25,15 +25,12 @@ export class ReceiptSplit extends BaseEntity {
   @Column()
   currency: string;
 
-  @Field()
   @Column('uuid')
   receiptId: string;
 
-  @Field(() => Receipt)
-  @ManyToOne(() => Receipt, receipt => receipt.splits, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Receipt, receipt => receipt.splits)
   receipt: Promise<Receipt>;
 
-  @Field()
   @Column('uuid')
   userId: string;
 

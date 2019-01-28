@@ -12,7 +12,7 @@ export class ReceiptsResolver {
   @Query(() => ReceiptsResponse)
   async receipts(
     @Args() { billId }: ReceiptsArgs,
-    @Arg('filterInput') { limit, startIndex }: FilterInput
+    @Arg('where') { limit, startIndex }: FilterInput
   ): Promise<ReceiptsResponse> {
     const receipts = await getConnection()
       .getRepository(Receipt)
