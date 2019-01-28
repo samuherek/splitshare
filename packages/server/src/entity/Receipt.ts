@@ -8,10 +8,11 @@ import {
   OneToMany,
   ManyToOne,
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, Root, Ctx } from 'type-graphql';
 import { User } from './User';
 import { ReceiptSplit } from './ReceiptSplit';
 import { Bill } from './Bill';
+import { MyContext } from '../types/Context';
 
 @Entity()
 @ObjectType()
@@ -41,7 +42,9 @@ export class Receipt extends BaseEntity {
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.receipts)
-  paidBy: Promise<User>;
+  async paidBy(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(receipt.paidById);
+  }
 
   @Field()
   @Column({ type: 'numeric', scale: 2 })
@@ -55,7 +58,9 @@ export class Receipt extends BaseEntity {
   creatorId: string;
 
   @Field(() => User)
-  creator: Promise<User>;
+  async creator(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(receipt.creatorId);
+  }
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
@@ -67,7 +72,10 @@ export class Receipt extends BaseEntity {
 
   @Field(() => [ReceiptSplit])
   @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
-  splits: Promise<ReceiptSplit[]>;
+  async splits(@Root() receipt: Receipt) {
+    const res = await ReceiptSplit.find({ where: { receiptId: receipt.id } });
+    return res;
+  }
 
   @Column('uuid')
   billId: string;

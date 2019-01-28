@@ -55,7 +55,7 @@ export class User extends BaseEntity {
 
   @Field(() => [BillInvite])
   @OneToMany(() => BillInvite, billInvite => billInvite.user)
-  invites: Promise<BillInvite[]>;
+  billInvites: Promise<BillInvite[]>;
 
   @BeforeInsert()
   async hashPasswordBeforeInsert() {

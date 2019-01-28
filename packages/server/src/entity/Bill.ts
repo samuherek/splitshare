@@ -8,10 +8,11 @@ import {
   ManyToMany,
   OneToMany,
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, Root, Ctx } from 'type-graphql';
 import { User } from './User';
 import { Receipt } from './Receipt';
 import { BillInvite } from './BillInvite';
+import { MyContext } from '../types/Context';
 
 @Entity()
 @ObjectType()
@@ -28,7 +29,9 @@ export class Bill extends BaseEntity {
   creatorId: string;
 
   @Field(() => User)
-  creator: Promise<User>;
+  async creator(@Root() bill: Bill, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(bill.creatorId);
+  }
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
@@ -42,12 +45,9 @@ export class Bill extends BaseEntity {
   @ManyToMany(() => User, user => user.bills)
   users: Promise<User[]>;
 
-  @Column({ type: 'uuid', array: true })
-  usersIds?: string[];
-
   @OneToMany(() => Receipt, receipt => receipt.billId)
   receipts: Promise<Receipt[]>;
 
   @OneToMany(() => BillInvite, billInvite => billInvite.bill)
-  invites: Promise<BillInvite[]>;
+  billInvites: Promise<BillInvite[]>;
 }

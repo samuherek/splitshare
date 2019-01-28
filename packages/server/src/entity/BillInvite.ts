@@ -10,7 +10,8 @@ import {
 } from 'typeorm';
 import { User } from './User';
 import { Bill } from './Bill';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType, Root, Ctx } from 'type-graphql';
+import { MyContext } from '../types/Context';
 
 @Entity()
 @ObjectType()
@@ -38,7 +39,9 @@ export class BillInvite extends BaseEntity {
   invitedById: string;
 
   @Field(() => User)
-  invitedBy: Promise<User>;
+  async invitedBy(@Root() billInvite: BillInvite, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(billInvite.invitedById);
+  }
 
   @PrimaryColumn('uuid')
   userId: string;
@@ -46,10 +49,12 @@ export class BillInvite extends BaseEntity {
   @PrimaryColumn('uuid')
   billId: string;
 
-  @ManyToOne(() => User, user => user.invites)
+  @ManyToOne(() => User, user => user.billInvites)
   user: Promise<User>;
 
   @Field(() => Bill)
-  @ManyToOne(() => Bill, bill => bill.invites)
-  bill: Promise<Bill>;
+  @ManyToOne(() => Bill, bill => bill.billInvites)
+  async bill(@Root() billInvite: BillInvite, @Ctx() ctx: MyContext) {
+    return ctx.billLoader.load(billInvite.billId);
+  }
 }

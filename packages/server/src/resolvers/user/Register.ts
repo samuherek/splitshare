@@ -1,7 +1,7 @@
-import { Resolver, Mutation, Arg, Ctx } from 'type-graphql';
+import { Resolver, Mutation, Ctx, Args } from 'type-graphql';
 
 import { MyContext } from '../../types/Context';
-import { RegisterInput } from './register/RegisterInput';
+import RegisterArgs from './register/RegisterInput';
 import { User } from '../../entity/User';
 import { userSessionIdPrefix } from '../../constants';
 
@@ -9,11 +9,9 @@ import { userSessionIdPrefix } from '../../constants';
 export class RegisterResolver {
   @Mutation(() => Boolean)
   async register(
-    @Arg('registerInput') registerInput: RegisterInput,
+    @Args() { email, password }: RegisterArgs,
     @Ctx() ctx: MyContext
   ) {
-    const { email, password } = registerInput;
-
     const userAlreadyExists = await User.findOne({
       where: { email },
       select: ['id'],

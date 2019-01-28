@@ -5,9 +5,10 @@ import {
   BaseEntity,
   ManyToOne,
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, Root, Ctx } from 'type-graphql';
 import { User } from './User';
 import { Receipt } from './Receipt';
+import { MyContext } from '../types/Context';
 
 @Entity()
 @ObjectType()
@@ -26,17 +27,19 @@ export class ReceiptSplit extends BaseEntity {
 
   @Field()
   @Column('uuid')
-  userId: string;
-
-  @Field(() => User)
-  @ManyToOne(() => User, user => user.splits)
-  user: Promise<User>;
-
-  @Field()
-  @Column('uuid')
   receiptId: string;
 
   @Field(() => Receipt)
   @ManyToOne(() => Receipt, receipt => receipt.splits, { onDelete: 'CASCADE' })
   receipt: Promise<Receipt>;
+
+  @Field()
+  @Column('uuid')
+  userId: string;
+
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.splits)
+  async user(@Root() receiptSplit: ReceiptSplit, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(receiptSplit.userId);
+  }
 }

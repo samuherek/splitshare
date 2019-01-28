@@ -1,9 +1,8 @@
-import { InputType, Field } from 'type-graphql';
-import { User } from '../../../entity/User';
+import { ArgsType, Field } from 'type-graphql';
 import { IsEmail, Length } from 'class-validator';
 
-@InputType()
-export class RegisterInput implements Partial<User> {
+@ArgsType()
+export default class RegisterArgs {
   @Field()
   @IsEmail()
   email: string;

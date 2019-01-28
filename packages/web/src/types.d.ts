@@ -32,12 +32,6 @@ export interface ReceiptInput {
   currency: string;
 }
 
-export interface RegisterInput {
-  email: string;
-
-  password: string;
-}
-
 export interface MeInput {
   displayName?: Maybe<string>;
 
@@ -96,7 +90,7 @@ export interface User {
 
   createdAt: DateTime;
 
-  invites: BillInvite[];
+  billInvites: BillInvite[];
 }
 
 export interface BillInvite {
@@ -146,13 +140,13 @@ export interface ReceiptSplit {
 
   currency: string;
 
-  userId: string;
-
-  user: User;
-
   receiptId: string;
 
   receipt: Receipt;
+
+  userId: string;
+
+  user: User;
 }
 
 export interface ReceiptsResponse {
@@ -228,7 +222,9 @@ export interface LoginMutationArgs {
   password: string;
 }
 export interface RegisterMutationArgs {
-  registerInput: RegisterInput;
+  email: string;
+
+  password: string;
 }
 export interface UpdateMeMutationArgs {
   meInput: MeInput;

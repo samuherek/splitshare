@@ -1,17 +1,19 @@
-import { Resolver, Query, Authorized, Args } from 'type-graphql';
+import { Resolver, Query, Authorized, Args, Arg } from 'type-graphql';
 import { Receipt } from '../../entity/Receipt';
 
 import { ReceiptsResponse } from './receiptsResponse';
 import { ReceiptsArgs } from './receipts/ReceiptsArgs';
 import { getConnection } from 'typeorm';
+import { FilterInput } from './receipts/ReceiptsWhereArgs';
 
 @Resolver()
 export class ReceiptsResolver {
   @Authorized()
   @Query(() => ReceiptsResponse)
-  async receipts(@Args() { billId, limit, startIndex }: ReceiptsArgs): Promise<
-    ReceiptsResponse
-  > {
+  async receipts(
+    @Args() { billId }: ReceiptsArgs,
+    @Arg('filterInput') { limit, startIndex }: FilterInput
+  ): Promise<ReceiptsResponse> {
     const receipts = await getConnection()
       .getRepository(Receipt)
       .createQueryBuilder('receipts')

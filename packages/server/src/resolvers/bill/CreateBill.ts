@@ -16,7 +16,6 @@ export class CreateBillResolver {
     const bill = await Bill.create({
       ...billInput,
       creatorId,
-      usersIds: [creatorId],
     }).save();
 
     return bill;

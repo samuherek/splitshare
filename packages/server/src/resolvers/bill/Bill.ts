@@ -8,17 +8,9 @@ export class BillsResolver {
   @Query(() => Bill)
   async bill(@Arg('id') id: string, @Ctx() ctx: MyContext) {
     const { userId } = ctx.req.session!;
+    console.log('userId', userId);
 
     const bill = await Bill.findOne({ where: { id } });
-
-    const billHasUserId =
-      bill &&
-      bill.usersIds &&
-      bill.usersIds.findIndex(id => id === userId) !== -1;
-
-    if (!billHasUserId) {
-      throw new Error("We couldn't find what you were looking for");
-    }
 
     return bill;
   }
