@@ -1,22 +1,24 @@
-import { Resolver, Authorized, Mutation, Arg } from 'type-graphql';
+import { Resolver, Authorized, Mutation, Args, Ctx } from 'type-graphql';
 import { Bill } from '../../entity/Bill';
-import { BillInput } from './createBill/BillInput';
-// import { BillInvite } from '../../entity/BillInvite';
+import CreateBillArgs from './createBill/CreateBillArgs';
+import { MyContext } from '../../types/Context';
+import { BillUser } from '../../entity/BillUser';
 
 @Resolver()
 export class CreateBillResolver {
   @Authorized()
   @Mutation(() => Bill)
-  async createBill(@Arg('billInput') billInput: BillInput) {
+  async createBill(@Args() { name }: CreateBillArgs, @Ctx() ctx: MyContext) {
+    const { userId } = ctx.req.session!;
+
     const bill = await Bill.create({
-      ...billInput,
+      name,
     }).save();
 
-    // const billInvite = await BillInvite.create({
-    //   billId: bill.id,
-    //   userId: creatorId,
-
-    // })
+    await BillUser.create({
+      billId: bill.id,
+      userId: userId,
+    }).save();
 
     return bill;
   }
