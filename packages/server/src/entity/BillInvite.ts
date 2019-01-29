@@ -18,8 +18,13 @@ export class BillInvite extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   email: string;
+
+  @Field()
+  @Column({ default: true })
+  pending: boolean;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })

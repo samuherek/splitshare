@@ -4,6 +4,7 @@ import { Redis } from 'ioredis';
 import { User } from 'src/entity/User';
 import { Bill } from '../entity/Bill';
 import { billUsersLoader } from '../loaders/billUsersLoader';
+import { billInvitesLoader } from '../loaders/billInvitesLoader';
 
 export interface MyContext {
   req: Request;
@@ -12,5 +13,6 @@ export interface MyContext {
   userLoader: DataLoader<string, User>;
   billLoader: DataLoader<string, Bill>;
   billUsersLoader: ReturnType<typeof billUsersLoader>;
+  billInvitesLoader: ReturnType<typeof billInvitesLoader>;
   url: string;
 }

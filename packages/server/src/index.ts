@@ -16,6 +16,7 @@ import { userLoader } from './loaders/userLoader';
 import { billUsersLoader } from './loaders/billUsersLoader';
 import { confirmEmail } from './routes/confirmEmail';
 import { billLoader } from './loaders/billLoader';
+import { billInvitesLoader } from './loaders/billInvitesLoader';
 
 const RedisStore = connectRedis(session);
 
@@ -43,6 +44,7 @@ const startServer = async () => {
       userLoader: userLoader(),
       billLoader: billLoader(),
       billUsersLoader: billUsersLoader(),
+      billInvitesLoader: billInvitesLoader(),
       url: req.protocol + '://' + req.get('host'),
     }),
     formatError: (error: GraphQLError) => {

@@ -54,5 +54,10 @@ export class Bill extends BaseEntity {
 
   @Field(() => [BillInvite])
   @OneToMany(() => BillInvite, billInvite => billInvite.bill)
-  invites: Promise<BillInvite[]>;
+  async invites(@Ctx() { billInvitesLoader }: MyContext): Promise<
+    BillInvite[]
+  > {
+    //@ts-ignore
+    return billInvitesLoader.load(this.id);
+  }
 }
