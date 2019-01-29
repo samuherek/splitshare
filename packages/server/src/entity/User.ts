@@ -46,7 +46,7 @@ export class User extends BaseEntity {
   billConnection: Promise<BillUser[]>;
 
   @OneToMany(() => Receipt, receipt => receipt.paidBy)
-  receipts: Promise<Receipt[]>;
+  paidReceipts: Promise<Receipt[]>;
 
   @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.user)
   splits: Promise<ReceiptSplit[]>;

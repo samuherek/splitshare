@@ -36,7 +36,10 @@ export class ReceiptSplit extends BaseEntity {
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.splits)
-  async user(@Root() receiptSplit: ReceiptSplit, @Ctx() ctx: MyContext) {
+  async user(
+    @Root() receiptSplit: ReceiptSplit,
+    @Ctx() ctx: MyContext
+  ): Promise<User> {
     return ctx.userLoader.load(receiptSplit.userId);
   }
 }

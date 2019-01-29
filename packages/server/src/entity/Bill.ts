@@ -57,7 +57,6 @@ export class Bill extends BaseEntity {
   async invites(@Ctx() { billInvitesLoader }: MyContext): Promise<
     BillInvite[]
   > {
-    //@ts-ignore
     return billInvitesLoader.load(this.id);
   }
 }

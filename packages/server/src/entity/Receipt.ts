@@ -40,12 +40,6 @@ export class Receipt extends BaseEntity {
   @Column('uuid')
   paidById: string;
 
-  @Field(() => User)
-  @ManyToOne(() => User, user => user.receipts)
-  async paidBy(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
-    return ctx.userLoader.load(receipt.paidById);
-  }
-
   @Field()
   @Column({ type: 'numeric', scale: 2 })
   total: number;
@@ -57,11 +51,6 @@ export class Receipt extends BaseEntity {
   @Column('uuid')
   creatorId: string;
 
-  @Field(() => User)
-  async creator(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
-    return ctx.userLoader.load(receipt.creatorId);
-  }
-
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;
@@ -70,15 +59,27 @@ export class Receipt extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date;
 
-  @Field(() => [ReceiptSplit])
-  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
-  async splits(@Root() receipt: Receipt) {
-    const res = await ReceiptSplit.find({ where: { receiptId: receipt.id } });
-    return res;
-  }
-
   @Column('uuid')
   billId: string;
+
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.paidReceipts)
+  async paidBy(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(receipt.paidById);
+  }
+
+  @Field(() => User)
+  async creator(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(receipt.creatorId);
+  }
+
+  @Field(() => [ReceiptSplit])
+  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
+  async splits(@Ctx() { receiptSplitsLoader }: MyContext): Promise<
+    ReceiptSplit[]
+  > {
+    return receiptSplitsLoader.load(this.id);
+  }
 
   @ManyToOne(() => Bill, bill => bill.receipts)
   bill: Promise<Bill>;

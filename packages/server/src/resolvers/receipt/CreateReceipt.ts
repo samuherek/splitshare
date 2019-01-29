@@ -25,6 +25,8 @@ export class CreateReceiptResolver {
       creatorId,
     }).save();
 
+    console.log('but not here');
+
     // TODO: Make this into a transaction with the receipt just in case.
     await Promise.all(
       splitsInput.map(split => {
