@@ -27,6 +27,10 @@ export class Bill extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
+  cover: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
   icon: string;
 
   @Field()
