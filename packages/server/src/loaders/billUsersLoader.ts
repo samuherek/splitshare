@@ -18,6 +18,7 @@ const batchUsers = async (billIds: string[]) => {
 
   const billIdToUsers: { [key: string]: User[] } = {};
   /*
+  Example of a response from the join table ;(
   {
     authorId: 1,
     bookId: 1,

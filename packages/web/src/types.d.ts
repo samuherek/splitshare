@@ -6,16 +6,6 @@ export interface FilterInput {
   limit?: number;
 }
 
-export interface BillInput {
-  name: string;
-}
-
-export interface InviteInput {
-  email: string;
-
-  billId: string;
-}
-
 export interface ReceiptSplitInput {
   userId: string;
 
@@ -74,13 +64,15 @@ export interface Bill {
 
   name: string;
 
-  creator: User;
+  icon?: Maybe<string>;
 
   createdAt: DateTime;
 
   updatedAt: DateTime;
 
   users: User[];
+
+  receipts: Receipt[];
 
   invites: BillInvite[];
 }
@@ -93,24 +85,6 @@ export interface User {
   displayName?: Maybe<string>;
 
   photoUrl?: Maybe<string>;
-
-  createdAt: DateTime;
-
-  billInvites: BillInvite[];
-}
-
-export interface BillInvite {
-  id: string;
-
-  pending: boolean;
-
-  createdAt: DateTime;
-
-  deletedAt?: Maybe<DateTime>;
-
-  invitedBy: User;
-
-  bill: Bill;
 }
 
 export interface Receipt {
@@ -120,7 +94,7 @@ export interface Receipt {
 
   category?: Maybe<string>;
 
-  company: string;
+  company?: Maybe<string>;
 
   country?: Maybe<string>;
 
@@ -146,13 +120,23 @@ export interface ReceiptSplit {
 
   currency: string;
 
-  receiptId: string;
-
-  receipt: Receipt;
-
-  userId: string;
-
   user: User;
+}
+
+export interface BillInvite {
+  id: string;
+
+  email: string;
+
+  pending: boolean;
+
+  createdAt: DateTime;
+
+  deletedAt?: Maybe<DateTime>;
+
+  invitedBy: User;
+
+  bill: Bill;
 }
 
 export interface ReceiptsResponse {
@@ -185,6 +169,10 @@ export interface Mutation {
   updateMe: User;
 }
 
+export interface BillUser {
+  id: string;
+}
+
 // ====================================================
 // Arguments
 // ====================================================
@@ -201,7 +189,7 @@ export interface ReceiptsQueryArgs {
   billId: string;
 }
 export interface CreateBillMutationArgs {
-  billInput: BillInput;
+  name: string;
 }
 export interface RemoveBillMutationArgs {
   id: string;
@@ -210,7 +198,9 @@ export interface AcceptBillInviteMutationArgs {
   id: string;
 }
 export interface CreateBillInviteMutationArgs {
-  inviteInput: InviteInput;
+  billId: string;
+
+  email: string;
 }
 export interface RemoveBillInviteMutationArgs {
   id: string;

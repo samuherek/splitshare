@@ -12,6 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { ReceiptSplit } from './ReceiptSplit';
 import { Receipt } from './Receipt';
 import { BillUser } from './BillUser';
+import { BillInvite } from './BillInvite';
 
 @Entity()
 @ObjectType()
@@ -49,6 +50,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.user)
   splits: Promise<ReceiptSplit[]>;
+
+  @OneToMany(() => BillInvite, billInvite => billInvite.invitedBy)
+  creatorOfBillInvites: Promise<BillInvite[]>;
 
   @BeforeInsert()
   async hashPasswordBeforeInsert() {

@@ -9,7 +9,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Bill } from './Bill';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType, Ctx } from 'type-graphql';
+import { User } from './User';
+import { MyContext } from '../types/Context';
 
 @Entity()
 @ObjectType()
@@ -18,13 +20,19 @@ export class BillInvite extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Field(() => String)
+  @Column()
   email: string;
 
   @Field()
   @Column({ default: true })
   pending: boolean;
+
+  @Column('uuid')
+  invitedById: string;
+
+  @PrimaryColumn('uuid')
+  billId: string;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
@@ -37,10 +45,15 @@ export class BillInvite extends BaseEntity {
   @Column({ type: 'timestamp with time zone', nullable: true })
   deletedAt: Date;
 
-  @PrimaryColumn('uuid')
-  billId: string;
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.creatorOfBillInvites)
+  async invitedBy(@Ctx() { userLoader }: MyContext): Promise<User> {
+    return userLoader.load(this.invitedById);
+  }
 
   @Field(() => Bill)
   @ManyToOne(() => Bill, bill => bill.invites)
-  bill: Promise<Bill>;
+  async bill(@Ctx() { billLoader }: MyContext): Promise<Bill> {
+    return billLoader.load(this.billId);
+  }
 }

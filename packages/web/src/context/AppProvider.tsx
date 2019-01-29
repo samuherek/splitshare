@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ApolloClient } from 'apollo-boost';
 import { navigate } from '@reach/router';
 
-import { ME_QUERY } from '../containers/MeContainer';
+import { ME_QUERY } from '../graphql/MeQuery';
 
 interface IAppProviderProps {
   client: ApolloClient<{}>;
