@@ -6,6 +6,7 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { User } from './User';
 import { Bill } from './Bill';
@@ -24,15 +25,17 @@ export class BillUser extends BaseEntity {
   @Column({ type: 'timestamp with time zone', nullable: true })
   deletedAt: Date;
 
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   userId: string;
 
-  @ManyToOne(() => User, user => user.bills)
-  user: Promise<User>;
-
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   billId: string;
 
-  @ManyToOne(() => Bill, bill => bill.users)
+  @ManyToOne(() => User, user => user.billConnection, { primary: true })
+  @JoinColumn({ name: 'userId' })
+  user: Promise<User>;
+
+  @ManyToOne(() => Bill, bill => bill.userConnection, { primary: true })
+  @JoinColumn({ name: 'billId' })
   bill: Promise<Bill>;
 }

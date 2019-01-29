@@ -13,6 +13,7 @@ import { redis } from './redis';
 import { redisSessionPrefix } from './constants';
 import { GraphQLSchema, GraphQLError } from 'graphql';
 import { userLoader } from './loaders/userLoader';
+import { billUsersLoader } from './loaders/billUsersLoader';
 import { confirmEmail } from './routes/confirmEmail';
 import { billLoader } from './loaders/billLoader';
 
@@ -41,6 +42,7 @@ const startServer = async () => {
       redis,
       userLoader: userLoader(),
       billLoader: billLoader(),
+      billUsersLoader: billUsersLoader(),
       url: req.protocol + '://' + req.get('host'),
     }),
     formatError: (error: GraphQLError) => {

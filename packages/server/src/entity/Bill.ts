@@ -7,10 +7,12 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, Ctx } from 'type-graphql';
 import { Receipt } from './Receipt';
 import { BillInvite } from './BillInvite';
 import { BillUser } from './BillUser';
+import { User } from './User';
+import { MyContext } from '../types/Context';
 
 @Entity()
 @ObjectType()
@@ -38,9 +40,13 @@ export class Bill extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   deletedAt: Date;
 
-  @Field(() => [BillUser])
   @OneToMany(() => BillUser, billUser => billUser.bill)
-  users: Promise<BillUser[]>;
+  userConnection: Promise<BillUser[]>;
+
+  @Field(() => [User])
+  async users(@Ctx() { billUsersLoader }: MyContext): Promise<User[]> {
+    return billUsersLoader.load(this.id);
+  }
 
   @Field(() => [Receipt])
   @OneToMany(() => Receipt, receipt => receipt.billId)
