@@ -64,6 +64,8 @@ export interface Bill {
 
   name: string;
 
+  cover?: Maybe<string>;
+
   icon?: Maybe<string>;
 
   createdAt: DateTime;
@@ -98,17 +100,17 @@ export interface Receipt {
 
   country?: Maybe<string>;
 
-  paidBy: User;
-
   total: number;
 
   currency: string;
 
-  creator: User;
-
   createdAt: DateTime;
 
   updatedAt: DateTime;
+
+  paidBy: User;
+
+  creator: User;
 
   splits: ReceiptSplit[];
 }
@@ -149,6 +151,8 @@ export interface Mutation {
   createBill: Bill;
 
   removeBill: boolean;
+
+  updateBill: Bill;
 
   acceptBillInvite: boolean;
 
@@ -193,6 +197,13 @@ export interface CreateBillMutationArgs {
 }
 export interface RemoveBillMutationArgs {
   id: string;
+}
+export interface UpdateBillMutationArgs {
+  name?: Maybe<string>;
+
+  icon?: Maybe<string>;
+
+  billId: string;
 }
 export interface AcceptBillInviteMutationArgs {
   id: string;

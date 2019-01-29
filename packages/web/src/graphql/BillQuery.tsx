@@ -23,6 +23,8 @@ export const BILL_QUERY = gql`
       id
       name
       createdAt
+      icon
+
       users {
         id
         email
@@ -46,8 +48,6 @@ const BillQueryContainer: React.FC<IContainerProps> = ({
       if (loading) {
         return 'loading';
       }
-      console.log(data);
-      // console.log(other);
       if (error) {
         console.log(error);
       }

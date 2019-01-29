@@ -15,6 +15,7 @@ interface IProps extends ICardLinkProps {
   updatedAt: string;
   users: User[];
   children?: null;
+  icon?: string | null;
 }
 
 const CardLinStyled = styled(CardLink)`
@@ -48,9 +49,13 @@ export const CardBillBig: React.FC<IProps> = ({
   title,
   updatedAt,
   users,
+  icon,
 }) => (
   <CardLinStyled to={to}>
-    <h4>{title}</h4>
+    <h4>
+      <span>{icon}</span>
+      {title}
+    </h4>
     <MetaStyled style={{}}>
       {distanceInWordsStrict(new Date(), Date.parse(updatedAt), {
         addSuffix: true,

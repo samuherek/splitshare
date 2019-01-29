@@ -23,6 +23,7 @@ export const MY_BILLS_QUERY = gql`
       name
       createdAt
       updatedAt
+      icon
 
       users {
         id

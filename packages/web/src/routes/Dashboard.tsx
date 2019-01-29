@@ -50,7 +50,9 @@ const LogoLinkStyled = styled(Link)`
 `;
 
 const SectionWrapStyled = styled.div`
-  margin: 45px;
+  max-width: 1260px;
+  margin: 45px auto;
+  padding: 0 5vw;
 
   h3 {
     margin-bottom: 25px;
@@ -109,7 +111,9 @@ export default class Dashboard extends React.PureComponent<
             <MyBillsQueryContainer>
               {({ bills }) => (
                 <>
-                  <h3>Your bills ({bills.length})</h3>
+                  <h3 style={{ fontSize: 28 }}>
+                    Opened Bills ({bills.length})
+                  </h3>
                   <ScrollWrapStyled>
                     {bills.map(bill => (
                       <CardBillBig
@@ -118,6 +122,7 @@ export default class Dashboard extends React.PureComponent<
                         users={bill.users}
                         to={`/${bill.id}`}
                         updatedAt={bill.updatedAt}
+                        icon={bill.icon}
                       />
                     ))}
                   </ScrollWrapStyled>

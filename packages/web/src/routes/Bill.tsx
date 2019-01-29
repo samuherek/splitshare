@@ -11,11 +11,13 @@ import {
   styled,
   AvatarUser,
   Button,
+  DropdownEmoji,
 } from '@splitshare/ui';
 import PageModal, { PageModalInner } from '../components/PageModal';
 import InviteOverlay from './bill/InviteOverlay';
 import BillQueryContainer from '../graphql/BillQuery';
 import ReceiptsQueryContainer from '../graphql/ReceiptsQuery';
+import UpdateBillMutationContainer from '../graphql/UpdateBillMutation';
 
 interface IProps extends RouteComponentProps {
   billId?: string;
@@ -51,6 +53,22 @@ const AvatarWrapStyled = styled.div`
   }
 `;
 
+const IconStyled = styled.span<{ isOpen: boolean }>`
+  display: block;
+  border-radius: 3px;
+  font-size: 50px;
+  width: 50px;
+  height: 50px;
+  line-height: 1.1;
+  cursor: pointer;
+  background: ${({ isOpen }) =>
+    isOpen ? 'rgba(55,53,47,0.08)' : 'transparent'};
+
+  &:hover {
+    background: rgba(55, 53, 47, 0.08);
+  }
+`;
+
 export default class Bill extends React.PureComponent<IProps, IState> {
   state = {
     showInviteOverlay: false,
@@ -81,6 +99,27 @@ export default class Bill extends React.PureComponent<IProps, IState> {
               <>
                 {bill ? (
                   <>
+                    <UpdateBillMutationContainer billId={billId || ''}>
+                      {({ updateBillMutation }) => (
+                        <DropdownEmoji
+                          onSelect={value => {
+                            console.log(value);
+                            updateBillMutation({
+                              variables: { billId: billId || '', icon: value },
+                            });
+                          }}
+                          render={(toggleDropdown, isOpen) => (
+                            <IconStyled
+                              style={{ fontSize: 50 }}
+                              onClick={toggleDropdown}
+                              isOpen={isOpen}
+                            >
+                              {bill.icon}
+                            </IconStyled>
+                          )}
+                        />
+                      )}
+                    </UpdateBillMutationContainer>
                     <h2>{bill.name}</h2>
                     <AvatarWrapStyled>
                       {bill.invites.map(invite => {
