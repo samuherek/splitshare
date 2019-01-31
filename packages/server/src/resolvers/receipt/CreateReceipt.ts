@@ -25,7 +25,7 @@ export class CreateReceiptResolver {
       creatorId,
     }).save();
 
-    console.log('but not here');
+    console.log('====== RECEIPT ', receipt);
 
     // TODO: Make this into a transaction with the receipt just in case.
     await Promise.all(

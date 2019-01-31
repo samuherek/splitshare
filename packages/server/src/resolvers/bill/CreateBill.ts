@@ -15,6 +15,7 @@ export class CreateBillResolver {
       name,
     }).save();
 
+    console.log('======== BILL =======', bill);
     await BillUser.create({
       billId: bill.id,
       userId: userId,

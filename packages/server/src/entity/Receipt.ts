@@ -4,11 +4,11 @@ import {
   Column,
   BaseEntity,
   CreateDateColumn,
-  UpdateDateColumn,
   OneToMany,
   ManyToOne,
+  UpdateDateColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID, Root, Ctx } from 'type-graphql';
+import { ObjectType, Field, ID, Ctx } from 'type-graphql';
 import { User } from './User';
 import { ReceiptSplit } from './ReceiptSplit';
 import { Bill } from './Bill';
@@ -37,9 +37,6 @@ export class Receipt extends BaseEntity {
   @Column({ nullable: true })
   country?: string;
 
-  @Column('uuid')
-  paidById: string;
-
   @Field()
   @Column({ type: 'numeric', scale: 2 })
   total: number;
@@ -47,9 +44,6 @@ export class Receipt extends BaseEntity {
   @Field()
   @Column({ default: 'EUR' })
   currency: string;
-
-  @Column('uuid')
-  creatorId: string;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
@@ -60,27 +54,36 @@ export class Receipt extends BaseEntity {
   updatedAt: Date;
 
   @Column('uuid')
+  paidById: string;
+
+  @Column('uuid')
+  creatorId: string;
+
+  @Column('uuid')
   billId: string;
+
+  @ManyToOne(() => Bill, bill => bill.receiptsCon)
+  bill: Promise<Bill>;
+
+  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receiptCon)
+  splitsCon: Promise<ReceiptSplit[]>;
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.paidReceipts)
-  async paidBy(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
-    return ctx.userLoader.load(receipt.paidById);
+  async paidBy(@Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(this.paidById);
   }
 
   @Field(() => User)
-  async creator(@Root() receipt: Receipt, @Ctx() ctx: MyContext) {
-    return ctx.userLoader.load(receipt.creatorId);
+  @ManyToOne(() => User, user => user.creatorOfReceipts)
+  async creator(@Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(this.creatorId);
   }
 
   @Field(() => [ReceiptSplit])
-  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
   async splits(@Ctx() { receiptSplitsLoader }: MyContext): Promise<
     ReceiptSplit[]
   > {
     return receiptSplitsLoader.load(this.id);
   }
-
-  @ManyToOne(() => Bill, bill => bill.receipts)
-  bill: Promise<Bill>;
 }

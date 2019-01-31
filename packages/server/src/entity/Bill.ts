@@ -47,17 +47,21 @@ export class Bill extends BaseEntity {
   @OneToMany(() => BillUser, billUser => billUser.bill)
   userConnection: Promise<BillUser[]>;
 
+  @OneToMany(() => Receipt, receipt => receipt.billId)
+  receiptsCon: Promise<Receipt[]>;
+
+  @OneToMany(() => BillInvite, billInvite => billInvite.bill)
+  invitesCon: Promise<BillInvite[]>;
+
   @Field(() => [User])
   async users(@Ctx() { billUsersLoader }: MyContext): Promise<User[]> {
     return billUsersLoader.load(this.id);
   }
 
   @Field(() => [Receipt])
-  @OneToMany(() => Receipt, receipt => receipt.billId)
   receipts: Promise<Receipt[]>;
 
   @Field(() => [BillInvite])
-  @OneToMany(() => BillInvite, billInvite => billInvite.bill)
   async invites(@Ctx() { billInvitesLoader }: MyContext): Promise<
     BillInvite[]
   > {

@@ -52,7 +52,7 @@ export class BillInvite extends BaseEntity {
   }
 
   @Field(() => Bill)
-  @ManyToOne(() => Bill, bill => bill.invites)
+  @ManyToOne(() => Bill, bill => bill.invitesCon)
   async bill(@Ctx() { billLoader }: MyContext): Promise<Bill> {
     return billLoader.load(this.billId);
   }

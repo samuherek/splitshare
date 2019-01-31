@@ -26,6 +26,8 @@ export class RegisterResolver {
       password,
     }).save();
 
+    console.log(user);
+
     // registration successful
     ctx.req.session!.userId = user.id;
 
