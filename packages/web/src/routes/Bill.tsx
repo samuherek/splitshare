@@ -65,6 +65,13 @@ const IconStyled = styled.span<{ isOpen: boolean }>`
   }
 `;
 
+const ReceiptStyled = styled.div`
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+`;
+
 export default class Bill extends React.PureComponent<IProps, IState> {
   static defaultProps = {
     billParam: '',
@@ -199,7 +206,7 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                           }
 
                           return receipts.map(r => (
-                            <div key={r.id}>
+                            <ReceiptStyled key={r.id}>
                               <span>
                                 {r.total.toLocaleString(undefined, {
                                   maximumFractionDigits: 2,
@@ -215,8 +222,10 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                                   }
                                 )}
                               </span>
-                              <span>{r.paidBy.email}</span>
-                            </div>
+                              <AvatarUser
+                                name={r.paidBy.displayName || r.paidBy.email}
+                              />
+                            </ReceiptStyled>
                           ));
                         }}
                       </ReceiptsQueryContainer>
