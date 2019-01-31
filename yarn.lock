@@ -1875,7 +1875,7 @@
   dependencies:
     date-fns "*"
 
-"@types/emoji-mart@^2.8.2":
+"@types/emoji-mart@2.8.2":
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/@types/emoji-mart/-/emoji-mart-2.8.2.tgz#64507fcae3353ae715108982e380e10198e832f2"
   integrity sha512-U3iXg2u/LKjsr5HEq22bHvUhLynKH2x0GeQuRDHXmVtVV+j3nYbf7FNzqr+TdIhbqh7UfIkkCR/7q+WyzU/0dg==
@@ -1998,10 +1998,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
-"@types/node@10.12.19":
-  version "10.12.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.19.tgz#ca1018c26be01f07e66ac7fefbeb6407e4490c61"
-  integrity sha512-2NVovndCjJQj6fUUn9jCgpP4WSqr+u1SoUZMZyJkhGeBFsm6dE46l31S7lPUYt9uQ28XI+ibrJA1f5XyH5HNtA==
+"@types/node@10.12.20":
+  version "10.12.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.20.tgz#f79f959acd3422d0889bd1ead1664bd2d17cd367"
+  integrity sha512-9spv6SklidqxevvZyOUGjZVz4QRXGu2dNaLyXIFzFYZW0AGDykzPRIUFJXTlQXyfzAucddwTcGtJNim8zqSOPA==
 
 "@types/prettier@1.15.2":
   version "1.15.2"
@@ -6601,7 +6601,7 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-emoji-mart@^2.9.2:
+emoji-mart@2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/emoji-mart/-/emoji-mart-2.9.2.tgz#03d1a3011e9d5fa7cd184fe308b7b803e6901ae2"
   integrity sha512-5S743OpjFb9nBbbx5F4APWgcp2IOjdT7gLLzu2OBh0k44C3ZoCm+wuIN1llOtj5eosUa3lYqrZWtU/ZiaCULrg==
@@ -13434,7 +13434,12 @@ prettier@1.16.0:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.0.tgz#104dd25f5ee3d0c9d0a6ce4bb40ced8481d51219"
   integrity sha512-MCBCYeAuZfejUPdEpkleLWvpRBwLii/Sp5jQs0eb8Ul/drGIDjkL6tAU24tk6yCGf0KPV5rhPPPlczfBmN2pWQ==
 
-prettier@1.16.1, prettier@^1.15.2, prettier@^1.15.3:
+prettier@1.16.3:
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.3.tgz#8c62168453badef702f34b45b6ee899574a6a65d"
+  integrity sha512-kn/GU6SMRYPxUakNXhpP0EedT/KmaPzr0H5lIsDogrykbaxOpOfAFfk5XA7DZrJyMAv1wlMV3CPcZruGXVVUZw==
+
+prettier@^1.15.2, prettier@^1.15.3:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.1.tgz#534c2c9d7853f8845e5e078384e71973bd74089f"
   integrity sha512-XXUITwIkGb3CPJ2hforHah/zTINRyie5006Jd2HKy2qz7snEJXl0KLfsJZW/wst9g6R2rFvqba3VpNYdu1hDcA==
