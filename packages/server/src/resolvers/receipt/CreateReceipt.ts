@@ -5,6 +5,8 @@ import { MyContext } from '../../types/Context';
 import { ReceiptSplit } from '../../entity/ReceiptSplit';
 import { ReceiptSplitInput } from './createReceipt/ReceiptsSplitInput';
 import { ReceiptInput } from './createReceipt/ReceiptInput';
+import { getConnection } from 'typeorm';
+import { plainToClass } from 'class-transformer';
 
 @Resolver()
 export class CreateReceiptResolver {
@@ -19,25 +21,27 @@ export class CreateReceiptResolver {
   ) {
     const creatorId = ctx.req.session!.userId;
 
-    const receipt = await Receipt.create({
-      ...receiptInput,
-      billId,
-      creatorId,
-    }).save();
-
-    console.log('====== RECEIPT ', receipt);
+    const receipt = await getConnection()
+      .getRepository(Receipt)
+      .save({
+        ...receiptInput,
+        billId,
+        creatorId,
+      });
 
     // TODO: Make this into a transaction with the receipt just in case.
     await Promise.all(
       splitsInput.map(split => {
-        return ReceiptSplit.create({
-          ...split,
-          receiptId: receipt.id,
-          currency: receiptInput.currency,
-        }).save();
+        return getConnection()
+          .getRepository(ReceiptSplit)
+          .save({
+            ...split,
+            receiptId: receipt.id,
+            currency: receiptInput.currency,
+          });
       })
     );
 
-    return receipt;
+    return plainToClass(Receipt, receipt);
   }
 }
