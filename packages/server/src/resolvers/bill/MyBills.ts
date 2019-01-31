@@ -2,14 +2,13 @@ import { Resolver, Ctx, Authorized, Query } from 'type-graphql';
 import { MyContext } from 'src/types/Context';
 import { Bill } from '../../entity/Bill';
 import { BillUser } from '../../entity/BillUser';
-// import { BillUser } from '../../entity/BillUser';
 
 @Resolver()
 export class MyBillsResolver {
   @Authorized()
   @Query(() => [Bill])
   async myBills(@Ctx() ctx: MyContext) {
-    const bill3 = await BillUser.find({
+    const bills = await BillUser.find({
       join: {
         alias: 'billUser',
         innerJoinAndSelect: {
@@ -22,6 +21,12 @@ export class MyBillsResolver {
     });
 
     // @ts-ignore
-    return bill3.map(bu => bu.__bill__);
+    const billsMap: Bill[] = bills.map(bu => bu.__bill__);
+
+    // TODO: Figure out how to order within the query;
+    return billsMap.sort((a: Bill, b: Bill) => {
+      // @ts-ignore
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    });
   }
 }

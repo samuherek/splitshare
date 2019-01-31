@@ -31,6 +31,11 @@ export const MY_BILLS_QUERY = gql`
         displayName
         photoUrl
       }
+
+      invites {
+        id
+        email
+      }
     }
   }
 `;

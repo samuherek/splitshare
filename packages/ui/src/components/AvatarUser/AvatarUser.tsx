@@ -10,7 +10,7 @@ const AvatarStyled: any = styled.span`
   border-radius: 30px;
   background: #eee;
   border: none;
-  cursor: pointer;
+  /* cursor: pointer; */
   font: inherit;
   text-transform: uppercase;
 `;
@@ -18,11 +18,17 @@ const AvatarStyled: any = styled.span`
 interface IProps {
   name: string | null;
   url?: string | null;
+  style?: React.CSSProperties;
 }
 
-export const AvatarUser: React.FC<IProps> = ({ name, url, ...props }) => {
+export const AvatarUser: React.FC<IProps> = ({
+  name,
+  url,
+  style,
+  ...props
+}) => {
   return (
-    <AvatarStyled {...props}>
+    <AvatarStyled style={style} {...props}>
       {url ? <img src={url} /> : <span>{name ? name.substr(0, 1) : ''}</span>}
     </AvatarStyled>
   );

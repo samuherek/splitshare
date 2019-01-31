@@ -29,7 +29,7 @@ class App extends React.Component {
                 </AuthLayout>
                 <DashLayout path="/">
                   <Dashboard path="/" />
-                  <Bill path="/:billId" />
+                  <Bill path="/:billParam" />
                   <NotFound default={true} />
                 </DashLayout>
               </Router>

@@ -16,6 +16,7 @@ interface IProps extends ICardLinkProps {
   users: User[];
   children?: null;
   icon?: string | null;
+  invites: Partial<User>[];
 }
 
 const CardLinStyled = styled(CardLink)`
@@ -27,7 +28,7 @@ const CardLinStyled = styled(CardLink)`
 `;
 
 const MetaStyled = styled.span`
-  margin-bottom: 15px;
+  margin-bottom: 35jpx;
   opacity: 0.5;
   font-size: 10px;
   text-transform: uppercase;
@@ -50,10 +51,11 @@ export const CardBillBig: React.FC<IProps> = ({
   updatedAt,
   users,
   icon,
+  invites,
 }) => (
   <CardLinStyled to={to}>
-    <h4>
-      <span>{icon}</span>
+    <h4 style={{ display: 'inline-flex', fontSize: 22, alignItems: 'center' }}>
+      <span style={{ marginRight: 10, fontSize: 32 }}>{icon}</span>
       {title}
     </h4>
     <MetaStyled style={{}}>
@@ -65,6 +67,24 @@ export const CardBillBig: React.FC<IProps> = ({
       {users.map(user => (
         <AvatarUser key={user.id} name={user.email} url={user.photoUrl} />
       ))}
+      {invites.length > 0 ? (
+        <div style={{ display: 'flex', position: 'relative', height: 30 }}>
+          {invites.map((invite, i) => (
+            <AvatarUser
+              key={invite.id}
+              style={{
+                background: '#f7f7f7',
+                border: '2px solid white',
+                color: 'rgba(55,52,47,0.2)',
+                position: 'absolute',
+                left: i * 20,
+                zIndex: 10 - i,
+              }}
+              name={invite.email || ''}
+            />
+          ))}
+        </div>
+      ) : null}
     </AvatarsWrapStyled>
   </CardLinStyled>
 );

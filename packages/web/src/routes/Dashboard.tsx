@@ -16,6 +16,7 @@ import SvgSplit from 'src/components/icons/Split';
 import MenuProfile from '../components/MenuProfile';
 import MenuInvites from '../components/MenuInvites';
 import MyBillsQueryContainer from '../graphql/MyBillsQuery';
+import convertSpaceToDash from '../utils/convertSpaceToDash';
 
 interface IState {
   showBillNewOverlay: boolean;
@@ -66,7 +67,7 @@ const ScrollWrapStyled = styled.div`
 
   & > a {
     margin-right: 25px;
-    width: 200px;
+    width: 280px;
   }
 `;
 
@@ -120,9 +121,10 @@ export default class Dashboard extends React.PureComponent<
                         key={bill.id}
                         title={bill.name}
                         users={bill.users}
-                        to={`/${bill.id}`}
+                        to={`/${convertSpaceToDash(bill.name)}-${bill.id}`}
                         updatedAt={bill.updatedAt}
                         icon={bill.icon}
+                        invites={bill.invites}
                       />
                     ))}
                   </ScrollWrapStyled>
