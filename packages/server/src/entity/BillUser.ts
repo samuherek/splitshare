@@ -31,11 +31,11 @@ export class BillUser extends BaseEntity {
   @PrimaryColumn()
   billId: string;
 
-  @ManyToOne(() => User, user => user.billConnection, { primary: true })
+  @ManyToOne(() => User, user => user.billCon, { primary: true })
   @JoinColumn({ name: 'userId' })
   user: Promise<User>;
 
-  @ManyToOne(() => Bill, bill => bill.userConnection, { primary: true })
+  @ManyToOne(() => Bill, bill => bill.userCon, { primary: true })
   @JoinColumn({ name: 'billId' })
   bill: Promise<Bill>;
 }

@@ -2,8 +2,8 @@ import { Resolver, Ctx, Authorized, Mutation, Args } from 'type-graphql';
 import { MyContext } from '../../types/Context';
 import { BillInvite } from '../../entity/BillInvite';
 
-import { getConnection } from 'typeorm';
 import AcceptBillInviteArgs from './acceptBillInvite/AcceptBillInviteArgs';
+import { BillUser } from '../../entity/BillUser';
 
 @Resolver(BillInvite)
 export class AcceptBillInviteResolver {
@@ -14,26 +14,23 @@ export class AcceptBillInviteResolver {
     @Ctx() ctx: MyContext
   ) {
     const billInvite = await BillInvite.findOne({
-      where: { id },
+      where: {
+        id,
+      },
     });
 
     if (!billInvite) {
       throw new Error('No such invite');
     }
 
-    const updatePromise = getConnection().query(
-      `UPDATE bill SET "usersIds" = array_append("usersIds", $1) WHERE bill.id = $2;`,
-      [ctx.req.session!.userId, billInvite.billId]
-    );
+    const billUserPrs = BillUser.create({
+      billId: billInvite.billId,
+      userId: ctx.req.session!.userId,
+    }).save();
 
-    const invitePromise = getConnection()
-      .createQueryBuilder()
-      .update(BillInvite)
-      .set({ pending: false })
-      .where('id = :id', { id: billInvite.id })
-      .execute();
+    const invitePrs = BillInvite.delete({ id });
 
-    await Promise.all([updatePromise, invitePromise]);
+    await Promise.all([billUserPrs, invitePrs]);
 
     return true;
   }

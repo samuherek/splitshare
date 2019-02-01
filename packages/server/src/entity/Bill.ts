@@ -44,8 +44,8 @@ export class Bill extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   deletedAt: Date;
 
-  @OneToMany(() => BillUser, billUser => billUser.bill)
-  userConnection: Promise<BillUser[]>;
+  @OneToMany(() => BillUser, billUser => billUser.bill, { onDelete: 'CASCADE' })
+  userCon: Promise<BillUser[]>;
 
   @OneToMany(() => Receipt, receipt => receipt.billId)
   receiptsCon: Promise<Receipt[]>;
@@ -61,7 +61,8 @@ export class Bill extends BaseEntity {
   @Field(() => [Receipt])
   receipts: Promise<Receipt[]>;
 
-  @Field(() => [BillInvite])
+  // TODO: Find out why this doesn't return [] but rather "null"
+  @Field(() => [BillInvite], { defaultValue: [] })
   async invites(@Ctx() { billInvitesLoader }: MyContext): Promise<
     BillInvite[]
   > {

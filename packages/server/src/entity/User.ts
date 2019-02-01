@@ -43,7 +43,7 @@ export class User extends BaseEntity {
   createdAt: Date;
 
   @OneToMany(() => BillUser, billUser => billUser.user)
-  billConnection: Promise<BillUser[]>;
+  billCon: Promise<BillUser[]>;
 
   @OneToMany(() => Receipt, receipt => receipt.paidBy)
   paidReceipts: Promise<Receipt[]>;

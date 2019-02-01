@@ -12,6 +12,7 @@ import {
   AvatarUser,
   Button,
   DropdownEmoji,
+  ButtonBase,
 } from '@splitshare/ui';
 import PageModal, { PageModalInner } from '../components/PageModal';
 import InviteOverlay from './bill/InviteOverlay';
@@ -19,6 +20,7 @@ import BillQueryContainer from '../graphql/BillQuery';
 import ReceiptsQueryContainer from '../graphql/ReceiptsQuery';
 import UpdateBillMutationContainer from '../graphql/UpdateBillMutation';
 import getUUIDFromUrl from '../utils/getUUIDFromUrl';
+import RemoveBillMutationContainer from '../graphql/RemoveBillMutation';
 
 interface IProps extends RouteComponentProps {
   billParam: string;
@@ -86,7 +88,7 @@ export default class Bill extends React.PureComponent<IProps, IState> {
   };
 
   public render() {
-    const { billParam } = this.props;
+    const { billParam, navigate } = this.props;
     const billId = getUUIDFromUrl(billParam);
 
     if (!billId) {
@@ -113,39 +115,59 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                 {bill ? (
                   <>
                     <BillInfoStyled>
-                      <UpdateBillMutationContainer billId={billId}>
-                        {({ updateBillMutation }) => (
-                          <DropdownEmoji
-                            onSelect={value => {
-                              console.log(value);
-                              updateBillMutation({
-                                variables: { billId, icon: value },
-                              });
-                            }}
-                            render={(toggleDropdown, isOpen) => (
-                              <IconStyled
-                                style={{ fontSize: 50 }}
-                                onClick={toggleDropdown}
-                                isOpen={isOpen}
-                              >
-                                {bill.icon ? (
-                                  bill.icon
-                                ) : (
-                                  <span
-                                    style={{
-                                      opacity: 0.25,
-                                      textAlign: 'center',
-                                      textTransform: 'uppercase',
-                                    }}
-                                  >
-                                    {bill.name.substr(0, 1)}
-                                  </span>
-                                )}
-                              </IconStyled>
-                            )}
-                          />
-                        )}
-                      </UpdateBillMutationContainer>
+                      <div>
+                        <UpdateBillMutationContainer billId={billId}>
+                          {({ updateBillMutation }) => (
+                            <DropdownEmoji
+                              onSelect={value => {
+                                console.log(value);
+                                updateBillMutation({
+                                  variables: { billId, icon: value },
+                                });
+                              }}
+                              render={(toggleDropdown, isOpen) => (
+                                <IconStyled
+                                  style={{ fontSize: 50 }}
+                                  onClick={toggleDropdown}
+                                  isOpen={isOpen}
+                                >
+                                  {bill.icon ? (
+                                    bill.icon
+                                  ) : (
+                                    <span
+                                      style={{
+                                        opacity: 0.25,
+                                        textAlign: 'center',
+                                        textTransform: 'uppercase',
+                                      }}
+                                    >
+                                      {bill.name.substr(0, 1)}
+                                    </span>
+                                  )}
+                                </IconStyled>
+                              )}
+                            />
+                          )}
+                        </UpdateBillMutationContainer>
+                        <RemoveBillMutationContainer id={billId}>
+                          {({ removeBillMutation }) => (
+                            <ButtonBase
+                              onClick={async () => {
+                                try {
+                                  await removeBillMutation();
+                                  if (navigate) {
+                                    navigate('/');
+                                  }
+                                } catch (err) {
+                                  console.log(err);
+                                }
+                              }}
+                            >
+                              Remove
+                            </ButtonBase>
+                          )}
+                        </RemoveBillMutationContainer>
+                      </div>
                       <h2 style={{ fontSize: 28 }}>{bill.name}</h2>
                       <AvatarWrapStyled>
                         {bill.users.map(user => {
@@ -155,7 +177,7 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                               style={{
                                 alignItems: 'center',
                                 display: 'flex',
-                                marginBottom: 7,
+                                marginBottom: 15,
                               }}
                             >
                               <AvatarUser
@@ -167,35 +189,37 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                             </div>
                           );
                         })}
-                        <span
-                          style={{
-                            display: 'block',
-                            fontSize: 12,
-                            letterSpacing: 0.3,
-                            margin: '15px 0',
-                            opacity: 0.5,
-                            textTransform: 'uppercase',
-                          }}
-                        >
-                          Invites
-                        </span>
-                        {bill.invites.map(invite => {
-                          return (
-                            <div
-                              key={invite.id}
-                              style={{
-                                alignItems: 'center',
-                                display: 'flex',
-                                marginBottom: 7,
-                              }}
-                            >
-                              <AvatarUser name={invite.email} />
-                              <span style={{ marginLeft: 10 }}>
-                                {invite.email}
-                              </span>
-                            </div>
-                          );
-                        })}
+                        {bill.invites &&
+                          bill.invites.map(invite => {
+                            return (
+                              <div
+                                key={invite.id}
+                                style={{
+                                  alignItems: 'center',
+                                  display: 'flex',
+                                  marginBottom: 15,
+                                  opacity: 0.35,
+                                }}
+                              >
+                                <AvatarUser name={invite.email} />
+                                <span style={{ marginLeft: 10 }}>
+                                  {invite.email}
+                                </span>
+                                <span
+                                  style={{
+                                    background: 'rgba(55,53,47,0.18)',
+                                    borderRadius: 3,
+                                    display: 'inline-block',
+                                    fontSize: 11,
+                                    marginLeft: 10,
+                                    padding: '3px 6px',
+                                  }}
+                                >
+                                  pending
+                                </span>
+                              </div>
+                            );
+                          })}
                       </AvatarWrapStyled>
                     </BillInfoStyled>
                     <ReceiptsStyled>

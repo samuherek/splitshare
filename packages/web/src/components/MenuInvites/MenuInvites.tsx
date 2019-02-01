@@ -3,6 +3,8 @@ import { styled, ButtonBase } from '@splitshare/ui';
 import SvgNotification from '../../components/icons/Notification';
 import { distanceInWordsStrict } from 'date-fns';
 import MyPendingInvitesQueryContainer from '../../graphql/MyPendingInvitesQuery';
+import AcceptBillInviteMutationContainer from '../../graphql/AcceptBillInviteMutation';
+import RejectBillInviteMutationContainer from '../../graphql/RejectBillInviteMutation';
 
 interface IState {
   isOpen: boolean;
@@ -146,7 +148,32 @@ class MenuInvites extends React.PureComponent<{}, IState> {
                           )}
                         </span>
                       </div>
-                      <AcceptBtnStyled>Accept / Reject</AcceptBtnStyled>
+                      <AcceptBillInviteMutationContainer id={i.id}>
+                        {({ acceptBillInviteMutation, loading }) => (
+                          <AcceptBtnStyled
+                            disabled={loading}
+                            onClick={async () => {
+                              const res = await acceptBillInviteMutation();
+                              console.log(res);
+                            }}
+                          >
+                            Accept
+                          </AcceptBtnStyled>
+                        )}
+                      </AcceptBillInviteMutationContainer>
+                      <RejectBillInviteMutationContainer id={i.id}>
+                        {({ rejectBillInviteMutation, loading }) => (
+                          <AcceptBtnStyled
+                            disabled={loading}
+                            onClick={async () => {
+                              const res = await rejectBillInviteMutation();
+                              console.log(res);
+                            }}
+                          >
+                            Reject
+                          </AcceptBtnStyled>
+                        )}
+                      </RejectBillInviteMutationContainer>
                     </InviteWrapStyled>
                   ))}
                 </ContentMenuStyled>

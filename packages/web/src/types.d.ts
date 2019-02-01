@@ -76,7 +76,7 @@ export interface Bill {
 
   receipts: Receipt[];
 
-  invites: BillInvite[];
+  invites?: Maybe<BillInvite[]>;
 }
 
 export interface User {
@@ -158,6 +158,8 @@ export interface Mutation {
 
   createBillInvite: boolean;
 
+  rejectBillInvite: boolean;
+
   removeBillInvite: boolean;
 
   createReceipt: Receipt;
@@ -212,6 +214,9 @@ export interface CreateBillInviteMutationArgs {
   billId: string;
 
   email: string;
+}
+export interface RejectBillInviteMutationArgs {
+  id: string;
 }
 export interface RemoveBillInviteMutationArgs {
   id: string;

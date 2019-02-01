@@ -14,9 +14,12 @@ const batchBillInvites = async (keys: string[]) => {
   const billIdToBillInvites: { [key: string]: BillInvite[] } = {};
 
   billInvites.forEach(bi => {
+    // @ts-ignore
     if (bi.billId in billIdToBillInvites) {
+      // @ts-ignore
       billIdToBillInvites[bi.billId].push(bi);
     } else {
+      // @ts-ignore
       billIdToBillInvites[bi.billId] = [bi];
     }
   });

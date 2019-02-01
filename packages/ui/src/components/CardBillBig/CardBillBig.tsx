@@ -9,6 +9,11 @@ interface User {
   email: string;
   photoUrl?: string | null;
 }
+interface BillInvite {
+  id: string;
+  email: string;
+  photoUrl?: string | null;
+}
 
 interface IProps extends ICardLinkProps {
   title: string;
@@ -16,7 +21,7 @@ interface IProps extends ICardLinkProps {
   users: User[];
   children?: null;
   icon?: string | null;
-  invites: Partial<User>[];
+  invites?: Partial<BillInvite>[] | null;
 }
 
 const CardLinStyled = styled(CardLink)`
@@ -39,6 +44,7 @@ const MetaStyled = styled.span`
 const AvatarsWrapStyled = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 25px;
 
   & > span {
     margin-right: 10px;
@@ -67,7 +73,7 @@ export const CardBillBig: React.FC<IProps> = ({
       {users.map(user => (
         <AvatarUser key={user.id} name={user.email} url={user.photoUrl} />
       ))}
-      {invites.length > 0 ? (
+      {invites && invites.length > 0 ? (
         <div style={{ display: 'flex', position: 'relative', height: 30 }}>
           {invites.map((invite, i) => (
             <AvatarUser

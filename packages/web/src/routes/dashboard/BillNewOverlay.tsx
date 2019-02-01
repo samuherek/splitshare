@@ -51,7 +51,7 @@ class BillNewOverlay extends React.PureComponent<IProps, IState> {
 
     return (
       <WrapStyled>
-        <h3>Create new bill</h3>
+        {page === 0 ? <h3>Create new bill</h3> : <h3>Invite to the bill</h3>}
         {page === 0 ? (
           <CreateBillMutationContainer name={name}>
             {({ createBillMutation, loading }) => (
