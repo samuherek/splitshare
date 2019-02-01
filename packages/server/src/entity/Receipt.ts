@@ -65,7 +65,7 @@ export class Receipt extends BaseEntity {
   @ManyToOne(() => Bill, bill => bill.receiptsCon)
   bill: Promise<Bill>;
 
-  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receiptCon)
+  @OneToMany(() => ReceiptSplit, receiptSplit => receiptSplit.receipt)
   splitsCon: Promise<ReceiptSplit[]>;
 
   @Field(() => User)

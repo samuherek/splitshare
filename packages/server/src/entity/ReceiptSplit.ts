@@ -32,7 +32,7 @@ export class ReceiptSplit extends BaseEntity {
   userId: string;
 
   @ManyToOne(() => Receipt, receipt => receipt.splits)
-  receiptCon: Promise<Receipt>;
+  receipt: Promise<Receipt>;
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.splits)

@@ -1,12 +1,35 @@
 import { createConnection } from 'typeorm';
+// import { DefaultNamingStrategy } from 'typeorm/naming-strategy/DefaultNamingStrategy';
+// import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyInterface';
+// import { snakeCase } from 'typeorm/util/StringUtils';
+
+// class CustomNamingStrategy extends DefaultNamingStrategy
+//   implements NamingStrategyInterface {
+//   tableName(targetName: string, userSpecifiedName: string): string {
+//     return userSpecifiedName ? userSpecifiedName : snakeCase(targetName) + 's';
+//   }
+
+//   columnName(
+//     propertyName: string,
+//     _: string,
+//     embeddedPrefixes: string[]
+//   ): string {
+//     return snakeCase(embeddedPrefixes.concat(propertyName).join('_'));
+//   }
+
+//   columnNameCustomized(customName: string): string {
+//     return customName;
+//   }
+
+//   relationName(propertyName: string): string {
+//     return snakeCase(propertyName);
+//   }
+// }
 
 export const createTypeormConn = async () => {
   let retries = 5;
   while (retries) {
     try {
-      // console.log('in here');
-      // console.log(getConnectionOptions);
-      // const config = await getConnectionOptions();
       return createConnection({
         name: 'default',
         type: 'postgres',
@@ -20,6 +43,7 @@ export const createTypeormConn = async () => {
         entities: ['src/entity/**/*.*'],
         migrations: ['src/migration/**/*.*'],
         subscribers: ['src/subscriber/**/*.*'],
+        // namingStrategy: new CustomNamingStrategy(),
         // dropSchema: true,
         cli: {
           entitiesDir: 'src/entity',
