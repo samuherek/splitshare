@@ -5,6 +5,7 @@ import { gql } from 'apollo-boost';
 
 import { CreateBillMutationArgs, Bill } from '../types';
 import { BILL_META_FRAGMENT } from './fragments/billFragments';
+import { MY_BILLS_QUERY } from './MyBillsQuery';
 
 interface IRenderProps {
   loading: boolean;
@@ -32,6 +33,11 @@ const CreateBillMutationContainer: React.FunctionComponent<IContainerProps> = ({
   <Mutation<Bill, CreateBillMutationArgs>
     mutation={CREATE_BILL_MUTATION}
     variables={{ name }}
+    refetchQueries={[
+      {
+        query: MY_BILLS_QUERY,
+      },
+    ]}
   >
     {(createBillMutation, other) => {
       if (other.error) {

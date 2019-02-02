@@ -3,6 +3,8 @@ import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { AcceptBillInviteMutationArgs } from '../types';
+import { MY_PENDING_INVITES_QUERY } from './MyPendingInvitesQuery';
+import { MY_BILLS_QUERY } from './MyBillsQuery';
 
 interface IRenderProps {
   loading: boolean;
@@ -26,6 +28,14 @@ const AcceptBillInviteMutationContainer: React.FunctionComponent<
   <Mutation<boolean, AcceptBillInviteMutationArgs>
     mutation={ACCEPT_BILL_INVITE_MUTATION}
     variables={{ id }}
+    refetchQueries={[
+      {
+        query: MY_PENDING_INVITES_QUERY,
+      },
+      {
+        query: MY_BILLS_QUERY,
+      },
+    ]}
   >
     {(acceptBillInviteMutation, other) => {
       if (other.error) {
