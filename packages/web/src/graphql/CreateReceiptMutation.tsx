@@ -8,6 +8,7 @@ import {
   ReceiptInput,
   Receipt,
 } from '../types';
+import { RECEIPTS_QUERY } from './ReceiptsQuery';
 
 interface IRenderProps {
   loading: boolean;
@@ -43,6 +44,15 @@ const CreateReceiptMutationContainer: React.FunctionComponent<
   <Mutation<Receipt, CreateReceiptMutationArgs>
     mutation={CREATE_RECEIPT_MUTATION}
     variables={{ billId, receiptInput, splitsInput }}
+    refetchQueries={[
+      {
+        query: RECEIPTS_QUERY,
+        variables: {
+          billId,
+          where: { limit: 6, offset: 0 },
+        },
+      },
+    ]}
   >
     {(createReceiptMutation, { error, loading }) => {
       if (error) {

@@ -21,6 +21,7 @@ import ReceiptsQueryContainer from '../graphql/ReceiptsQuery';
 import UpdateBillMutationContainer from '../graphql/UpdateBillMutation';
 import getUUIDFromUrl from '../utils/getUUIDFromUrl';
 import RemoveBillMutationContainer from '../graphql/RemoveBillMutation';
+import ReceiptNewForm from '../components/ReceiptNewForm';
 
 interface IProps extends RouteComponentProps {
   billParam: string;
@@ -28,6 +29,7 @@ interface IProps extends RouteComponentProps {
 
 interface IState {
   showInviteOverlay: boolean;
+  showReceiptNewOverlay: boolean;
 }
 
 const BillWrapStyled = styled.div`
@@ -50,6 +52,12 @@ const AvatarWrapStyled = styled.div`
 `;
 
 const ReceiptsStyled = styled.div``;
+
+const ReceiptsToolbarStyled = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+`;
 
 const IconStyled = styled.span<{ isOpen: boolean }>`
   display: block;
@@ -81,10 +89,17 @@ export default class Bill extends React.PureComponent<IProps, IState> {
 
   state = {
     showInviteOverlay: false,
+    showReceiptNewOverlay: false,
   };
 
   toggleInviteOverlay = () => {
     this.setState(state => ({ showInviteOverlay: !state.showInviteOverlay }));
+  };
+
+  toggleReceiptNewOverlay = () => {
+    this.setState(state => ({
+      showReceiptNewOverlay: !state.showReceiptNewOverlay,
+    }));
   };
 
   public render() {
@@ -95,7 +110,7 @@ export default class Bill extends React.PureComponent<IProps, IState> {
       return <Redirect from="/billParam" to="/" noThrow />;
     }
 
-    const { showInviteOverlay } = this.state;
+    const { showInviteOverlay, showReceiptNewOverlay } = this.state;
 
     return (
       <LayoutPage>
@@ -223,36 +238,67 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                       </AvatarWrapStyled>
                     </BillInfoStyled>
                     <ReceiptsStyled>
-                      <ReceiptsQueryContainer billId={billId}>
-                        {({ receipts }) => {
-                          if (!receipts) {
-                            return null;
-                          }
-
-                          return receipts.map(r => (
-                            <ReceiptStyled key={r.id}>
-                              <span>
-                                {r.total.toLocaleString(undefined, {
-                                  maximumFractionDigits: 2,
-                                })}{' '}
-                                {getCurrencySymbol(r.currency)}
-                              </span>
-                              <span>
-                                {distanceInWordsStrict(
-                                  new Date(),
-                                  Date.parse(r.createdAt),
-                                  {
-                                    addSuffix: true,
-                                  }
-                                )}
-                              </span>
-                              <AvatarUser
-                                name={r.paidBy.displayName || r.paidBy.email}
-                              />
-                            </ReceiptStyled>
-                          ));
+                      <ReceiptsToolbarStyled
+                        style={{
+                          opacity: showReceiptNewOverlay ? 0.25 : 1,
+                          pointerEvents: showReceiptNewOverlay
+                            ? 'none'
+                            : 'auto',
                         }}
-                      </ReceiptsQueryContainer>
+                      >
+                        <span>Order by newest</span>
+                        <ButtonBase
+                          style={{ marginLeft: 'auto' }}
+                          onClick={this.toggleReceiptNewOverlay}
+                        >
+                          + Add Receipt
+                        </ButtonBase>
+                      </ReceiptsToolbarStyled>
+                      {showReceiptNewOverlay ? (
+                        <ReceiptNewForm
+                          billId={billId}
+                          onCancel={this.toggleReceiptNewOverlay}
+                        />
+                      ) : (
+                        <ReceiptsQueryContainer billId={billId}>
+                          {({ receipts }) => {
+                            if (!receipts) {
+                              return null;
+                            }
+
+                            if (receipts.length === 0) {
+                              return (
+                                <div>
+                                  <span>You have no receipts</span>
+                                </div>
+                              );
+                            }
+
+                            return receipts.map(r => (
+                              <ReceiptStyled key={r.id}>
+                                <span>
+                                  {r.total.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}{' '}
+                                  {getCurrencySymbol(r.currency)}
+                                </span>
+                                <span>
+                                  {distanceInWordsStrict(
+                                    new Date(),
+                                    Date.parse(r.createdAt),
+                                    {
+                                      addSuffix: true,
+                                    }
+                                  )}
+                                </span>
+                                <AvatarUser
+                                  name={r.paidBy.displayName || r.paidBy.email}
+                                />
+                              </ReceiptStyled>
+                            ));
+                          }}
+                        </ReceiptsQueryContainer>
+                      )}
                     </ReceiptsStyled>
                   </>
                 ) : null}

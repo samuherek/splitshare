@@ -13,6 +13,7 @@ export interface IBaseButtonProps {
   type?: string;
   withNewTab?: boolean;
   className?: string;
+  style?: Partial<CSSStyleDeclaration>;
 }
 
 export interface IButtonHTMLProps {
@@ -91,6 +92,7 @@ export class ButtonBase extends React.PureComponent<IBaseButtonProps, {}> {
       className,
       disabled,
       to,
+      style = {},
       ...other
     } = this.props;
 
@@ -128,6 +130,7 @@ export class ButtonBase extends React.PureComponent<IBaseButtonProps, {}> {
         // href={component === 'a' && other.href ? other.href : null}
         href={other.href ? other.href : null}
         target={other && other.withNewTab ? '_blank' : null}
+        style={style}
         {...buttonProps}
       >
         {children}
