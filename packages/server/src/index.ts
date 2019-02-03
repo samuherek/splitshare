@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 require('dotenv-safe').config();
 import { ApolloServer } from 'apollo-server-express';
-import { buildSchema } from 'type-graphql';
 import * as connectRedis from 'connect-redis';
 import * as cors from 'cors';
 import * as express from 'express';
@@ -18,6 +17,7 @@ import { confirmEmail } from './routes/confirmEmail';
 import { billLoader } from './loaders/billLoader';
 import { billInvitesLoader } from './loaders/billInvitesLoader';
 import { receiptSplitsLoader } from './loaders/receiptSplitsLoader';
+import { createSchema } from './createSchema';
 
 const RedisStore = connectRedis(session);
 
@@ -32,12 +32,7 @@ const startServer = async () => {
   const app = express();
 
   const server = new ApolloServer({
-    schema: (await buildSchema({
-      resolvers: [__dirname + '/resolvers/**/**.ts'],
-      authChecker: ({ context }) => {
-        return context.req.session && context.req.session.userId; // or false if access denied
-      },
-    })) as GraphQLSchema | undefined,
+    schema: (await createSchema()) as GraphQLSchema | undefined,
     context: ({ req, res }: any) => ({
       req,
       res,
