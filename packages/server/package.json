@@ -30,7 +30,7 @@
     "start": "ts-node-dev --respawn src/index.ts"
   },
   "dependencies": {
-    "apollo-server-express": "2.3.3",
+    "apollo-server-express": "2.3.2",
     "bcrypt": "3.0.3",
     "class-transformer": "0.2.0",
     "class-validator": "0.9.1",
