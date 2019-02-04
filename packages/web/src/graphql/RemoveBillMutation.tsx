@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { RemoveBillMutationArgs } from '../types';
+import { MY_BILLS_QUERY } from './MyBillsQuery';
 
 interface IRenderProps {
   loading: boolean;
@@ -26,6 +27,7 @@ const RejectBillInviteMutationContainer: React.FunctionComponent<
   <Mutation<boolean, RemoveBillMutationArgs>
     mutation={REMOVE_BILL_MUTATION}
     variables={{ id }}
+    refetchQueries={[{ query: MY_BILLS_QUERY }]}
   >
     {(removeBillMutation, other) => {
       if (other.error) {

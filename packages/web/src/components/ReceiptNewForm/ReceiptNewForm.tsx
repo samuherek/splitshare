@@ -80,7 +80,7 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
                         ev: React.FormEvent<HTMLFormElement>
                       ) => {
                         ev.preventDefault();
-                        console.log(me!.id, values);
+                        // console.log(me!.id, values);
                         await createReceiptMutation();
                         onCancel();
                       }}
