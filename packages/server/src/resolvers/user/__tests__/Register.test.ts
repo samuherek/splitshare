@@ -21,7 +21,7 @@ const REGISTER_MUTATION = `
   }
 `;
 
-describe('Register', () => {
+describe.skip('Register', () => {
   it('successfully create a user', async () => {
     const user = {
       email: faker.internet.email(),
