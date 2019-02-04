@@ -6,6 +6,7 @@ import { Bill } from '../entity/Bill';
 import { billUsersLoader } from '../loaders/billUsersLoader';
 import { billInvitesLoader } from '../loaders/billInvitesLoader';
 import { receiptSplitsLoader } from '../loaders/receiptSplitsLoader';
+import { receiptLoader } from '../loaders/receiptLoader';
 
 export interface MyContext {
   req: Request;
@@ -15,6 +16,7 @@ export interface MyContext {
   billLoader: DataLoader<string, Bill>;
   billUsersLoader: ReturnType<typeof billUsersLoader>;
   billInvitesLoader: ReturnType<typeof billInvitesLoader>;
+  receiptLoader: ReturnType<typeof receiptLoader>;
   receiptSplitsLoader: ReturnType<typeof receiptSplitsLoader>;
   url: string;
 }

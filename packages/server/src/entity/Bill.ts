@@ -58,8 +58,10 @@ export class Bill extends BaseEntity {
     return billUsersLoader.load(this.id);
   }
 
-  @Field(() => [Receipt])
-  receipts: Promise<Receipt[]>;
+  @Field(() => [Receipt], { defaultValue: [] })
+  async receipts(@Ctx() { receiptLoader }: MyContext): Promise<Receipt[]> {
+    return receiptLoader.load(this.id);
+  }
 
   // TODO: Find out why this doesn't return [] but rather "null"
   @Field(() => [BillInvite], { defaultValue: [] })

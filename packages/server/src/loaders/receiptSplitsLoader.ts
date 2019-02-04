@@ -11,7 +11,7 @@ const batchReceiptSplits = async (receiptIds: string[]) => {
 
   const receiptSplitsMap: { [key: string]: ReceiptSplit[] } = {};
 
-  console.log(receiptSplits);
+  // console.log(receiptSplits);
 
   receiptSplits.forEach(rc => {
     if (rc.receiptId in receiptSplitsMap) {

@@ -18,6 +18,7 @@ import { billLoader } from './loaders/billLoader';
 import { billInvitesLoader } from './loaders/billInvitesLoader';
 import { receiptSplitsLoader } from './loaders/receiptSplitsLoader';
 import { createSchema } from './createSchema';
+import { receiptLoader } from './loaders/receiptLoader';
 
 const RedisStore = connectRedis(session);
 
@@ -41,6 +42,7 @@ const startServer = async () => {
       billLoader: billLoader(),
       billUsersLoader: billUsersLoader(),
       billInvitesLoader: billInvitesLoader(),
+      receiptLoader: receiptLoader(),
       receiptSplitsLoader: receiptSplitsLoader(),
       url: req.protocol + '://' + req.get('host'),
     }),
