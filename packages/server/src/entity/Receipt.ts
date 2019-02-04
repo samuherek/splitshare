@@ -46,6 +46,10 @@ export class Receipt extends BaseEntity {
   currency: string;
 
   @Field()
+  @Column()
+  paidAt: Date;
+
+  @Field()
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;
 

@@ -4,6 +4,7 @@ import { Button, styled, TextField } from '@splitshare/ui';
 
 import MeQueryContainer from '../../graphql/MeQuery';
 import CreateReceiptMutationContainer from '../../graphql/CreateReceiptMutation';
+import { CURRENCIES } from '../../constants';
 
 interface IProps {
   onCancel: () => void;
@@ -80,7 +81,6 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
                         ev: React.FormEvent<HTMLFormElement>
                       ) => {
                         ev.preventDefault();
-                        // console.log(me!.id, values);
                         await createReceiptMutation();
                         onCancel();
                       }}
@@ -104,15 +104,18 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
                           autoComplete={false}
                           onChange={handleChange}
                         />
-                        <TextField
-                          label="Currency"
-                          name="currency"
-                          id="currency"
-                          value={values.currency}
-                          type="text"
-                          autoComplete={false}
+                        <select
                           onChange={handleChange}
-                        />
+                          value={values.currency}
+                          id="currency"
+                          name="currency"
+                        >
+                          {CURRENCIES.map(c => (
+                            <option key={c} value={c}>
+                              {c}
+                            </option>
+                          ))}
+                        </select>
                         <TextField
                           label="Category"
                           name="category"

@@ -16,6 +16,9 @@ export class ReceiptInput implements Partial<Receipt> {
   country: string;
 
   @Field()
+  paidAt: Date;
+
+  @Field()
   paidById: string;
 
   @Field()
