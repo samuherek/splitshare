@@ -28,10 +28,7 @@ const LabelStyled = styled.label<ILabelStyled>`
   transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
     transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
 
-  transform: ${({ shrink }) => {
-    if (shrink) return 'translate(0, 1.5px) scale(0.75)';
-    return 'translate(0, 24px) scale(1)';
-  }};
+  transform: translate(0, 1.5px) scale(0.75);
 `;
 
 const FieldLabel = ({

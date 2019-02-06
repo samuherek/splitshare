@@ -122,7 +122,11 @@ class ReceiptNewOverlay extends React.PureComponent<IProps, IState> {
                     <CreateReceiptMutationContainer
                       billId={billId}
                       splitsInput={[{ userId: me!.id, value: values.total }]}
-                      receiptInput={{ ...values, paidById: me!.id }}
+                      receiptInput={{
+                        ...values,
+                        paidAt: new Date(),
+                        paidById: me!.id,
+                      }}
                     >
                       {({ createReceiptMutation, loading }) => (
                         <FormStyled

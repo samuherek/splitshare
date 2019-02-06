@@ -20,6 +20,7 @@ const WrapStyled = styled('div')<IWrapStyled>`
   position: relative;
   width: 100%;
   margin-top: 16px;
+  background: #f3f3f3;
 
   ${({ margin }) =>
     margin &&
@@ -33,8 +34,6 @@ const WrapStyled = styled('div')<IWrapStyled>`
     bottom: 0;
     content: '\00a0';
     position: absolute;
-    // transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    // border-bottom: 1px solid rgba(0, 0, 0, 0.42);
     pointer-events: none;
   }
 
@@ -44,9 +43,6 @@ const WrapStyled = styled('div')<IWrapStyled>`
     bottom: 0;
     content: '';
     position: absolute;
-    // width: ${({ focused }) => (focused ? '100%' : '0')};
-    // transition: width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-    // border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
     pointer-events: none;
   }
 `;

@@ -24,6 +24,7 @@ const ControlWrapStyled = styled.div<IControlWrapStyled>`
   display: inline-flex;
   position: relative;
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  margin-bottom: 8px;
 `;
 
 class TextField extends React.PureComponent<ITextFiledProps, State> {
@@ -52,11 +53,10 @@ class TextField extends React.PureComponent<ITextFiledProps, State> {
       required,
       value,
       variant,
+      placeholder,
       ...other
     } = this.props;
     const { focused } = this.state;
-
-    const showPlaceholder = InputLabelProps ? !!InputLabelProps.shrink : !label;
 
     return (
       <ControlWrapStyled fullWidth={fullWidth}>
@@ -78,8 +78,8 @@ class TextField extends React.PureComponent<ITextFiledProps, State> {
           margin={margin}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
+          placeholder={focused ? '' : placeholder}
           required={required}
-          showPlaceholder={showPlaceholder}
           value={value}
           variant={variant}
           {...other}

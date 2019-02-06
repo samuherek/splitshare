@@ -19,7 +19,6 @@ interface IInputBaseProps {
   readOnly?: boolean;
   required?: boolean;
   rows?: string | number;
-  showPlaceholder?: boolean;
   type?: 'text' | 'number' | 'textarea' | 'search' | 'password';
   value?: string | number;
 }
@@ -31,12 +30,13 @@ const InputBaseStyled = styled.input`
   color: currentColor;
   border: 0;
   margin: 0;
-  padding: 6px 0 7px;
   display: block;
   min-width: 0;
   box-sizing: content-box;
   background: none;
   -webkit-tap-highlight-color: transparent;
+  padding: 7px 10px;
+  border-radius: 3px;
 
   &:focus {
     outline: 0;
@@ -69,7 +69,6 @@ class InputBase extends React.PureComponent<IInputBaseProps> {
       required,
       rows,
       type,
-      showPlaceholder,
       value,
       className,
       ...other
@@ -96,7 +95,7 @@ class InputBase extends React.PureComponent<IInputBaseProps> {
         disabled={disabled}
         id={id}
         name={name}
-        placeholder={showPlaceholder ? placeholder : ''}
+        placeholder={placeholder}
         readOnly={readOnly}
         required={required}
         type={type}

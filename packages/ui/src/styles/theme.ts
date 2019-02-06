@@ -12,14 +12,16 @@ export interface ITheme {
 
 const theme: ITheme = {
   colors: {
-    primary: 'black',
+    primary: '#46dc75',
     secondary: 'gray',
     warning: '#FCCC2F',
     danger: 'red',
     success: 'green',
+    white: '#ffffff',
   },
   text: {
     primary: '#000000',
+    white: '#ffffff',
   },
   fonts: {},
 };

@@ -89,7 +89,7 @@ export default class Bill extends React.PureComponent<IProps, IState> {
 
   state = {
     showInviteOverlay: false,
-    showReceiptNewOverlay: false,
+    showReceiptNewOverlay: true,
   };
 
   toggleInviteOverlay = () => {
@@ -238,25 +238,23 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                       </AvatarWrapStyled>
                     </BillInfoStyled>
                     <ReceiptsStyled>
-                      <ReceiptsToolbarStyled
-                        style={{
-                          opacity: showReceiptNewOverlay ? 0.25 : 1,
-                          pointerEvents: showReceiptNewOverlay
-                            ? 'none'
-                            : 'auto',
-                        }}
-                      >
-                        <span>Order by newest</span>
+                      <ReceiptsToolbarStyled>
+                        {!showReceiptNewOverlay ? (
+                          <span>Order by newest</span>
+                        ) : (
+                          <h3>Create new Receipt</h3>
+                        )}
                         <ButtonBase
                           style={{ marginLeft: 'auto' }}
                           onClick={this.toggleReceiptNewOverlay}
                         >
-                          + Add Receipt
+                          {showReceiptNewOverlay ? 'Cancel' : '+ Add Receipt'}
                         </ButtonBase>
                       </ReceiptsToolbarStyled>
                       {showReceiptNewOverlay ? (
                         <ReceiptNewForm
                           billId={billId}
+                          users={bill.users}
                           onCancel={this.toggleReceiptNewOverlay}
                         />
                       ) : (

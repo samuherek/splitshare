@@ -1,20 +1,26 @@
 import * as React from 'react';
 import { Formik } from 'formik';
-import { Button, styled, TextField } from '@splitshare/ui';
+import { Button, styled, TextField, AvatarUser } from '@splitshare/ui';
 
 import MeQueryContainer from '../../graphql/MeQuery';
 import CreateReceiptMutationContainer from '../../graphql/CreateReceiptMutation';
 import { CURRENCIES } from '../../constants';
+import { User } from '../../types';
+import getCurrencySymbol from '../../utils/getCurrencySymbol';
+import SvgCheckmark from '../icons/Checkmark';
 
 interface IProps {
   onCancel: () => void;
   billId: string;
+  users: User[];
+}
+
+interface IState {
+  total: string;
 }
 
 interface IReceiptFormValues {
   company: string;
-  comment?: string;
-  category?: string;
   country?: string;
   total: number;
   currency: string;
@@ -24,7 +30,7 @@ const WrapStyled = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  padding: 50px 0;
+  padding: 15px 0 50px;
 
   button {
     max-width: 150px;
@@ -47,20 +53,33 @@ const FieldsetStyled = styled.fieldset`
 `;
 
 const initialValues: IReceiptFormValues = {
-  category: '',
-  comment: '',
   company: '',
   country: '',
   currency: 'EUR',
   total: 1,
 };
 
-class ReceiptNewForm extends React.PureComponent<IProps> {
+class ReceiptNewForm extends React.PureComponent<IProps, IState> {
+  state = {
+    total: '0',
+  };
+
+  handleTotalChange = (ev: any) => {
+    this.setState({ total: ev.target.value });
+  };
+
   render() {
-    const { onCancel, billId } = this.props;
+    const { total } = this.state;
+    const { onCancel, billId, users } = this.props;
+
+    const splitsInput = users.map(u => ({
+      userId: u.id,
+      value: Number(total) / users.length,
+    }));
+    console.log(splitsInput);
     return (
       <WrapStyled>
-        <h3>Create new Receipt</h3>
+        {/* <h3>Create new Receipt</h3> */}
         <Formik<IReceiptFormValues>
           initialValues={initialValues}
           onSubmit={(...args) => {
@@ -72,8 +91,13 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
               {({ me }) => (
                 <CreateReceiptMutationContainer
                   billId={billId}
-                  splitsInput={[{ userId: me!.id, value: values.total }]}
-                  receiptInput={{ ...values, paidById: me!.id }}
+                  splitsInput={splitsInput}
+                  receiptInput={{
+                    ...values,
+                    paidAt: new Date(),
+                    paidById: me!.id,
+                    total: Number(total),
+                  }}
                 >
                   {({ createReceiptMutation, loading }) => (
                     <FormStyled
@@ -81,13 +105,16 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
                         ev: React.FormEvent<HTMLFormElement>
                       ) => {
                         ev.preventDefault();
+                        if (Number(total) === 0) {
+                          return;
+                        }
                         await createReceiptMutation();
                         onCancel();
                       }}
                     >
                       <FieldsetStyled disabled={loading}>
                         <TextField
-                          label="Company"
+                          label="Title / Company"
                           name="company"
                           id="company"
                           value={values.company}
@@ -99,10 +126,10 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
                           label="Total"
                           name="total"
                           id="total"
-                          value={values.total}
+                          value={total}
                           type="number"
                           autoComplete={false}
-                          onChange={handleChange}
+                          onChange={this.handleTotalChange}
                         />
                         <select
                           onChange={handleChange}
@@ -116,25 +143,37 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
                             </option>
                           ))}
                         </select>
-                        <TextField
-                          label="Category"
-                          name="category"
-                          id="category"
-                          value={values.category}
-                          type="text"
-                          autoComplete={false}
-                          onChange={handleChange}
-                        />
-                        <TextField
-                          label="Comment"
-                          name="comment"
-                          id="comment"
-                          value={values.comment}
-                          type="text"
-                          autoComplete={false}
-                          onChange={handleChange}
-                        />
-                        <Button type="submit">Create Receipt</Button>
+                        {users.map(u => (
+                          <div
+                            key={u.id}
+                            style={{
+                              alignItems: 'center',
+                              display: 'flex',
+                              margin: '15px 0',
+                            }}
+                          >
+                            <AvatarUser name={u.displayName || u.email} />
+                            <span style={{ margin: '0 8px' }}>
+                              {u.displayName || u.email}
+                            </span>
+                            <span>
+                              {Number(total) / users.length}
+                              {getCurrencySymbol(values.currency)}
+                            </span>
+                          </div>
+                        ))}
+                        <Button
+                          disabled={
+                            Number(total) === 0 || values.company === ''
+                          }
+                          type="submit"
+                          variant="primary"
+                          shape="contained"
+                          iconBefore={SvgCheckmark}
+                          style={{ marginTop: '25px' }}
+                        >
+                          Create Receipt
+                        </Button>
                       </FieldsetStyled>
                     </FormStyled>
                   )}
@@ -143,7 +182,6 @@ class ReceiptNewForm extends React.PureComponent<IProps> {
             </MeQueryContainer>
           )}
         </Formik>
-        <Button onClick={onCancel}>Cancel</Button>
       </WrapStyled>
     );
   }

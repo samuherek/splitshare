@@ -21,6 +21,8 @@ export interface ReceiptInput {
 
   country?: Maybe<string>;
 
+  paidAt: DateTime;
+
   paidById: string;
 
   total: number;
@@ -74,7 +76,7 @@ export interface Bill {
 
   users: User[];
 
-  receipts: Receipt[];
+  receipts?: Maybe<Receipt[]>;
 
   invites?: Maybe<BillInvite[]>;
 }
@@ -103,6 +105,8 @@ export interface Receipt {
   total: number;
 
   currency: string;
+
+  paidAt: DateTime;
 
   createdAt: DateTime;
 
