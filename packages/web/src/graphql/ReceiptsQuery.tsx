@@ -26,6 +26,7 @@ export const RECEIPTS_QUERY = gql`
       receipts {
         ...receiptMeta
         createdAt
+        company
 
         paidBy {
           email

@@ -76,7 +76,7 @@ const IconStyled = styled.span<{ isOpen: boolean }>`
 `;
 
 const ReceiptStyled = styled.div`
-  padding: 15px;
+  padding: 15px 0;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -89,7 +89,7 @@ export default class Bill extends React.PureComponent<IProps, IState> {
 
   state = {
     showInviteOverlay: false,
-    showReceiptNewOverlay: true,
+    showReceiptNewOverlay: false,
   };
 
   toggleInviteOverlay = () => {
@@ -274,24 +274,40 @@ export default class Bill extends React.PureComponent<IProps, IState> {
 
                             return receipts.map(r => (
                               <ReceiptStyled key={r.id}>
+                                <AvatarUser
+                                  name={r.paidBy.displayName || r.paidBy.email}
+                                  style={{
+                                    fontSize: '18px',
+                                    height: '40px',
+                                    width: '40px',
+                                  }}
+                                />
+                                <div
+                                  style={{
+                                    marginLeft: 15,
+                                    marginRight: 15,
+                                    width: 250,
+                                  }}
+                                >
+                                  <span style={{ display: 'block' }}>
+                                    {r.company}
+                                  </span>
+                                  <span style={{ fontSize: 12, opacity: 0.3 }}>
+                                    {distanceInWordsStrict(
+                                      new Date(),
+                                      Date.parse(r.createdAt),
+                                      {
+                                        addSuffix: true,
+                                      }
+                                    )}
+                                  </span>
+                                </div>
                                 <span>
                                   {r.total.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
-                                  })}{' '}
+                                  })}
                                   {getCurrencySymbol(r.currency)}
                                 </span>
-                                <span>
-                                  {distanceInWordsStrict(
-                                    new Date(),
-                                    Date.parse(r.createdAt),
-                                    {
-                                      addSuffix: true,
-                                    }
-                                  )}
-                                </span>
-                                <AvatarUser
-                                  name={r.paidBy.displayName || r.paidBy.email}
-                                />
                               </ReceiptStyled>
                             ));
                           }}
