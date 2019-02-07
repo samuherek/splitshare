@@ -23,7 +23,7 @@
     "ts-jest": "23.10.5",
     "ts-node": "8.0.2",
     "ts-node-dev": "1.0.0-pre.32",
-    "typescript": "3.3.1"
+    "typescript": "3.3.3"
   },
   "scripts": {
     "start:old": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
