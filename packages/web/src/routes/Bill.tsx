@@ -22,6 +22,7 @@ import UpdateBillMutationContainer from '../graphql/UpdateBillMutation';
 import getUUIDFromUrl from '../utils/getUUIDFromUrl';
 import RemoveBillMutationContainer from '../graphql/RemoveBillMutation';
 import ReceiptNewForm from '../components/ReceiptNewForm';
+import ReceiptOverlay from './bill/ReceiptOverlay';
 
 interface IProps extends RouteComponentProps {
   billParam: string;
@@ -30,6 +31,7 @@ interface IProps extends RouteComponentProps {
 interface IState {
   showInviteOverlay: boolean;
   showReceiptNewOverlay: boolean;
+  showReceiptId: string | null;
 }
 
 const BillWrapStyled = styled.div`
@@ -51,7 +53,9 @@ const AvatarWrapStyled = styled.div`
   margin-bottom: 25px;
 `;
 
-const ReceiptsStyled = styled.div``;
+const ReceiptsStyled = styled.div`
+  position: relative;
+`;
 
 const ReceiptsToolbarStyled = styled.div`
   display: flex;
@@ -89,11 +93,20 @@ export default class Bill extends React.PureComponent<IProps, IState> {
 
   state = {
     showInviteOverlay: false,
+    showReceiptId: null,
     showReceiptNewOverlay: false,
   };
 
   toggleInviteOverlay = () => {
     this.setState(state => ({ showInviteOverlay: !state.showInviteOverlay }));
+  };
+
+  setReceiptId = (id: string) => {
+    this.setState({ showReceiptId: id });
+  };
+
+  clearReceiptId = () => {
+    this.setState({ showReceiptId: null });
   };
 
   toggleReceiptNewOverlay = () => {
@@ -104,6 +117,7 @@ export default class Bill extends React.PureComponent<IProps, IState> {
 
   public render() {
     const { billParam, navigate } = this.props;
+    const { showReceiptId } = this.state;
     const billId = getUUIDFromUrl(billParam);
 
     if (!billId) {
@@ -273,7 +287,10 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                             }
 
                             return receipts.map(r => (
-                              <ReceiptStyled key={r.id}>
+                              <ReceiptStyled
+                                key={r.id}
+                                onClick={() => this.setReceiptId(r.id)}
+                              >
                                 <AvatarUser
                                   name={r.paidBy.displayName || r.paidBy.email}
                                   style={{
@@ -313,6 +330,12 @@ export default class Bill extends React.PureComponent<IProps, IState> {
                           }}
                         </ReceiptsQueryContainer>
                       )}
+                      {showReceiptId !== null ? (
+                        <ReceiptOverlay
+                          onCancel={this.clearReceiptId}
+                          receiptId={showReceiptId}
+                        />
+                      ) : null}
                     </ReceiptsStyled>
                   </>
                 ) : null}

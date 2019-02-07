@@ -11,13 +11,11 @@ const batchReceiptSplits = async (receiptIds: string[]) => {
 
   const receiptSplitsMap: { [key: string]: ReceiptSplit[] } = {};
 
-  // console.log(receiptSplits);
-
-  receiptSplits.forEach(rc => {
-    if (rc.receiptId in receiptSplitsMap) {
-      receiptSplitsMap[rc.receiptId].push((rc as any).__receiptSplit__);
+  receiptSplits.forEach(rs => {
+    if (rs.receiptId in receiptSplitsMap) {
+      receiptSplitsMap[rs.receiptId].push(rs);
     } else {
-      receiptSplitsMap[rc.receiptId] = [(rc as any).__receiptSplit__];
+      receiptSplitsMap[rs.receiptId] = [rs];
     }
   });
 
