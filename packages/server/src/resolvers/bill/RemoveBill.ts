@@ -26,11 +26,13 @@ export class RemoveBillResolver {
           );
         }
 
+        // console.log(receipts);
+
         await getConnection()
           .createQueryBuilder()
           .delete()
           .from(BillUser)
-          .where({ billId: bill.id })
+          .where({ billId: id })
           .execute();
 
         await getConnection()
@@ -44,14 +46,14 @@ export class RemoveBillResolver {
           .createQueryBuilder()
           .delete()
           .from(BillInvite)
-          .where({ billId: bill.id })
+          .where({ billId: id })
           .execute();
 
         await getConnection()
           .createQueryBuilder()
           .delete()
           .from(Receipt)
-          .where({ billId: bill.id })
+          .where({ billId: id })
           .execute();
 
         await bill.remove();
