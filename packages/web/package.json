@@ -39,7 +39,7 @@
     "graphql-code-generator": "0.16.1",
     "graphql-codegen-typescript-common": "0.16.1",
     "graphql-codegen-typescript-server": "0.16.1",
-    "typescript": "3.3.1"
+    "typescript": "3.3.3"
   },
   "resolutions": {
     "@types/react": "16.8.2"
