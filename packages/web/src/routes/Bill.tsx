@@ -25,13 +25,7 @@ import ReceiptNewForm from '../components/ReceiptNewForm';
 import ReceiptOverlay from './bill/ReceiptOverlay';
 
 interface IProps extends RouteComponentProps {
-  billParam: string;
-}
-
-interface IState {
-  showInviteOverlay: boolean;
-  showReceiptNewOverlay: boolean;
-  showReceiptId: string | null;
+  billParam?: string;
 }
 
 const BillWrapStyled = styled.div`
@@ -86,275 +80,251 @@ const ReceiptStyled = styled.div`
   align-items: center;
 `;
 
-export default class Bill extends React.PureComponent<IProps, IState> {
-  static defaultProps = {
-    billParam: '',
-  };
+const Bill = ({ billParam, navigate }: IProps) => {
+  const billId = billParam ? getUUIDFromUrl(billParam) : null;
 
-  state = {
-    showInviteOverlay: false,
-    showReceiptId: null,
-    showReceiptNewOverlay: false,
-  };
+  if (!billId) {
+    return <Redirect from="/billParam" to="/" noThrow />;
+  }
 
-  toggleInviteOverlay = () => {
-    this.setState(state => ({ showInviteOverlay: !state.showInviteOverlay }));
-  };
+  const [showInviteOverlay, setInviteOverlay] = React.useState(false);
+  const [showReceiptId, setReceiptId] = React.useState<null | string>(null);
+  const [showReceiptNewOverlay, setReceiptOverlay] = React.useState(false);
 
-  setReceiptId = (id: string) => {
-    this.setState({ showReceiptId: id });
-  };
-
-  clearReceiptId = () => {
-    this.setState({ showReceiptId: null });
-  };
-
-  toggleReceiptNewOverlay = () => {
-    this.setState(state => ({
-      showReceiptNewOverlay: !state.showReceiptNewOverlay,
-    }));
-  };
-
-  public render() {
-    const { billParam, navigate } = this.props;
-    const { showReceiptId } = this.state;
-    const billId = getUUIDFromUrl(billParam);
-
-    if (!billId) {
-      return <Redirect from="/billParam" to="/" noThrow />;
-    }
-
-    const { showInviteOverlay, showReceiptNewOverlay } = this.state;
-
-    return (
-      <LayoutPage>
-        <LayoutTopBar>
-          <TopBarLeft>
-            <Link to="/">Back</Link>
-          </TopBarLeft>
-          <TopBarRight>
-            <Button onClick={this.toggleInviteOverlay}>+ Invite</Button>
-            <span>right menu</span>
-          </TopBarRight>
-        </LayoutTopBar>
-        <BillWrapStyled>
-          <BillQueryContainer billId={billId}>
-            {({ bill }) => (
-              <>
-                {bill ? (
-                  <>
-                    <BillInfoStyled>
-                      <div>
-                        <UpdateBillMutationContainer billId={billId}>
-                          {({ updateBillMutation }) => (
-                            <DropdownEmoji
-                              onSelect={value => {
-                                console.log(value);
-                                updateBillMutation({
-                                  variables: { billId, icon: value },
-                                });
-                              }}
-                              render={(toggleDropdown, isOpen) => (
-                                <IconStyled
-                                  style={{ fontSize: 50 }}
-                                  onClick={toggleDropdown}
-                                  isOpen={isOpen}
-                                >
-                                  {bill.icon ? (
-                                    bill.icon
-                                  ) : (
-                                    <span
-                                      style={{
-                                        opacity: 0.25,
-                                        textAlign: 'center',
-                                        textTransform: 'uppercase',
-                                      }}
-                                    >
-                                      {bill.name.substr(0, 1)}
-                                    </span>
-                                  )}
-                                </IconStyled>
-                              )}
-                            />
-                          )}
-                        </UpdateBillMutationContainer>
-                        <RemoveBillMutationContainer id={billId}>
-                          {({ removeBillMutation }) => (
-                            <ButtonBase
-                              onClick={async () => {
-                                try {
-                                  await removeBillMutation();
-                                  if (navigate) {
-                                    navigate('/');
-                                  }
-                                } catch (err) {
-                                  console.log(err);
+  return (
+    <LayoutPage>
+      <LayoutTopBar>
+        <TopBarLeft>
+          <Link to="/">Back</Link>
+        </TopBarLeft>
+        <TopBarRight>
+          <Button onClick={() => setInviteOverlay(true)}>+ Invite</Button>
+          <span>right menu</span>
+        </TopBarRight>
+      </LayoutTopBar>
+      <BillWrapStyled>
+        <BillQueryContainer billId={billId}>
+          {({ bill }) => (
+            <>
+              {bill ? (
+                <>
+                  <BillInfoStyled>
+                    <div>
+                      <UpdateBillMutationContainer billId={billId}>
+                        {({ updateBillMutation }) => (
+                          <DropdownEmoji
+                            onSelect={value => {
+                              console.log(value);
+                              updateBillMutation({
+                                variables: { billId, icon: value },
+                              });
+                            }}
+                            render={(toggleDropdown, isOpen) => (
+                              <IconStyled
+                                style={{ fontSize: 50 }}
+                                onClick={toggleDropdown}
+                                isOpen={isOpen}
+                              >
+                                {bill.icon ? (
+                                  bill.icon
+                                ) : (
+                                  <span
+                                    style={{
+                                      opacity: 0.25,
+                                      textAlign: 'center',
+                                      textTransform: 'uppercase',
+                                    }}
+                                  >
+                                    {bill.name.substr(0, 1)}
+                                  </span>
+                                )}
+                              </IconStyled>
+                            )}
+                          />
+                        )}
+                      </UpdateBillMutationContainer>
+                      <RemoveBillMutationContainer id={billId}>
+                        {({ removeBillMutation }) => (
+                          <ButtonBase
+                            onClick={async () => {
+                              try {
+                                await removeBillMutation();
+                                if (navigate) {
+                                  navigate('/');
                                 }
-                              }}
-                            >
-                              Remove
-                            </ButtonBase>
-                          )}
-                        </RemoveBillMutationContainer>
-                      </div>
-                      <h2 style={{ fontSize: 28 }}>{bill.name}</h2>
-                      <AvatarWrapStyled>
-                        {bill.users.map(user => {
+                              } catch (err) {
+                                console.log(err);
+                              }
+                            }}
+                          >
+                            Remove
+                          </ButtonBase>
+                        )}
+                      </RemoveBillMutationContainer>
+                    </div>
+                    <h2 style={{ fontSize: 28 }}>{bill.name}</h2>
+                    <AvatarWrapStyled>
+                      {bill.users.map(user => {
+                        return (
+                          <div
+                            key={user.id}
+                            style={{
+                              alignItems: 'center',
+                              display: 'flex',
+                              marginBottom: 15,
+                            }}
+                          >
+                            <AvatarUser name={user.displayName || user.email} />
+                            <span style={{ marginLeft: 10 }}>
+                              {user.displayName || user.email}
+                            </span>
+                          </div>
+                        );
+                      })}
+                      {bill.invites &&
+                        bill.invites.map(invite => {
                           return (
                             <div
-                              key={user.id}
+                              key={invite.id}
                               style={{
                                 alignItems: 'center',
                                 display: 'flex',
                                 marginBottom: 15,
+                                opacity: 0.35,
                               }}
                             >
-                              <AvatarUser
-                                name={user.displayName || user.email}
-                              />
+                              <AvatarUser name={invite.email} />
                               <span style={{ marginLeft: 10 }}>
-                                {user.displayName || user.email}
+                                {invite.email}
+                              </span>
+                              <span
+                                style={{
+                                  background: 'rgba(55,53,47,0.18)',
+                                  borderRadius: 3,
+                                  display: 'inline-block',
+                                  fontSize: 11,
+                                  marginLeft: 10,
+                                  padding: '3px 6px',
+                                }}
+                              >
+                                pending
                               </span>
                             </div>
                           );
                         })}
-                        {bill.invites &&
-                          bill.invites.map(invite => {
+                    </AvatarWrapStyled>
+                  </BillInfoStyled>
+                  <ReceiptsStyled>
+                    <ReceiptsToolbarStyled>
+                      {!showReceiptNewOverlay ? (
+                        <span>Order by newest</span>
+                      ) : (
+                        <h3>Create new Receipt</h3>
+                      )}
+                      <ButtonBase
+                        style={{ marginLeft: 'auto' }}
+                        onClick={() => {
+                          if (showReceiptNewOverlay) {
+                            setReceiptOverlay(false);
+                          } else {
+                            setReceiptOverlay(true);
+                          }
+                        }}
+                      >
+                        {showReceiptNewOverlay ? 'Cancel' : '+ Add Receipt'}
+                      </ButtonBase>
+                    </ReceiptsToolbarStyled>
+                    {showReceiptNewOverlay ? (
+                      <ReceiptNewForm
+                        billId={billId}
+                        users={bill.users}
+                        onCancel={() => setReceiptOverlay(false)}
+                      />
+                    ) : (
+                      <ReceiptsQueryContainer billId={billId}>
+                        {({ receipts }) => {
+                          if (!receipts) {
+                            return null;
+                          }
+
+                          if (receipts.length === 0) {
                             return (
-                              <div
-                                key={invite.id}
-                                style={{
-                                  alignItems: 'center',
-                                  display: 'flex',
-                                  marginBottom: 15,
-                                  opacity: 0.35,
-                                }}
-                              >
-                                <AvatarUser name={invite.email} />
-                                <span style={{ marginLeft: 10 }}>
-                                  {invite.email}
-                                </span>
-                                <span
-                                  style={{
-                                    background: 'rgba(55,53,47,0.18)',
-                                    borderRadius: 3,
-                                    display: 'inline-block',
-                                    fontSize: 11,
-                                    marginLeft: 10,
-                                    padding: '3px 6px',
-                                  }}
-                                >
-                                  pending
-                                </span>
+                              <div>
+                                <span>You have no receipts</span>
                               </div>
                             );
-                          })}
-                      </AvatarWrapStyled>
-                    </BillInfoStyled>
-                    <ReceiptsStyled>
-                      <ReceiptsToolbarStyled>
-                        {!showReceiptNewOverlay ? (
-                          <span>Order by newest</span>
-                        ) : (
-                          <h3>Create new Receipt</h3>
-                        )}
-                        <ButtonBase
-                          style={{ marginLeft: 'auto' }}
-                          onClick={this.toggleReceiptNewOverlay}
-                        >
-                          {showReceiptNewOverlay ? 'Cancel' : '+ Add Receipt'}
-                        </ButtonBase>
-                      </ReceiptsToolbarStyled>
-                      {showReceiptNewOverlay ? (
-                        <ReceiptNewForm
-                          billId={billId}
-                          users={bill.users}
-                          onCancel={this.toggleReceiptNewOverlay}
-                        />
-                      ) : (
-                        <ReceiptsQueryContainer billId={billId}>
-                          {({ receipts }) => {
-                            if (!receipts) {
-                              return null;
-                            }
+                          }
 
-                            if (receipts.length === 0) {
-                              return (
-                                <div>
-                                  <span>You have no receipts</span>
-                                </div>
-                              );
-                            }
-
-                            return receipts.map(r => (
-                              <ReceiptStyled
-                                key={r.id}
-                                onClick={() => this.setReceiptId(r.id)}
+                          return receipts.map(r => (
+                            <ReceiptStyled
+                              key={r.id}
+                              onClick={() => setReceiptId(r.id)}
+                            >
+                              <AvatarUser
+                                name={r.paidBy.displayName || r.paidBy.email}
+                                style={{
+                                  fontSize: '18px',
+                                  height: '40px',
+                                  width: '40px',
+                                }}
+                              />
+                              <div
+                                style={{
+                                  marginLeft: 15,
+                                  marginRight: 15,
+                                  width: 250,
+                                }}
                               >
-                                <AvatarUser
-                                  name={r.paidBy.displayName || r.paidBy.email}
-                                  style={{
-                                    fontSize: '18px',
-                                    height: '40px',
-                                    width: '40px',
-                                  }}
-                                />
-                                <div
-                                  style={{
-                                    marginLeft: 15,
-                                    marginRight: 15,
-                                    width: 250,
-                                  }}
-                                >
-                                  <span style={{ display: 'block' }}>
-                                    {r.company}
-                                  </span>
-                                  <span style={{ fontSize: 12, opacity: 0.3 }}>
-                                    {distanceInWordsStrict(
-                                      new Date(),
-                                      Date.parse(r.createdAt),
-                                      {
-                                        addSuffix: true,
-                                      }
-                                    )}
-                                  </span>
-                                </div>
-                                <span>
-                                  {r.total.toLocaleString(undefined, {
-                                    maximumFractionDigits: 2,
-                                  })}
-                                  {getCurrencySymbol(r.currency)}
+                                <span style={{ display: 'block' }}>
+                                  {r.company}
                                 </span>
-                              </ReceiptStyled>
-                            ));
-                          }}
-                        </ReceiptsQueryContainer>
-                      )}
-                      {showReceiptId !== null ? (
-                        <ReceiptOverlay
-                          onCancel={this.clearReceiptId}
-                          receiptId={showReceiptId}
-                        />
-                      ) : null}
-                    </ReceiptsStyled>
-                  </>
-                ) : null}
-                {showInviteOverlay ? (
-                  <PageModal>
-                    <PageModalInner>
-                      <InviteOverlay
-                        onCancel={this.toggleInviteOverlay}
-                        billId={billId || ''}
-                        billTitle={bill ? bill.name : ''}
+                                <span style={{ fontSize: 12, opacity: 0.3 }}>
+                                  {distanceInWordsStrict(
+                                    new Date(),
+                                    Date.parse(r.createdAt),
+                                    {
+                                      addSuffix: true,
+                                    }
+                                  )}
+                                </span>
+                              </div>
+                              <span>
+                                {r.total.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
+                                {getCurrencySymbol(r.currency)}
+                              </span>
+                            </ReceiptStyled>
+                          ));
+                        }}
+                      </ReceiptsQueryContainer>
+                    )}
+                    {showReceiptId !== null ? (
+                      <ReceiptOverlay
+                        onCancel={() => setReceiptId(null)}
+                        receiptId={showReceiptId}
                       />
-                    </PageModalInner>
-                  </PageModal>
-                ) : null}
-              </>
-            )}
-          </BillQueryContainer>
-        </BillWrapStyled>
-      </LayoutPage>
-    );
-  }
-}
+                    ) : null}
+                  </ReceiptsStyled>
+                </>
+              ) : null}
+              {showInviteOverlay ? (
+                <PageModal>
+                  <PageModalInner>
+                    <InviteOverlay
+                      onCancel={() => setInviteOverlay(false)}
+                      billId={billId || ''}
+                      billTitle={bill ? bill.name : ''}
+                    />
+                  </PageModalInner>
+                </PageModal>
+              ) : null}
+            </>
+          )}
+        </BillQueryContainer>
+      </BillWrapStyled>
+    </LayoutPage>
+  );
+};
+
+export default Bill;

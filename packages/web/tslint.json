@@ -15,5 +15,8 @@
     "jsx-boolean-value": false,
     "no-empty": false,
     "member-access": false
+  },
+  "jsRules": {
+    "no-console": false //Disable for javascript
   }
 }

@@ -21,7 +21,7 @@ const LoadingWrapStyled = styled('div')<IProps>`
   display: block;
   overflow: hidden;
   position: relative;
-  background: #e5eaec;
+  background: #ececec;
   width: 100%;
   height: 10px;
   border-radius: ${({ shape = 'round' }) => {

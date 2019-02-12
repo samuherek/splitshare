@@ -2,6 +2,7 @@ import { Router } from '@reach/router';
 import { GlobalStyles, theme, ThemeProvider } from '@splitshare/ui';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 
 import AuthLayout from './routes/utils/AuthLayout';
 import DashLayout from './routes/utils/DashLayout';
@@ -17,25 +18,27 @@ class App extends React.Component {
   public render() {
     return (
       <ApolloProvider client={client}>
-        <AppProvider client={client}>
-          <ThemeProvider theme={theme}>
-            <>
-              <GlobalStyles />
-              <Router>
-                <AuthLayout path="auth">
-                  <Login path="login" />
-                  <Register path="signup" />
-                  <NotFound default={true} />
-                </AuthLayout>
-                <DashLayout path="/">
-                  <Dashboard path="/" />
-                  <Bill path="/:billParam" />
-                  <NotFound default={true} />
-                </DashLayout>
-              </Router>
-            </>
-          </ThemeProvider>
-        </AppProvider>
+        <ApolloHooksProvider client={client}>
+          <AppProvider client={client}>
+            <ThemeProvider theme={theme}>
+              <>
+                <GlobalStyles />
+                <Router>
+                  <AuthLayout path="auth">
+                    <Login path="login" />
+                    <Register path="signup" />
+                    <NotFound default={true} />
+                  </AuthLayout>
+                  <DashLayout path="/">
+                    <Dashboard path="/" />
+                    <Bill path="/:billParam" />
+                    <NotFound default={true} />
+                  </DashLayout>
+                </Router>
+              </>
+            </ThemeProvider>
+          </AppProvider>
+        </ApolloHooksProvider>
       </ApolloProvider>
     );
   }

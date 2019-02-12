@@ -2,8 +2,7 @@
 import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { gql } from 'apollo-boost';
-import { UpdateBillMutationArgs } from '../types';
-import Bill from '../routes/Bill';
+import { UpdateBillMutationArgs, Bill } from '../types';
 import { BILL_QUERY } from './BillQuery';
 
 // TODO: This doesn't use the generated types. We need to make sure of that.

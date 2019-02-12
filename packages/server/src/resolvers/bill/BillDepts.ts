@@ -12,6 +12,7 @@ export class BillDeptsResolver {
   async billDepts(@Arg('id') id: string) {
     const res = await getConnection().query(
       // `select s.id, s.currency, sum(s.value) from bill b left join receipt r on b.id = r."billId" left join receipt_split s on r.id = s."receiptId" where b.id = $1 and s."userId" = $2 group by s.id, s.currency;`,
+      // `select distinct s."userId", s.currency, sum(s.value)`
       `select distinct s."userId", s.currency, sum(s.value) from bill b left join receipt r on b.id = r."billId" left join receipt_split s on r.id = s."receiptId" where b.id = $1 group by s."userId", s.currency;`,
       // [id, ctx.req.session!.userId]
       [id]

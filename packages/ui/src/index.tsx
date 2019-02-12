@@ -8,6 +8,7 @@ export * from './components/LayoutTopBar';
 export * from './components/LayoutPage';
 export * from './components/CardBillBig';
 export * from './components/DropdownEmoji';
+export * from './components/LoadingPlaceholder';
 
 export * from './components/icons';
 export * from './styles/styled-components';
