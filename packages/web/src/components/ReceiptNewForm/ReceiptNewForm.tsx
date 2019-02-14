@@ -76,6 +76,7 @@ class ReceiptNewForm extends React.PureComponent<IProps, IState> {
       userId: u.id,
       value: Number(total) / users.length,
     }));
+
     console.log(splitsInput);
     return (
       <WrapStyled>

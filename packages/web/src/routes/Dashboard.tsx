@@ -79,26 +79,6 @@ const Dashboard = (props: RouteComponentProps) => {
           <React.Suspense fallback={<BillsListPlaceholder />}>
             <BillsList />
           </React.Suspense>
-          {/* <MyBillsQueryContainer>
-            {({ bills }) => (
-              <>
-                <h3 style={{ fontSize: 28 }}>Opened Bills ({bills.length})</h3>
-                <ScrollWrapStyled>
-                  {bills.map(bill => (
-                    <CardBillBig
-                      key={bill.id}
-                      title={bill.name}
-                      users={bill.users}
-                      to={`/${convertSpaceToDash(bill.name)}-${bill.id}`}
-                      updatedAt={bill.updatedAt}
-                      icon={bill.icon}
-                      invites={bill.invites}
-                    />
-                  ))}
-                </ScrollWrapStyled>
-              </>
-            )}
-          </MyBillsQueryContainer> */}
         </SectionWrapStyled>
         <ButtonsWrapStyled>
           <ButtonStyled
