@@ -19,9 +19,9 @@ const WrapStyled = styled.div`
 const NameStyled = styled.span`
   margin-left: 10px;
   margin-right: 10px;
+  width: 100%;
+  max-width: 150px;
 `;
-
-const BalanceStyled = styled.span``;
 
 const BillUsers: React.FC<IProps> = ({ billId, users }) => {
   const { data, error, loading } = useQuery(BILL_DEPTS_QUERY, {
@@ -38,13 +38,11 @@ const BillUsers: React.FC<IProps> = ({ billId, users }) => {
         <WrapStyled key={u.id}>
           <AvatarUser name={u.displayName || u.email} />
           <NameStyled>{u.displayName || u.email}</NameStyled>
-          <BalanceStyled>
-            <BalanceValue
-              loading={loading}
-              billDepts={data.billDepts}
-              userId={u.id}
-            />
-          </BalanceStyled>
+          <BalanceValue
+            loading={loading}
+            billDepts={data.billDepts}
+            userId={u.id}
+          />
         </WrapStyled>
       ))}
     </>
