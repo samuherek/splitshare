@@ -1,17 +1,14 @@
-import { Field, Int, InputType } from 'type-graphql';
-import { Min, Max } from 'class-validator';
+import { Max, Min } from 'class-validator';
+import { Field, InputType, Int } from 'type-graphql';
 
 @InputType()
 export class FilterInput {
-  @Field(() => Int, { defaultValue: 0 })
+  @Field(() => Int)
   @Min(0)
-  offset: number;
+  offset: number = 0;
 
   @Field(() => Int)
   @Min(1)
   @Max(6)
   limit = 6;
-
-  // TODO: Check if this is okay to ignore;
-  startIndex = this.offset as number;
 }

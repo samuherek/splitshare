@@ -1,14 +1,10 @@
+import { ButtonBase, styled } from '@splitshare/ui';
 import * as React from 'react';
 import { useQuery } from 'react-apollo-hooks';
-import ReceiptsQueryContainer, {
-  RECEIPTS_QUERY,
-} from '../../graphql/ReceiptsQuery';
-import { styled, ButtonBase, AvatarUser } from '@splitshare/ui';
-// import ReceiptNewForm from '../../components/ReceiptNewForm';
-import { distanceInWordsStrict } from 'date-fns';
-import getCurrencySymbol from '../../utils/getCurrencySymbol';
-import ReceiptOverlay from './ReceiptOverlay';
 import ReceiptNewForm from '../../components/ReceiptNewForm';
+import { RECEIPTS_QUERY } from '../../graphql/ReceiptsQuery';
+import ReceiptOverlay from './ReceiptOverlay';
+import ReceiptsList from './receipts/ReceiptsList';
 
 interface IProps {
   billId: string;
@@ -16,19 +12,13 @@ interface IProps {
 
 const ReceiptsStyled = styled.div`
   position: relative;
+  padding-bottom: 50px;
 `;
 
 const ReceiptsToolbarStyled = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 25px;
-`;
-
-const ReceiptStyled = styled.div`
-  padding: 15px 0;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
 `;
 
 const Receipts = ({ billId }: IProps) => {
@@ -74,58 +64,7 @@ const Receipts = ({ billId }: IProps) => {
           onCancel={() => setReceiptOverlay(false)}
         />
       ) : (
-        <ReceiptsQueryContainer billId={billId}>
-          {({ receipts }) => {
-            if (!receipts) {
-              return null;
-            }
-
-            if (receipts.length === 0) {
-              return (
-                <div>
-                  <span>You have no receipts</span>
-                </div>
-              );
-            }
-
-            return receipts.map(r => (
-              <ReceiptStyled key={r.id} onClick={() => setReceiptId(r.id)}>
-                <AvatarUser
-                  name={r.paidBy.displayName || r.paidBy.email}
-                  style={{
-                    fontSize: '18px',
-                    height: '40px',
-                    width: '40px',
-                  }}
-                />
-                <div
-                  style={{
-                    marginLeft: 15,
-                    marginRight: 15,
-                    width: 250,
-                  }}
-                >
-                  <span style={{ display: 'block' }}>{r.company}</span>
-                  <span style={{ fontSize: 12, opacity: 0.3 }}>
-                    {distanceInWordsStrict(
-                      new Date(),
-                      Date.parse(r.createdAt),
-                      {
-                        addSuffix: true,
-                      }
-                    )}
-                  </span>
-                </div>
-                <span>
-                  {r.total.toLocaleString(undefined, {
-                    maximumFractionDigits: 2,
-                  })}
-                  {getCurrencySymbol(r.currency)}
-                </span>
-              </ReceiptStyled>
-            ));
-          }}
-        </ReceiptsQueryContainer>
+        <ReceiptsList billId={billId} />
       )}
       {showReceiptId !== null ? (
         <ReceiptOverlay

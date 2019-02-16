@@ -1,10 +1,9 @@
-import { Resolver, Query, Authorized, Args, Arg } from 'type-graphql';
-import { Receipt } from '../../entity/Receipt';
-
-import { ReceiptsResponse } from './receiptsResponse';
-import { ReceiptsArgs } from './receipts/ReceiptsArgs';
+import { Arg, Args, Authorized, Query, Resolver } from 'type-graphql';
 import { getConnection } from 'typeorm';
+import { Receipt } from '../../entity/Receipt';
+import { ReceiptsArgs } from './receipts/ReceiptsArgs';
 import { FilterInput } from './receipts/ReceiptsWhereArgs';
+import { ReceiptsResponse } from './receiptsResponse';
 
 @Resolver()
 export class ReceiptsResolver {
@@ -12,13 +11,14 @@ export class ReceiptsResolver {
   @Query(() => ReceiptsResponse)
   async receipts(
     @Args() { billId }: ReceiptsArgs,
-    @Arg('where') { limit, startIndex }: FilterInput
+    @Arg('where') { limit, offset }: FilterInput
   ): Promise<ReceiptsResponse> {
+    console.log(limit, offset);
     const receipts = await getConnection()
       .getRepository(Receipt)
       .createQueryBuilder('receipts')
       .where('"billId" = :billId', { billId })
-      .skip(startIndex)
+      .skip(offset)
       .take(limit + 1)
       .orderBy('"createdAt"', 'DESC')
       .getMany();
