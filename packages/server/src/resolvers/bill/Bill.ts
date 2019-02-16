@@ -1,11 +1,12 @@
-import { Resolver, Authorized, Query, Arg } from 'type-graphql';
+import { Resolver, Authorized, Query, Args } from 'type-graphql';
 import { Bill } from '../../entity/Bill';
+import BillArgs from './bill/BillArgs';
 
 @Resolver()
 export class BillsResolver {
   @Authorized()
   @Query(() => Bill)
-  async bill(@Arg('id') id: string) {
+  async bill(@Args() { id }: BillArgs) {
     return Bill.findOne({ where: { id } });
   }
 }

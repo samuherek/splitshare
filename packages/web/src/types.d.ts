@@ -50,6 +50,8 @@ export type DateTime = any;
 export interface Query {
   bill: Bill;
 
+  billDepts: UserDept[];
+
   myBills: Bill[];
 
   myPendingInvites: BillInvite[];
@@ -145,6 +147,16 @@ export interface BillInvite {
   bill: Bill;
 }
 
+export interface UserDept {
+  userId: string;
+
+  sum: number;
+
+  currency: string;
+
+  owingToId: string;
+}
+
 export interface ReceiptsResponse {
   hasMore: boolean;
 
@@ -188,6 +200,9 @@ export interface BillUser {
 // ====================================================
 
 export interface BillQueryArgs {
+  id: string;
+}
+export interface BillDeptsQueryArgs {
   id: string;
 }
 export interface ReceiptQueryArgs {

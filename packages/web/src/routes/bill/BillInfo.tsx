@@ -1,11 +1,12 @@
+import { NavigateFn } from '@reach/router';
+import { AvatarUser, ButtonBase, DropdownEmoji, styled } from '@splitshare/ui';
 import * as React from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { BILL_QUERY } from '../../graphql/BillQuery';
-import { styled, DropdownEmoji, ButtonBase, AvatarUser } from '@splitshare/ui';
-import UpdateBillMutationContainer from '../../graphql/UpdateBillMutation';
 import RemoveBillMutationContainer from '../../graphql/RejectBillInviteMutation';
-import { NavigateFn } from '@reach/router';
-import { User, BillInvite } from '../../types';
+import UpdateBillMutationContainer from '../../graphql/UpdateBillMutation';
+import { BillInvite } from '../../types';
+import BillUsers from './billInfo/BillUsers';
 
 interface IProps {
   billId: string;
@@ -35,12 +36,13 @@ const IconStyled = styled.span<{ isOpen: boolean }>`
 `;
 
 const BillInfo = ({ billId, navigate }: IProps) => {
-  const { data, error } = useQuery(BILL_QUERY, { variables: { id: billId } });
-  if (error) {
-    return <div>{`Error! ${error.message}`}</div>;
+  const billQuery = useQuery(BILL_QUERY, { variables: { id: billId } });
+
+  if (billQuery.error) {
+    return <div>{`Error! ${billQuery.error.message}`}</div>;
   }
 
-  if (!data.bill) {
+  if (!billQuery.data.bill) {
     return null;
   }
 
@@ -62,8 +64,8 @@ const BillInfo = ({ billId, navigate }: IProps) => {
                   onClick={toggleDropdown}
                   isOpen={isOpen}
                 >
-                  {data.bill.icon ? (
-                    data.bill.icon
+                  {billQuery.data.bill.icon ? (
+                    billQuery.data.bill.icon
                   ) : (
                     <span
                       style={{
@@ -72,7 +74,7 @@ const BillInfo = ({ billId, navigate }: IProps) => {
                         textTransform: 'uppercase',
                       }}
                     >
-                      {data.bill.name.substr(0, 1)}
+                      {billQuery.data.bill.name.substr(0, 1)}
                     </span>
                   )}
                 </IconStyled>
@@ -99,27 +101,14 @@ const BillInfo = ({ billId, navigate }: IProps) => {
           )}
         </RemoveBillMutationContainer>
       </div>
-      <h2 style={{ fontSize: 28 }}>{data.bill.name}</h2>
+      <h2 style={{ fontSize: 28 }}>{billQuery.data.bill.name}</h2>
       <AvatarWrapStyled>
-        {data.bill.users.map((user: User) => {
-          return (
-            <div
-              key={user.id}
-              style={{
-                alignItems: 'center',
-                display: 'flex',
-                marginBottom: 15,
-              }}
-            >
-              <AvatarUser name={user.displayName || user.email} />
-              <span style={{ marginLeft: 10 }}>
-                {user.displayName || user.email}
-              </span>
-            </div>
-          );
-        })}
-        {data.bill.invites &&
-          data.bill.invites.map((invite: BillInvite) => {
+        <BillUsers
+          billId={billQuery.data.bill.id}
+          users={billQuery.data.bill.users}
+        />
+        {billQuery.data.bill.invites &&
+          billQuery.data.bill.invites.map((invite: BillInvite) => {
             return (
               <div
                 key={invite.id}

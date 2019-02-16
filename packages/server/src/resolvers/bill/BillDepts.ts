@@ -1,25 +1,44 @@
-// import { Resolver, Authorized, Query, Arg, Ctx } from 'type-graphql';
-import { Resolver, Authorized, Query, Arg } from 'type-graphql';
-import { Bill } from '../../entity/Bill';
+import { Args, Authorized, Query, Resolver } from 'type-graphql';
 import { getConnection } from 'typeorm';
-// import { MyContext } from '../../types/Context';
+import BillDeptsArgs from './billDepts/BillDeptsArgs';
+import { UserDept } from './billDepts/UserDept';
 
 @Resolver()
 export class BillDeptsResolver {
   @Authorized()
-  @Query(() => Bill)
-  // async billDepts(@Arg('id') id: string, @Ctx() ctx: MyContext) {
-  async billDepts(@Arg('id') id: string) {
+  @Query(() => [UserDept])
+  async billDepts(@Args() { id }: BillDeptsArgs) {
     const res = await getConnection().query(
-      // `select s.id, s.currency, sum(s.value) from bill b left join receipt r on b.id = r."billId" left join receipt_split s on r.id = s."receiptId" where b.id = $1 and s."userId" = $2 group by s.id, s.currency;`,
-      // `select distinct s."userId", s.currency, sum(s.value)`
-      `select distinct s."userId", s.currency, sum(s.value) from bill b left join receipt r on b.id = r."billId" left join receipt_split s on r.id = s."receiptId" where b.id = $1 group by s."userId", s.currency;`,
+      `
+      SELECT
+        brs. "userId",
+        sum(brs.value),
+        brs.currency,
+        brs. "paidById" AS "owingToId"
+      FROM (
+        SELECT
+        rs. "userId",
+        rs.value,
+        rs.currency,
+        r. "paidById"
+        FROM
+        bill b
+        LEFT JOIN receipt r ON b.id = r. "billId"
+        LEFT JOIN receipt_split rs ON r.id = rs. "receiptId"
+      WHERE
+        b.id = $1
+        AND r. "paidById" != rs. "userId") AS brs
+      GROUP BY
+        brs. "userId",
+        brs.currency,
+        brs. "paidById";
+      `,
+      // `select distinct s."userId", s.currency, sum(s.value) from bill b left join receipt r on b.id = r."billId" left join receipt_split s on r.id = s."receiptId" where b.id = $1 group by s."userId", s.currency;`,
       // [id, ctx.req.session!.userId]
       [id]
     );
+    // console.log('res res', res);
 
-    console.log('res res', res);
-
-    return Bill.findOne({ where: { id } });
+    return res;
   }
 }
