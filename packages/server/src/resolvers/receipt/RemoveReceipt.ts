@@ -1,7 +1,7 @@
-import { Resolver, Authorized, Mutation, Args } from 'type-graphql';
-import { Receipt } from '../../entity/Receipt';
-
+import { Args, Authorized, Mutation, Resolver } from 'type-graphql';
 import { getConnection } from 'typeorm';
+import { Receipt } from '../../entity/Receipt';
+import updateBillTimestamp from '../../utils/updateBill';
 import { RemoveReceiptArgs } from './removeReceipt/RemoveReceiptArgs';
 
 @Resolver()
@@ -16,6 +16,8 @@ export class RemoveReceiptResolver {
         .from(Receipt)
         .where('id = :id', { id })
         .execute();
+
+      updateBillTimestamp({ receiptId: id });
 
       return true;
     } catch (err) {
