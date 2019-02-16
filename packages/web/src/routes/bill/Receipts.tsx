@@ -8,6 +8,7 @@ import { styled, ButtonBase, AvatarUser } from '@splitshare/ui';
 import { distanceInWordsStrict } from 'date-fns';
 import getCurrencySymbol from '../../utils/getCurrencySymbol';
 import ReceiptOverlay from './ReceiptOverlay';
+import ReceiptNewForm from '../../components/ReceiptNewForm';
 
 interface IProps {
   billId: string;
@@ -68,13 +69,11 @@ const Receipts = ({ billId }: IProps) => {
         </ButtonBase>
       </ReceiptsToolbarStyled>
       {showReceiptNewOverlay ? (
-        <div>not yet</div>
+        <ReceiptNewForm
+          billId={billId}
+          onCancel={() => setReceiptOverlay(false)}
+        />
       ) : (
-        // <ReceiptNewForm
-        //   billId={billId}
-        //   users={bill.users}
-        //   onCancel={() => setReceiptOverlay(false)}
-        // />
         <ReceiptsQueryContainer billId={billId}>
           {({ receipts }) => {
             if (!receipts) {
