@@ -4,6 +4,8 @@
     { "path": "server" },
     { "path": "common" },
     { "path": "ui" },
-    { "path": "web" }
+    { "path": "web" },
+    { "path": "app" },
+    { "path": "web-native" }
   ]
 }
