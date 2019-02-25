@@ -1,19 +1,11 @@
+import { Link, Redirect, RouteComponentProps } from '@reach/router';
+import { styled } from '@splitshare/ui';
 import * as React from 'react';
-import { RouteComponentProps, Link, Redirect } from '@reach/router';
-
-import {
-  TopBarLeft,
-  LayoutTopBar,
-  LayoutPage,
-  TopBarRight,
-  styled,
-  Button,
-} from '@splitshare/ui';
+import PageModal, { PageModalInner } from '../components/PageModal';
 import getUUIDFromUrl from '../utils/getUUIDFromUrl';
 import BillInfo from './bill/BillInfo';
-import Receipts from './bill/Receipts';
-import PageModal, { PageModalInner } from '../components/PageModal';
 import InviteOverlay from './bill/InviteOverlay';
+import Receipts from './bill/Receipts';
 
 interface IProps extends RouteComponentProps {
   billParam?: string;
@@ -42,19 +34,15 @@ const Bill = ({ billParam, navigate }: IProps) => {
   const [showInviteOverlay, setInviteOverlay] = React.useState(false);
 
   return (
-    <LayoutPage>
-      <LayoutTopBar>
-        <TopBarLeft>
-          <Link to="/">Back</Link>
-        </TopBarLeft>
-        <TopBarRight>
-          <Button onClick={() => setInviteOverlay(true)}>+ Invite</Button>
-          <span>right menu</span>
-        </TopBarRight>
-      </LayoutTopBar>
+    <>
+      <Link to="/">Back</Link>
       <BillWrapStyled>
         <React.Suspense fallback={<div>loading</div>}>
-          <BillInfo billId={billId} navigate={navigate} />
+          <BillInfo
+            billId={billId}
+            navigate={navigate}
+            setInviteOverlay={setInviteOverlay}
+          />
         </React.Suspense>
         <React.Suspense fallback={<div>loading</div>}>
           <Receipts billId={billId} />
@@ -71,7 +59,7 @@ const Bill = ({ billParam, navigate }: IProps) => {
           </PageModal>
         ) : null}
       </BillWrapStyled>
-    </LayoutPage>
+    </>
   );
 };
 

@@ -1,5 +1,11 @@
 import { NavigateFn } from '@reach/router';
-import { AvatarUser, ButtonBase, DropdownEmoji, styled } from '@splitshare/ui';
+import {
+  AvatarUser,
+  Button,
+  ButtonBase,
+  DropdownEmoji,
+  styled,
+} from '@splitshare/ui';
 import * as React from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { BILL_QUERY } from '../../graphql/BillQuery';
@@ -11,6 +17,7 @@ import BillUsers from './billInfo/BillUsers';
 interface IProps {
   billId: string;
   navigate: NavigateFn | undefined;
+  setInviteOverlay: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BillInfoStyled = styled.div``;
@@ -35,7 +42,7 @@ const IconStyled = styled.span<{ isOpen: boolean }>`
   }
 `;
 
-const BillInfo = ({ billId, navigate }: IProps) => {
+const BillInfo = ({ billId, navigate, setInviteOverlay }: IProps) => {
   const billQuery = useQuery(BILL_QUERY, { variables: { id: billId } });
 
   if (billQuery.error) {
@@ -137,6 +144,7 @@ const BillInfo = ({ billId, navigate }: IProps) => {
             );
           })}
       </AvatarWrapStyled>
+      <Button onClick={() => setInviteOverlay(true)}>+ Invite</Button>
     </BillInfoStyled>
   );
 };

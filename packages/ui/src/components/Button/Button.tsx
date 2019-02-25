@@ -1,8 +1,7 @@
 // @flow
-import * as React from 'react';
 import { lighten, rem } from 'polished';
+import * as React from 'react';
 import styled, { css } from '../../styles/styled-components';
-
 import { ButtonBase } from '../ButtonBase';
 import { IBaseButtonProps } from '../ButtonBase/ButtonBase';
 
@@ -26,6 +25,7 @@ interface IProps extends IBaseButtonProps {
   fullWidth?: boolean;
   to?: string;
   className?: string;
+  onClick?: () => void;
 }
 
 // TODO: Fix the types
