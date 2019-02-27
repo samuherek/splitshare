@@ -18,19 +18,19 @@ const ReceiptStyled = styled.div`
 `;
 
 const ReceiptsList: React.FC<IProps> = ({ billId }) => {
-  const { data, loading, fetchMore, error, ...rest } = useQuery<
-    any,
-    ReceiptsQueryArgs
-  >(RECEIPTS_QUERY, {
-    notifyOnNetworkStatusChange: true,
-    variables: { billId, where: { limit: 6, offset: 0 } },
-  });
+  const { data, loading, fetchMore } = useQuery<any, ReceiptsQueryArgs>(
+    RECEIPTS_QUERY,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: { billId, where: { limit: 6, offset: 0 } },
+    }
+  );
 
   if (!data && loading) {
     return <div>Loading......</div>;
   }
 
-  if (data.receipts.length === 0) {
+  if (data.receipts.receipts.length === 0) {
     return (
       <div>
         <span>You have no receipts</span>
@@ -38,7 +38,7 @@ const ReceiptsList: React.FC<IProps> = ({ billId }) => {
     );
   }
 
-  console.log(data, loading, error, rest);
+  // console.log(data, loading, error, rest);
 
   return (
     <>

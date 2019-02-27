@@ -39,6 +39,10 @@ const ValueStyled = styled.span<{ variant: string }>`
 `;
 
 const BalanceValue: React.FC<IProps> = ({ billDepts, userId, loading }) => {
+  if (billDepts.length === 0) {
+    return null;
+  }
+
   if (loading) {
     return <span>...</span>;
   }

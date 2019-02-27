@@ -36,7 +36,7 @@ const BillUsers: React.FC<IProps> = ({ billId, users }) => {
     <>
       {users.map(u => (
         <WrapStyled key={u.id}>
-          <AvatarUser name={u.displayName || u.email} />
+          <AvatarUser name={u.displayName || u.email} url={u.photoUrl} />
           <NameStyled>{u.displayName || u.email}</NameStyled>
           <BalanceValue
             loading={loading}

@@ -10,9 +10,15 @@ const AvatarStyled: any = styled.span`
   border-radius: 30px;
   background: #eee;
   border: none;
-  /* cursor: pointer; */
   font: inherit;
   text-transform: uppercase;
+  overflow: hidden;
+  object-fit: cover;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 interface IProps {

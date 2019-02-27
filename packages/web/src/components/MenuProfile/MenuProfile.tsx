@@ -1,10 +1,16 @@
+import {
+  AvatarUser,
+  ButtonBase,
+  InputBase,
+  styled,
+  SvgEdit,
+} from '@splitshare/ui';
 import * as React from 'react';
-import { styled, ButtonBase, SvgEdit, InputBase } from '@splitshare/ui';
-import MeQueryContainer from '../../graphql/MeQuery';
 import { AppContext } from 'src/context/AppProvider';
-import { User, Maybe } from 'src/types';
-import UpdateMeMutationContainer from '../../graphql/UpdateMeMutation';
+import { Maybe, User } from 'src/types';
 import LogoutMutationContainer from '../../graphql/LogoutMutation';
+import MeQueryContainer from '../../graphql/MeQuery';
+import UpdateMeMutationContainer from '../../graphql/UpdateMeMutation';
 
 interface IState {
   displayName?: Maybe<string>;
@@ -71,17 +77,17 @@ const ContentMenuStyled = styled.div`
   }
 `;
 
-const AvatarStyled = styled.span`
-  background: #eee;
-  width: 62px;
-  height: 62px;
-  border-radius: 62px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px auto 20px;
-`;
+// const AvatarStyled = styled.span`
+//   background: #eee;
+//   width: 62px;
+//   height: 62px;
+//   border-radius: 62px;
+//   text-transform: uppercase;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 10px auto 20px;
+// `;
 
 const NameStyled = styled.span`
   font-weight: bold;
@@ -145,7 +151,10 @@ class MenuProfile extends React.PureComponent<{}, IState> {
                 {({ updateMeMutation, loading }) => (
                   <>
                     <AvatarBtnStyled onClick={this.toggleMenu}>
-                      {me ? me.email.substr(0, 1) : '..'}
+                      <AvatarUser
+                        name={me ? me.email : '...'}
+                        url={me ? me.photoUrl : null}
+                      />
                     </AvatarBtnStyled>
                     {isOpen && me ? (
                       <WrapStyled>
@@ -177,7 +186,22 @@ class MenuProfile extends React.PureComponent<{}, IState> {
                           </ActionsStyled>
                         </HeaderMenuStyled>
                         <ContentMenuStyled>
-                          <AvatarStyled>{me.email.substr(0, 1)}</AvatarStyled>
+                          <AvatarUser
+                            name={me.displayName || me.email}
+                            url={me.photoUrl}
+                            style={{
+                              alignItems: 'center',
+                              background: '#eee',
+                              borderRadius: '62px',
+                              display: 'flex',
+                              height: '62px',
+                              justifyContent: 'center',
+                              margin: '10px auto 20px',
+                              textTransform: 'uppercase',
+                              width: '62px',
+                            }}
+                          />
+                          {/* <AvatarStyled>{me.email.substr(0, 1)}</AvatarStyled> */}
                           {isEditing ? (
                             <>
                               <InputBase
