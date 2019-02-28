@@ -40,6 +40,6 @@
     "graphql-code-generator": "0.16.1",
     "graphql-codegen-typescript-common": "0.16.1",
     "graphql-codegen-typescript-server": "0.16.1",
-    "typescript": "3.3.3"
+    "typescript": "3.3.3333"
   }
 }

@@ -16,6 +16,6 @@
   "devDependencies": {
     "@types/react-native": "^0.57.37",
     "rimraf": "^2.6.3",
-    "typescript": "^3.3.3"
+    "typescript": "3.3.3333"
   }
 }
