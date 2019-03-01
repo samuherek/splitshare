@@ -64,7 +64,7 @@ const Receipts = ({ billId }: IProps) => {
           onCancel={() => setReceiptOverlay(false)}
         />
       ) : (
-        <ReceiptsList billId={billId} />
+        <ReceiptsList billId={billId} onSelect={setReceiptId} />
       )}
       {showReceiptId !== null ? (
         <ReceiptOverlay

@@ -1,14 +1,14 @@
+import { Ctx, Field, ID, ObjectType } from 'type-graphql';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
+  Column,
+  Entity,
   ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID, Ctx } from 'type-graphql';
-import { User } from './User';
-import { Receipt } from './Receipt';
 import { MyContext } from '../types/Context';
+import { Receipt } from './Receipt';
+import { User } from './User';
 
 @Entity()
 @ObjectType()
@@ -31,7 +31,7 @@ export class ReceiptSplit extends BaseEntity {
   @Column('uuid')
   userId: string;
 
-  @ManyToOne(() => Receipt, receipt => receipt.splits)
+  @ManyToOne(() => Receipt, receipt => receipt.splits, { onDelete: 'CASCADE' })
   receipt: Promise<Receipt>;
 
   @Field(() => User)

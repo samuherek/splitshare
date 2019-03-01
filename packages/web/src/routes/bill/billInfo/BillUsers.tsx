@@ -32,6 +32,8 @@ const BillUsers: React.FC<IProps> = ({ billId, users }) => {
     console.log(error);
   }
 
+  console.log(data.billDepts);
+
   return (
     <>
       {users.map(u => (

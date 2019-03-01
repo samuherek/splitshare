@@ -1,7 +1,7 @@
 // @flow
+import { gql } from 'apollo-boost';
 import * as React from 'react';
 import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
 import { Maybe, Receipt, ReceiptQueryArgs } from 'src/types';
 
 interface IQueryData {
@@ -24,7 +24,6 @@ export const RECEIPT_QUERY = gql`
       comment
       company
       category
-      country
       total
       currency
       paidAt

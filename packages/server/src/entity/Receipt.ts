@@ -1,18 +1,17 @@
+import { Ctx, Field, ID, ObjectType } from 'type-graphql';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
-  CreateDateColumn,
-  OneToMany,
+  Column,
+  Entity,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID, Ctx } from 'type-graphql';
-import { User } from './User';
-import { ReceiptSplit } from './ReceiptSplit';
-import { Bill } from './Bill';
 import { MyContext } from '../types/Context';
+import { Bill } from './Bill';
+import { ReceiptSplit } from './ReceiptSplit';
+import { User } from './User';
 
 @Entity()
 @ObjectType()
@@ -35,7 +34,7 @@ export class Receipt extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
-  country?: string;
+  imageId?: string;
 
   @Field()
   @Column({ type: 'numeric', scale: 2 })
@@ -50,7 +49,8 @@ export class Receipt extends BaseEntity {
   paidAt: Date;
 
   @Field()
-  @CreateDateColumn({ type: 'timestamp with time zone' })
+  @Column({ type: 'timestamp with time zone' })
+  // @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date;
 
   @Field()

@@ -8,6 +8,7 @@ import getCurrencySymbol from '../../../utils/getCurrencySymbol';
 
 interface IProps {
   billId: string;
+  onSelect: (id: string) => void;
 }
 
 const ReceiptStyled = styled.div`
@@ -17,7 +18,7 @@ const ReceiptStyled = styled.div`
   align-items: center;
 `;
 
-const ReceiptsList: React.FC<IProps> = ({ billId }) => {
+const ReceiptsList: React.FC<IProps> = ({ billId, onSelect }) => {
   const { data, loading, fetchMore } = useQuery<any, ReceiptsQueryArgs>(
     RECEIPTS_QUERY,
     {
@@ -43,7 +44,7 @@ const ReceiptsList: React.FC<IProps> = ({ billId }) => {
   return (
     <>
       {data.receipts.receipts.map((r: Receipt) => (
-        <ReceiptStyled key={r.id}>
+        <ReceiptStyled key={r.id} onClick={() => onSelect(r.id)}>
           <AvatarUser
             name={r.paidBy.displayName || r.paidBy.email}
             style={{

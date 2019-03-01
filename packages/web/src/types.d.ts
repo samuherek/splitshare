@@ -102,7 +102,7 @@ export interface Receipt {
 
   company?: Maybe<string>;
 
-  country?: Maybe<string>;
+  imageId?: Maybe<string>;
 
   total: number;
 
@@ -246,6 +246,9 @@ export interface CreateReceiptMutationArgs {
   splitsInput: ReceiptSplitInput[];
 
   receiptInput: ReceiptInput;
+}
+export interface RemoveReceiptMutationArgs {
+  id: string;
 }
 export interface LoginMutationArgs {
   email: string;

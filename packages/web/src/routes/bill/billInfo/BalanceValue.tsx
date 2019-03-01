@@ -61,6 +61,7 @@ const BalanceValue: React.FC<IProps> = ({ billDepts, userId, loading }) => {
     },
     0
   );
+  console.log(value);
 
   const variant = value === 0 ? 'neutral' : value > 0 ? 'positive' : 'negative';
 
