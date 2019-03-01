@@ -9,20 +9,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.8.2",
+    "react": "16.8.3",
     "react-native": "0.59.0-rc.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.6",
-    "@types/react": "^16.8.3",
-    "@types/react-native": "^0.57.37",
+    "@types/jest": "^24.0.9",
+    "@types/react": "^16.8.6",
+    "@types/react-native": "^0.57.38",
     "@types/react-test-renderer": "^16.8.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "24.1.0",
     "jest": "24.1.0",
-    "metro-react-native-babel-preset": "0.51.1",
-    "react-test-renderer": "16.6.3",
-    "ts-jest": "^23.10.5",
+    "metro-react-native-babel-preset": "0.53.0",
+    "react-test-renderer": "16.8.3",
+    "ts-jest": "^24.0.0",
     "typescript": "3.3.3333"
   },
   "jest": {
