@@ -1,4 +1,5 @@
 import { ButtonBase, styled } from '@splitshare/ui';
+import { format } from 'date-fns';
 import * as React from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import ReceiptNewForm from '../../components/ReceiptNewForm';
@@ -24,6 +25,7 @@ const ReceiptsToolbarStyled = styled.div`
 const Receipts = ({ billId }: IProps) => {
   const [showReceiptId, setReceiptId] = React.useState<null | string>(null);
   const [showReceiptNewOverlay, setReceiptOverlay] = React.useState(false);
+  const [dateFilter] = React.useState<Date>(new Date());
 
   const { data, error } = useQuery(RECEIPTS_QUERY, {
     variables: { billId, where: { limit: 6, offset: 0 } },
@@ -40,6 +42,7 @@ const Receipts = ({ billId }: IProps) => {
   return (
     <ReceiptsStyled>
       <ReceiptsToolbarStyled>
+        <h2 style={{ fontSize: 28 }}>{format(dateFilter, 'MMMM YYYY')}</h2>
         {!showReceiptNewOverlay ? (
           <span>Order by newest</span>
         ) : (

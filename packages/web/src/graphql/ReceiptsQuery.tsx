@@ -1,9 +1,9 @@
 // @flow
+import { gql } from 'apollo-boost';
 import * as React from 'react';
 import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
-import { Maybe, Receipt, ReceiptsQueryArgs, ReceiptsResponse } from 'src/types';
 import { RECEIPT_META_FRAGMENT } from 'src/graphql/fragments/receiptFragments';
+import { Maybe, Receipt, ReceiptsQueryArgs, ReceiptsResponse } from 'src/types';
 
 interface IQueryData {
   receipts: ReceiptsResponse;
@@ -27,6 +27,8 @@ export const RECEIPTS_QUERY = gql`
         ...receiptMeta
         createdAt
         company
+        paidAt
+        category
 
         paidBy {
           email

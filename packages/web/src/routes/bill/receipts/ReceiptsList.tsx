@@ -1,7 +1,10 @@
 import { AvatarUser, Button, styled } from '@splitshare/ui';
-import { distanceInWordsStrict } from 'date-fns';
+// @ts-ignore
+import capitalize from 'capitalize';
+import { format } from 'date-fns';
 import * as React from 'react';
 import { useQuery } from 'react-apollo-hooks';
+import SvgGroceries from '../../../components/icons/Groceries';
 import { RECEIPTS_QUERY } from '../../../graphql/ReceiptsQuery';
 import { Receipt, ReceiptsQueryArgs } from '../../../types';
 import getCurrencySymbol from '../../../utils/getCurrencySymbol';
@@ -16,6 +19,7 @@ const ReceiptStyled = styled.div`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  max-width: 600px;
 `;
 
 const ReceiptsList: React.FC<IProps> = ({ billId, onSelect }) => {
@@ -53,6 +57,18 @@ const ReceiptsList: React.FC<IProps> = ({ billId, onSelect }) => {
               width: '40px',
             }}
           />
+          <span
+            style={{
+              background: '#E1E1E6',
+              display: 'block',
+              height: 22,
+              margin: '0 25px',
+              width: 1,
+            }}
+          />
+
+          <SvgGroceries style={{ fontSize: 32 }} />
+
           <div
             style={{
               marginLeft: 15,
@@ -60,17 +76,37 @@ const ReceiptsList: React.FC<IProps> = ({ billId, onSelect }) => {
               width: 250,
             }}
           >
-            <span style={{ display: 'block' }}>{r.company}</span>
-            <span style={{ fontSize: 12, opacity: 0.3 }}>
-              {distanceInWordsStrict(new Date(), Date.parse(r.createdAt), {
-                addSuffix: true,
-              })}
-            </span>
+            <div>
+              <span style={{ display: 'block', marginBottom: 5 }}>
+                {r.company}
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {r.category ? (
+                <>
+                  <span style={{ fontSize: 12, opacity: 0.3 }}>
+                    {capitalize(r.category)}
+                  </span>
+                  <span
+                    style={{
+                      background: '#E1E1E6',
+                      display: 'inline-block',
+                      height: 10,
+                      margin: '0 10px',
+                      width: 1,
+                    }}
+                  />
+                </>
+              ) : null}
+              <span style={{ fontSize: 12, opacity: 0.3 }}>
+                {format(r.paidAt, 'MMM D, YYYY')}
+              </span>
+            </div>
           </div>
-          <span>
+          <span style={{ marginLeft: 'auto' }}>
             {r.total.toLocaleString(undefined, {
               maximumFractionDigits: 2,
-            })}
+            })}{' '}
             {getCurrencySymbol(r.currency)}
           </span>
         </ReceiptStyled>

@@ -2,7 +2,7 @@ import { CardBillBig, styled } from '@splitshare/ui';
 import * as React from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { MY_BILLS_QUERY } from 'src/graphql/MyBillsQuery';
-import convertSpaceToDash from 'src/utils/convertSpaceToDash';
+import sanitizeName from 'src/utils/sanitizeName';
 
 const ScrollWrapStyled = styled.div`
   overflow: auto;
@@ -22,7 +22,6 @@ const BillsList = () => {
     return <div>{`Error! ${error.message}`}</div>;
   }
 
-  console.log(data);
   return (
     <React.Fragment>
       <h3 style={{ fontSize: 28 }}>Opened Bills ({data.myBills.length})</h3>
@@ -32,7 +31,7 @@ const BillsList = () => {
             key={bill.id}
             title={bill.name}
             users={bill.users}
-            to={`/${convertSpaceToDash(bill.name)}-${bill.id}`}
+            to={`/${sanitizeName(bill.name)}-${bill.id}`}
             updatedAt={bill.updatedAt}
             icon={bill.icon}
             invites={bill.invites}
