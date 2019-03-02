@@ -43,11 +43,7 @@ const Receipts = ({ billId }: IProps) => {
     <ReceiptsStyled>
       <ReceiptsToolbarStyled>
         <h2 style={{ fontSize: 28 }}>{format(dateFilter, 'MMMM YYYY')}</h2>
-        {!showReceiptNewOverlay ? (
-          <span>Order by newest</span>
-        ) : (
-          <h3>Create new Receipt</h3>
-        )}
+        {!showReceiptNewOverlay ? null : <h3>Create new Receipt</h3>}
         <ButtonBase
           style={{ marginLeft: 'auto' }}
           onClick={() => {

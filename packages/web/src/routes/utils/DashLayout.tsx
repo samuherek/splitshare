@@ -6,7 +6,9 @@ import {
   TopBarLeft,
   TopBarRight,
 } from '@splitshare/ui';
+import get from 'lodash.get';
 import * as React from 'react';
+import SvgBack from '../../components/icons/Back';
 import SvgLogo from '../../components/icons/Logo';
 import MenuInvites from '../../components/MenuInvites';
 import MenuProfile from '../../components/MenuProfile';
@@ -27,7 +29,7 @@ const LogoLinkStyled = styled(Link)`
   }
 `;
 
-const DashLayout = ({ children }: IAuthLayoutProps) => (
+const DashLayout = ({ children, location }: IAuthLayoutProps) => (
   <AppContext.Consumer>
     {({ authenticated }) => {
       if (!authenticated) {
@@ -38,6 +40,19 @@ const DashLayout = ({ children }: IAuthLayoutProps) => (
         <LayoutPage>
           <LayoutTopBar>
             <TopBarLeft>
+              {get(location, 'pathname', '/') !== '/' ? (
+                <Link
+                  to="/"
+                  style={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    marginRight: 45,
+                  }}
+                >
+                  <SvgBack style={{ marginRight: 10 }} />
+                  Back
+                </Link>
+              ) : null}
               <LogoLinkStyled to="/">
                 <SvgLogo style={{ fontSize: 28 }} />
                 Split Share

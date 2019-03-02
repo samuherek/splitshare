@@ -1,4 +1,4 @@
-import { Link, Redirect, RouteComponentProps } from '@reach/router';
+import { Redirect, RouteComponentProps } from '@reach/router';
 import { styled } from '@splitshare/ui';
 import * as React from 'react';
 import PageModal, { PageModalInner } from '../components/PageModal';
@@ -35,7 +35,7 @@ const Bill = ({ billParam, navigate }: IProps) => {
 
   return (
     <>
-      <Link to="/">Back</Link>
+      {/* <Link to="/">Back</Link> */}
       <BillWrapStyled>
         <React.Suspense fallback={<div>loading</div>}>
           <BillInfo
