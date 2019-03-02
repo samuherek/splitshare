@@ -1,9 +1,8 @@
-import React from 'react';
-import gql from 'graphql-tag';
-import { useQuery } from 'react-apollo-hooks';
 import { CardBillBig, styled } from '@splitshare/ui';
+import * as React from 'react';
+import { useQuery } from 'react-apollo-hooks';
 import { MY_BILLS_QUERY } from 'src/graphql/MyBillsQuery';
-import convertSpaceToDash from '../../utils/convertSpaceToDash';
+import convertSpaceToDash from 'src/utils/convertSpaceToDash';
 
 const ScrollWrapStyled = styled.div`
   overflow: auto;
@@ -17,11 +16,13 @@ const ScrollWrapStyled = styled.div`
 `;
 
 const BillsList = () => {
-  const { data, error } = useQuery(MY_BILLS_QUERY);
+  const { data, error } = useQuery(MY_BILLS_QUERY, { suspend: true });
+
   if (error) {
     return <div>{`Error! ${error.message}`}</div>;
   }
 
+  console.log(data);
   return (
     <React.Fragment>
       <h3 style={{ fontSize: 28 }}>Opened Bills ({data.myBills.length})</h3>

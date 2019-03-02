@@ -43,7 +43,10 @@ const IconStyled = styled.span<{ isOpen: boolean }>`
 `;
 
 const BillInfo = ({ billId, navigate, setInviteOverlay }: IProps) => {
-  const billQuery = useQuery(BILL_QUERY, { variables: { id: billId } });
+  const billQuery = useQuery(BILL_QUERY, {
+    suspend: true,
+    variables: { id: billId },
+  });
 
   if (billQuery.error) {
     return <div>{`Error! ${billQuery.error.message}`}</div>;

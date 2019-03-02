@@ -25,6 +25,7 @@ const NameStyled = styled.span`
 
 const BillUsers: React.FC<IProps> = ({ billId, users }) => {
   const { data, error, loading } = useQuery(BILL_DEPTS_QUERY, {
+    suspend: true,
     variables: { id: billId },
   });
 
