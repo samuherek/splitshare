@@ -2402,19 +2402,12 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@*", "@types/react-native@^0.57.37", "@types/react-native@^0.57.38":
+"@types/react-native@*", "@types/react-native@0.57.38", "@types/react-native@^0.57.37", "@types/react-native@^0.57.38":
   version "0.57.38"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.38.tgz#2ff6ed1a7cc207afbfd87bf496513d96931d1446"
   integrity sha512-bmY2ad/vQgP0HMT7Q7EQzirDBt5ibp+kBHclTnY7/i5MrdqE1oY+3b9NkDg3ohXlumr7p5stAG6I55nhfeUV6Q==
   dependencies:
     "@types/prop-types" "*"
-    "@types/react" "*"
-
-"@types/react-native@0.55.4":
-  version "0.55.4"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.55.4.tgz#866005d86490e2fd60543b143b2a5ac208aa925b"
-  integrity sha512-1wPLRLNVSRFBHuwm0WtukUeR8nU63WpKMiCXD5OWJnjYUJ2fq+H/oYJq4Q4OmLGAUCT7XkJEoVqDgLyH/3tw8w==
-  dependencies:
     "@types/react" "*"
 
 "@types/react-test-renderer@^16.8.1":
@@ -17288,10 +17281,10 @@ react-native@0.58.6:
     xmldoc "^0.4.0"
     yargs "^9.0.0"
 
-react-native@0.59.0-rc.1:
-  version "0.59.0-rc.1"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.0-rc.1.tgz#7dd85c1a98fa7a6aa50e80dac52c54cb811556dc"
-  integrity sha512-P7OJMv+n/ZMI1v6zjh2wRagbIHLzORbGBiYOXHoHf8XTDjP15kps+0ccTYTcv5AYI8DA9Atb+jnP6dj6WCy2Tg==
+react-native@0.59.0-rc.3:
+  version "0.59.0-rc.3"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.0-rc.3.tgz#a989e4cdab596bb62248c26920fb641b210fd60e"
+  integrity sha512-jMH/5VUaajBXADmBlDyNQ9gYDU3ywXRQTdVMFBLPcPwT+xJzF1HuUo/xEpAQ6G+mjia3G70BQpEgxi55berviw==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^1.2.1"
