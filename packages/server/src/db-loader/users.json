@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "bills": {
+        "0": { "type": "string", "value": "YPnGBCLDB235PjUeoKV4" },
+        "type": "array"
+      },
+      "createdAt": { "type": "date", "value": "2016-12-31T23:00:00.000Z" },
+      "displayName": { "type": "string", "value": "Eva Moorman" },
+      "email": { "type": "string", "value": "evamoorman@live.nl" },
+      "firstName": { "type": "string", "value": "eva" },
+      "lastName": { "type": "string", "value": "moorman" },
+      "photoUrl": {
+        "type": "string",
+        "value": "https://lh4.googleusercontent.com/-umkhafG8_90/AAAAAAAAAAI/AAAAAAAAARQ/GWYk7hvFZR4/photo.jpg"
+      }
+    },
+    {
+      "bills": {
+        "0": { "type": "string", "value": "YPnGBCLDB235PjUeoKV4" },
+        "type": "array"
+      },
+      "createdAt": { "type": "date", "value": "2016-12-31T23:00:00.000Z" },
+      "displayName": { "type": "string", "value": "Sam Uherek" },
+      "email": { "type": "string", "value": "samuherekbiz@gmail.com" },
+      "firstName": { "type": "string", "value": "sam" },
+      "lastName": { "type": "string", "value": "uherek" },
+      "photoUrl": {
+        "type": "string",
+        "value": "https://lh6.googleusercontent.com/-wy4SwdZArMQ/AAAAAAAAAAI/AAAAAAAAAiE/p4My5r6yBPM/photo.jpg"
+      }
+    }
+  ]
+}

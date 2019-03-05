@@ -20,6 +20,7 @@ const ReceiptStyled = styled.div`
   display: flex;
   align-items: center;
   max-width: 600px;
+  cursor: pointer;
 `;
 
 const ReceiptsList: React.FC<IProps> = ({ billId, onSelect }) => {

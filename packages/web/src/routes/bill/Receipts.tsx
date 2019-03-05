@@ -22,9 +22,21 @@ const ReceiptsToolbarStyled = styled.div`
   margin-bottom: 25px;
 `;
 
+const ButtonStyled = styled(ButtonBase)`
+  bottom: 20vh;
+  left: 7vw;
+  margin-left: auto;
+  position: absolute;
+  background: #46dc75;
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  color: white;
+`;
+
 const Receipts = ({ billId }: IProps) => {
   const [showReceiptId, setReceiptId] = React.useState<null | string>(null);
-  const [showReceiptNewOverlay, setReceiptOverlay] = React.useState(false);
+  const [showReceiptNewOverlay, setReceiptOverlay] = React.useState(true);
   const [dateFilter] = React.useState<Date>(new Date());
 
   const { data, error } = useQuery(RECEIPTS_QUERY, {
@@ -40,38 +52,39 @@ const Receipts = ({ billId }: IProps) => {
   }
 
   return (
-    <ReceiptsStyled>
-      <ReceiptsToolbarStyled>
-        <h2 style={{ fontSize: 28 }}>{format(dateFilter, 'MMMM YYYY')}</h2>
-        {!showReceiptNewOverlay ? null : <h3>Create new Receipt</h3>}
-        <ButtonBase
-          style={{ marginLeft: 'auto' }}
-          onClick={() => {
-            if (showReceiptNewOverlay) {
-              setReceiptOverlay(false);
-            } else {
-              setReceiptOverlay(true);
-            }
-          }}
-        >
-          {showReceiptNewOverlay ? 'Cancel' : '+ Add Receipt'}
-        </ButtonBase>
-      </ReceiptsToolbarStyled>
-      {showReceiptNewOverlay ? (
-        <ReceiptNewForm
-          billId={billId}
-          onCancel={() => setReceiptOverlay(false)}
-        />
-      ) : (
-        <ReceiptsList billId={billId} onSelect={setReceiptId} />
-      )}
-      {showReceiptId !== null ? (
-        <ReceiptOverlay
-          onCancel={() => setReceiptId(null)}
-          receiptId={showReceiptId}
-        />
-      ) : null}
-    </ReceiptsStyled>
+    <>
+      <ButtonStyled
+        onClick={() => {
+          if (showReceiptNewOverlay) {
+            setReceiptOverlay(false);
+          } else {
+            setReceiptOverlay(true);
+          }
+        }}
+      >
+        {showReceiptNewOverlay ? 'Cancel' : '+'}
+      </ButtonStyled>
+      <ReceiptsStyled>
+        <ReceiptsToolbarStyled>
+          <h2 style={{ fontSize: 28 }}>{format(dateFilter, 'MMMM YYYY')}</h2>
+          {!showReceiptNewOverlay ? null : <h3>Create new Receipt</h3>}
+        </ReceiptsToolbarStyled>
+        {showReceiptNewOverlay ? (
+          <ReceiptNewForm
+            billId={billId}
+            onCancel={() => setReceiptOverlay(false)}
+          />
+        ) : (
+          <ReceiptsList billId={billId} onSelect={setReceiptId} />
+        )}
+        {showReceiptId !== null ? (
+          <ReceiptOverlay
+            onCancel={() => setReceiptId(null)}
+            receiptId={showReceiptId}
+          />
+        ) : null}
+      </ReceiptsStyled>
+    </>
   );
 };
 

@@ -21,6 +21,9 @@ interface IInputBaseProps {
   rows?: string | number;
   type?: 'text' | 'number' | 'textarea' | 'search' | 'password';
   value?: string | number;
+  step?: string;
+  onKeyPress?: (ev: React.SyntheticEvent) => void;
+  onKeyDown?: (ev: React.SyntheticEvent) => void;
 }
 
 // TODO: Fix this any type

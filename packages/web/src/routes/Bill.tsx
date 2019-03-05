@@ -35,7 +35,6 @@ const Bill = ({ billParam, navigate }: IProps) => {
 
   return (
     <>
-      {/* <Link to="/">Back</Link> */}
       <BillWrapStyled>
         <React.Suspense fallback={<div>loading</div>}>
           <BillInfo
