@@ -1,4 +1,4 @@
-import { createConnection } from 'typeorm';
+import { createConnection, getConnectionOptions } from 'typeorm';
 // import { DefaultNamingStrategy } from 'typeorm/naming-strategy/DefaultNamingStrategy';
 // import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyInterface';
 // import { snakeCase } from 'typeorm/util/StringUtils';
@@ -27,30 +27,18 @@ import { createConnection } from 'typeorm';
 // }
 
 export const createTypeormConn = async () => {
+  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
+
   let retries = 5;
   while (retries) {
     try {
-      return createConnection({
-        name: 'default',
-        type: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'samuherek',
-        password: '',
-        database: 'splitshare',
-        logging: true,
-        synchronize: true,
-        entities: ['src/entity/**/*.*'],
-        migrations: ['src/migration/**/*.*'],
-        subscribers: ['src/subscriber/**/*.*'],
-        // namingStrategy: new CustomNamingStrategy(),
-        // dropSchema: true,
-        cli: {
-          entitiesDir: 'src/entity',
-          migrationsDir: 'src/migration',
-          subscribersDir: 'src/subscriber',
-        },
-      });
+      return process.env.NODE_ENV === 'production'
+        ? createConnection({
+            name: 'default',
+            type: 'postgres',
+            url: process.env.DATABASE_URL,
+          })
+        : createConnection({ ...connectionOptions, name: 'default' });
     } catch (err) {
       console.log(err);
       retries -= 1;

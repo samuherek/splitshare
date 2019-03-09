@@ -20,6 +20,7 @@
     "faker": "4.1.0",
     "jest": "24.1.0",
     "nodemon": "1.18.10",
+    "rimraf": "^2.6.3",
     "ts-jest": "24.0.0",
     "ts-node": "8.0.2",
     "ts-node-dev": "1.0.0-pre.32",
@@ -29,7 +30,9 @@
     "start:old": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
     "start": "ts-node-dev --respawn src/index.ts",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
-    "test": "yarn db:setup && jest"
+    "test": "yarn db:setup && jest",
+    "build": "tsc",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "apollo-server-express": "2.4.8",

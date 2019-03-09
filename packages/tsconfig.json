@@ -1,11 +1,4 @@
 {
   "files": [],
-  "references": [
-    { "path": "server" },
-    { "path": "common" },
-    { "path": "ui" },
-    { "path": "web" },
-    { "path": "app" },
-    { "path": "web-native" }
-  ]
+  "references": [{ "path": "server" }, { "path": "common" }, { "path": "ui" }]
 }

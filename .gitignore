@@ -8,6 +8,9 @@ dump.rdb
 **/.env
 notes.md
 
+# TODO: For the time being we hard code this. We'll probably change with the CI/CD implementation
+**/.env.prod
+
 # node.js
 #
 node_modules/

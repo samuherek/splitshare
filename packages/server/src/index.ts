@@ -1,24 +1,25 @@
-import 'reflect-metadata';
-require('dotenv-safe').config();
 import { ApolloServer } from 'apollo-server-express';
 import * as connectRedis from 'connect-redis';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as session from 'express-session';
-// import { v4 } from 'uuid';
-
-import { createTypeormConn } from './createTypeormConn';
-import { redis } from './redis';
+import { GraphQLError, GraphQLSchema } from 'graphql';
+import 'reflect-metadata';
 import { redisSessionPrefix } from './constants';
-import { GraphQLSchema, GraphQLError } from 'graphql';
-import { userLoader } from './loaders/userLoader';
-import { billUsersLoader } from './loaders/billUsersLoader';
-import { confirmEmail } from './routes/confirmEmail';
-import { billLoader } from './loaders/billLoader';
-import { billInvitesLoader } from './loaders/billInvitesLoader';
-import { receiptSplitsLoader } from './loaders/receiptSplitsLoader';
 import { createSchema } from './createSchema';
+// import { v4 } from 'uuid';
+import { createTypeormConn } from './createTypeormConn';
+import { billInvitesLoader } from './loaders/billInvitesLoader';
+import { billLoader } from './loaders/billLoader';
+import { billUsersLoader } from './loaders/billUsersLoader';
 import { receiptLoader } from './loaders/receiptLoader';
+import { receiptSplitsLoader } from './loaders/receiptSplitsLoader';
+import { userLoader } from './loaders/userLoader';
+import { redis } from './redis';
+import { confirmEmail } from './routes/confirmEmail';
+require('dotenv-safe').config({
+  allowEmptyValues: true,
+});
 
 const RedisStore = connectRedis(session);
 
