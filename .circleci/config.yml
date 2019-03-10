@@ -20,7 +20,7 @@ jobs:
           name: Instsall dependencies
           command: yarn install
       - save_cache:
-          key: deps1-{{ .Branc }}-{{ checksum "package.json" }}
+          key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ./node_modules
 
