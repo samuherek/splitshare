@@ -15,14 +15,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+          key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
-        name: Instsall dependencies
-        command: yarn install
+          name: Instsall dependencies
+          command: yarn install
       - save_cache:
-        key: deps1-{{ .Branc }}-{{ checksum "package.json" }}
-        paths:
-          - ./node_modules
+          key: deps1-{{ .Branc }}-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
 
 workflows:
   version: 2
