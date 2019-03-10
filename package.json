@@ -5,7 +5,11 @@
     "prettier": "prettier \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|mdx|graphql)\"",
     "prettier:validate": "npm run prettier -- --list-different",
     "precommit": "lint-staged",
-    "build:web": "lerna run build --scope{@splitshare/ui,@splitshare/web}"
+    "build:web": "lerna run build --scope={@splitshare/ui,@splitshare/web}",
+    "build:server": "lerna run build --scope={@splitshare/server}",
+    "lint": "lerna run lint --scope={@splitshare/ui,@splitshare/web,@splitshare/server}",
+    "test": "lerna run test --scope={@splitshare/ui,@splitshare/web,@splitshare/server}",
+    "clean": "rimraf node_modules && lerna run clean"
   },
   "lint-staged": {
     "**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|mdx|graphql)": [

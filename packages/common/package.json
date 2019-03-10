@@ -4,7 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rimraf dist && tsc"
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "test": ""
   },
   "keywords": [],
   "author": "",

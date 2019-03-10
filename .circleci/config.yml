@@ -1,9 +1,30 @@
 version: 2
+
+# references:
+#   node-10: &node-10
+#     working_directory: ~/splitshare
+#     docker:
+#       - image: circleci/node:10
+
+#   restore-cache: $restore-cache
+#       key: deps1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+#   save-cache: $save-cache
+#       key: deps1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+#         paths:
+#           - ./node_modules
+
+#   yarn: $yarn
+#     name: Install Dependencies
+#     command: yarn install --pure-lockfile --frozen-lockfile
+
+# lint: $lint
+
 jobs:
   build:
     working_directory: ~/splitshare
     docker:
-      - image: circleci/node:chakracore-10.13
+      - image: circleci/node:10
         environment:
           NODE_ENV: production
           DATABASE_URL: postgresql://ubuntu@localhost/splitshare-test?sslmode=disable
@@ -15,12 +36,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+          key: deps1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Instsall dependencies
           command: yarn install
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+          key: deps1-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
 

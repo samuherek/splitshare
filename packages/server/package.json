@@ -31,6 +31,7 @@
     "start": "ts-node-dev --respawn src/index.ts",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "yarn db:setup && jest",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "build": "tsc",
     "clean": "rimraf dist"
   },
