@@ -1,8 +1,31 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/splitshare
     docker:
-      - image: circleci/node
+      - image: circleci/node:chakracore-10.13
+        environment:
+          NODE_ENV: production
+          DATABASE_URL: postgresql://ubuntu@localhost/splitshare-test?sslmode=disable
+      - image: circleci/postgres:9.6.9
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: splitshare-test
+          POSTGRES_PASSOWRD: ''
     steps:
       - checkout
-      - run: echo "a first hellow!"
+      - restore_cache:
+        key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+      - run:
+        name: Instsall dependencies
+        command: yarn install
+      - save_cache:
+        key: deps1-{{ .Branc }}-{{ checksum "package.json" }}
+        paths:
+          - ./node_modules
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
