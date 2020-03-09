@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Modal /> should match snapshot 1`] = `
+.c1 {
+  background-color: rgba(50,50,50,0.65);
+}
+
+.c2 {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: -1;
+  position: fixed;
+  touch-action: none;
+}
+
+.c0 {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1300;
+  position: fixed;
+}
+
+<div
+  class="c0 dialog"
+>
+  <div
+    aria-hidden="true"
+    class="c1 c2 Backdrop"
+    style="opacity: 0;"
+  />
+  <div
+    tabindex="0"
+  />
+  <span>
+    something
+  </span>
+  <div
+    tabindex="0"
+  />
+</div>
+`;

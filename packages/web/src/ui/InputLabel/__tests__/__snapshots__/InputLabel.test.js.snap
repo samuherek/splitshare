@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+.c0 {
+  line-height: 1;
+  padding: 0;
+  font-size: 1em;
+  color: inherit;
+}
+
+.c1 {
+  display: block;
+  margin-bottom: 5px;
+  color: #a0a2ad;
+}
+
+.c1.focused {
+  color: #131314;
+}
+
+.c1.disabled {
+  pointer-events: none;
+}
+
+<label
+  class="SSInputLabel SPFormLabel c0 c1"
+>
+  Label
+  <span
+    class="SSFromLabelOptional"
+  >
+     
+    (Optional)
+  </span>
+</label>
+`;

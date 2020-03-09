@@ -1,20 +1,15 @@
 import { Router } from '@reach/router';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-// import Dashboard from './routes/Dashboard';
-// import DashLayout from './routes/utils/DashLayout';
-import theme from './styles';
+import Dashboard from './routes/Dashboard';
 
 function AuthorizedApp() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        {/* <DashLayout path="/"> */}
-        {/* <Dashboard path="/" /> */}
-        {/* <NotFound default={true} /> */}
-        {/* </DashLayout> */}
-      </Router>
-    </ThemeProvider>
+    <Router>
+      {/* <DashLayout path="/"> */}
+      <Dashboard path="/" />
+      {/* <NotFound default={true} /> */}
+      {/* </DashLayout> */}
+    </Router>
   );
 }
 

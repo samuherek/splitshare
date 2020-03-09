@@ -1,0 +1,449 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshots 1`] = `
+.c0 i {
+  background: #0ec76a;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c1 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c1 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c1 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c1 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+<span
+  class="c0 c1 ButtonLoader primary"
+>
+  <i />
+  <i />
+  <i />
+</span>
+`;
+
+exports[`should match snapshots 2`] = `
+.c0 i {
+  background: #0ec76a;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c1 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c1 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c1 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c1 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+<span
+  class="c0 c1 ButtonLoader primary"
+>
+  <i />
+  <i />
+  <i />
+</span>
+`;
+
+exports[`should match snapshots 3`] = `
+.c0 i {
+  background: #a0a2ad;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c1 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c1 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c1 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c1 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+<span
+  class="c0 c1 ButtonLoader"
+>
+  <i />
+  <i />
+  <i />
+</span>
+`;
+
+exports[`should match snapshots 4`] = `
+.c0 i {
+  background: #b7bac7;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c1 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c1 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c1 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c1 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+<span
+  class="c0 c1 ButtonLoader"
+>
+  <i />
+  <i />
+  <i />
+</span>
+`;
+
+exports[`should match snapshots 5`] = `
+.c0 i {
+  background: #ffffff;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c1 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c1 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c1 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c1 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+<span
+  class="c0 c1 ButtonLoader primary"
+>
+  <i />
+  <i />
+  <i />
+</span>
+`;
+
+exports[`should match snapshots 6`] = `
+.c0 i {
+  background: #a0a2ad;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c1 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c1 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c1 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c1 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+<span
+  class="c0 c1 ButtonLoader"
+>
+  <i />
+  <i />
+  <i />
+</span>
+`;
+
+exports[`should match snapshots 7`] = `
+.c0 i {
+  background: #b7bac7;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c1 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c1 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c1 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c1 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+<span
+  class="c0 c1 ButtonLoader"
+>
+  <i />
+  <i />
+  <i />
+</span>
+`;

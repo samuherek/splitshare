@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshots 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 2em;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #b7bac7;
+}
+
+.c0.start {
+  margin-right: 8px;
+}
+
+.c0.end {
+  margin-left: 8px;
+}
+
+<div
+  class="SSInputAdornment c0"
+/>
+`;
+
+exports[`should match snapshots 2`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 2em;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #b7bac7;
+}
+
+.c0.start {
+  margin-right: 8px;
+}
+
+.c0.end {
+  margin-left: 8px;
+}
+
+<div
+  class="SSInputAdornment c0"
+>
+  <span>
+    A
+  </span>
+</div>
+`;

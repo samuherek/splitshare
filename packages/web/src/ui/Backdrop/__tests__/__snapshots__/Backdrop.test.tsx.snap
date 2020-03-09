@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Backdrop /> should match snapshot 1`] = `
+.c0 {
+  background-color: rgba(50,50,50,0.65);
+}
+
+.c1 {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: -1;
+  position: fixed;
+  touch-action: none;
+}
+
+<div
+  aria-hidden="true"
+  class="c0 c1 Backdrop"
+/>
+`;

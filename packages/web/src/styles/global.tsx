@@ -2,9 +2,16 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
 :root {
-  --green-main: #287159;
+  /* --primary: white;
+  --primary-hover:white;
+  --primary-active:white;
+  --primary-disabled:white;
+  --tertiary:white;
+  --tertiary-hover:white;
+  --tertiary-active:white;
+  --tertiary-disabled:white;
+  /* --white: white; */
 }
-
 
 * {
   padding: 0;
@@ -16,11 +23,6 @@ body {
   position: relative;
   background: #ffffff;
 }
-
-a {
-    text-decoration: none;
-  }
-
 `;
 
 export default GlobalStyles;

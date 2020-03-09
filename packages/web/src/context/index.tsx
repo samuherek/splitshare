@@ -1,10 +1,7 @@
-import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import ApolloProviderWrap from '../Apollo/ApolloProviderWrap';
 import { Auth0Provider } from '../Auth0/Auth0Provider';
-import theme from '../styles/index';
+import { useQueryMe } from '../graphql/user/queryMe';
 
 interface Props {
   children: React.ReactNode;
@@ -20,19 +17,13 @@ interface Props {
 // TODO: look if this is the only way to do it with
 // current implementation.
 function WaitForUserCreation({ children }: any) {
-  const { data, loading, error } = useQuery(gql`
-    query Me {
-      me {
-        id
-        email
-        displayName
-      }
-    }
-  `);
+  const { data, loading, error } = useQueryMe();
 
   if (loading || error || !data) {
     return null;
   }
+
+  console.log('logged in user:', data?.me);
 
   return children;
 }
@@ -41,9 +32,7 @@ function AppProviders({ children }: Props) {
   return (
     <Auth0Provider>
       <ApolloProviderWrap>
-        <ThemeProvider theme={theme}>
-          <WaitForUserCreation>{children}</WaitForUserCreation>
-        </ThemeProvider>
+        <WaitForUserCreation>{children}</WaitForUserCreation>
       </ApolloProviderWrap>
     </Auth0Provider>
   );
