@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user queries me: query should return a user with appropriate fields 1`] = `
+Object {
+  "data": Object {
+    "me": Object {
+      "displayName": null,
+      "email": "email@email.com",
+      "id": "1",
+      "photoUrl": null,
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bill mutations createBill: mutation should create and return a created bill 1`] = `
+Object {
+  "data": Object {
+    "createBill": Object {
+      "createdAt": "2000-01-01",
+      "icon": null,
+      "id": "1",
+      "name": "new bill",
+      "updatedAt": "2000-01-01T00:00:00.000Z",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

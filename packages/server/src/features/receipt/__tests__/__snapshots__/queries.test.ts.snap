@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`receipt queries receipts: query should return an arry of receipts with appropriate fields 1`] = `
+Object {
+  "data": Object {
+    "receipts": Object {
+      "edges": Array [
+        Object {
+          "cursor": "nodeCursor",
+          "node": Object {
+            "category": null,
+            "comment": null,
+            "createdAt": "2000-01-01",
+            "currency": "EUR",
+            "id": "1",
+            "isSettlement": false,
+            "paidAt": "2000-01-01",
+            "title": "title",
+            "total": 23,
+            "updatedAt": "2000-01-01T00:00:00.000Z",
+          },
+        },
+      ],
+      "pageInfo": Object {
+        "endCursor": "endCursor",
+        "hasNextPage": false,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

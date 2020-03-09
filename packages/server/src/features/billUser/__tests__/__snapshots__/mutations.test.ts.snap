@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bill invite mutations createInvite: mutation should create and return a bill invite 1`] = `
+Object {
+  "data": Object {
+    "createInvite": Object {
+      "createdAt": "2000-01-01",
+      "deletedAt": null,
+      "email": "email@email.com",
+      "id": "1",
+      "pending": true,
+      "updatedAt": "2000-01-01T00:00:00.000Z",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

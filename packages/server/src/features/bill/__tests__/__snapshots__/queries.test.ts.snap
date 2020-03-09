@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bill queries bill: should return a bill with all base values 1`] = `
+Object {
+  "data": Object {
+    "bill": Object {
+      "createdAt": "2000-01-01",
+      "icon": null,
+      "id": "1",
+      "name": "bill name",
+      "updatedAt": "2000-01-01T00:00:00.000Z",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`bill queries myBills: query including "invites" should return list of bill invites 1`] = `
+Object {
+  "data": Object {
+    "myBills": Array [
+      Object {
+        "invites": Array [
+          Object {
+            "createdAt": "2000-01-01",
+            "deletedAt": null,
+            "email": "email@email.com",
+            "id": "1",
+            "pending": true,
+            "updatedAt": "2000-01-01T00:00:00.000Z",
+          },
+        ],
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`bill queries myBills: query including "users" should return list of bill users 1`] = `
+Object {
+  "data": Object {
+    "myBills": Array [
+      Object {
+        "users": Array [
+          Object {
+            "displayName": null,
+            "email": "email@email.com",
+            "id": "1",
+            "photoUrl": null,
+          },
+        ],
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`bill queries myBills: query should return basic bill with all model fields 1`] = `
+Object {
+  "data": Object {
+    "myBills": Array [
+      Object {
+        "createdAt": "2000-01-01",
+        "icon": null,
+        "id": "1",
+        "name": "bill name",
+        "updatedAt": "2000-01-01T00:00:00.000Z",
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`receipt mutations createReceipt: mutation should create and return a created receipt 1`] = `
+Object {
+  "data": Object {
+    "createReceipt": Object {
+      "category": null,
+      "comment": null,
+      "createdAt": "2000-01-01",
+      "currency": "EUR",
+      "id": "1",
+      "isSettlement": false,
+      "paidAt": "2000-01-01",
+      "title": "first receipt",
+      "total": 20,
+      "updatedAt": "2000-01-01T00:00:00.000Z",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
