@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Bill } from '../bill/entity';
 import { User } from '../user/entity';
+import { inviteState } from './config';
 
 @Entity()
 export class BillUser extends BaseEntity {
@@ -20,27 +21,35 @@ export class BillUser extends BaseEntity {
   updatedAt: Date;
 
   @Column({
-    default: 'pending',
+    default: inviteState.PENDING,
     type: 'enum',
-    enum: ['pending', 'rejected', 'accepted'],
+    enum: Object.keys(inviteState),
   })
-  inviteStatus: 'pending' | 'rejected' | 'accepted';
+  state: keyof typeof inviteState;
 
   @Column({ nullable: true })
   invitedById: string;
 
   @PrimaryColumn()
   userId: string;
-  @ManyToOne(() => User, user => user.billUsers, { primary: true })
+  @ManyToOne(
+    () => User,
+    user => user.billUsers,
+    { primary: true }
+  )
   @JoinColumn({ name: 'user_id' })
   user: Promise<User>;
 
   @PrimaryColumn()
   billId: string;
-  @ManyToOne(() => Bill, bill => bill.billUsers, {
-    primary: true,
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(
+    () => Bill,
+    bill => bill.billUsers,
+    {
+      primary: true,
+      onDelete: 'CASCADE',
+    }
+  )
   @JoinColumn({ name: 'bill_id' })
   bill: Promise<Bill>;
 }

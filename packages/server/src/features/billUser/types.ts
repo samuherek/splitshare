@@ -17,13 +17,4 @@ export default gql`
     updatedAt: DateTime!
     invitedBy: User!
   }
-
-  input CreateInviteInput {
-    email: String!
-    billId: ID!
-  }
-
-  extend type Mutation {
-    createInvite(input: CreateInviteInput!): BillUser!
-  }
 `;

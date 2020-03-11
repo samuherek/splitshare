@@ -8,9 +8,12 @@ export const ButtonBaseStyled = styled(ButtonBase)`
   font-weight: 500;
   letter-spacing: 0.8px;
 
+  border: 1px solid #eee;
+
   &:disabled,
   &.disabled {
     cursor: default;
     pointer-events: none;
+    opacity: 0.5;
   }
 `;

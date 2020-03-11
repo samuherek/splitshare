@@ -4,6 +4,8 @@ export const Outlined = styled.div`
   padding: 12px 16px;
   border-radius: 4px;
 
+  border: 1px solid #eee;
+
   input,
   textarea {
     font-size: 14px;

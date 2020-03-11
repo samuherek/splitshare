@@ -1,16 +1,31 @@
 import { gql } from 'apollo-boost';
 
 export default gql`
+  enum UserState {
+    ONBOARDING_VERIFY_EMAIL
+    ONBOARDING_PROFILE
+    ACTIVE
+  }
+
   type User {
     id: ID!
     email: String!
-    displayName: String
-    photoUrl: String
+    firstName: String
+    lastName: String
+    avatarUrl: String
+    state: UserState!
   }
 
   input MeInput {
-    displayName: String
+    firstName: String
+    lastName: String
     email: String
+  }
+
+  input SetupInput {
+    firstName: String!
+    lastName: String!
+    avatarUrl: String
   }
 
   extend type Query {
@@ -19,5 +34,6 @@ export default gql`
 
   extend type Mutation {
     updateMe(meInput: MeInput!): User!
+    setupAccount(input: SetupInput!): Boolean!
   }
 `;

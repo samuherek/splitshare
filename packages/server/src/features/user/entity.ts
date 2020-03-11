@@ -9,6 +9,7 @@ import {
 import { Bill } from '../bill/entity';
 import { BillUser } from '../billUser/entity';
 import { Receipt } from '../receipt/entity';
+import { userState } from './config';
 
 @Entity()
 export class User extends BaseEntity {
@@ -18,27 +19,46 @@ export class User extends BaseEntity {
   @Column({ type: 'text', unique: true })
   email: string;
 
-  @Column({ default: false })
-  confirmed: boolean;
+  @Column({ nullable: true })
+  firstName?: string;
 
   @Column({ nullable: true })
-  displayName?: string;
+  lastName?: string;
 
   @Column({ nullable: true })
-  photoUrl?: string;
+  avatarUrl?: string;
 
   @CreateDateColumn({ type: 'date' })
   createdAt: Date;
 
-  @OneToMany(() => BillUser, billUser => billUser.user)
+  @Column({
+    default: userState.ONBOARDING_VERIFY_EMAIL,
+    type: 'enum',
+    enum: Object.keys(userState),
+  })
+  state: keyof typeof userState;
+
+  @OneToMany(
+    () => BillUser,
+    billUser => billUser.user
+  )
   billUsers: Promise<BillUser[]>;
 
-  @OneToMany(() => Bill, bill => bill.createdById)
+  @OneToMany(
+    () => Bill,
+    bill => bill.createdById
+  )
   billsCreated: Promise<Bill[]>;
 
-  @OneToMany(() => Receipt, receipt => receipt.paidBy)
+  @OneToMany(
+    () => Receipt,
+    receipt => receipt.paidBy
+  )
   receiptsPaid: Promise<Receipt[]>;
 
-  @OneToMany(() => Receipt, receipt => receipt.createdBy)
+  @OneToMany(
+    () => Receipt,
+    receipt => receipt.createdBy
+  )
   receiptsCreated: Promise<Receipt[]>;
 }

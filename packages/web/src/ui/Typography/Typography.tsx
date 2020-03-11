@@ -1,39 +1,40 @@
-import clsx from "clsx";
-import React from "react";
-import { H1, H2, H3, H4, H5, Paragraph, TextBase } from "./styles";
+import clsx from 'clsx';
+import React from 'react';
+import { H1, H2, H3, H4, H5, Paragraph, TextBase } from './styles';
 
-type HTMLTypes = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
+type HTMLTypes = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
 
 type TypographyVariant =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "body"
-  | "subtitle"
-  | "eyebrow";
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'body'
+  | 'subtitle'
+  | 'eyebrow';
 
 export type Props = {
   children?: any;
   component?: HTMLTypes;
   variant?: TypographyVariant;
   lead?: boolean;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   className?: string;
   title?: string;
   id?: string; // Comment: this is for accessibility reasosn
+  withEllipsis?: boolean;
 };
 
 export const classes = {
-  root: "Typography",
-  h1: "H1",
-  h2: "H2",
-  h3: "H3",
-  h4: "H4",
-  h5: "H5",
-  body: "Body",
-  eyebrow: "Eyebrow"
+  root: 'Typography',
+  h1: 'H1',
+  h2: 'H2',
+  h3: 'H3',
+  h4: 'H4',
+  h5: 'H5',
+  body: 'Body',
+  eyebrow: 'Eyebrow',
 };
 
 const themedComponent = {
@@ -42,7 +43,7 @@ const themedComponent = {
   h3: H3,
   h4: H4,
   h5: H5,
-  body: Paragraph
+  body: Paragraph,
 };
 
 const Typography = React.forwardRef<Props, any>(function Typography(
@@ -56,7 +57,7 @@ const Typography = React.forwardRef<Props, any>(function Typography(
     variant,
     // size = "medium",
     // lead = false,
-    withEllipsis = true,
+    withEllipsis = false,
     ...rest
   } = props;
 
@@ -69,12 +70,12 @@ const Typography = React.forwardRef<Props, any>(function Typography(
       capitalize={capitalize}
       withEllipsis={withEllipsis}
       className={clsx(className, classes.root, {
-        [classes.h1]: variant === "h1",
-        [classes.h2]: variant === "h2",
-        [classes.h3]: variant === "h3",
-        [classes.h4]: variant === "h4",
-        [classes.h5]: variant === "h5",
-        [classes.body]: variant === "paragraph"
+        [classes.h1]: variant === 'h1',
+        [classes.h2]: variant === 'h2',
+        [classes.h3]: variant === 'h3',
+        [classes.h4]: variant === 'h4',
+        [classes.h5]: variant === 'h5',
+        [classes.body]: variant === 'paragraph',
       })}
       {...rest}
     />

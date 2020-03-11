@@ -4,6 +4,7 @@ import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyI
 import { snakeCase } from 'typeorm/util/StringUtils';
 import Bill from './features/bill/model';
 import BillUser from './features/billUser/model';
+import Email from './features/email/invite';
 import Receipt from './features/receipt/model';
 import User from './features/user/model';
 
@@ -84,4 +85,6 @@ export const models = {
   BillUser,
   Receipt,
   User,
+  // TODO: this is weird
+  Email,
 };

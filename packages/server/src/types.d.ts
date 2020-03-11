@@ -1,6 +1,7 @@
 import { User } from './entity/User';
 import { BillModel } from './features/bill/model';
 import { BillUserModel } from './features/billUser/model';
+import { Email } from './features/email/invite';
 import { ReceiptModel } from './features/receipt/model';
 import { UserModel } from './features/user/model';
 
@@ -13,6 +14,7 @@ export interface MyContext {
     Bill: BillModel;
     BillUser: BillUserModel;
     Receipt: ReceiptModel;
+    Email: Email;
   };
 }
 

@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import { paginate } from '../../utils/pagination';
+import { inviteState } from '../billUser/config';
 import { BillUser } from '../billUser/entity';
 import { User } from '../user/entity';
 import { Bill } from './entity';
@@ -27,14 +28,14 @@ async function getUserBills({ pagination, filter }: BillsArgs, userId: string) {
   const query = getRepository(Bill)
     .createQueryBuilder('bill')
     .innerJoin('bill.billUsers', 'billUser', 'billUser.billId = bill.id')
-    .where('billUser.userId = :userId', { userId })
+    .where('billUser.userId = :userId', { userId });
 
   if (filter?.status) {
     query.andWhere(
-      filter.status === 'OPENED' ?
-      'bill.closedAt IS NULL':
-      'bill.closedAt IS NOT NULL'
-    )
+      filter.status === 'OPENED'
+        ? 'bill.closedAt IS NULL'
+        : 'bill.closedAt IS NOT NULL'
+    );
   }
 
   query.orderBy('bill.updatedAt', 'DESC');
@@ -50,7 +51,6 @@ async function getBillUsers(billId: string) {
     .getMany();
 }
 
-// async function getBillInvites(billId: string) {
 //   return getRepository(BillInvite)
 //     .createQueryBuilder('billInvite')
 //     .where('billInvite.billId = :billId', { billId })
@@ -86,11 +86,17 @@ async function remove(criteria: string | string[]) {
 
 async function createOne(input: CreateBillInput, creatorId: string) {
   const bill = await getRepository(Bill)
-    .create(input)
+    .create({ ...input, createdById: creatorId })
     .save();
 
+  // TODO: Figure out how to type this
+  // @ts-ignore
   await getRepository(BillUser)
-    .create({ billId: bill.id, userId: creatorId })
+    .create({
+      billId: bill.id,
+      userId: creatorId,
+      state: inviteState.ACCEPTED,
+    })
     .save();
 
   return bill;

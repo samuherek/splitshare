@@ -1,8 +1,8 @@
-export type InviteInput = {
-  email: string;
-  billId: string;
-};
+import { inviteState } from './config';
 
-export type CreateInviteArgs = {
-  input: InviteInput;
+export type CreateBillUserInput = {
+  billId: string;
+  userId: string;
+  state?: keyof typeof inviteState;
+  invitedById?: string;
 };

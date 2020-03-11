@@ -3,15 +3,15 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import React from 'react';
 
 interface Props {
-  children: React.ReactNode;
+  children: any;
 }
 
 interface Auth0Ctx {
-  auth0: Auth0Client;
-  getToken: (options?: GetTokenSilentlyOptions) => Promise<any>;
+  auth0: Auth0Client | null;
+  getToken: (options?: GetTokenSilentlyOptions) => Promise<any> | undefined;
   isAuthenticated: boolean;
   loading: boolean;
-  login: (options?: RedirectLoginOptions) => Promise<void>;
+  login: (options?: RedirectLoginOptions) => Promise<void> | undefined;
   logout: (options?: LogoutOptions) => void;
 }
 
@@ -75,18 +75,17 @@ function Auth0Provider(props: Props) {
 
   const getToken = React.useCallback(
     (options?: GetTokenSilentlyOptions) =>
-      auth0Client && auth0Client.getTokenSilently(options),
+      auth0Client?.getTokenSilently(options),
     [auth0Client]
   );
 
   const login = React.useCallback(
-    (options?: RedirectLoginOptions) =>
-      auth0Client && auth0Client.loginWithRedirect(options),
+    (options?: RedirectLoginOptions) => auth0Client?.loginWithRedirect(options),
     [auth0Client]
   );
 
   const logout = React.useCallback(
-    (options?: LogoutOptions) => auth0Client && auth0Client.logout(options),
+    (options?: LogoutOptions) => auth0Client?.logout(options),
     [auth0Client]
   );
 
@@ -99,14 +98,11 @@ function Auth0Provider(props: Props) {
     logout,
   };
 
-  if (loading) {
+  if (loading || !isAuthenticated) {
     return null;
   }
 
-  return (
-    // @ts-ignore
-    <Auth0Context.Provider value={values} {...props} />
-  );
+  return <Auth0Context.Provider value={values} {...props} />;
 }
 
 function useAuth0() {

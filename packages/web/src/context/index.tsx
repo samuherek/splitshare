@@ -1,7 +1,10 @@
+import { navigate } from '@reach/router';
 import React from 'react';
 import ApolloProviderWrap from '../Apollo/ApolloProviderWrap';
 import { Auth0Provider } from '../Auth0/Auth0Provider';
+import { UserState } from '../graphql/types';
 import { useQueryMe } from '../graphql/user/queryMe';
+import ErrorMessage from '../ui/ErrorMessage';
 
 interface Props {
   children: React.ReactNode;
@@ -19,11 +22,24 @@ interface Props {
 function WaitForUserCreation({ children }: any) {
   const { data, loading, error } = useQueryMe();
 
-  if (loading || error || !data) {
-    return null;
+  console.log('logged in user:', data?.me);
+  const userState = data?.me?.state;
+
+  React.useEffect(() => {
+    if (userState === UserState.OnboardingVerifyEmail) {
+      navigate('/verify', { replace: true });
+    } else if (userState === UserState.OnboardingProfile) {
+      navigate('/setup', { replace: true });
+    }
+  }, [userState]);
+
+  if (error) {
+    return <ErrorMessage error={error} />;
   }
 
-  console.log('logged in user:', data?.me);
+  if (loading || !data) {
+    return null;
+  }
 
   return children;
 }
@@ -32,7 +48,7 @@ function AppProviders({ children }: Props) {
   return (
     <Auth0Provider>
       <ApolloProviderWrap>
-        <WaitForUserCreation>{children}</WaitForUserCreation>
+        <WaitForUserCreation default>{children}</WaitForUserCreation>
       </ApolloProviderWrap>
     </Auth0Provider>
   );

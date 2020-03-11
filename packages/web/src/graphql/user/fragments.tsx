@@ -4,8 +4,16 @@ const FRAGMENT_USER_META = gql`
   fragment userMeta on User {
     id
     email
-    displayName
+    firstName
+    lastName
+    avatarUrl
   }
 `;
 
-export { FRAGMENT_USER_META };
+const FRAGMENT_USER_STATE = gql`
+  fragment userState on User {
+    state
+  }
+`;
+
+export { FRAGMENT_USER_META, FRAGMENT_USER_STATE };

@@ -6,7 +6,9 @@ import { GraphQLError } from 'graphql';
 import * as jwks from 'jwks-rsa';
 import * as morgan from 'morgan';
 import 'reflect-metadata';
+import { getRepository } from 'typeorm';
 import * as db from './db';
+import { userState } from './features/user/config';
 import { User } from './features/user/entity';
 import { getSchema } from './schema';
 
@@ -15,12 +17,15 @@ require('dotenv-safe').config({
 });
 
 const emailKey = 'https://splitshare.me/email';
+const verifyKey = 'https://splitshare.me/email_verified';
 
 async function context({ req, res }: any) {
-  const { user } =
-    process.env.NODE_ENV === 'production'
-      ? req
-      : { user: { [emailKey]: 'samuherekbiz@gmail.com' } };
+  // const { user } =
+  //   process.env.NODE_ENV === 'production'
+  //     ? req
+  //     : { user: { [emailKey]: 'samuherekbiz@gmail.com' } };
+
+  const { user } = req;
 
   const userEmail = user ? user[emailKey] : null;
   let dbUser = null;
@@ -32,6 +37,14 @@ async function context({ req, res }: any) {
       dbUser = await User.create({
         email: userEmail,
       }).save();
+    }
+
+    if (user[verifyKey] && dbUser.state === userState.ONBOARDING_VERIFY_EMAIL) {
+      dbUser = await getRepository(User).update(dbUser.id, {
+        // TODO: figure out the typing here???
+        // @ts-ignore
+        state: userState.ONBOARDING_PROFILE,
+      });
     }
   }
 
@@ -85,22 +98,22 @@ async function startServer(): Promise<any> {
     formatError: formatError,
   });
 
-  if (process.env.NODE_ENV === 'production') {
-    const jwtCheck = jwt({
-      secret: jwks.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: `${process.env.AUTH0_AUTH_URL || ''}.well-known/jwks.json`,
-      }),
-      // credentialsRequired: process.env.NODE_ENV !== 'production',
-      audience: process.env.AUTH0_AUDIENCE || '',
-      issuer: process.env.AUTH0_AUTH_URL || '',
-      algorithms: ['RS256'],
-    });
+  // if (process.env.NODE_ENV === 'production') {
+  const jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `${process.env.AUTH0_AUTH_URL || ''}.well-known/jwks.json`,
+    }),
+    credentialsRequired: true,
+    audience: process.env.AUTH0_AUDIENCE || '',
+    issuer: process.env.AUTH0_AUTH_URL || '',
+    algorithms: ['RS256'],
+  });
 
-    app.use(jwtCheck);
-  }
+  app.use(jwtCheck);
+  // }
 
   app.use(
     cors({

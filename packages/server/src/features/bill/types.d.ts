@@ -6,6 +6,7 @@ export type BillsFilter = {
 
 export type CreateBillInput = {
   name: string;
+  currency: string;
 };
 
 export type UserBalanceRaw = {
@@ -25,4 +26,13 @@ export type BillArgs = {
 export type BillsArgs = {
   pagination?: PaginationArgs;
   filter?: BillsFilter;
+};
+
+export type BillInviteInput = {
+  email: string;
+  billId: string;
+};
+
+export type CreateBillInviteArgs = {
+  input: BillInviteInput;
 };

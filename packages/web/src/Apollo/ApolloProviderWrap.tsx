@@ -28,9 +28,6 @@ async function createApolloClient(getToken: any) {
       operation.setContext({
         headers: {
           authorization: token ? `Bearer ${token}` : null,
-          // authorization: token
-          //   ? `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFqZzJSa0kyTXpnMk1VRkJNRE14UlRkRU1EWTVRelUyTmtFeVJqUTFNelJFUWtNMU5EUXhNUSJ9.eyJodHRwczovL3NwbGl0c2hhcmUubWUvZW1haWwiOiJzYW11aGVyZWtiaXpAZ21haWwuY29tIiwiaHR0cHM6Ly9zcGxpdHNoYXJlLm1lL2VtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiaXNzIjoiaHR0cHM6Ly9zcGxpdHNoYXJlLWRldi5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWRkNmI0YTI3ZThlNTcwZjE3OWU2ZjNiIiwiYXVkIjpbImdyYXBocWwtZGV2IiwiaHR0cHM6Ly9zcGxpdHNoYXJlLWRldi5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTc0NDMwMTU5LCJleHAiOjE1NzQ1MTY1NTksImF6cCI6IktoZ3JVaWZudzdRM3B6cXlwVGNOVUk0R1A4emZmWW5kIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCJ9.JU9Bqz8kn8jPMe6BSqBYquMWdQQHzzCEiOCaOntPRdwNf5dYtoqjXYBoFqCyDEoLb-lKgi6ftXTNe4YP8e6Sju1AXUImv2V13KDqsHkbYH2092wJDscTVNtbr-mUyfR9FXcUGDw9qw40bad_GqLn5gUkAiZbnZ3fOb0NKI6mgvgctJ6-VMJtrWXNykk8IkGuNqmSwLNM7JQqKR1lmPnukADIVf_3h_sH3gqvvBGknQapo5HS2drE78A_QlIg6lE__c3k86Jt5fk-uAivhVIWVgu-GJKUTUu5aKh-jCpBthB5hg81DwOZTgZekCHyjRUiDOPqdk59yPPgfmM0RpMuHQ`
-          //   : null,
         },
       });
     },
@@ -53,14 +50,13 @@ function ApolloProviderWrap(props: any) {
       setClient(c);
     }
     initClient();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!client) {
     return null;
   }
 
-  // console.log('client', client);
   return <ApolloProvider client={client} {...props} />;
 }
 

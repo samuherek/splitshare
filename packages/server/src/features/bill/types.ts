@@ -39,10 +39,16 @@ export default gql`
 
   input CreateBillInput {
     name: String!
+    currency: String!
   }
 
   input BillsFilter {
     status: BillStatus
+  }
+
+  input CreateBillInviteInput {
+    email: String!
+    billId: ID!
   }
 
   extend type Query {
@@ -52,5 +58,6 @@ export default gql`
 
   extend type Mutation {
     createBill(input: CreateBillInput!): Bill!
+    createBillInvite(input: CreateBillInviteInput!): Boolean!
   }
 `;

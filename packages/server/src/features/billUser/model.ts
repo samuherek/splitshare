@@ -1,10 +1,11 @@
-import { InviteInput } from './types.d';
+import { getRepository } from 'typeorm';
+import { BillUser } from './entity';
+import { CreateBillUserInput } from './types.d';
 
 export interface BillUserModel {
-  createInvite: typeof createInvite;
-  // getById: typeof getById;
-  // remove: typeof remove;
   // createOne: typeof createOne;
+  createOne: typeof createOne;
+  getBillUser: typeof getBillUser;
 }
 
 // async function getById(id: string) {
@@ -21,12 +22,19 @@ export interface BillUserModel {
 //     .save();
 // }
 
-async function createInvite(input: InviteInput, creatorId: string) {
-  return;
+async function getBillUser(billId: string, userId: string) {
+  return getRepository(BillUser).findOne({ billId, userId });
+}
+
+async function createOne(input: CreateBillUserInput) {
+  return getRepository(BillUser)
+    .create(input)
+    .save();
 }
 
 export default {
-  createInvite,
+  createOne,
+  getBillUser,
   // getById,
   // remove,
   // createOne,

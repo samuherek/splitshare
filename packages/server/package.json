@@ -16,9 +16,11 @@
     "docker:build": "docker build -t samuherek/splitshare:latest ."
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.5.4",
     "apollo-server-express": "2.6.4",
     "bcrypt": "3.0.6",
     "capitalize": "^2.0.1",
+    "class-transformer": "^0.2.3",
     "cors": "2.8.5",
     "dataloader": "1.4.0",
     "dayjs": "1.8.14",
@@ -35,7 +37,7 @@
     "morgan": "^1.9.1",
     "pg": "7.11.0",
     "reflect-metadata": "0.1.13",
-    "try-to-catch": "^2.0.1",
+    "try-to-catch": "^3.0.0",
     "typeorm": "0.2.18",
     "uuid": "3.3.2"
   },

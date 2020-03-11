@@ -58,9 +58,10 @@ export type BillUser = {
 
 export type CreateBillInput = {
   name: Scalars['String'],
+  currency: Scalars['String'],
 };
 
-export type CreateInviteInput = {
+export type CreateBillInviteInput = {
   email: Scalars['String'],
   billId: Scalars['ID'],
 };
@@ -86,7 +87,8 @@ export enum InviteState {
 }
 
 export type MeInput = {
-  displayName?: Maybe<Scalars['String']>,
+  firstName?: Maybe<Scalars['String']>,
+  lastName?: Maybe<Scalars['String']>,
   email?: Maybe<Scalars['String']>,
 };
 
@@ -94,9 +96,10 @@ export type Mutation = {
    __typename?: 'Mutation',
   _empty?: Maybe<Scalars['String']>,
   createBill: Bill,
-  createInvite: BillUser,
+  createBillInvite: Scalars['Boolean'],
   createReceipt: Receipt,
   updateMe: User,
+  setupAccount: Scalars['Boolean'],
 };
 
 
@@ -105,8 +108,8 @@ export type MutationCreateBillArgs = {
 };
 
 
-export type MutationCreateInviteArgs = {
-  input: CreateInviteInput
+export type MutationCreateBillInviteArgs = {
+  input: CreateBillInviteInput
 };
 
 
@@ -117,6 +120,11 @@ export type MutationCreateReceiptArgs = {
 
 export type MutationUpdateMeArgs = {
   meInput: MeInput
+};
+
+
+export type MutationSetupAccountArgs = {
+  input: SetupInput
 };
 
 export type PageInfo = {
@@ -191,6 +199,12 @@ export type ReceiptEdges = {
   cursor: Scalars['String'],
 };
 
+export type SetupInput = {
+  firstName: Scalars['String'],
+  lastName: Scalars['String'],
+  avatarUrl?: Maybe<Scalars['String']>,
+};
+
 export type SplitInput = {
   userId: Scalars['ID'],
   value: Scalars['Float'],
@@ -200,8 +214,10 @@ export type User = {
    __typename?: 'User',
   id: Scalars['ID'],
   email: Scalars['String'],
-  displayName?: Maybe<Scalars['String']>,
-  photoUrl?: Maybe<Scalars['String']>,
+  firstName?: Maybe<Scalars['String']>,
+  lastName?: Maybe<Scalars['String']>,
+  avatarUrl?: Maybe<Scalars['String']>,
+  state: UserState,
 };
 
 export type UserBalance = {
@@ -218,4 +234,10 @@ export type UserSplit = {
   currency: Scalars['String'],
   owingTo: User,
 };
+
+export enum UserState {
+  OnboardingVerifyEmail = 'ONBOARDING_VERIFY_EMAIL',
+  OnboardingProfile = 'ONBOARDING_PROFILE',
+  Active = 'ACTIVE'
+}
 
