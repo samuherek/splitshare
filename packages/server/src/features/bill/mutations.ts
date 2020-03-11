@@ -3,6 +3,7 @@ import {
   CreateBillArgs,
   CreateBillInviteArgs,
   RemoveBillInviteArgs,
+  UpdateBillArgs,
 } from './types.d';
 
 export default {
@@ -13,6 +14,13 @@ export default {
       { models, user }: MyContext
     ) => {
       return models.Bill.createOne(input, user.id);
+    },
+    updateBill: (
+      _: any,
+      { id, input }: UpdateBillArgs,
+      { models }: MyContext
+    ) => {
+      return models.Bill.update(id, input);
     },
     createBillInvite: async (
       _: any,
@@ -33,10 +41,13 @@ export default {
       }
 
       if (!inviteUser) {
+        // TODO: add email validator here
+        // https://www.validator.pizza/email/email@test.com
+        // https://verify-email.org/
         inviteUser = await models.User.createOne({ email: input.email });
       }
 
-      const invite = await models.BillUser.createOne({
+      const billUser = await models.BillUser.createOne({
         ...input,
         userId: inviteUser.id,
         invitedById: user.id,
@@ -45,13 +56,15 @@ export default {
       // TODO: Sending emails should be moved outside of this because it can be done later
       const bill = await models.Bill.getById(input.billId, user.id);
 
-      models.Email.sendBillInvite({
-        toEmail: inviteUser.email,
-        billName: bill?.name ?? '',
-        fromName: `${user.firstName} ${user.lastName}`,
-      });
+      if (process.env.ACTIVATE_EMAILS === 'true') {
+        models.Email.sendBillInvite({
+          toEmail: inviteUser.email,
+          billName: bill?.name ?? '',
+          fromName: `${user.firstName} ${user.lastName}`,
+        });
+      }
 
-      return Boolean(invite);
+      return billUser;
     },
     removeBillUser: (
       _: any,

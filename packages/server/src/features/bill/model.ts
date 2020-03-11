@@ -1,16 +1,18 @@
-import { getRepository } from 'typeorm';
+import { plainToClass } from 'class-transformer';
+import { getConnection, getRepository } from 'typeorm';
 import { paginate } from '../../utils/pagination';
 import { InviteState } from '../billUser/config';
 import { BillUser } from '../billUser/entity';
 import { remap } from '../billUser/utils';
 import { Bill } from './entity';
-import { BillsArgs, CreateBillInput } from './types.d';
+import { BillsArgs, CreateBillInput, UpdateBillInput } from './types.d';
 
 export interface BillModel {
   getById: typeof getById;
   getUserBills: typeof getUserBills;
   getBillUsers: typeof getBillUsers;
   // getBillInvites: typeof getBillInvites;
+  update: typeof update;
   createOne: typeof createOne;
   remove: typeof remove;
 }
@@ -63,6 +65,19 @@ async function getBillUsers(billId: string) {
     .getMany();
 
   return res.map(remap);
+}
+
+async function update(id: string, input: UpdateBillInput) {
+  const { raw } = await getConnection()
+    .createQueryBuilder()
+    .update(Bill)
+    .set(input)
+    .where('id = :id', { id })
+    .updateEntity(true)
+    .output('*')
+    .execute();
+
+  return plainToClass(Bill, raw[0]);
 }
 
 //   return getRepository(BillInvite)
@@ -119,6 +134,7 @@ export default {
   getUserBills,
   getBillUsers,
   // getBillInvites,
+  update,
   createOne,
   remove,
 };

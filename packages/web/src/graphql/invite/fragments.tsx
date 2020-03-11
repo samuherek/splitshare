@@ -6,6 +6,7 @@ const FRAGMENT_BILL_USER_META = gql`
     firstName
     lastName
     email
+    state
   }
 `;
 

@@ -12,7 +12,6 @@ const MUTATION_REMOVE_BILL_USER = gql`
   mutation MutationRemoveBillUser($input: RemoveBillUserInput!) {
     removeBillUser(input: $input) {
       ...billUserMeta
-      state
     }
   }
   ${FRAGMENT_BILL_USER_META}
@@ -47,7 +46,7 @@ function useMutationRemoveBillUser({ billId, userId, mutationOpts }: Options) {
       if (!data) {
         return;
       }
-      console.log(billId);
+
       cache.writeQuery<QueryBillResponse, QueryBillArgs>({
         query: QUERY_BILL,
         variables: {

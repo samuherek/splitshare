@@ -97,6 +97,7 @@ export type Mutation = {
    __typename?: 'Mutation',
   _empty?: Maybe<Scalars['String']>,
   createBill: Bill,
+  updateBill: Bill,
   createBillInvite: BillUser,
   removeBillUser: BillUser,
   createReceipt: Receipt,
@@ -107,6 +108,12 @@ export type Mutation = {
 
 export type MutationCreateBillArgs = {
   input: CreateBillInput
+};
+
+
+export type MutationUpdateBillArgs = {
+  id: Scalars['ID'],
+  input: UpdateBillInput
 };
 
 
@@ -220,6 +227,11 @@ export type SetupInput = {
 export type SplitInput = {
   userId: Scalars['ID'],
   value: Scalars['Float'],
+};
+
+export type UpdateBillInput = {
+  name?: Maybe<Scalars['String']>,
+  currency?: Maybe<Scalars['String']>,
 };
 
 export type User = {

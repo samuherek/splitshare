@@ -17,7 +17,6 @@ const QUERY_BILL = gql`
       closedAt
       users {
         ...billUserMeta
-        state
       }
       # myBalance {
       #   value

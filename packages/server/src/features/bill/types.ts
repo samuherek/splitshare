@@ -56,6 +56,11 @@ export default gql`
     userId: ID!
   }
 
+  input UpdateBillInput {
+    name: String
+    currency: String
+  }
+
   extend type Query {
     bill(id: ID!): Bill
     bills(pagination: PaginationInput, filter: BillsFilter): BillConnection!
@@ -63,6 +68,7 @@ export default gql`
 
   extend type Mutation {
     createBill(input: CreateBillInput!): Bill!
+    updateBill(id: ID!, input: UpdateBillInput!): Bill!
     createBillInvite(input: CreateBillInviteInput!): BillUser!
     removeBillUser(input: RemoveBillUserInput!): BillUser!
   }

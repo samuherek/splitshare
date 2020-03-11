@@ -45,3 +45,13 @@ export type RemoveBillInviteInput = {
 export type RemoveBillInviteArgs = {
   input: RemoveBillInviteInput;
 };
+
+export type UpdateBillInput = {
+  name?: string;
+  currency?: string;
+};
+
+export type UpdateBillArgs = {
+  id: string;
+  input: UpdateBillInput;
+};

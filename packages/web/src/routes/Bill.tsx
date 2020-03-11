@@ -7,6 +7,8 @@ import ButtonBase from '../ui/ButtonBase';
 import ErrorMessage from '../ui/ErrorMessage';
 import Typography from '../ui/Typography';
 import { getUUIDFromUrl } from '../utils/url';
+import AddBillUserAction from './bill/AddBillUserAction';
+import BillSettingsDialog from './bill/BillSettingsDialog';
 import BillUserItem from './bill/BillUserItem';
 import RemoveBillUserDialog from './bill/RemoveBillUserDialog';
 
@@ -14,7 +16,9 @@ type Props = RouteComponentProps & {
   billParam?: string;
 };
 
-const WrapStyled = styled.div``;
+const WrapStyled = styled.div`
+  padding: 24px;
+`;
 
 function Bill({ billParam }: Props) {
   const billParamId = billParam ? getUUIDFromUrl(billParam) : null;
@@ -41,6 +45,7 @@ function Bill({ billParam }: Props) {
       <WrapStyled>
         <ButtonBase to="/">Back</ButtonBase>
         <Typography component="h2">{bill.name}</Typography>
+        <BillSettingsDialog bill={bill} />
         {bill.users?.map(user => (
           <BillUserItem
             key={user.id}
@@ -48,6 +53,7 @@ function Bill({ billParam }: Props) {
             onDelete={setBillUserToDelete}
           />
         ))}
+        <AddBillUserAction billId={billId} />
       </WrapStyled>
       <RemoveBillUserDialog
         billUser={billUserToDelete}

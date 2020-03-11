@@ -1,6 +1,11 @@
 import { MutationHookOptions, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { BillUser, MutationCreateBillInviteArgs } from '../types';
+import { QueryBillResponse, QUERY_BILL } from '../bill/queryBill';
+import {
+  BillUser,
+  MutationCreateBillInviteArgs,
+  QueryBillArgs,
+} from '../types';
 import { FRAGMENT_BILL_USER_META } from './fragments';
 
 export type MutationCreateBillInviteResponse = {
@@ -33,6 +38,37 @@ function useMutationCreateBillInvite({ billId, email, mutationOpts }: Options) {
         billId,
         email,
       },
+    },
+    update: (cache, res) => {
+      const data = cache.readQuery<QueryBillResponse, QueryBillArgs>({
+        query: QUERY_BILL,
+        variables: {
+          id: billId,
+        },
+      });
+
+      if (!data?.bill || !data.bill.users) {
+        return;
+      }
+
+      const nextUsers = [...data.bill.users];
+
+      if (res.data?.createBillInvite) {
+        nextUsers.push(res.data.createBillInvite);
+      }
+
+      cache.writeQuery<QueryBillResponse, QueryBillArgs>({
+        query: QUERY_BILL,
+        variables: {
+          id: billId,
+        },
+        data: {
+          bill: {
+            ...data.bill,
+            users: nextUsers,
+          },
+        },
+      });
     },
   });
 
