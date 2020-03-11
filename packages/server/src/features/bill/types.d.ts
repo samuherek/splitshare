@@ -36,3 +36,12 @@ export type BillInviteInput = {
 export type CreateBillInviteArgs = {
   input: BillInviteInput;
 };
+
+export type RemoveBillInviteInput = {
+  billId: string;
+  userId: string;
+};
+
+export type RemoveBillInviteArgs = {
+  input: RemoveBillInviteInput;
+};

@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm';
 import { paginate } from '../../utils/pagination';
-import { inviteState } from '../billUser/config';
+import { InviteState } from '../billUser/config';
 import { BillUser } from '../billUser/entity';
-import { User } from '../user/entity';
+import { remap } from '../billUser/utils';
 import { Bill } from './entity';
 import { BillsArgs, CreateBillInput } from './types.d';
 
@@ -43,12 +43,26 @@ async function getUserBills({ pagination, filter }: BillsArgs, userId: string) {
   return paginate(query, pagination);
 }
 
+// TODO: this can be maybe done with the "View Entity" from Typeorm
+//https://typeorm.io/#/view-entities
+// TODO: look into this and see how it can be fixed with all the typings as well
 async function getBillUsers(billId: string) {
-  return getRepository(User)
-    .createQueryBuilder('user')
-    .innerJoin('user.billUsers', 'billUser', 'billUser.userId = user.id')
+  // TODO: figure this out. Maybe Typoerm doesn't support it?
+  // https://github.com/typeorm/typeorm/issues/5111
+  // https://github.com/typeorm/typeorm/issues/4329
+  //
+  const res = await getRepository(BillUser)
+    .createQueryBuilder('billUser')
+    .leftJoinAndMapOne(
+      'billUser.user',
+      'user',
+      'user',
+      'user.id = billUser.userId'
+    )
     .where('billUser.billId = :billId', { billId })
     .getMany();
+
+  return res.map(remap);
 }
 
 //   return getRepository(BillInvite)
@@ -89,13 +103,11 @@ async function createOne(input: CreateBillInput, creatorId: string) {
     .create({ ...input, createdById: creatorId })
     .save();
 
-  // TODO: Figure out how to type this
-  // @ts-ignore
   await getRepository(BillUser)
     .create({
       billId: bill.id,
       userId: creatorId,
-      state: inviteState.ACCEPTED,
+      state: InviteState.ACCEPTED,
     })
     .save();
 

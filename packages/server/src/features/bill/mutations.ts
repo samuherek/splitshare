@@ -1,5 +1,9 @@
 import { MyContext } from '../../types';
-import { CreateBillArgs, CreateBillInviteArgs } from './types.d';
+import {
+  CreateBillArgs,
+  CreateBillInviteArgs,
+  RemoveBillInviteArgs,
+} from './types.d';
 
 export default {
   Mutation: {
@@ -48,6 +52,13 @@ export default {
       });
 
       return Boolean(invite);
+    },
+    removeBillUser: (
+      _: any,
+      { input }: RemoveBillInviteArgs,
+      { models }: MyContext
+    ) => {
+      return models.BillUser.remove(input.billId, input.userId);
     },
   },
 };

@@ -3,7 +3,9 @@ import * as React from 'react';
 import { useAuth0 } from '../Auth0/Auth0Provider';
 import { useQueryBills } from '../graphql/bill/queryBills';
 import { BillStatus } from '../graphql/types';
+import { getBillPath } from '../paths';
 import Button from '../ui/Button';
+import ButtonBase from '../ui/ButtonBase';
 import { useDialogState } from '../ui/Dialog';
 import ErrorMessage from '../ui/ErrorMessage';
 import CreateBillDialog from './dashboard/CreateBillDialog';
@@ -22,7 +24,11 @@ const Dashboard = (props: RouteComponentProps) => {
       <h2 style={{ marginRight: 24 }}>Opened bills </h2>
       <Button onClick={openDialog}>Start a bill</Button>
       {data?.bills?.edges?.map(edge => (
-        <div key={edge.node.id}>{edge.node.name}</div>
+        <div key={edge.node.id}>
+          <ButtonBase to={getBillPath(edge.node.name, edge.node.id)}>
+            {edge.node.name}
+          </ButtonBase>
+        </div>
       ))}
       <CreateBillDialog isOpen={isOpen} onClose={closeDialog} />
       {error ? <ErrorMessage error={error} /> : null}

@@ -1,8 +1,13 @@
-import { inviteState } from './config';
+import { InviteState } from './config';
+import { BillUser } from './entity';
 
 export type CreateBillUserInput = {
   billId: string;
   userId: string;
-  state?: keyof typeof inviteState;
+  state?: InviteState;
   invitedById?: string;
+};
+
+export type BillUserJoin = BillUser & {
+  __user__: User;
 };

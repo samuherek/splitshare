@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { QueryHookOptions, useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { User } from '../types';
 import { FRAGMENT_USER_META, FRAGMENT_USER_STATE } from './fragments';
@@ -18,8 +18,12 @@ const QUERY_ME = gql`
   ${FRAGMENT_USER_STATE}
 `;
 
-function useQueryMe() {
-  const query = useQuery<QueryMeData>(QUERY_ME);
+type Options = {
+  queryOpts?: QueryHookOptions;
+};
+
+function useQueryMe({ queryOpts }: Options = {}) {
+  const query = useQuery<QueryMeData>(QUERY_ME, queryOpts);
 
   return query;
 }

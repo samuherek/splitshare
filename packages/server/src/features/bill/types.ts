@@ -23,7 +23,7 @@ export default gql`
     updatedAt: DateTime!
     closedAt: DateTime
     currency: String!
-    users: [BillUser]!
+    users: [BillUser!]!
     myBalance: UserBalance!
   }
 
@@ -51,6 +51,11 @@ export default gql`
     billId: ID!
   }
 
+  input RemoveBillUserInput {
+    billId: ID!
+    userId: ID!
+  }
+
   extend type Query {
     bill(id: ID!): Bill
     bills(pagination: PaginationInput, filter: BillsFilter): BillConnection!
@@ -58,6 +63,7 @@ export default gql`
 
   extend type Mutation {
     createBill(input: CreateBillInput!): Bill!
-    createBillInvite(input: CreateBillInviteInput!): Boolean!
+    createBillInvite(input: CreateBillInviteInput!): BillUser!
+    removeBillUser(input: RemoveBillUserInput!): BillUser!
   }
 `;

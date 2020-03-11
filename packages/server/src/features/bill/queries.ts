@@ -12,7 +12,7 @@ export default {
     },
   },
   Bill: {
-    users: (root: Bill, _: any, { models }: MyContext) => {
+    users: async (root: Bill, _: any, { models }: MyContext) => {
       return models.Bill.getBillUsers(root.id);
     },
     myBalance: async (

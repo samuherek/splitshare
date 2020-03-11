@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { QueryHookOptions, useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { FRAGMENT_PG_PAGE_INFO } from '../fragments';
 import { BillConnection, BillStatus, QueryBillsArgs } from '../types';
@@ -28,10 +28,12 @@ const QUERY_BILLS = gql`
 
 type Options = {
   status?: BillStatus;
+  queryOpts?: QueryHookOptions;
 };
 
-function useQueryBills({ status }: Options = {}) {
+function useQueryBills({ status, queryOpts }: Options = {}) {
   const query = useQuery<QueryBillsData, QueryBillsArgs>(QUERY_BILLS, {
+    ...queryOpts,
     variables: {
       filter: {
         status,

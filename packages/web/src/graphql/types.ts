@@ -19,7 +19,7 @@ export type Bill = {
   updatedAt: Scalars['DateTime'],
   closedAt?: Maybe<Scalars['DateTime']>,
   currency: Scalars['String'],
-  users: Array<Maybe<BillUser>>,
+  users: Array<BillUser>,
   myBalance: UserBalance,
 };
 
@@ -48,9 +48,10 @@ export type BillUser = {
    __typename?: 'BillUser',
   id: Scalars['ID'],
   email: Scalars['String'],
-  displayName?: Maybe<Scalars['String']>,
-  photoUrl?: Maybe<Scalars['String']>,
-  inviteState: InviteState,
+  firstName?: Maybe<Scalars['String']>,
+  lastName?: Maybe<Scalars['String']>,
+  avatarUrl?: Maybe<Scalars['String']>,
+  state: InviteState,
   createdAt: Scalars['Date'],
   updatedAt: Scalars['DateTime'],
   invitedBy: User,
@@ -96,7 +97,8 @@ export type Mutation = {
    __typename?: 'Mutation',
   _empty?: Maybe<Scalars['String']>,
   createBill: Bill,
-  createBillInvite: Scalars['Boolean'],
+  createBillInvite: BillUser,
+  removeBillUser: BillUser,
   createReceipt: Receipt,
   updateMe: User,
   setupAccount: Scalars['Boolean'],
@@ -110,6 +112,11 @@ export type MutationCreateBillArgs = {
 
 export type MutationCreateBillInviteArgs = {
   input: CreateBillInviteInput
+};
+
+
+export type MutationRemoveBillUserArgs = {
+  input: RemoveBillUserInput
 };
 
 
@@ -197,6 +204,11 @@ export type ReceiptEdges = {
    __typename?: 'ReceiptEdges',
   node: Receipt,
   cursor: Scalars['String'],
+};
+
+export type RemoveBillUserInput = {
+  billId: Scalars['ID'],
+  userId: Scalars['ID'],
 };
 
 export type SetupInput = {

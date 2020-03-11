@@ -10,9 +10,10 @@ export default gql`
   type BillUser {
     id: ID!
     email: String!
-    displayName: String
-    photoUrl: String
-    inviteState: InviteState!
+    firstName: String
+    lastName: String
+    avatarUrl: String
+    state: InviteState!
     createdAt: Date!
     updatedAt: DateTime!
     invitedBy: User!

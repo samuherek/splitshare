@@ -4,11 +4,11 @@ import React from 'react';
 import styled from 'styled-components';
 import tryToCatch from 'try-to-catch';
 import AvatarUser from '../../components/AvatarUser';
+import { useQueryBill } from '../../graphql/bill/queryBill';
 import {
   MutationCreateBillInviteResponse,
   useMutationCreateBillInvite,
-} from '../../graphql/bill/mutationCreateBillInvite';
-import { useQueryBill } from '../../graphql/bill/queryBill';
+} from '../../graphql/invite/mutationCreateBillInvite';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
 import Button from '../../ui/Button';
 import ErrorMessage from '../../ui/ErrorMessage';

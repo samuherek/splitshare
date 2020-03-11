@@ -9,7 +9,7 @@ import {
 import { Bill } from '../bill/entity';
 import { BillUser } from '../billUser/entity';
 import { Receipt } from '../receipt/entity';
-import { userState } from './config';
+import { UserState } from './config';
 
 @Entity()
 export class User extends BaseEntity {
@@ -32,11 +32,11 @@ export class User extends BaseEntity {
   createdAt: Date;
 
   @Column({
-    default: userState.ONBOARDING_VERIFY_EMAIL,
+    default: UserState.ONBOARDING_VERIFY_EMAIL,
     type: 'enum',
-    enum: Object.keys(userState),
+    enum: UserState,
   })
-  state: keyof typeof userState;
+  state: UserState;
 
   @OneToMany(
     () => BillUser,

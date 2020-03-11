@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Bill } from '../bill/entity';
 import { User } from '../user/entity';
-import { inviteState } from './config';
+import { InviteState } from './config';
 
 @Entity()
 export class BillUser extends BaseEntity {
@@ -21,11 +21,11 @@ export class BillUser extends BaseEntity {
   updatedAt: Date;
 
   @Column({
-    default: inviteState.PENDING,
+    default: InviteState.PENDING,
     type: 'enum',
-    enum: Object.keys(inviteState),
+    enum: InviteState,
   })
-  state: keyof typeof inviteState;
+  state: InviteState;
 
   @Column({ nullable: true })
   invitedById: string;

@@ -8,7 +8,7 @@ import * as morgan from 'morgan';
 import 'reflect-metadata';
 import { getRepository } from 'typeorm';
 import * as db from './db';
-import { userState } from './features/user/config';
+import { UserState } from './features/user/config';
 import { User } from './features/user/entity';
 import { getSchema } from './schema';
 
@@ -39,7 +39,7 @@ async function context({ req, res }: any) {
       }).save();
     }
 
-    if (user[verifyKey] && dbUser.state === userState.ONBOARDING_VERIFY_EMAIL) {
+    if (user[verifyKey] && dbUser.state === UserState.ONBOARDING_VERIFY_EMAIL) {
       dbUser = await getRepository(User).update(dbUser.id, {
         // TODO: figure out the typing here???
         // @ts-ignore

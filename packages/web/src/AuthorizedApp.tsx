@@ -1,6 +1,7 @@
 import { globalHistory, Router } from '@reach/router';
 import React from 'react';
 import { QueryParamProvider } from 'use-query-params';
+import Bill from './routes/Bill';
 import Dashboard from './routes/Dashboard';
 import Invite from './routes/Invite';
 import Setup from './routes/Setup';
@@ -12,6 +13,7 @@ function AuthorizedApp() {
       <QueryParamProvider reachHistory={globalHistory}>
         <Router>
           <Dashboard path="/" />
+          <Bill path="/:billParam/*" />
           <Verify path="/verify" />
           <Setup path="/setup/*" />
           <Invite path="/invite/*" />
