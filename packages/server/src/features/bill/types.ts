@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export default gql`
   enum BillStatus {
@@ -59,6 +59,7 @@ export default gql`
   input UpdateBillInput {
     name: String
     currency: String
+    closed: Boolean
   }
 
   extend type Query {
@@ -69,6 +70,7 @@ export default gql`
   extend type Mutation {
     createBill(input: CreateBillInput!): Bill!
     updateBill(id: ID!, input: UpdateBillInput!): Bill!
+    deleteBill(id: ID!): Bill!
     createBillInvite(input: CreateBillInviteInput!): BillUser!
     removeBillUser(input: RemoveBillUserInput!): BillUser!
   }

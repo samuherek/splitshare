@@ -1,5 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, useMutation } from '@apollo/client';
 import { Bill, MutationCreateBillArgs } from '../types';
 import { FRAGMENT_BILL_META } from './fragments';
 

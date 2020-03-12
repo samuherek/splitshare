@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { FindConditions, getRepository, ObjectID } from 'typeorm';
 import { paginate } from '../../utils/pagination';
 import updateRowTimestamp from '../../utils/updateRowTimestamp';
 import { Bill } from '../bill/entity';
@@ -33,7 +33,18 @@ async function getById(id: string) {
   return getRepository(Receipt).findOne(id);
 }
 
-async function remove(criteria: string | string[]) {
+async function remove(
+  criteria:
+    | string
+    | number
+    | string[]
+    | number[]
+    | Date
+    | Date[]
+    | ObjectID
+    | ObjectID[]
+    | FindConditions<Receipt>
+) {
   return getRepository(Receipt).delete(criteria);
 }
 

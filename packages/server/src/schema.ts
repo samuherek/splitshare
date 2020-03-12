@@ -1,7 +1,7 @@
-import { gql } from 'apollo-boost';
 import { makeExecutableSchema } from 'apollo-server-express';
 import * as glob from 'glob';
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
+import gql from 'graphql-tag';
 // @ts-ignore
 import * as merge from 'lodash.merge';
 import * as util from 'util';

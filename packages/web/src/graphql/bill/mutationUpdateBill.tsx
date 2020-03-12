@@ -1,5 +1,4 @@
-import { MutationHookOptions, useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, MutationHookOptions, useMutation } from '@apollo/client';
 import { Bill, MutationUpdateBillArgs, QueryBillArgs } from '../types';
 import { FRAGMENT_BILL_META } from './fragments';
 import { QueryBillResponse, QUERY_BILL } from './queryBill';
@@ -21,6 +20,7 @@ type Options = {
   billId: string;
   name?: string;
   currency?: string;
+  closed?: boolean;
   mutationOpts?: MutationHookOptions;
 };
 
@@ -28,6 +28,7 @@ function useMutationUpdateBill({
   billId,
   name,
   currency,
+  closed,
   mutationOpts,
 }: Options) {
   const mutation = useMutation<
@@ -40,6 +41,7 @@ function useMutationUpdateBill({
       input: {
         name,
         currency,
+        closed,
       },
     },
     update: (cache, res) => {

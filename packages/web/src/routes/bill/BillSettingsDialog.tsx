@@ -22,6 +22,8 @@ import Fieldset from '../../ui/Fieldset';
 import TextField from '../../ui/TextField';
 import Typography from '../../ui/Typography';
 import { maybe } from '../../utils/object';
+import ArchiveButton from './billSettingsDialog/ArchiveButton';
+import DeleteButton from './billSettingsDialog/DeleteButton';
 
 type Props = {
   bill: Bill;
@@ -75,10 +77,9 @@ function BillSettingsDialog({ bill }: Props) {
             <Fieldset
               disabled={loading}
               style={{
-                marginBottom: 48,
+                marginBottom: 24,
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
               }}
             >
               <TextField
@@ -99,14 +100,18 @@ function BillSettingsDialog({ bill }: Props) {
           <br />
           <div>
             <Typography variant="h4" component="h4">
-              Archive bill
+              {Boolean(bill.closedAt) ? 'Unarchive bill' : 'Archive bill'}
             </Typography>
             <Typography>
-              If you archive the bill, you will no longer be able to add
-              receipts or change anything. However you will still be able to
-              read everything.
+              {Boolean(bill.closedAt)
+                ? 'If you wish to reopen the bill, you can do so here. All actions will be allowed again.'
+                : 'If you archive the bill, you will no longer be able to add receipts or change anything. However you will still be able to read everything.'}
             </Typography>
-            <Button>Archive bill</Button>
+            <ArchiveButton
+              archived={Boolean(bill.closedAt)}
+              billId={bill.id}
+              callback={closeDialog}
+            />
           </div>
           <br />
           <div>
@@ -117,7 +122,7 @@ function BillSettingsDialog({ bill }: Props) {
               If you decide to delete the bill, please keep in mind we will
               delete all the data relevant to this bill. All data will be lost.
             </Typography>
-            <Button>Delete bill</Button>
+            <DeleteButton billId={bill.id} callback={closeDialog} />
           </div>
         </DialogContent>
         <DialogActions>

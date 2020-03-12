@@ -45,6 +45,11 @@ function Bill({ billParam }: Props) {
       <WrapStyled>
         <ButtonBase to="/">Back</ButtonBase>
         <Typography component="h2">{bill.name}</Typography>
+        {bill.closedAt ? (
+          <span style={{ background: 'red', padding: 4, borderRadius: 4 }}>
+            Archived
+          </span>
+        ) : null}
         <BillSettingsDialog bill={bill} />
         {bill.users?.map(user => (
           <BillUserItem

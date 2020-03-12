@@ -1,5 +1,4 @@
-import { QueryHookOptions, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, QueryHookOptions, useQuery } from '@apollo/client';
 import { FRAGMENT_PG_PAGE_INFO } from '../fragments';
 import { FRAGMENT_BILL_USER_META } from '../invite/fragments';
 import { BillConnection, BillStatus, QueryBillsArgs } from '../types';

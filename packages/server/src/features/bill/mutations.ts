@@ -2,8 +2,10 @@ import { MyContext } from '../../types';
 import {
   CreateBillArgs,
   CreateBillInviteArgs,
+  DeleteBillArgs,
   RemoveBillInviteArgs,
   UpdateBillArgs,
+  UpdateBillModelInput,
 } from './types.d';
 
 export default {
@@ -20,7 +22,33 @@ export default {
       { id, input }: UpdateBillArgs,
       { models }: MyContext
     ) => {
-      return models.Bill.update(id, input);
+      const { closed, ...args } = input;
+
+      const updateInput: UpdateBillModelInput = {
+        ...args,
+      };
+
+      if (closed !== undefined) {
+        updateInput.closedAt = closed ? new Date() : null;
+      }
+
+      return models.Bill.update(id, updateInput);
+    },
+    deleteBill: async (
+      _: any,
+      { id }: DeleteBillArgs,
+      { models, user }: MyContext
+    ) => {
+      const res = await models.Bill.getById(id, user.id);
+
+      if (!res) {
+        throw new Error('No such a bill exists');
+      }
+
+      await models.Bill.remove(id);
+      await models.Receipt.remove({ billId: id });
+
+      return res;
     },
     createBillInvite: async (
       _: any,

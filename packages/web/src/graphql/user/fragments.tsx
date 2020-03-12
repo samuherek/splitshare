@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 const FRAGMENT_USER_META = gql`
   fragment userMeta on User {

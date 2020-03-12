@@ -36,11 +36,7 @@ async function getBillUser(billId: string, userId: string) {
     .andWhere('billUser.userId = :userId', { userId })
     .getOne();
 
-  if (!res) {
-    throw new Error('No such bill user have been found');
-  }
-
-  return remap(res);
+  return !res ? null : remap(res);
 }
 
 async function remove(billId: string, userId: string) {

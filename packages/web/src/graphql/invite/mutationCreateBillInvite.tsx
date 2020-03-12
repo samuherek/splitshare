@@ -1,5 +1,4 @@
-import { MutationHookOptions, useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, MutationHookOptions, useMutation } from '@apollo/client';
 import { QueryBillResponse, QUERY_BILL } from '../bill/queryBill';
 import {
   BillUser,

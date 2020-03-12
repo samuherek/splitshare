@@ -1,5 +1,4 @@
-import { QueryHookOptions, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, QueryHookOptions, useQuery } from '@apollo/client';
 import { User } from '../types';
 import { FRAGMENT_USER_META, FRAGMENT_USER_STATE } from './fragments';
 

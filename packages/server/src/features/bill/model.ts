@@ -5,7 +5,7 @@ import { InviteState } from '../billUser/config';
 import { BillUser } from '../billUser/entity';
 import { remap } from '../billUser/utils';
 import { Bill } from './entity';
-import { BillsArgs, CreateBillInput, UpdateBillInput } from './types.d';
+import { BillsArgs, CreateBillInput, UpdateBillModelInput } from './types.d';
 
 export interface BillModel {
   getById: typeof getById;
@@ -67,7 +67,7 @@ async function getBillUsers(billId: string) {
   return res.map(remap);
 }
 
-async function update(id: string, input: UpdateBillInput) {
+async function update(id: string, input: UpdateBillModelInput) {
   const { raw } = await getConnection()
     .createQueryBuilder()
     .update(Bill)

@@ -1,4 +1,14 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { BillUser } from '../billUser/entity';
 import { Receipt } from '../receipt/entity';
 import { User } from '../user/entity';
@@ -20,7 +30,7 @@ export class Bill extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date;
 
-  @Column({ nullable: true, default: null, type: 'timestamp with time zone'})
+  @Column({ nullable: true, default: null, type: 'timestamp with time zone' })
   closedAt: Date;
 
   @Column({ default: 'EUR' })
@@ -29,15 +39,25 @@ export class Bill extends BaseEntity {
   // TODO: fix this
   @Column({ nullable: true })
   createdById: string;
-  @ManyToOne(() => User, user => user.billsCreated)
+  @ManyToOne(
+    () => User,
+    user => user.billsCreated
+  )
   @JoinColumn({ name: 'created_by_id' })
   createdBy: Promise<User>;
 
-  @OneToMany(() => BillUser, billUser => billUser.bill, {
-    cascade: true,
-  })
+  @OneToMany(
+    () => BillUser,
+    billUser => billUser.bill,
+    {
+      cascade: true,
+    }
+  )
   billUsers: Promise<BillUser[]>;
 
-  @OneToMany(() => Receipt, receipt => receipt.bill)
+  @OneToMany(
+    () => Receipt,
+    receipt => receipt.bill
+  )
   receipts: Promise<Receipt[]>;
 }

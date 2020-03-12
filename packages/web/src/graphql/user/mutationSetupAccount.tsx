@@ -1,5 +1,4 @@
-import { MutationHookOptions, useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, MutationHookOptions, useMutation } from '@apollo/client';
 import { MutationSetupAccountArgs, User } from '../types';
 import { QUERY_ME } from './queryMe';
 

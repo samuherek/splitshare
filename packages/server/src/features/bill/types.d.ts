@@ -49,9 +49,20 @@ export type RemoveBillInviteArgs = {
 export type UpdateBillInput = {
   name?: string;
   currency?: string;
+  closed?: boolean;
+};
+
+export type UpdateBillModelInput = {
+  name?: string;
+  currency?: string;
+  closedAt?: Date | null;
 };
 
 export type UpdateBillArgs = {
   id: string;
   input: UpdateBillInput;
+};
+
+export type DeleteBillArgs = {
+  id: string;
 };
