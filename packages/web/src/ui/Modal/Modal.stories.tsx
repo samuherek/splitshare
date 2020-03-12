@@ -1,9 +1,9 @@
-import React from "react";
-import Modal from "./Modal";
+import React from 'react';
+import Modal from './Modal';
 
 export default {
-  title: "Utils/Modal",
-  component: Modal
+  title: 'Utils/Modal',
+  component: Modal,
 };
 
 export const Base = () => {

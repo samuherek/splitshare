@@ -1,8 +1,8 @@
-import React from "react";
-import { render } from "../../../test-utils/test-utils";
-import Typography, { classes } from "../Typography";
+import React from 'react';
+import { render } from '../../../test-utils/test-utils';
+import Typography, { classes } from '../Typography';
 
-test("should match snapshots", () => {
+test('should match snapshots', () => {
   const emptyTypography = render(<Typography />);
   expect(emptyTypography.container.firstChild).toMatchSnapshot();
 
@@ -37,29 +37,29 @@ test("should match snapshots", () => {
   expect(titleGroupVariant.container.firstChild).toMatchSnapshot();
 });
 
-it("should render the base styles and classes", () => {
+it('should render the base styles and classes', () => {
   const { container } = render(<Typography />);
   const typography = container.firstChild;
 
   expect(typography).toHaveClass(classes.root);
   // @ts-ignore
-  expect(typography).toHaveStyleRule("display", "block");
+  expect(typography).toHaveStyleRule('display', 'block');
   // @ts-ignore
-  expect(typography).toHaveStyleRule("word-wrap", "normal");
+  expect(typography).toHaveStyleRule('word-wrap', 'normal');
   // @ts-ignore
-  expect(typography).toHaveStyleRule("font-weight", "normal");
+  expect(typography).toHaveStyleRule('font-weight', 'normal');
   // @ts-ignore
-  expect(typography).toHaveStyleRule("line-height", "1.43");
+  expect(typography).toHaveStyleRule('line-height', '1.43');
   // @ts-ignore
-  expect(typography).toHaveStyleRule("max-width", "100%");
+  expect(typography).toHaveStyleRule('max-width', '100%');
   // @ts-ignore
-  expect(typography).toHaveStyleRule("overflow", "hidden");
+  expect(typography).toHaveStyleRule('overflow', 'hidden');
   // @ts-ignore
-  expect(typography).toHaveStyleRule("text-overflow", "ellipsis");
+  expect(typography).toHaveStyleRule('text-overflow', 'ellipsis');
   // @ts-ignore
-  expect(typography).toHaveStyleRule("white-space", "nowrap");
+  expect(typography).toHaveStyleRule('white-space', 'nowrap');
   // @ts-ignore
-  expect(typography).not.toHaveStyleRule("opacity");
+  expect(typography).not.toHaveStyleRule('opacity');
 });
 
 it('prop: "withEllipsis" set to false should remove ellipsis styles', () => {
@@ -67,11 +67,11 @@ it('prop: "withEllipsis" set to false should remove ellipsis styles', () => {
   const typography = container.firstChild;
 
   // @ts-ignore
-  expect(typography).not.toHaveStyleRule("max-width");
+  expect(typography).not.toHaveStyleRule('max-width');
   // @ts-ignore
-  expect(typography).not.toHaveStyleRule("overflow");
+  expect(typography).not.toHaveStyleRule('overflow');
   // @ts-ignore
-  expect(typography).not.toHaveStyleRule("text-overflow");
+  expect(typography).not.toHaveStyleRule('text-overflow');
   // @ts-ignore
-  expect(typography).not.toHaveStyleRule("white-space");
+  expect(typography).not.toHaveStyleRule('white-space');
 });

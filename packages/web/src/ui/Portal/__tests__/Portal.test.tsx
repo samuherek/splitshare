@@ -1,9 +1,9 @@
-import React from "react";
-import { render } from "../../../test-utils/test-utils";
-import Portal from "../Portal";
+import React from 'react';
+import { render } from '../../../test-utils/test-utils';
+import Portal from '../Portal';
 
-describe("<Portal />", () => {
-  it("should match snapshot", () => {
+describe('<Portal />', () => {
+  it('should match snapshot', () => {
     render(
       <Portal>
         <div>Foo</div>

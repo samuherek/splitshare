@@ -1,3 +1,4 @@
+import { navigate } from '@reach/router';
 import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
@@ -30,6 +31,8 @@ type Props = {
 };
 
 function BillSettingsDialog({ bill }: Props) {
+  const [navigateAway, setNavigateAway] = React.useState(false);
+
   const { isOpen, openDialog, closeDialog } = useDialogState();
 
   const { name } = useBillNameController({ name: bill.name });
@@ -66,7 +69,13 @@ function BillSettingsDialog({ bill }: Props) {
       <ButtonIcon onClick={openDialog}>
         <SvgCogLight />
       </ButtonIcon>
-      <Dialog isOpen={isOpen} onClose={!loading && closeDialog}>
+      <Dialog
+        isOpen={isOpen}
+        onClose={!loading && closeDialog}
+        onExited={() => {
+          if (navigateAway) navigate('/');
+        }}
+      >
         <DialogTitle>
           <Typography component="h3" variant="h3">
             Bill settings
@@ -122,7 +131,13 @@ function BillSettingsDialog({ bill }: Props) {
               If you decide to delete the bill, please keep in mind we will
               delete all the data relevant to this bill. All data will be lost.
             </Typography>
-            <DeleteButton billId={bill.id} callback={closeDialog} />
+            <DeleteButton
+              billId={bill.id}
+              callback={() => {
+                setNavigateAway(true);
+                closeDialog();
+              }}
+            />
           </div>
         </DialogContent>
         <DialogActions>

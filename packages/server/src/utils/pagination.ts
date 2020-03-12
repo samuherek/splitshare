@@ -13,19 +13,21 @@ export async function paginate<T>(
   query: SelectQueryBuilder<T>,
   info: PaginationArgs = {}
 ): Promise<PaginationConnection<T>> {
-  const { limit = undefined, after = undefined } = info;
+  const { limit = 10, after = undefined } = info;
 
   if (limit) {
     query.limit(limit);
   }
 
-  const results = await query.getMany();
+  const [results, count] = await query.getManyAndCount();
+  // console.log(results, count);
 
   return {
     edges: results.map(r => ({ node: r, cursor: 'nodeCursor' })),
     pageInfo: {
       hasNextPage: false,
       endCursor: 'cursorEnd',
+      itemsCount: count,
     },
   };
 }

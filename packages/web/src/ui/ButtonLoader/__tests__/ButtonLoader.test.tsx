@@ -1,8 +1,8 @@
-import React from "react";
-import { render } from "../../../test-utils/test-utils";
-import ButtonLoader, { classes } from "../ButtonLoader";
+import React from 'react';
+import { render } from '../../../test-utils/test-utils';
+import ButtonLoader, { classes } from '../ButtonLoader';
 
-test("should match snapshots", () => {
+test('should match snapshots', () => {
   const defaultLoader = render(<ButtonLoader />);
   expect(defaultLoader.container.firstChild).toMatchSnapshot();
 
@@ -31,27 +31,27 @@ test("should match snapshots", () => {
   expect(tertiaryContainedButton.container.firstChild).toMatchSnapshot();
 });
 
-test("should render with the default styles", () => {
+test('should render with the default styles', () => {
   const { container } = render(<ButtonLoader />);
   const loader = container.firstChild;
 
   expect(loader).toHaveClass(classes.root);
-  expect(loader).toHaveProperty("nodeName", "SPAN");
+  expect(loader).toHaveProperty('nodeName', 'SPAN');
   // @ts-ignore
-  expect(loader).toHaveStyleRule("display", "flex");
+  expect(loader).toHaveStyleRule('display', 'flex');
   // @ts-ignore
-  expect(loader).toHaveStyleRule("position", "absolute");
+  expect(loader).toHaveStyleRule('position', 'absolute');
   // @ts-ignore
-  expect(loader).toHaveStyleRule("top", "50%");
+  expect(loader).toHaveStyleRule('top', '50%');
   // @ts-ignore
-  expect(loader).toHaveStyleRule("left", "50%");
+  expect(loader).toHaveStyleRule('left', '50%');
   // @ts-ignore
-  expect(loader).toHaveStyleRule("transform", "translate(-50%,-50%)");
+  expect(loader).toHaveStyleRule('transform', 'translate(-50%,-50%)');
 });
 
-test("should render with the loader icon", () => {
+test('should render with the loader icon', () => {
   const { container } = render(<ButtonLoader />);
-  const icons = container.querySelectorAll("i");
+  const icons = container.querySelectorAll('i');
 
   expect(icons.length).toBe(3);
 });

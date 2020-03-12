@@ -1,4 +1,4 @@
-import { RouteComponentProps } from '@reach/router';
+import { Redirect, RouteComponentProps } from '@reach/router';
 import React from 'react';
 import styled from 'styled-components';
 import { useQueryBill } from '../graphql/bill/queryBill';
@@ -10,6 +10,7 @@ import { getUUIDFromUrl } from '../utils/url';
 import AddBillUserAction from './bill/AddBillUserAction';
 import BillSettingsDialog from './bill/BillSettingsDialog';
 import BillUserItem from './bill/BillUserItem';
+import Receipts from './bill/Receipts';
 import RemoveBillUserDialog from './bill/RemoveBillUserDialog';
 
 type Props = RouteComponentProps & {
@@ -20,11 +21,11 @@ const WrapStyled = styled.div`
   padding: 24px;
 `;
 
-function Bill({ billParam }: Props) {
+function Bill({ billParam, navigate }: Props) {
   const billParamId = billParam ? getUUIDFromUrl(billParam) : null;
   const billId = billParamId || '';
 
-  const { data, error } = useQueryBill({
+  const { data, loading, error } = useQueryBill({
     id: billId,
     queryOpts: { skip: !billId },
   });
@@ -37,6 +38,9 @@ function Bill({ billParam }: Props) {
   const bill = data?.bill;
 
   if (!bill) {
+    if (!loading) {
+      return <Redirect to="/" />;
+    }
     return null;
   }
 
@@ -51,6 +55,10 @@ function Bill({ billParam }: Props) {
           </span>
         ) : null}
         <BillSettingsDialog bill={bill} />
+        <Receipts bill={bill} />
+        <Typography component="h4" variant="h4">
+          Participants
+        </Typography>
         {bill.users?.map(user => (
           <BillUserItem
             key={user.id}

@@ -1,8 +1,8 @@
-import { render } from "../../../test-utils/test-utils";
-import React from "react";
-import Button, { classes } from "../Button";
+import { render } from '../../../test-utils/test-utils';
+import React from 'react';
+import Button, { classes } from '../Button';
 
-test("should match snapshots", () => {
+test('should match snapshots', () => {
   const emptyButton = render(<Button />);
   expect(emptyButton.container.firstChild).toMatchSnapshot();
 
@@ -46,7 +46,7 @@ test("should match snapshots", () => {
   expect(tertiaryContainedButton.container.firstChild).toMatchSnapshot();
 });
 
-test("should render with the root classes and base styles", () => {
+test('should render with the root classes and base styles', () => {
   const { container } = render(<Button>Button</Button>);
   const button = container.firstChild;
   const label = button?.firstChild;
@@ -55,28 +55,28 @@ test("should render with the root classes and base styles", () => {
   expect(label).toHaveClass(classes.label);
 
   // @ts-ignore
-  expect(button).toHaveStyleRule("position", "relative");
+  expect(button).toHaveStyleRule('position', 'relative');
   // @ts-ignore
-  expect(button).toHaveStyleRule("border-radius", expect.any(String));
+  expect(button).toHaveStyleRule('border-radius', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("padding", expect.any(String));
+  expect(button).toHaveStyleRule('padding', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("font-weight", expect.any(String));
+  expect(button).toHaveStyleRule('font-weight', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("letter-spacing", expect.any(String));
+  expect(button).toHaveStyleRule('letter-spacing', expect.any(String));
 });
 
-test("can render a primary text button", () => {
+test('can render a primary text button', () => {
   const { container } = render(<Button color="primary">Button</Button>);
   const button = container.firstChild;
 
   expect(button).toHaveClass(classes.primaryText);
   expect(button).not.toHaveClass(classes.primaryContained);
   // @ts-ignore
-  expect(button).toHaveStyleRule("color", expect.any(String));
+  expect(button).toHaveStyleRule('color', expect.any(String));
 });
 
-test("can render a primary contained button", () => {
+test('can render a primary contained button', () => {
   const { container } = render(
     <Button color="primary" variant="contained">
       Button
@@ -87,24 +87,24 @@ test("can render a primary contained button", () => {
   expect(button).toHaveClass(classes.primaryContained);
   expect(button).not.toHaveClass(classes.primaryText);
   // @ts-ignore
-  expect(button).toHaveStyleRule("color", expect.any(String));
+  expect(button).toHaveStyleRule('color', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("background-color", expect.any(String));
+  expect(button).toHaveStyleRule('background-color', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("box-shadow", expect.any(String));
+  expect(button).toHaveStyleRule('box-shadow', expect.any(String));
 });
 
-test("can render a secondary text button", () => {
+test('can render a secondary text button', () => {
   const { container } = render(<Button color="secondary">Button</Button>);
   const button = container.firstChild;
 
   expect(button).toHaveClass(classes.secondaryText);
   expect(button).not.toHaveClass(classes.secondaryContained);
   // @ts-ignore
-  expect(button).toHaveStyleRule("color", expect.any(String));
+  expect(button).toHaveStyleRule('color', expect.any(String));
 });
 
-test("can render a secondary contained button", () => {
+test('can render a secondary contained button', () => {
   const { container } = render(
     <Button color="secondary" variant="contained">
       Button
@@ -115,24 +115,24 @@ test("can render a secondary contained button", () => {
   expect(button).toHaveClass(classes.secondaryContained);
   expect(button).not.toHaveClass(classes.secondaryText);
   // @ts-ignore
-  expect(button).toHaveStyleRule("color", expect.any(String));
+  expect(button).toHaveStyleRule('color', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("background-color", expect.any(String));
+  expect(button).toHaveStyleRule('background-color', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("box-shadow", expect.any(String));
+  expect(button).toHaveStyleRule('box-shadow', expect.any(String));
 });
 
-test("can render a tertiary text button", () => {
+test('can render a tertiary text button', () => {
   const { container } = render(<Button color="tertiary">Button</Button>);
   const button = container.firstChild;
 
   expect(button).toHaveClass(classes.tertiaryText);
   expect(button).not.toHaveClass(classes.tertiaryContained);
   // @ts-ignore
-  expect(button).toHaveStyleRule("color", expect.any(String));
+  expect(button).toHaveStyleRule('color', expect.any(String));
 });
 
-test("can render a tertiary contained button", () => {
+test('can render a tertiary contained button', () => {
   const { container } = render(
     <Button color="tertiary" variant="contained">
       Button
@@ -143,7 +143,7 @@ test("can render a tertiary contained button", () => {
   expect(button).toHaveClass(classes.tertiaryContained);
   expect(button).not.toHaveClass(classes.tertiaryText);
   // @ts-ignore
-  expect(button).toHaveStyleRule("color", expect.any(String));
+  expect(button).toHaveStyleRule('color', expect.any(String));
   // @ts-ignore
-  expect(button).toHaveStyleRule("background-color", expect.any(String));
+  expect(button).toHaveStyleRule('background-color', expect.any(String));
 });

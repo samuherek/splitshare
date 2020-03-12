@@ -1,12 +1,12 @@
-import { Link } from "@reach/router";
-import clsx from "clsx";
-import React, { SyntheticEvent } from "react";
-import styled from "styled-components";
+import { Link } from '@reach/router';
+import clsx from 'clsx';
+import React, { SyntheticEvent } from 'react';
+import styled from 'styled-components';
 
 export type BaseButtonProps = {
   children: React.ReactNode;
   onClick?: any;
-  component: any | "button" | "a";
+  component: any | 'button' | 'a';
   to?: string;
   disabled?: boolean;
   tabIndex?: string | number;
@@ -20,7 +20,7 @@ export type BaseButtonProps = {
 };
 
 export const classes = {
-  root: "ButtonBase"
+  root: 'ButtonBase',
 };
 
 const ButtonBaseStyled = styled.button`
@@ -58,8 +58,8 @@ const ButtonBase = React.forwardRef<BaseButtonProps, any>(function ButtonBase(
 ) {
   const {
     children,
-    component: componentProp = "button",
-    tabIndex = "0",
+    component: componentProp = 'button',
+    tabIndex = '0',
     className,
     disabled,
     style,
@@ -71,11 +71,11 @@ const ButtonBase = React.forwardRef<BaseButtonProps, any>(function ButtonBase(
 
   let Component = componentProp;
 
-  if (Component === "button" && other.href) {
-    Component = "a";
+  if (Component === 'button' && other.href) {
+    Component = 'a';
   }
 
-  if (Component === "button" && other.to) {
+  if (Component === 'button' && other.to) {
     Component = Link;
   }
 
@@ -83,25 +83,25 @@ const ButtonBase = React.forwardRef<BaseButtonProps, any>(function ButtonBase(
 
   // Sometimes it's helpful to use dataset props. Thus we need to make sure we apply them to the button
   Object.keys(other).forEach(key => {
-    if (key.startsWith("data-")) {
+    if (key.startsWith('data-')) {
       buttonProps[key] = other[key];
     }
   });
 
-  if (Component === "button") {
+  if (Component === 'button') {
     buttonProps.type = other.type;
     buttonProps.disabled = disabled;
   } else {
-    if (Component !== "a" || !other.href) {
-      buttonProps.role = "button";
+    if (Component !== 'a' || !other.href) {
+      buttonProps.role = 'button';
     }
-    buttonProps["aria-disabled"] = disabled;
+    buttonProps['aria-disabled'] = disabled;
   }
 
   function handleClick(ev: SyntheticEvent<any>) {
     ev.currentTarget.blur();
 
-    if (typeof onClick === "function") {
+    if (typeof onClick === 'function') {
       onClick(ev);
     }
   }
@@ -111,8 +111,8 @@ const ButtonBase = React.forwardRef<BaseButtonProps, any>(function ButtonBase(
       onClick={handleClick}
       as={Component}
       ref={ref}
-      tabIndex={disabled ? "-1" : tabIndex}
-      target={other && other.withNewTab ? "_blank" : null}
+      tabIndex={disabled ? '-1' : tabIndex}
+      target={other && other.withNewTab ? '_blank' : null}
       style={style}
       className={clsx(className, classes.root)}
       {...buttonProps}

@@ -72,7 +72,7 @@ export type CreateReceiptInput = {
   title: Scalars['String'];
   comment?: Maybe<Scalars['String']>;
   category?: Maybe<Scalars['String']>;
-  paidAt: Scalars['Date'];
+  paidAt: Scalars['DateTime'];
   total: Scalars['Float'];
   currency: Scalars['String'];
   paidById: Scalars['ID'];
@@ -100,6 +100,7 @@ export type Mutation = {
   createBillInvite: BillUser;
   removeBillUser: BillUser;
   createReceipt: Receipt;
+  deleteReceipt: Receipt;
   updateMe: User;
   setupAccount: Scalars['Boolean'];
 };
@@ -129,6 +130,10 @@ export type MutationCreateReceiptArgs = {
   input: CreateReceiptInput;
 };
 
+export type MutationDeleteReceiptArgs = {
+  id: Scalars['ID'];
+};
+
 export type MutationUpdateMeArgs = {
   meInput: MeInput;
 };
@@ -141,6 +146,7 @@ export type PageInfo = {
   __typename?: 'PageInfo';
   hasNextPage: Scalars['Boolean'];
   endCursor: Scalars['String'];
+  itemsCount: Scalars['Int'];
 };
 
 export type PaginationInput = {
@@ -175,6 +181,7 @@ export type QueryReceiptArgs = {
 export type QueryReceiptsArgs = {
   billId: Scalars['ID'];
   pagination?: Maybe<PaginationInput>;
+  filter?: Maybe<ReceiptsFilter>;
 };
 
 export type Receipt = {
@@ -203,6 +210,10 @@ export type ReceiptEdges = {
   __typename?: 'ReceiptEdges';
   node: Receipt;
   cursor: Scalars['String'];
+};
+
+export type ReceiptsFilter = {
+  name?: Maybe<Scalars['String']>;
 };
 
 export type RemoveBillUserInput = {

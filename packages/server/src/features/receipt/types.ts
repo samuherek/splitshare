@@ -43,19 +43,28 @@ export default gql`
     title: String!
     comment: String
     category: String
-    paidAt: Date!
+    paidAt: DateTime!
     total: Float!
     currency: String!
     paidById: ID!
     splits: [SplitInput!]!
   }
 
+  input ReceiptsFilter {
+    name: String
+  }
+
   extend type Query {
     receipt(id: ID!): Receipt
-    receipts(billId: ID!, pagination: PaginationInput): ReceiptConnection!
+    receipts(
+      billId: ID!
+      pagination: PaginationInput
+      filter: ReceiptsFilter
+    ): ReceiptConnection!
   }
 
   extend type Mutation {
     createReceipt(input: CreateReceiptInput!): Receipt!
+    deleteReceipt(id: ID!): Receipt!
   }
 `;

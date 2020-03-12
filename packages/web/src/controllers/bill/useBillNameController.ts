@@ -1,10 +1,10 @@
 import React from 'react';
 
 type Options = {
-  name?: string
-}
+  name?: string;
+};
 
-function useBillNameController({ name = ''}: Options = {}) {
+function useBillNameController({ name = '' }: Options = {}) {
   const [nameValue, setNameValue] = React.useState(name);
 
   const handleNameChange = React.useCallback(

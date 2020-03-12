@@ -1,16 +1,16 @@
 // @flow
-import anime from "animejs";
-import React from "react";
-import Transition from "react-transition-group/Transition";
+import anime from 'animejs';
+import React from 'react';
+import Transition from 'react-transition-group/Transition';
 
 const fadeIn = (node: any, duration: number) =>
   anime({
     targets: node,
     opacity: {
       value: [0, 1],
-      easing: "linear"
+      easing: 'linear',
     },
-    duration
+    duration,
   });
 
 const fadeOut = (node: any, duration: number) =>
@@ -18,9 +18,9 @@ const fadeOut = (node: any, duration: number) =>
     targets: node,
     opacity: {
       value: [1, 0],
-      easing: "linear"
+      easing: 'linear',
     },
-    duration
+    duration,
   });
 
 type Props = {

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const AvatarBase = styled.div<{ size: number }>`
   width: ${props => `${props.size}px`};

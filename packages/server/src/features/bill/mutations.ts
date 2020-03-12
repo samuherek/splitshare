@@ -17,7 +17,7 @@ export default {
     ) => {
       return models.Bill.createOne(input, user.id);
     },
-    updateBill: (
+    updateBill: async (
       _: any,
       { id, input }: UpdateBillArgs,
       { models }: MyContext

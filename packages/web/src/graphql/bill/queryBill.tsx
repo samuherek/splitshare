@@ -11,7 +11,6 @@ const QUERY_BILL = gql`
   query QueryBill($id: ID!) {
     bill(id: $id) {
       ...billMeta
-      createdAt
       updatedAt
       closedAt
       users {

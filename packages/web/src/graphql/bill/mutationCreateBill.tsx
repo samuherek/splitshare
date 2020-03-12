@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, MutationHookOptions, useMutation } from '@apollo/client';
 import { Bill, MutationCreateBillArgs } from '../types';
 import { FRAGMENT_BILL_META } from './fragments';
 
@@ -18,13 +18,15 @@ const MUTATION_CREATE_BILL = gql`
 type Options = {
   name: string;
   currency: string;
+  mutationOpts?: MutationHookOptions;
 };
 
-function useMutationCreateBill({ name, currency }: Options) {
+function useMutationCreateBill({ name, currency, mutationOpts }: Options) {
   const mutation = useMutation<
     MutationCreateBillResponse,
     MutationCreateBillArgs
   >(MUTATION_CREATE_BILL, {
+    ...mutationOpts,
     variables: {
       input: {
         name,

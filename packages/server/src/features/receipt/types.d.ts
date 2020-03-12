@@ -4,9 +4,14 @@ export type ReceiptArgs = {
   id: string;
 };
 
+export type ReceiptsFilter = {
+  name?: string;
+};
+
 export type ReceiptsArgs = {
   billId: string;
   pagination?: PaginationArgs;
+  filter?: ReceiptsFilter;
 };
 
 export type SplitInput = {
@@ -35,3 +40,7 @@ export type CreateReceiptInput = {
 export interface CreateReceiptArgs {
   input: CreateReceiptInput;
 }
+
+export type DeleteReceiptArgs = {
+  id: string;
+};

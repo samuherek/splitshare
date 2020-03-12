@@ -4,7 +4,7 @@ import { BillArgs, BillsArgs, UserBalanceRaw } from './types.d';
 
 export default {
   Query: {
-    bill: (_: any, { id }: BillArgs, { models, user }: MyContext) => {
+    bill: async (_: any, { id }: BillArgs, { models, user }: MyContext) => {
       return models.Bill.getById(id, user.id);
     },
     bills: (_: any, args: BillsArgs, { models, user }: MyContext) => {

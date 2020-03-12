@@ -1,7 +1,7 @@
 // @flow
-import clsx from "clsx";
-import React from "react";
-import styled from "styled-components";
+import clsx from 'clsx';
+import React from 'react';
+import styled from 'styled-components';
 
 type Props = {
   className?: string;
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const classes = {
-  root: "DialogActions"
+  root: 'DialogActions',
 };
 
 const WrapStyled = styled.div`

@@ -55,19 +55,28 @@ export class Receipt extends BaseEntity {
 
   @Column()
   billId: string;
-  @ManyToOne(() => Bill, bill => bill.receipts)
+  @ManyToOne(
+    () => Bill,
+    bill => bill.receipts
+  )
   @JoinColumn({ name: 'bill_id' })
   bill: Promise<Bill>;
 
   @Column()
   paidById: string;
-  @ManyToOne(() => User, user => user.receiptsPaid)
+  @ManyToOne(
+    () => User,
+    user => user.receiptsPaid
+  )
   @JoinColumn({ name: 'paid_by_id' })
   paidBy: Promise<User>;
 
   @Column()
   createdById: string;
-  @ManyToOne(() => User, user => user.receiptsCreated)
+  @ManyToOne(
+    () => User,
+    user => user.receiptsCreated
+  )
   @JoinColumn({ name: 'created_by_id' })
   createdBy: Promise<User>;
 

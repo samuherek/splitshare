@@ -1,17 +1,17 @@
-import clsx from "clsx";
-import React from "react";
-import styled from "styled-components";
+import clsx from 'clsx';
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   className?: string;
   component?: any;
-  position: "start" | "end";
+  position: 'start' | 'end';
 }
 
 export const classes = {
-  root: "ButtonAdornment",
-  positionStart: "start",
-  positionEnd: "end"
+  root: 'ButtonAdornment',
+  positionStart: 'start',
+  positionEnd: 'end',
 };
 
 const WrapStyled = styled.span`
@@ -38,8 +38,8 @@ const ButtonAdornment = React.forwardRef<Props, any>(function ButtonAdornment(
     <Component
       ref={ref}
       className={clsx(className, classes.root, {
-        [classes.positionStart]: position === "start",
-        [classes.positionEnd]: position === "end"
+        [classes.positionStart]: position === 'start',
+        [classes.positionEnd]: position === 'end',
       })}
       {...rest}
     />

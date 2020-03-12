@@ -1,21 +1,21 @@
 // @flow
-import clsx from "clsx";
-import React, { SyntheticEvent } from "react";
-import styled from "styled-components";
-import Fade from "../Fade";
-import { BackdropDark, BackdropLight } from "./styles";
+import clsx from 'clsx';
+import React, { SyntheticEvent } from 'react';
+import styled from 'styled-components';
+import Fade from '../Fade';
+import { BackdropDark, BackdropLight } from './styles';
 
 interface Props {
   isOpen: boolean;
   duration: number;
   onClick?: (ev: SyntheticEvent<HTMLElement>) => void;
   invisible?: boolean;
-  variant?: "light" | "dark";
+  variant?: 'light' | 'dark';
   className?: string;
 }
 
 export const classes = {
-  root: "Backdrop"
+  root: 'Backdrop',
 };
 
 const BackdropStyled = styled.div`
@@ -30,7 +30,7 @@ const BackdropStyled = styled.div`
 
 const variantComponent = {
   light: BackdropLight,
-  dark: BackdropDark
+  dark: BackdropDark,
 };
 
 const Backdrop = React.forwardRef<Props, any>((props, ref) => {
@@ -39,7 +39,7 @@ const Backdrop = React.forwardRef<Props, any>((props, ref) => {
     duration,
     onClick,
     invisible = false,
-    variant = "dark",
+    variant = 'dark',
     className,
     ...rest
   } = props;

@@ -5,7 +5,6 @@ import gql from 'graphql-tag';
 // @ts-ignore
 import * as merge from 'lodash.merge';
 import * as util from 'util';
-import console = require('console');
 
 const globPromise = util.promisify(glob);
 
@@ -18,6 +17,7 @@ const Query = gql`
   type PageInfo {
     hasNextPage: Boolean!
     endCursor: String!
+    itemsCount: Int!
   }
 
   input PaginationInput {

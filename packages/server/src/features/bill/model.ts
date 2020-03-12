@@ -1,5 +1,6 @@
-import { plainToClass } from 'class-transformer';
+import * as mapObject from 'map-obj';
 import { getConnection, getRepository } from 'typeorm';
+import { camelCase } from 'typeorm/util/StringUtils';
 import { paginate } from '../../utils/pagination';
 import { InviteState } from '../billUser/config';
 import { BillUser } from '../billUser/entity';
@@ -77,7 +78,13 @@ async function update(id: string, input: UpdateBillModelInput) {
     .output('*')
     .execute();
 
-  return plainToClass(Bill, raw[0]);
+  const [res] = raw;
+
+  if (!res) {
+    throw new Error('No such bill found');
+  }
+
+  return mapObject(res, (key, val) => [camelCase(key as string), val]);
 }
 
 //   return getRepository(BillInvite)

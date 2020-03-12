@@ -9,12 +9,13 @@ type QueryBillsData = {
 };
 
 const QUERY_BILLS = gql`
-  query queryBills($pagination: PaginationInput, $filter: BillsFilter) {
+  query QueryBills($pagination: PaginationInput, $filter: BillsFilter) {
     bills(pagination: $pagination, filter: $filter) {
       edges {
         node {
           ...billMeta
           updatedAt
+          closedAt
           users {
             ...billUserMeta
           }

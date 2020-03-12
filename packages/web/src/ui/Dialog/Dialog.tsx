@@ -1,10 +1,10 @@
 // @flow
-import clsx from "clsx";
-import React, { SyntheticEvent } from "react";
-import styled from "styled-components";
-import Fade from "../Fade";
-import Modal from "../Modal";
-import Paper from "../Paper";
+import clsx from 'clsx';
+import React, { SyntheticEvent } from 'react';
+import styled from 'styled-components';
+import Fade from '../Fade';
+import Modal from '../Modal';
+import Paper from '../Paper';
 
 export type OnCloseFn = (ev: SyntheticEvent<any>, type: string) => void;
 
@@ -12,7 +12,7 @@ type Props = {
   children: React.ReactNode;
   isOpen?: boolean;
   onClose?: OnCloseFn;
-  position?: "top" | "center";
+  position?: 'top' | 'center';
   backdropProps?: object;
   onExited: () => void;
   duration?: number;
@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const classes = {
-  root: "Dialog"
+  root: 'Dialog',
 };
 
 const PaperStyled = styled(Paper)`
@@ -51,7 +51,7 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
   const {
     isOpen = false,
     onClose,
-    position = "center",
+    position = 'center',
     children,
     onExited,
     duration,
@@ -67,7 +67,7 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
       }
 
       if (onClose) {
-        onClose(ev, "backdropClick");
+        onClose(ev, 'backdropClick');
       }
     },
     [onClose]
@@ -75,7 +75,7 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
 
   const handleKeyDown = React.useCallback((ev: SyntheticEvent<HTMLElement>) => {
     // @ts-ignore
-    if (ev.key === "Escape") {
+    if (ev.key === 'Escape') {
       ev.stopPropagation();
     }
   }, []);
@@ -98,7 +98,7 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
           // onMouseDown={handleMouseDown}
           tabIndex={0}
           style={{
-            alignItems: position === "top" ? "start" : "center"
+            alignItems: position === 'top' ? 'start' : 'center',
           }}
         >
           <PaperStyled {...paperProps}>{children}</PaperStyled>

@@ -1,9 +1,9 @@
-import { render } from "../../../test-utils/test-utils";
-import React from "react";
+import { render } from '../../../test-utils/test-utils';
+import React from 'react';
 // import ButtonAdornment from "../../ButtonAdornment";
-import ButtonBase from "../ButtonBase";
+import ButtonBase from '../ButtonBase';
 
-test("should match snapshots", () => {
+test('should match snapshots', () => {
   const emptyButton = render(<ButtonBase />);
   expect(emptyButton.container.firstChild).toMatchSnapshot();
 
@@ -11,77 +11,77 @@ test("should match snapshots", () => {
   expect(textButton.container.firstChild).toMatchSnapshot();
 });
 
-test("should apply default styles", () => {
+test('should apply default styles', () => {
   const { container } = render(<ButtonBase />);
   const button = container.firstChild;
   // @ts-ignore
-  expect(button).toHaveStyleRule("color", "inherit");
+  expect(button).toHaveStyleRule('color', 'inherit');
   // @ts-ignore
-  expect(button).toHaveStyleRule("cursor", "pointer");
+  expect(button).toHaveStyleRule('cursor', 'pointer');
   // @ts-ignore
-  expect(button).toHaveStyleRule("margin", "0");
+  expect(button).toHaveStyleRule('margin', '0');
   // @ts-ignore
-  expect(button).toHaveStyleRule("padding", "0");
+  expect(button).toHaveStyleRule('padding', '0');
   // @ts-ignore
-  expect(button).toHaveStyleRule("border", "0");
+  expect(button).toHaveStyleRule('border', '0');
   // @ts-ignore
-  expect(button).toHaveStyleRule("font", "inherit");
+  expect(button).toHaveStyleRule('font', 'inherit');
   // @ts-ignore
-  expect(button).toHaveStyleRule("font", "inherit");
+  expect(button).toHaveStyleRule('font', 'inherit');
   // @ts-ignore
-  expect(button).toHaveStyleRule("cursor", "pointer");
+  expect(button).toHaveStyleRule('cursor', 'pointer');
   // @ts-ignore
-  expect(button).not.toHaveStyleRule("opacity");
+  expect(button).not.toHaveStyleRule('opacity');
 });
 
-test("should change the button type", () => {
+test('should change the button type', () => {
   const { getByText } = render(<ButtonBase type="submit">Button</ButtonBase>);
-  expect(getByText(/button/i)).toHaveProperty("type", "submit");
+  expect(getByText(/button/i)).toHaveProperty('type', 'submit');
 });
 
-test("should change the button component and add accessibility requirements", () => {
+test('should change the button component and add accessibility requirements', () => {
   const { getByRole } = render(
     <ButtonBase component="span" role="checkbox" aria-checked={false} />
   );
-  const checkbox = getByRole("checkbox");
-  expect(checkbox).toHaveProperty("nodeName", "SPAN");
-  expect(checkbox).toHaveProperty("tabIndex", 0);
+  const checkbox = getByRole('checkbox');
+  expect(checkbox).toHaveProperty('nodeName', 'SPAN');
+  expect(checkbox).toHaveProperty('tabIndex', 0);
 });
 
 test('should not apply role="button" if type="button"', () => {
   const { getByText } = render(<ButtonBase type="button">Button</ButtonBase>);
-  expect(getByText(/button/i)).not.toHaveAttribute("role");
+  expect(getByText(/button/i)).not.toHaveAttribute('role');
 });
 
-test("should automatically change the button to an anochr element when href is provided", () => {
-  const href = "https://google.com";
+test('should automatically change the button to an anochr element when href is provided', () => {
+  const href = 'https://google.com';
   const { getByText } = render(<ButtonBase href={href}>Button</ButtonBase>);
   const button = getByText(/button/i);
 
-  expect(button).toHaveProperty("nodeName", "A");
-  expect(button).not.toHaveProperty("role");
-  expect(button).toHaveAttribute("href", href);
+  expect(button).toHaveProperty('nodeName', 'A');
+  expect(button).not.toHaveProperty('role');
+  expect(button).toHaveAttribute('href', href);
 });
 
 test('applies role="button" when an anchor is used without href', () => {
   const { getByRole } = render(<ButtonBase component="a">Button</ButtonBase>);
-  const button = getByRole("button");
+  const button = getByRole('button');
 
-  expect(button).toHaveProperty("nodeName", "A");
-  expect(button).not.toHaveAttribute("type");
+  expect(button).toHaveProperty('nodeName', 'A');
+  expect(button).not.toHaveAttribute('type');
 });
 
-test("should not use an anchor element if explicit component and href is passed", () => {
-  const href = "https://google.com";
+test('should not use an anchor element if explicit component and href is passed', () => {
+  const href = 'https://google.com';
   const { getByRole } = render(
     <ButtonBase component="span" href={href}>
       Button
     </ButtonBase>
   );
-  const button = getByRole("button");
+  const button = getByRole('button');
 
-  expect(button).toHaveProperty("nodeName", "SPAN");
-  expect(button).toHaveAttribute("href", href);
+  expect(button).toHaveProperty('nodeName', 'SPAN');
+  expect(button).toHaveAttribute('href', href);
 });
 
 // test('should use react router <Link /> component if provided "to"', () => {
@@ -95,43 +95,43 @@ test("should not use an anchor element if explicit component and href is passed"
 //   expect(button).toHaveAttribute('href', path);
 // });
 
-test("prop: disabled -> should have disabled styles", () => {
+test('prop: disabled -> should have disabled styles', () => {
   const { getByText } = render(<ButtonBase disabled>Button</ButtonBase>);
   const button = getByText(/button/i);
 
   // @ts-ignore
-  expect(button).toHaveStyleRule("cursor", "default", {
-    modifier: ":disabled"
+  expect(button).toHaveStyleRule('cursor', 'default', {
+    modifier: ':disabled',
   });
   // @ts-ignore
-  expect(button).toHaveStyleRule("pointer-events", "none", {
-    modifier: ":disabled"
+  expect(button).toHaveStyleRule('pointer-events', 'none', {
+    modifier: ':disabled',
   });
 });
 
-test("prop: disabled -> should have a negative tabIndex", () => {
+test('prop: disabled -> should have a negative tabIndex', () => {
   const { getByText } = render(<ButtonBase disabled>Button</ButtonBase>);
-  expect(getByText(/button/i)).toHaveProperty("tabIndex", -1);
+  expect(getByText(/button/i)).toHaveProperty('tabIndex', -1);
 });
 
-test("prop: disabled -> should forward it to native buttons", () => {
+test('prop: disabled -> should forward it to native buttons', () => {
   const { getByText } = render(
     <ButtonBase disabled component="button">
       Button
     </ButtonBase>
   );
-  expect(getByText(/button/i)).toHaveProperty("disabled", true);
+  expect(getByText(/button/i)).toHaveProperty('disabled', true);
 });
 
-test("prop: disabled -> should use aria attributes for other components", () => {
+test('prop: disabled -> should use aria attributes for other components', () => {
   const { getByRole } = render(
     <ButtonBase component="span" disabled>
       Button
     </ButtonBase>
   );
-  const button = getByRole("button");
-  expect(button).not.toHaveAttribute("disabled");
-  expect(button).toHaveAttribute("aria-disabled", "true");
+  const button = getByRole('button');
+  expect(button).not.toHaveAttribute('disabled');
+  expect(button).toHaveAttribute('aria-disabled', 'true');
 });
 
 // test("prop: startAdornment and endAdornment should match snapshots", () => {

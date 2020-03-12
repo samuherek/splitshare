@@ -5,6 +5,7 @@ const FRAGMENT_PG_PAGE_INFO = gql`
   fragment pageInfo on PageInfo {
     hasNextPage
     endCursor
+    itemsCount
   }
 `;
 

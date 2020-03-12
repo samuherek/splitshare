@@ -1,7 +1,13 @@
 import { gql, MutationHookOptions, useMutation } from '@apollo/client';
-import { Bill, MutationUpdateBillArgs, QueryBillArgs } from '../types';
+import {
+  Bill,
+  BillStatus,
+  MutationUpdateBillArgs,
+  QueryBillArgs,
+} from '../types';
 import { FRAGMENT_BILL_META } from './fragments';
 import { QueryBillResponse, QUERY_BILL } from './queryBill';
+import { QUERY_BILLS } from './queryBills';
 
 export type MutationUpdateBillResponse = {
   updateBill: Bill;
@@ -11,6 +17,7 @@ const MUTATION_UPDATE_BILL = gql`
   mutation MutationUpdateBill($id: ID!, $input: UpdateBillInput!) {
     updateBill(id: $id, input: $input) {
       ...billMeta
+      closedAt
     }
   }
   ${FRAGMENT_BILL_META}
@@ -68,6 +75,25 @@ function useMutationUpdateBill({
         },
       });
     },
+    // Dashboard queries
+    refetchQueries: [
+      {
+        query: QUERY_BILLS,
+        variables: {
+          filter: {
+            status: BillStatus.Opened,
+          },
+        },
+      },
+      {
+        query: QUERY_BILLS,
+        variables: {
+          filter: {
+            status: BillStatus.Closed,
+          },
+        },
+      },
+    ],
   });
 
   return mutation;

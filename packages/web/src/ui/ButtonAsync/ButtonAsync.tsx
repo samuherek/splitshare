@@ -1,22 +1,22 @@
-import clsx from "clsx";
-import React, { SyntheticEvent } from "react";
-import styled, { css } from "styled-components";
-import Button from "../Button";
-import ButtonLoader from "../ButtonLoader";
+import clsx from 'clsx';
+import React, { SyntheticEvent } from 'react';
+import styled, { css } from 'styled-components';
+import Button from '../Button';
+import ButtonLoader from '../ButtonLoader';
 
 interface Props {
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: (ev: SyntheticEvent<HTMLButtonElement>) => any;
   className?: string;
-  color?: "primary" | "secondary" | "tertiary" | "dark";
-  variant?: "text" | "contained";
+  color?: 'primary' | 'secondary' | 'tertiary' | 'dark';
+  variant?: 'text' | 'contained';
   loading?: boolean;
   type?: string;
 }
 
 export const classes = {
-  root: "ButtonAsync"
+  root: 'ButtonAsync',
 };
 
 // TODO: We should probably move the "position: relative" to

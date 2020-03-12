@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import React from "react";
-import { AvatarBase, Circle } from "./styles";
+import clsx from 'clsx';
+import React from 'react';
+import { AvatarBase, Circle } from './styles';
 
 interface Props {
   alt: string;
@@ -12,19 +12,19 @@ interface Props {
   size?: number;
   src?: string;
   srcSet?: string;
-  variant?: "circle" | "square";
+  variant?: 'circle' | 'square';
 }
 
 export const classes = {
-  root: "Avatar",
-  img: "AvatarImg",
-  circle: "circle",
-  square: "square"
+  root: 'Avatar',
+  img: 'AvatarImg',
+  circle: 'circle',
+  square: 'square',
 };
 
 const themedComponent = {
   square: AvatarBase,
-  circle: Circle
+  circle: Circle,
 };
 
 const Avatar = React.forwardRef<Props, any>(function Avatar(props, ref) {
@@ -37,7 +37,7 @@ const Avatar = React.forwardRef<Props, any>(function Avatar(props, ref) {
     sizes,
     src,
     srcSet,
-    variant = "circle",
+    variant = 'circle',
     size = 40,
     ...rest
   } = props;
@@ -72,8 +72,8 @@ const Avatar = React.forwardRef<Props, any>(function Avatar(props, ref) {
       ref={ref}
       size={size}
       className={clsx(className, classes.root, {
-        [classes.circle]: variant === "circle",
-        [classes.square]: variant === "square"
+        [classes.circle]: variant === 'circle',
+        [classes.square]: variant === 'square',
       })}
       {...rest}
     >

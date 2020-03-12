@@ -26,6 +26,7 @@ export type PaginationArgs = {
 export type PageInfo = {
   hasNextPage: boolean;
   endCursor: string;
+  itemsCount: number;
 };
 
 export type Edge<T> = {

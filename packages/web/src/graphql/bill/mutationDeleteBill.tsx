@@ -1,6 +1,7 @@
 import { gql, MutationHookOptions, useMutation } from '@apollo/client';
-import { Bill, MutationDeleteBillArgs } from '../types';
+import { Bill, BillStatus, MutationDeleteBillArgs } from '../types';
 import { FRAGMENT_BILL_META } from './fragments';
+import { QUERY_BILLS } from './queryBills';
 
 export type MutationDeleteBillResponse = {
   deleteBill: Bill;
@@ -29,30 +30,25 @@ function useMutationDeleteBill({ billId, mutationOpts }: Options) {
     variables: {
       id: billId,
     },
-    // update: (cache, res) => {
-    //   const query = {
-    //     query: QUERY_BILL,
-    //     variables: {
-    //       id: billId,
-    //     },
-    //   };
-
-    //   const data = cache.readQuery<QueryBillResponse, QueryBillArgs>(query);
-
-    //   if (!data) {
-    //     return;
-    //   }
-
-    //   cache.writeQuery<QueryBillResponse, QueryBillArgs>({
-    //     ...query,
-    //     data: {
-    //       bill: {
-    //         ...data.bill,
-    //         ...res.data?.archiveBill,
-    //       },
-    //     },
-    //   });
-    // },
+    // // Dashboard
+    refetchQueries: [
+      {
+        query: QUERY_BILLS,
+        variables: {
+          filter: {
+            status: BillStatus.Opened,
+          },
+        },
+      },
+      {
+        query: QUERY_BILLS,
+        variables: {
+          filter: {
+            status: BillStatus.Closed,
+          },
+        },
+      },
+    ],
   });
 
   return mutation;
