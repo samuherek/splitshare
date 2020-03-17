@@ -17,7 +17,11 @@ export interface ReceiptModel {
 async function getBillReceipts({ billId, pagination }: ReceiptsArgs) {
   const query = await getRepository(Receipt)
     .createQueryBuilder('receipt')
-    .where('receipt.billId = :billId', { billId });
+    .where('receipt.billId = :billId', { billId })
+    .orderBy({
+      'receipt.paidAt': 'DESC',
+      'receipt.createdAt': 'DESC',
+    });
 
   return paginate(query, pagination);
 }

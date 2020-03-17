@@ -2,6 +2,7 @@ import { navigate } from '@reach/router';
 import React from 'react';
 import ApolloProviderWrap from '../Apollo/ApolloProviderWrap';
 import { Auth0Provider } from '../Auth0/Auth0Provider';
+import { DateUtilsProvider, DayjsUtils } from '../components/DatePicker';
 import { UserState } from '../graphql/types';
 import { useQueryMe } from '../graphql/user/queryMe';
 import ErrorMessage from '../ui/ErrorMessage';
@@ -48,7 +49,9 @@ function AppProviders({ children }: Props) {
   return (
     <Auth0Provider>
       <ApolloProviderWrap>
-        <WaitForUserCreation default>{children}</WaitForUserCreation>
+        <WaitForUserCreation>
+          <DateUtilsProvider utils={DayjsUtils}>{children}</DateUtilsProvider>
+        </WaitForUserCreation>
       </ApolloProviderWrap>
     </Auth0Provider>
   );

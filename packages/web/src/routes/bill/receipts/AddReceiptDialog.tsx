@@ -1,6 +1,7 @@
 import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
+import useReceiptNewController from '../../../controllers/receipt/useReceiptNewController';
 import {
   MutationCreateReceiptResponse,
   useMutationCreateReceipt,
@@ -24,12 +25,14 @@ type Props = {
 function AddReceiptDialog({ bill, callback }: Props) {
   const { isOpen, openDialog, closeDialog } = useDialogState();
 
+  const { title, total, allowSubmit } = useReceiptNewController();
+
   const [createReceipt, { loading, error }] = useMutationCreateReceipt({
     billId: bill.id,
-    title: 'first bill',
+    title: title.value,
     paidAt: new Date(),
     paidById: bill.users[0].id,
-    total: 5,
+    total: Number(total.value),
     currency: bill.currency,
     splits: bill.users.map(u => ({ userId: u.id, value: 2.5 })),
   });
@@ -37,14 +40,16 @@ function AddReceiptDialog({ bill, callback }: Props) {
   async function handleSubmit(ev: any) {
     ev.preventDefault();
 
-    const [err, res]: [
-      Error,
-      ExecutionResult<MutationCreateReceiptResponse>
-    ] = await tryToCatch(createReceipt);
+    if (allowSubmit) {
+      const [err, res]: [
+        Error,
+        ExecutionResult<MutationCreateReceiptResponse>
+      ] = await tryToCatch(createReceipt);
 
-    if (!err && res.data?.createReceipt) {
-      callback();
-      closeDialog();
+      if (!err && res.data?.createReceipt) {
+        callback();
+        closeDialog();
+      }
     }
   }
 
@@ -60,7 +65,12 @@ function AddReceiptDialog({ bill, callback }: Props) {
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <Fieldset disabled={loading}>
-              <TextField label="Title" required />
+              <TextField
+                label="Title"
+                required
+                value={title.value}
+                onChange={title.onChange}
+              />
             </Fieldset>
           </form>
         </DialogContent>
@@ -68,7 +78,7 @@ function AddReceiptDialog({ bill, callback }: Props) {
           <Button onClick={closeDialog} disabled={loading}>
             Close
           </Button>
-          <Button onClick={handleSubmit} disabled={loading}>
+          <Button onClick={handleSubmit} disabled={loading || !allowSubmit}>
             Create
           </Button>
         </DialogActions>

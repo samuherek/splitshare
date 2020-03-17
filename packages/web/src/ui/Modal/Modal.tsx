@@ -104,7 +104,7 @@ const Modal = (props: Props) => {
           <Backdrop
             onClick={handleBackdropClick}
             isOpen={isOpen}
-            duration={175}
+            duration={200}
             {...backdropProps}
           />
         )}

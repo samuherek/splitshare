@@ -45,8 +45,8 @@ export default {
         throw new Error('No such a bill exists');
       }
 
-      await models.Bill.remove(id);
       await models.Receipt.remove({ billId: id });
+      await models.Bill.remove(id);
 
       return res;
     },
