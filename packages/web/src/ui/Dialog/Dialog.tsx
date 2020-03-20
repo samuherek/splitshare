@@ -4,7 +4,7 @@ import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import Fade from '../Fade';
 import Modal from '../Modal';
-import Paper from '../Paper';
+import { PaperDefault, PaperFullscreen } from './styles';
 
 export type OnCloseFn = (ev: SyntheticEvent<any>, type: string) => void;
 
@@ -18,27 +18,13 @@ type Props = {
   duration?: number;
   paperProps?: object;
   className?: string;
+  variant?: 'fullscreen' | 'default';
 };
 
 export const classes = {
   root: 'Dialog',
+  fullscreen: 'fullscreen',
 };
-
-const PaperStyled = styled(Paper)`
-  display: flex;
-  flex-direction: column;
-  margin: 48px;
-  position: relative;
-  overflow-y: auto;
-  flex: 0 1 auto;
-  max-height: calc(100% - 96px);
-  max-width: 600px;
-
-  @media print {
-    overflow-y: visible;
-    box-shadow: none;
-  }
-`;
 
 const DocumentDivStyled = styled.div`
   display: flex;
@@ -46,6 +32,11 @@ const DocumentDivStyled = styled.div`
   height: 100%;
   outline: none;
 `;
+
+const paperThemed = {
+  dialog: PaperDefault,
+  fullscreen: PaperFullscreen,
+};
 
 const Dialog = React.forwardRef<Props, any>((props, ref) => {
   const {
@@ -58,8 +49,13 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
     backdropProps,
     className,
     paperProps = {},
+    variant = 'dialog',
     ...rest
   } = props;
+
+  // @ts-ignore
+  const PaperComponent = paperThemed[variant] || PaperDefault;
+
   const handleBackdropClick = React.useCallback(
     (ev: SyntheticEvent<HTMLElement>) => {
       if (ev.target !== ev.currentTarget) {
@@ -87,7 +83,10 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
       role="dialog"
       ref={ref}
       backdropProps={backdropProps}
-      className={clsx(className, classes.root)}
+      className={clsx(className, classes.root, {
+        [classes.fullscreen]: variant === 'fullscreen',
+      })}
+      hideBackdrop={variant === 'fullscreen'}
       {...rest}
     >
       <Fade appear in={isOpen} onExited={onExited} duration={duration}>
@@ -101,7 +100,7 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
             alignItems: position === 'top' ? 'start' : 'center',
           }}
         >
-          <PaperStyled {...paperProps}>{children}</PaperStyled>
+          <PaperComponent {...paperProps}>{children}</PaperComponent>
         </DocumentDivStyled>
       </Fade>
     </Modal>

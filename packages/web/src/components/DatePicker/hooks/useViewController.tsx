@@ -1,12 +1,14 @@
 import React from 'react';
+import { PickerDate } from '../context/DateUtilsProvider';
 import { AnyPickerView } from '../typings/SharedPickerProps';
 
 type Options = {
   views: AnyPickerView[];
   openToView: AnyPickerView;
+  onDayChange: (nextDay: PickerDate) => void;
 };
 
-function useViewController({ views, openToView }: Options) {
+function useViewController({ views, openToView, onDayChange }: Options) {
   const [viewValue, setViewValue] = React.useState(
     openToView && views.includes(openToView) ? openToView : views[0]
   );
@@ -27,6 +29,15 @@ function useViewController({ views, openToView }: Options) {
     [setViewValue]
   );
 
+  const handleDayChangeAndOpenNextView = React.useCallback(
+    (day: PickerDate) => {
+      onDayChange(day);
+      handleOpenNextView();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [onDayChange, nextView, handleOpenNextView]
+  );
+
   return {
     // nextView,
     // previousView,
@@ -34,6 +45,7 @@ function useViewController({ views, openToView }: Options) {
     view: {
       value: viewValue,
       onChange: handleViewChange,
+      onDayChangeAndNext: handleDayChangeAndOpenNextView,
     },
   };
 }

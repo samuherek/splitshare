@@ -1,9 +1,6 @@
-// import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { Link, RouteComponentProps } from '@reach/router';
 import React from 'react';
 import { useAuth0 } from '../Auth0/Auth0Provider';
-import DatePicker from '../components/DatePicker';
-// import DatePicker from '../components/DatePicker';
 import { useQueryBills } from '../graphql/bill/queryBills';
 import { BillStatus } from '../graphql/types';
 import { getBillPath } from '../paths';
@@ -18,8 +15,6 @@ import CreateBillDialog from './dashboard/CreateBillDialog';
 const Dashboard = (props: RouteComponentProps) => {
   const { logout } = useAuth0();
   const { isOpen, openDialog, closeDialog } = useDialogState();
-
-  const [date, setDate] = React.useState<Date | null>(null);
 
   const opened = useQueryBills({
     status: BillStatus.Opened,
@@ -69,17 +64,6 @@ const Dashboard = (props: RouteComponentProps) => {
           </div>
         ))
       )}
-      {/* <MuiPickersUtilsProvider utils={DayjsUtilss}>
-        <DatePicker value={undefined} onChange={() => {}} />
-      </MuiPickersUtilsProvider> */}
-      <DatePicker
-        value={date}
-        onChange={setDate}
-        openToView="month"
-        disableFuture={true}
-        views={['year', 'month', 'date']}
-        // maxDate={new Date('2020-03-16')}
-      />
       <CreateBillDialog
         isOpen={isOpen}
         onClose={() => {

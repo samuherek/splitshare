@@ -12,6 +12,7 @@ type Props = {
   onClick?: () => void;
   onClose?: (...args: any) => void; // TODO: Needs to establish API args for the function
   backdropProps?: object;
+  role?: string;
 };
 
 const DialogDivStyled = styled.div`

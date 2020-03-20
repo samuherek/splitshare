@@ -1,10 +1,14 @@
 import React from 'react';
+import { TextFieldProps } from '../../../../ui/TextField/TextField';
 import { datePickerDefaultProps } from '../../config/default';
-import usePickerController from '../../hooks/usePickerController';
+import { useDateUtils } from '../../context/DateUtilsProvider';
+import useDatePickerController from '../../hooks/useDatePickerController';
 import { BasePickerProps } from '../../typings/BasePicker';
 import { WithViewProps } from '../../typings/SharedPickerProps';
+import { getFormatByViews } from '../../utils/date-utils';
 import Picker from '../Picker';
-import { StaticWrapper } from '../Wrapper';
+import Wrapper from '../Wrapper';
+import { AnyWrapper } from '../Wrapper/Wrapper';
 
 export interface DatePickerProps
   extends WithViewProps<'year' | 'month' | 'date'>,
@@ -13,138 +17,26 @@ export interface DatePickerProps
   maxDate?: Date;
   disableFuture?: boolean;
   disablePast?: boolean;
+  variant?: AnyWrapper;
+  inputProps: Omit<TextFieldProps, 'value' | 'onChange'>;
 }
 
 export type DatePickerView = 'year' | 'date' | 'month';
 
-// const Wrapper = styled.div``;
-
-// const PaperStyled = styled(Paper)`
-//   display: flex;
-//   flex-direction: column;
-//   margin: 48px;
-//   position: relative;
-//   overflow-y: auto;
-//   flex: 0 1 auto;
-//   max-height: calc(100% - 96px);
-//   max-width: 600px;
-
-//   @media print {
-//     overflow-y: visible;
-//     box-shadow: none;
-//   }
-// `;
-
-// function validateDateValue(
-//   value: ParsableDate,
-//   utils: DateUtils,
-//   {
-//     maxDate,
-//     minDate,
-//     disableFuture,
-//     disablePast,
-//     invalidDateMessage,
-//     strictCompareDates,
-//     maxDateMessage,
-//     minDateMessage,
-//   }: any
-// ) {
-//   const parsedValue = utils.date(value);
-
-//   // If null - do not show error
-//   if (value === null) {
-//     return undefined;
-//   }
-
-//   if (!utils.isValid(value)) {
-//     return invalidDateMessage;
-//   }
-
-//   if (
-//     maxDate &&
-//     utils.isAfter(
-//       parsedValue!,
-//       getComparisonMaxDate(utils, utils.date(maxDate)!, !!strictCompareDates)
-//     )
-//   ) {
-//     return maxDateMessage;
-//   }
-
-//   if (
-//     disableFuture &&
-//     utils.isAfter(
-//       parsedValue!,
-//       getComparisonMaxDate(utils, utils.date()!, !!strictCompareDates)
-//     )
-//   ) {
-//     return maxDateMessage;
-//   }
-
-//   if (
-//     minDate &&
-//     utils.isBefore(
-//       parsedValue!,
-//       getComparisonMinDate(utils, utils.date(minDate)!, !!strictCompareDates)
-//     )
-//   ) {
-//     return minDateMessage;
-//   }
-
-//   if (
-//     disablePast &&
-//     utils.isBefore(
-//       parsedValue!,
-//       getComparisonMinDate(utils, utils.date()!, !!strictCompareDates)
-//     )
-//   ) {
-//     return minDateMessage;
-//   }
-
-//   return undefined;
-// }
-
-// function usePickerState(
-//   props: BasePickerProps,
-//   parsedInputValue: any,
-//   validateInputValue: any
-// ) {
-//   const {
-//     // autoOk,
-//     inputFormat,
-//     // disabled,
-//     // readOnly,
-//     // onAccept,
-//     // onChange,
-//     // onError,
-//     value,
-//   } = props;
-
-//   if (!inputFormat) {
-//     throw new Error('inputFormat prop is required');
-//   }
-
-//   const now = useNow();
-//   const utils = useDateUtils();
-//   const date = parsedInputValue(now, utils, props);
-
-//   return {
-//     // pickerProps,
-//     // inputProps,
-//     // wrapperProps
-//   };
-// }
-
 function useDefaultProps({
   openToView = 'date',
   views = ['year', 'date'],
+  variant = 'dialog',
 }: DatePickerProps) {
+  const utils = useDateUtils();
+
   return {
     ...datePickerDefaultProps,
     views,
     openToView,
-    mask: '__/__/____',
-    // TODO:
-    // inputFormat:
+    variant,
+    inputFormat: getFormatByViews(views, utils),
+    // mask: '__/__/____',
   };
 }
 
@@ -154,21 +46,10 @@ function DatePicker(props: DatePickerProps) {
   const defaultProps = useDefaultProps(props);
   const allProps = { ...defaultProps, ...props };
 
-  const { day } = usePickerController(allProps);
+  const { pickerProps, inputProps, wrapperProps } = useDatePickerController(
+    allProps
+  );
 
-  // const {};
-  // const r = usePickerState(
-  //   {
-  //     ...props,
-  //     ...datePickerDefaultProps,
-  //   },
-  //   parsePickerInputValue,
-  //   validateDateValue
-  // );
-  // const {
-
-  // } = allProps;
-  // console.log(allProps);
   const {
     views,
     openToView,
@@ -176,21 +57,26 @@ function DatePicker(props: DatePickerProps) {
     maxDate,
     disablePast,
     disableFuture,
+    variant,
+    ...restPropsForTextField
   } = allProps;
 
   return (
-    <StaticWrapper>
+    <Wrapper
+      inputProps={{ ...inputProps, ...restPropsForTextField }}
+      wrapperProps={wrapperProps}
+      variant={variant}
+    >
       <Picker
-        day={day.value}
-        onDayChange={day.onChange}
         views={views}
         openToView={openToView}
         minDate={minDate}
         maxDate={maxDate}
         disableFuture={disableFuture}
         disablePast={disablePast}
+        {...pickerProps}
       />
-    </StaticWrapper>
+    </Wrapper>
   );
 }
 

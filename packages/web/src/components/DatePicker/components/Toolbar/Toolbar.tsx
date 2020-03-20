@@ -9,7 +9,9 @@ type Props = {
   onViewChange: (nextView: AnyPickerView) => void;
 };
 
-const WrapStyled = styled.div``;
+const WrapStyled = styled.div`
+  padding: 12px;
+`;
 
 function Toolbar({ date, onViewChange }: Props) {
   const utils = useDateUtils();

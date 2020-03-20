@@ -21,8 +21,8 @@ export interface PickerProps<
 > extends Omit<BasePickerProps, 'value' | 'onChange'>, WithViewProps<TView> {
   day: TDateValue;
   onDayChange: (nextVal: PickerDate) => void;
-  minDate?: ParsableDate;
-  maxDate?: ParsableDate;
+  minDate?: TInputValue;
+  maxDate?: TInputValue;
   disableFuture?: boolean;
   disablePast?: boolean;
 }
@@ -159,7 +159,7 @@ function Picker({
   disableFuture = false,
   disablePast = false,
 }: PickerProps<AnyPickerView>) {
-  const { view } = useViewController({ views, openToView });
+  const { view } = useViewController({ views, openToView, onDayChange });
   const utils = useDateUtils();
   const now = useNow();
 
@@ -176,7 +176,7 @@ function Picker({
       {view.value === 'year' ? (
         <CalendarYear
           day={day}
-          onYearChange={onDayChange}
+          onYearChange={view.onDayChangeAndNext}
           minYear={startYear}
           maxYear={endYear}
         />
@@ -184,7 +184,7 @@ function Picker({
       {view.value === 'month' ? (
         <CalendarMonth
           day={day}
-          onMonthChange={onDayChange}
+          onMonthChange={view.onDayChangeAndNext}
           minDay={minDay}
           maxDay={maxDay}
           disableFuture={disableFuture}

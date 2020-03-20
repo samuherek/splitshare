@@ -1,22 +1,26 @@
 import React from 'react';
+import { useRifm } from 'rifm';
+import { formatFloatingPointNumber, parseNumber } from '../../utils/rifm';
 
 type Options = {
-  total?: string;
+  total?: number | string;
 };
 
-function useReceiptTotalController({ total = '0' }: Options = {}) {
-  const [totalValue, setTotalValue] = React.useState<string>(total);
+function useReceiptTotalController({ total = 0 }: Options = {}) {
+  const [totalValue, setTotalValue] = React.useState<string>(String(total));
 
-  function handleSetTotalValue(ev: React.SyntheticEvent<HTMLInputElement>) {
-    // @ts-ignore
-    const { value } = ev.target;
-    setTotalValue(value);
-  }
+  const { value, onChange } = useRifm({
+    value: totalValue,
+    onChange: setTotalValue,
+    accept: /[\d.]+/g,
+    format: (str: string) => formatFloatingPointNumber(str, 2),
+  });
 
   return {
     total: {
-      value: totalValue,
-      onChange: handleSetTotalValue,
+      value,
+      parsedValue: parseFloat(parseNumber(totalValue)) || 0,
+      onChange,
     },
   };
 }

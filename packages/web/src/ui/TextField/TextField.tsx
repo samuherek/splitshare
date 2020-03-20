@@ -3,24 +3,24 @@ import FormControl from '../FormControl';
 import Input from '../Input';
 import InputLabel from '../InputLabel';
 
-interface Props {
+export interface TextFieldProps {
   autoComplete?: string;
   autoFocus?: boolean;
   children?: React.ReactNode;
   className?: string;
-  defaultValue: any;
+  defaultValue?: any;
   disabled?: boolean;
   error?: boolean;
-  FormHelperTextProps: object;
+  FormHelperTextProps?: object;
   fullWidth?: boolean;
   helperText?: React.ReactNode;
-  id: string;
+  id?: string;
   InputLabelProps?: object;
   inputProps?: object;
   inputRef?: React.Ref<any>;
   label?: React.ReactNode;
   multiline?: boolean;
-  name: string;
+  name?: string;
   onBlur?: (ev: SyntheticEvent<any>) => void;
   onChange: (ev: SyntheticEvent<any>) => void;
   onFocus?: (ev: SyntheticEvent<any>) => void;
@@ -34,12 +34,16 @@ interface Props {
   variant?: 'standard';
   startAdornment?: any;
   endAdornment?: any;
+  readOnly?: boolean;
 }
 const variantInputComponent = {
   standard: Input,
 };
 
-const TextField = React.forwardRef<Props, any>(function TextField(props, ref) {
+const TextField = React.forwardRef<TextFieldProps, any>(function TextField(
+  props,
+  ref
+) {
   const {
     autoComplete,
     autoFocus,
@@ -70,6 +74,7 @@ const TextField = React.forwardRef<Props, any>(function TextField(props, ref) {
     variant = 'standard',
     startAdornment,
     endAdornment,
+    readOnly,
     ...rest
   } = props;
 
@@ -104,6 +109,7 @@ const TextField = React.forwardRef<Props, any>(function TextField(props, ref) {
           name={name}
           rows={rows}
           inputRef={inputRef}
+          readOnly={readOnly}
           type={type}
           value={value}
           id={id || name}

@@ -1,154 +1,83 @@
-import sortBy from 'lodash.sortby';
 import React from 'react';
+import { SplitInput } from '../../graphql/types';
+import {
+  getEqualDistribution,
+  getEqualRemainderDistribution,
+  getMaxValueDistribution,
+  UserSplit,
+} from '../../libs/splits';
 
-type Options = {
-  total: string;
-  splits?: any[];
-  users: any[];
-};
-
-export type SplitObj = {
-  value: number;
-  isCustom: boolean;
-};
-
-export type SplitObjMap = {
-  [userId: string]: SplitObj;
-};
-
-export type SplitEntry = [string, SplitObj];
-
-export function getBaseSplits(total: number, users: any[]): SplitObjMap {
-  return users.reduce((prev, u) => {
-    prev[u.id] = {
-      value: total / users.length,
-      isCustom: false,
-    };
-    return prev;
-  }, {});
+interface Options {
+  total: number;
+  splits: {
+    [userId: string]: UserSplit;
+  };
 }
 
-export function fromEntriesToObjMap(entries: SplitEntry[]): SplitObjMap {
-  return entries.reduce((prev: { [key: string]: any }, [key, split]) => {
-    prev[key] = split;
-    return prev;
-  }, {});
-}
+function useReceiptSplitsController({ total, splits }: Options) {
+  const cachedTotalRef = React.useRef(total);
+  const [splitValues, setSplitValues] = React.useState(splits);
 
-export function getNextSplits(
-  splitValues: SplitObjMap,
-  totalNum: number,
-  userId: string,
-  value: number
-): SplitObjMap {
-  const userSplit = splitValues[userId];
-  const sortedSplitEntries = sortBy(Object.entries(splitValues), ['[1].value']);
-
-  // We don't allow bigger number than the total value of the receipt
-  if (value >= totalNum) {
-    const nextSplitEntries = sortedSplitEntries.map(([key, split]) => {
-      const nextEntry: SplitEntry = [key, split];
-      const isBeingEditedSplit = key === userId;
-
-      nextEntry[1] = {
-        ...split,
-        value: isBeingEditedSplit ? totalNum : 0,
-        isCustom: isBeingEditedSplit,
-      };
-
-      return nextEntry;
-    });
-
-    return fromEntriesToObjMap(nextSplitEntries);
-  }
-
-  let remainder = Math.abs(userSplit.value - value);
-
-  if (remainder > totalNum) {
-    remainder = totalNum;
-  }
-
-  const shouldDeduct = userSplit.value < value;
-
-  let actionUserPassed = false;
-
-  const nextSplitEntries = sortedSplitEntries.map(([key, split], i) => {
-    const nextEntry: SplitEntry = [key, split];
-
-    if (key === userId) {
-      actionUserPassed = true;
-      nextEntry[1] = {
-        ...split,
-        isCustom: true,
-        value,
-      };
-      return nextEntry;
+  // In case users are added or removed, reset the splits
+  React.useEffect(() => {
+    if (Object.keys(splits).length !== Object.keys(splitValues).length) {
+      const nextSplits = getEqualDistribution(splits, total);
+      setSplitValues(nextSplits);
     }
+  }, [splits, setSplitValues, splitValues, total]);
 
-    const entriesLeft = actionUserPassed
-      ? sortedSplitEntries.length - i
-      : sortedSplitEntries.length - 1 - i;
-
-    const splitValuePart = remainder / entriesLeft;
-
-    let safeValueToUse = splitValuePart;
-
-    if (shouldDeduct) {
-      const canDeduct = Math.floor(split.value - splitValuePart) >= 0;
-      safeValueToUse = canDeduct ? splitValuePart : split.value;
+  // In case we change total, redistribute the splits again
+  React.useEffect(() => {
+    if (cachedTotalRef.current !== total) {
+      const nextSplits = getEqualDistribution(splitValues, total);
+      cachedTotalRef.current = total;
+      setSplitValues(nextSplits);
     }
+  }, [splitValues, total, setSplitValues]);
 
-    const nextValue = shouldDeduct
-      ? split.value - safeValueToUse
-      : split.value + safeValueToUse;
+  const handleSplitChange = React.useCallback(
+    (userId: string, value: string) => {
+      const parsedVal = parseFloat(value);
+      let nextSplits = null;
 
-    remainder -= safeValueToUse;
+      // We don't allow bigger number than the total value of the receipt
+      if (parsedVal >= total) {
+        nextSplits = getMaxValueDistribution(splitValues, total, userId);
+      } else {
+        nextSplits = getEqualRemainderDistribution(
+          splitValues,
+          parsedVal,
+          total,
+          userId
+        );
+      }
 
-    nextEntry[1] = {
-      ...split,
-      value: Math.round(nextValue * 100) / 100,
-    };
-
-    return nextEntry;
-  });
-
-  return fromEntriesToObjMap(nextSplitEntries);
-}
-
-function useReceiptSplitsController({ total, users, splits }: Options) {
-  const totalNum = Number(total);
-
-  // TODO: a case when only one user?
-
-  const [isCustomSplit, setIsCustomSplit] = React.useState(false);
-  const [splitValues, setSplitValues] = React.useState<SplitObjMap>(() =>
-    getBaseSplits(totalNum, users)
+      setSplitValues(nextSplits);
+    },
+    [splitValues, setSplitValues, total]
   );
 
-  React.useEffect(() => {
-    setSplitValues(getBaseSplits(totalNum, users));
-  }, [users, splits]);
+  const getSplitValue = React.useCallback(
+    (userId: string) => {
+      return splitValues[userId]?.value;
+    },
+    [splitValues]
+  );
 
-  React.useEffect(() => {
-    if (isCustomSplit) {
-      setIsCustomSplit(false);
-    }
+  const getInputSplits = React.useCallback((): SplitInput[] => {
+    return Object.keys(splitValues).map(key => ({
+      userId: key,
+      value: splitValues[key].parsedValue,
+    }));
+  }, [splitValues]);
 
-    setSplitValues(getBaseSplits(totalNum, users));
-  }, [total]);
-
-  function handleSetSplitValues(userId: string, value: number) {
-    if (!isCustomSplit) {
-      setIsCustomSplit(true);
-    }
-
-    const nextSplits = getNextSplits(splitValues, totalNum, userId, value);
-    setSplitValues(nextSplits);
-  }
+  console.log(splitValues);
 
   return {
-    map: splitValues,
-    onChange: handleSetSplitValues,
+    value: splitValues,
+    getSplitValue,
+    getInputSplits,
+    onChange: handleSplitChange,
   };
 }
 

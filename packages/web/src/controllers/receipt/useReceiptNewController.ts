@@ -1,8 +1,10 @@
+import { BillUser } from '../../graphql/types';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
-import { djsAnchors } from '../../utils/date';
+import { getSplitsFromBillUsers } from '../../libs/splits';
 import useDatePickerController from '../date/useDatePickerController';
 import useReceiptCommentController from './useReceiptCommentController';
 import useReceiptPayerController from './useReceiptPayerController';
+import useReceiptSplitsController from './useReceiptSplitsController';
 import useReceiptTitleController from './useReceiptTitleController';
 import useReceiptTotalController from './useReceiptTotalController';
 
@@ -11,7 +13,8 @@ type Options = {
   comment?: string;
   paidAt?: Date | string;
   paidById?: string;
-  total?: string;
+  total?: number;
+  users: BillUser[];
 };
 
 function useReceiptNewController({
@@ -20,19 +23,24 @@ function useReceiptNewController({
   paidAt,
   paidById,
   total,
-}: Options = {}) {
+  users,
+}: Options) {
   const titleCtrl = useReceiptTitleController({ title });
   const commentCtrl = useReceiptCommentController({ comment });
   const paidAtCtrl = useDatePickerController({ date: paidAt });
   const paidByCtrl = useReceiptPayerController({ id: paidById });
   const totalCtrl = useReceiptTotalController({ total });
+  const splitsCtrl = useReceiptSplitsController({
+    total: totalCtrl.total.parsedValue,
+    splits: getSplitsFromBillUsers(users),
+  });
 
   const allowSubmit = useAllowSubmit(
     {
       title: '',
-      total: '0',
+      total: '0.00',
       paidById: null,
-      paidAt: djsAnchors.today.toDate(),
+      paidAt: null,
     },
     {
       title: titleCtrl.title.value,
@@ -40,7 +48,7 @@ function useReceiptNewController({
       paidById: paidByCtrl.id.value,
       paidAt: paidAtCtrl.date.value,
     },
-    ['title', 'total', 'payedById', 'payedAt']
+    ['title', 'total', 'paidById', 'paidAt']
   );
 
   return {
@@ -49,6 +57,7 @@ function useReceiptNewController({
     comment: commentCtrl.comment,
     paidBy: paidByCtrl.id,
     total: totalCtrl.total,
+    splits: splitsCtrl,
     allowSubmit,
   };
 }

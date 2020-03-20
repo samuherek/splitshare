@@ -1,6 +1,8 @@
 import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
+import DatePicker from '../../../components/DatePicker/components/DatePicker/DatePicker';
+import UserSplit from '../../../components/UserSplit';
 import useReceiptNewController from '../../../controllers/receipt/useReceiptNewController';
 import {
   MutationCreateReceiptResponse,
@@ -25,16 +27,23 @@ type Props = {
 function AddReceiptDialog({ bill, callback }: Props) {
   const { isOpen, openDialog, closeDialog } = useDialogState();
 
-  const { title, total, allowSubmit } = useReceiptNewController();
+  const {
+    title,
+    total,
+    paidAt,
+    paidBy,
+    splits,
+    allowSubmit,
+  } = useReceiptNewController({ users: bill.users });
 
   const [createReceipt, { loading, error }] = useMutationCreateReceipt({
     billId: bill.id,
     title: title.value,
-    paidAt: new Date(),
-    paidById: bill.users[0].id,
-    total: Number(total.value),
+    paidAt: paidAt.value || new Date(),
+    paidById: paidBy.value || '',
+    total: total.parsedValue,
     currency: bill.currency,
-    splits: bill.users.map(u => ({ userId: u.id, value: 2.5 })),
+    splits: splits.getInputSplits(),
   });
 
   async function handleSubmit(ev: any) {
@@ -56,7 +65,12 @@ function AddReceiptDialog({ bill, callback }: Props) {
   return (
     <>
       <Button onClick={openDialog}>Add receipt</Button>
-      <Dialog isOpen={isOpen} onClose={!loading && closeDialog}>
+      <Dialog
+        isOpen={isOpen}
+        onClose={!loading && closeDialog}
+        variant="fullscreen"
+        duration={150}
+      >
         <DialogTitle>
           <Typography variant="h3" component="h3">
             Create receipt for {bill.name}
@@ -71,6 +85,33 @@ function AddReceiptDialog({ bill, callback }: Props) {
                 value={title.value}
                 onChange={title.onChange}
               />
+              <DatePicker
+                value={paidAt.value}
+                onChange={paidAt.onChange}
+                openToView="date"
+                disableFuture={true}
+                views={['year', 'month', 'date']}
+                inputFormat="DD. MMM, YYYY"
+                // @ts-ignore
+                label="Paid at day"
+                required={true}
+              />
+              <TextField
+                value={total.value}
+                onChange={total.onChange}
+                required={true}
+                label="Total"
+              />
+              {bill.users.map(user => (
+                <UserSplit
+                  key={user.id}
+                  user={user}
+                  isPayer={user.id === paidBy.value}
+                  onPaidByChange={paidBy.onChange}
+                  value={splits.getSplitValue(user.id)}
+                  onValueChange={splits.onChange}
+                />
+              ))}
             </Fieldset>
           </form>
         </DialogContent>

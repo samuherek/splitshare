@@ -12,7 +12,6 @@ function useCurrentMonthController({ day }: Options) {
 
   const handleMonthChange = React.useCallback(
     (nextDate: PickerDate) => {
-      console.log(nextDate, monthValue);
       if (utils.isSameMonth(nextDate, monthValue)) {
         return;
       }

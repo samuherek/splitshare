@@ -58,7 +58,6 @@ function Month({
   const handleMonthChange = React.useCallback(
     (nextMonth: number) => {
       const nextDay = utils.setMonth(day, nextMonth);
-      console.log(nextDay);
       onMonthChange(nextDay);
     },
     [day, onMonthChange, utils]
