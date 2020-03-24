@@ -1,39 +1,18 @@
 import React from 'react';
 import { SplitInput } from '../../graphql/types';
 import {
-  getEqualDistribution,
   getEqualRemainderDistribution,
   getMaxValueDistribution,
-  UserSplit,
+  SplitsMap,
 } from '../../libs/splits';
 
 interface Options {
   total: number;
-  splits: {
-    [userId: string]: UserSplit;
-  };
+  splits: SplitsMap;
 }
 
 function useReceiptSplitsController({ total, splits }: Options) {
-  const cachedTotalRef = React.useRef(total);
   const [splitValues, setSplitValues] = React.useState(splits);
-
-  // In case users are added or removed, reset the splits
-  React.useEffect(() => {
-    if (Object.keys(splits).length !== Object.keys(splitValues).length) {
-      const nextSplits = getEqualDistribution(splits, total);
-      setSplitValues(nextSplits);
-    }
-  }, [splits, setSplitValues, splitValues, total]);
-
-  // In case we change total, redistribute the splits again
-  React.useEffect(() => {
-    if (cachedTotalRef.current !== total) {
-      const nextSplits = getEqualDistribution(splitValues, total);
-      cachedTotalRef.current = total;
-      setSplitValues(nextSplits);
-    }
-  }, [splitValues, total, setSplitValues]);
 
   const handleSplitChange = React.useCallback(
     (userId: string, value: string) => {
@@ -44,6 +23,7 @@ function useReceiptSplitsController({ total, splits }: Options) {
       if (parsedVal >= total) {
         nextSplits = getMaxValueDistribution(splitValues, total, userId);
       } else {
+        console.log('goes to equal remainder');
         nextSplits = getEqualRemainderDistribution(
           splitValues,
           parsedVal,
@@ -51,15 +31,26 @@ function useReceiptSplitsController({ total, splits }: Options) {
           userId
         );
       }
+      console.log(nextSplits);
 
       setSplitValues(nextSplits);
     },
     [splitValues, setSplitValues, total]
   );
 
+  const setNextSplits = React.useCallback(
+    (nextSplits: SplitsMap) => {
+      console.log('in here', nextSplits);
+      setSplitValues(nextSplits);
+    },
+    [setSplitValues]
+  );
+
   const getSplitValue = React.useCallback(
     (userId: string) => {
-      return splitValues[userId]?.value;
+      // In case the split is undefined we need to return string.
+      // so the rest of the app can make sure of a specific value coming always
+      return splitValues[userId]?.value ?? '';
     },
     [splitValues]
   );
@@ -71,13 +62,24 @@ function useReceiptSplitsController({ total, splits }: Options) {
     }));
   }, [splitValues]);
 
-  console.log(splitValues);
+  const isAnyValueChanged = React.useCallback(() => {
+    return Object.keys(splits).some(userId => {
+      const originalValue = splits[userId].parsedValue;
+      // When we render it first time, the splits might not be set yet.
+      // In such case we need to make sure we check for a non existent
+      // user split.
+      const stateValue = splitValues[userId]?.parsedValue ?? null;
+      return originalValue !== stateValue;
+    });
+  }, [splits, splitValues]);
 
   return {
     value: splitValues,
     getSplitValue,
     getInputSplits,
+    setSplitValues: setNextSplits,
     onChange: handleSplitChange,
+    isChanged: isAnyValueChanged(),
   };
 }
 

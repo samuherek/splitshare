@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useRifm } from 'rifm';
 import styled from 'styled-components';
-import { BillUser } from '../../graphql/types';
+import { BillUser, User } from '../../graphql/types';
 import ButtonBase from '../../ui/ButtonBase';
 import TextField from '../../ui/TextField';
 import Typography from '../../ui/Typography';
@@ -11,7 +11,7 @@ import { getDisplayName, initials } from '../../utils/user';
 import AvatarUser from '../AvatarUser';
 
 type Props = {
-  user: BillUser;
+  user: BillUser | User;
   isPayer: boolean;
   onPaidByChange: (nextUserId: string | null) => void;
   className?: string;

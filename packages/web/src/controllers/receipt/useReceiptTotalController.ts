@@ -7,6 +7,7 @@ type Options = {
 };
 
 function useReceiptTotalController({ total = 0 }: Options = {}) {
+  const totalRef = React.useRef(total);
   const [totalValue, setTotalValue] = React.useState<string>(String(total));
 
   const { value, onChange } = useRifm({
@@ -16,11 +17,21 @@ function useReceiptTotalController({ total = 0 }: Options = {}) {
     format: (str: string) => formatFloatingPointNumber(str, 2),
   });
 
+  React.useEffect(() => {
+    if (totalRef.current !== total) {
+      totalRef.current = total;
+      setTotalValue(String(total));
+    }
+  }, [total]);
+
+  const parsedValue = parseFloat(parseNumber(totalValue)) || 0;
+
   return {
     total: {
       value,
-      parsedValue: parseFloat(parseNumber(totalValue)) || 0,
+      parsedValue,
       onChange,
+      isChanged: total !== parsedValue,
     },
   };
 }

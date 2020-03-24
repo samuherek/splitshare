@@ -44,3 +44,18 @@ export interface CreateReceiptArgs {
 export type DeleteReceiptArgs = {
   id: string;
 };
+
+export type UpdateReceiptInput = {
+  title?: string;
+  comment?: string;
+  category?: string;
+  paidAt?: Date;
+  total?: number;
+  currency?: string;
+  splits?: SplitInput[];
+};
+
+export type UpdateReceiptArgs = {
+  id: string;
+  input: UpdateReceiptInput;
+};

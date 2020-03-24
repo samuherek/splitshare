@@ -1,6 +1,7 @@
 import { gql, QueryHookOptions, useQuery } from '@apollo/client';
 import { FRAGMENT_PG_PAGE_INFO } from '../fragments';
 import { QueryReceiptsArgs, ReceiptConnection } from '../types';
+import { FRAGMENT_USER_META } from '../user/fragments';
 import { FRAGMENT_RECEIPT_META } from './fragments';
 
 export type QueryReceiptsData = {
@@ -23,6 +24,9 @@ const QUERY_RECEIPTS = gql`
           paidAt
           createdAt
           updatedAt
+          paidBy {
+            ...userMeta
+          }
         }
         cursor
       }
@@ -33,6 +37,7 @@ const QUERY_RECEIPTS = gql`
   }
   ${FRAGMENT_PG_PAGE_INFO}
   ${FRAGMENT_RECEIPT_META}
+  ${FRAGMENT_USER_META}
 `;
 
 type Options = {

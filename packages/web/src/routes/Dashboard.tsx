@@ -3,6 +3,7 @@ import React from 'react';
 import { useAuth0 } from '../Auth0/Auth0Provider';
 import { useQueryBills } from '../graphql/bill/queryBills';
 import { BillStatus } from '../graphql/types';
+import { useDateUtils } from '../libs/date-utils';
 import { getBillPath } from '../paths';
 import Button from '../ui/Button';
 import { useDialogState } from '../ui/Dialog';
@@ -14,6 +15,8 @@ import CreateBillDialog from './dashboard/CreateBillDialog';
 
 const Dashboard = (props: RouteComponentProps) => {
   const { logout } = useAuth0();
+  const dateUtils = useDateUtils();
+
   const { isOpen, openDialog, closeDialog } = useDialogState();
 
   const opened = useQueryBills({
@@ -42,7 +45,7 @@ const Dashboard = (props: RouteComponentProps) => {
             <Typography variable="h3" component="h3">
               <Link to={getBillPath(node.name, node.id)}>{node.name}</Link>
             </Typography>
-            <span>{timeAgo(node.updatedAt)}</span>
+            <span>{dateUtils.timeAgo(node.updatedAt)}</span>
             <span>{node.users.length} participants</span>
           </div>
         ))

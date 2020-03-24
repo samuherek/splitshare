@@ -8,6 +8,7 @@ export { default as LongArrowLeftLight } from './LongArrowLeftLight';
 export { default as Minus } from './Minus';
 export { default as Notification } from './Notification';
 export { default as PaperPlaneDuotone } from './PaperPlaneDuotone';
+export { default as PencilAltRegular } from './PencilAltRegular';
 export { default as PlusLight } from './PlusLight';
 export { default as TrashRegular } from './TrashRegular';
 export { default as WalletLight } from './WalletLight';

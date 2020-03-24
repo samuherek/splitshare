@@ -1,5 +1,9 @@
 import { MyContext } from '../../types.d';
-import { CreateReceiptArgs, DeleteReceiptArgs } from './types.d';
+import {
+  CreateReceiptArgs,
+  DeleteReceiptArgs,
+  UpdateReceiptArgs,
+} from './types.d';
 
 export default {
   Mutation: {
@@ -25,6 +29,13 @@ export default {
       await models.Receipt.remove(id);
 
       return res;
+    },
+    updateReceipt: (
+      _: any,
+      { id, input }: UpdateReceiptArgs,
+      { models }: MyContext
+    ) => {
+      return models.Receipt.update(id, input);
     },
   },
 };

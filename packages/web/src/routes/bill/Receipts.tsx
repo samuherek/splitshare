@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import SvgPencilAltRegular from '../../components/icons/PencilAltRegular';
 import SvgTrashRegular from '../../components/icons/TrashRegular';
 import { useQueryReceipts } from '../../graphql/receipt/queryReceipts';
 import { Bill, Receipt } from '../../graphql/types';
 import ButtonIcon from '../../ui/ButtonIcon';
 import ErrorMessage from '../../ui/ErrorMessage';
 import Typography from '../../ui/Typography';
+import { getDisplayName } from '../../utils/user';
 import AddReceiptDialog from './receipts/AddReceiptDialog';
 import DeleteReceiptDialog from './receipts/DeleteReceiptDialog';
+import EditReceiptDialog from './receipts/EditReceiptDialog';
+import ReceiptDetailsDialog from './receipts/ReceiptDetailsDialog';
 
 type Props = {
   bill: Bill;
@@ -30,8 +34,12 @@ function Receipts({ bill }: Props) {
   const [receiptToDelete, setReceiptToDelete] = React.useState<Receipt | null>(
     null
   );
-
-  console.log(data, loading, error);
+  const [receiptToShow, setReceiptToShow] = React.useState<Receipt | null>(
+    null
+  );
+  const [receiptToEdit, setReceiptToEdit] = React.useState<Receipt | null>(
+    null
+  );
 
   return (
     <>
@@ -39,19 +47,43 @@ function Receipts({ bill }: Props) {
         Receipts ({data?.receipts.pageInfo.itemsCount ?? 0})
       </Typography>
       <AddReceiptDialog bill={bill} callback={refetch} />
-      {data?.receipts.edges.map(({ node }) => (
-        <RowStyled key={node.id}>
-          <Typography>{node.title}</Typography>
-          <span>{node.paidAt}</span>
+      {data?.receipts.edges.map(({ node: receipt }) => (
+        <RowStyled key={receipt.id}>
+          <div
+            role="button"
+            onClick={() => setReceiptToShow(receipt)}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+            }}
+          >
+            <Typography>{receipt.title}</Typography>
+            <Typography>paid by {getDisplayName(receipt.paidBy)}</Typography>
+          </div>
+          <span>{receipt.paidAt}</span>
           <span>
-            {node.total} {node.currency}
+            {receipt.total} {receipt.currency}
           </span>
 
-          <ButtonIcon onClick={() => setReceiptToDelete(node)}>
-            <SvgTrashRegular />
-          </ButtonIcon>
+          <div>
+            <ButtonIcon onClick={() => setReceiptToEdit(receipt)}>
+              <SvgPencilAltRegular />
+            </ButtonIcon>
+            <ButtonIcon onClick={() => setReceiptToDelete(receipt)}>
+              <SvgTrashRegular />
+            </ButtonIcon>
+          </div>
         </RowStyled>
       ))}
+      <ReceiptDetailsDialog
+        receiptId={receiptToShow?.id ?? null}
+        callback={() => setReceiptToShow(null)}
+      />
+      <EditReceiptDialog
+        receipt={receiptToEdit}
+        callback={() => setReceiptToEdit(null)}
+      />
       <DeleteReceiptDialog
         receipt={receiptToDelete}
         billId={bill.id}

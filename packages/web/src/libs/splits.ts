@@ -1,13 +1,17 @@
 import sortBy from 'lodash.sortby';
-import { BillUser } from '../graphql/types';
+import { BillUser, UserSplit } from '../graphql/types';
 import { floor } from '../utils/number';
 import { maybe } from '../utils/object';
 
-export interface UserSplit {
+export interface SplitItem {
   value: string;
   parsedValue: number;
   isCustom: boolean;
   isLocked: boolean;
+}
+
+export interface SplitsMap {
+  [userId: string]: SplitItem;
 }
 
 const defaultSplit = {
@@ -17,7 +21,7 @@ const defaultSplit = {
   isLocked: false,
 };
 
-export function toEntry(userId: string, split: UserSplit): [string, UserSplit] {
+export function toEntry(userId: string, split: SplitItem): [string, SplitItem] {
   return [userId, split];
 }
 
@@ -27,6 +31,7 @@ export function getRemainder(
   total: number
 ) {
   const reminder = Math.abs(originalValue - nextValue);
+  console.log(reminder, reminder > total, total, reminder);
   return reminder > total ? total : reminder;
 }
 
@@ -40,13 +45,13 @@ export function getEntriesLeft(
 }
 
 export function getEqualDistribution(
-  splits: { [userId: string]: UserSplit },
+  splits: { [userId: string]: SplitItem },
   total: number
 ) {
   const idsArr = Object.keys(splits);
   const nextValue = total / idsArr.length;
 
-  return idsArr.reduce<{ [userId: string]: UserSplit }>((acc, userId) => {
+  return idsArr.reduce<{ [userId: string]: SplitItem }>((acc, userId) => {
     acc[userId] = {
       ...defaultSplit,
       value: String(nextValue),
@@ -57,11 +62,11 @@ export function getEqualDistribution(
 }
 
 export function getMaxValueDistribution(
-  splits: { [userId: string]: UserSplit },
+  splits: { [userId: string]: SplitItem },
   total: number,
   changeUserId: string
 ) {
-  return Object.keys(splits).reduce<{ [userId: string]: UserSplit }>(
+  return Object.keys(splits).reduce<{ [userId: string]: SplitItem }>(
     (acc, userId) => {
       const isChangingSplit = userId === changeUserId;
       const nextVal = isChangingSplit ? total : 0;
@@ -79,7 +84,7 @@ export function getMaxValueDistribution(
 }
 
 export function getEqualRemainderDistribution(
-  splits: { [userId: string]: UserSplit },
+  splits: { [userId: string]: SplitItem },
   value: number,
   total: number,
   changeUserId: string
@@ -132,8 +137,39 @@ export function getEqualRemainderDistribution(
 }
 
 export function getSplitsFromBillUsers(users: BillUser[]) {
-  return users.reduce<{ [userId: string]: UserSplit }>((acc, user) => {
+  return users.reduce<{ [userId: string]: SplitItem }>((acc, user) => {
     acc[user.id] = { ...defaultSplit };
     return acc;
   }, {});
+}
+
+export function getSplitsFromUserSplits(splits: UserSplit[]) {
+  return splits.reduce<{ [userId: string]: SplitItem }>((acc, split) => {
+    acc[split.user.id] = {
+      ...defaultSplit,
+      value: String(split.value),
+      parsedValue: split.value,
+    };
+    return acc;
+  }, {});
+}
+
+export function getInputSplitsFromSplits(splits: {
+  [userId: string]: SplitItem;
+}) {
+  return Object.keys(splits).map(userId => ({
+    userId,
+    value: splits[userId].parsedValue,
+  }));
+}
+
+export function sameSplitKeys(splits: SplitsMap, compareSplits: SplitsMap) {
+  const leftKeys = Object.keys(splits);
+  const rightKeys = Object.keys(compareSplits);
+
+  if (leftKeys.length !== rightKeys.length) {
+    return false;
+  }
+
+  return !leftKeys.some(key => !compareSplits[key]);
 }

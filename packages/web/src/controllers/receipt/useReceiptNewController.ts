@@ -1,10 +1,10 @@
 import { BillUser } from '../../graphql/types';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
-import { getSplitsFromBillUsers } from '../../libs/splits';
+import { getSplitsFromBillUsers, SplitsMap } from '../../libs/splits';
 import useDatePickerController from '../date/useDatePickerController';
 import useReceiptCommentController from './useReceiptCommentController';
 import useReceiptPayerController from './useReceiptPayerController';
-import useReceiptSplitsController from './useReceiptSplitsController';
+import useReceiptSplitsController from './useReceiptSplitsController2';
 import useReceiptTitleController from './useReceiptTitleController';
 import useReceiptTotalController from './useReceiptTotalController';
 
@@ -15,6 +15,7 @@ type Options = {
   paidById?: string;
   total?: number;
   users: BillUser[];
+  splits: SplitsMap;
 };
 
 function useReceiptNewController({
@@ -30,21 +31,46 @@ function useReceiptNewController({
   const paidAtCtrl = useDatePickerController({ date: paidAt });
   const paidByCtrl = useReceiptPayerController({ id: paidById });
   const totalCtrl = useReceiptTotalController({ total });
+
   const splitsCtrl = useReceiptSplitsController({
     total: totalCtrl.total.parsedValue,
     splits: getSplitsFromBillUsers(users),
   });
 
+  // React.useEffect(() => {
+  //   if (totalRef.current !== totalCtrl.total.parsedValue) {
+  //     totalRef.current = totalCtrl.total.parsedValue;
+  //     const nextSplits = getEqualDistribution(splitsCtrl.value, totalCtrl.total.parsedValue);
+  //     setSplitValues(nextSplits);
+  //   }
+  // }, [total])
+  // In case users are added or removed, reset the splits
+  // React.useEffect(() => {
+  //   if (users.length !== Object.keys(splitsCtrl.value).length) {
+  //     const userSplits = getSplitsFromBillUsers(users);
+  //     const nextSplits = getEqualDistribution(
+  //       userSplits,
+  //       totalCtrl.total.parsedValue
+  //     );
+  //     splitsCtrl.setSplitValues(nextSplits);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [users]);
+
+  // React.useEffect(() => {
+
+  // }, [titleCtrl.title.value])
+
   const allowSubmit = useAllowSubmit(
     {
       title: '',
-      total: '0.00',
+      total: 0,
       paidById: null,
       paidAt: null,
     },
     {
       title: titleCtrl.title.value,
-      total: totalCtrl.total.value,
+      total: totalCtrl.total.parsedValue,
       paidById: paidByCtrl.id.value,
       paidAt: paidAtCtrl.date.value,
     },

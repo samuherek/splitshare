@@ -5,6 +5,10 @@ import { Auth0Provider } from '../Auth0/Auth0Provider';
 import { DateUtilsProvider, DayjsUtils } from '../components/DatePicker';
 import { UserState } from '../graphql/types';
 import { useQueryMe } from '../graphql/user/queryMe';
+import {
+  DateUtilsProvider as GlobalDateUtilsProvider,
+  DayjsDateUtils,
+} from '../libs/date-utils';
 import ErrorMessage from '../ui/ErrorMessage';
 
 interface Props {
@@ -50,7 +54,9 @@ function AppProviders({ children }: Props) {
     <Auth0Provider>
       <ApolloProviderWrap>
         <WaitForUserCreation>
-          <DateUtilsProvider utils={DayjsUtils}>{children}</DateUtilsProvider>
+          <GlobalDateUtilsProvider utils={DayjsDateUtils}>
+            <DateUtilsProvider utils={DayjsUtils}>{children}</DateUtilsProvider>
+          </GlobalDateUtilsProvider>
         </WaitForUserCreation>
       </ApolloProviderWrap>
     </Auth0Provider>

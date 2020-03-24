@@ -101,6 +101,7 @@ export type Mutation = {
   removeBillUser: BillUser;
   createReceipt: Receipt;
   deleteReceipt: Receipt;
+  updateReceipt: Receipt;
   updateMe: User;
   setupAccount: Scalars['Boolean'];
 };
@@ -132,6 +133,11 @@ export type MutationCreateReceiptArgs = {
 
 export type MutationDeleteReceiptArgs = {
   id: Scalars['ID'];
+};
+
+export type MutationUpdateReceiptArgs = {
+  id: Scalars['ID'];
+  input: UpdateReceiptInput;
 };
 
 export type MutationUpdateMeArgs = {
@@ -189,7 +195,7 @@ export type Receipt = {
   id: Scalars['ID'];
   comment?: Maybe<Scalars['String']>;
   category?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
   total: Scalars['Float'];
   currency: Scalars['String'];
   paidAt: Scalars['Date'];
@@ -236,6 +242,17 @@ export type UpdateBillInput = {
   name?: Maybe<Scalars['String']>;
   currency?: Maybe<Scalars['String']>;
   closed?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateReceiptInput = {
+  title?: Maybe<Scalars['String']>;
+  comment?: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
+  paidAt?: Maybe<Scalars['DateTime']>;
+  total?: Maybe<Scalars['Float']>;
+  currency?: Maybe<Scalars['String']>;
+  paidById?: Maybe<Scalars['ID']>;
+  splits?: Maybe<Array<SplitInput>>;
 };
 
 export type User = {

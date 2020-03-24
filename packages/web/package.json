@@ -22,6 +22,7 @@
     "@types/graphql": "^14.5.0",
     "animejs": "^3.1.0",
     "clsx": "^1.1.0",
+    "dayjs": "^1.8.23",
     "fast-deep-equal": "^3.1.1",
     "graphql": "^14.6.0",
     "lodash.sortby": "^4.7.0",

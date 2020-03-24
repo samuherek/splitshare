@@ -1,28 +1,36 @@
-import dayjs from 'dayjs';
 import React from 'react';
 import { ParsableDate } from '../../components/DatePicker/hooks/useDateController';
-import { djsAnchors } from '../../utils/date';
+import useDateNow from '../../hooks/useDateNow';
+import { useDateUtils } from '../../libs/date-utils';
 
 type Options = {
   date?: Date | string;
 };
 
-// TODO: use global dayjs from DatePicker date.
-function useDatePickerController({
-  date = djsAnchors.today.toDate(),
-}: Options = {}) {
+function useDatePickerController({ date }: Options = {}) {
+  const dateUtils = useDateUtils();
+  const now = useDateNow();
+
   const [dateValue, setDateValue] = React.useState<Date | null>(
-    dayjs(date).toDate()
+    dateUtils.toJsDate(dateUtils.date(date || now))
   );
 
   function handleDateChange(nextDate: ParsableDate) {
-    setDateValue(nextDate === null ? null : dayjs(nextDate).toDate());
+    setDateValue(
+      nextDate === null ? null : dateUtils.toJsDate(dateUtils.date(nextDate))
+    );
   }
+
+  React.useEffect(() => {
+    setDateValue(dateUtils.toJsDate(dateUtils.date(date || now)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date]);
 
   return {
     date: {
       value: dateValue,
       onChange: handleDateChange,
+      isChanged: !dateUtils.isEqual(date, dateValue),
     },
   };
 }

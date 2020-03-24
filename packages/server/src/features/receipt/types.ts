@@ -12,7 +12,7 @@ export default gql`
     id: ID!
     comment: String
     category: String
-    title: String
+    title: String!
     total: Float!
     currency: String!
     paidAt: Date!
@@ -54,6 +54,17 @@ export default gql`
     name: String
   }
 
+  input UpdateReceiptInput {
+    title: String
+    comment: String
+    category: String
+    paidAt: DateTime
+    total: Float
+    currency: String
+    paidById: ID
+    splits: [SplitInput!]
+  }
+
   extend type Query {
     receipt(id: ID!): Receipt
     receipts(
@@ -66,5 +77,6 @@ export default gql`
   extend type Mutation {
     createReceipt(input: CreateReceiptInput!): Receipt!
     deleteReceipt(id: ID!): Receipt!
+    updateReceipt(id: ID!, input: UpdateReceiptInput!): Receipt!
   }
 `;

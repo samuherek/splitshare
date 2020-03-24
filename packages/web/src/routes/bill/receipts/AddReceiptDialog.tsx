@@ -9,6 +9,7 @@ import {
   useMutationCreateReceipt,
 } from '../../../graphql/receipt/mutationCreateReceipt';
 import { Bill } from '../../../graphql/types';
+import useDateNow from '../../../hooks/useDateNow';
 import Button from '../../../ui/Button';
 import Dialog, { useDialogState } from '../../../ui/Dialog';
 import DialogActions from '../../../ui/DialogActions';
@@ -26,6 +27,7 @@ type Props = {
 
 function AddReceiptDialog({ bill, callback }: Props) {
   const { isOpen, openDialog, closeDialog } = useDialogState();
+  const now = useDateNow();
 
   const {
     title,
@@ -34,12 +36,12 @@ function AddReceiptDialog({ bill, callback }: Props) {
     paidBy,
     splits,
     allowSubmit,
-  } = useReceiptNewController({ users: bill.users });
+  } = useReceiptNewController({ users: bill.users, splits: {} });
 
   const [createReceipt, { loading, error }] = useMutationCreateReceipt({
     billId: bill.id,
     title: title.value,
-    paidAt: paidAt.value || new Date(),
+    paidAt: paidAt.value || now.toDate(),
     paidById: paidBy.value || '',
     total: total.parsedValue,
     currency: bill.currency,
@@ -112,6 +114,11 @@ function AddReceiptDialog({ bill, callback }: Props) {
                   onValueChange={splits.onChange}
                 />
               ))}
+              {splits.errors
+                ? splits.errors.map((err, i) => (
+                    <div key={i}>{err.message}</div>
+                  ))
+                : null}
             </Fieldset>
           </form>
         </DialogContent>

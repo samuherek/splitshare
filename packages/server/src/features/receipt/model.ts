@@ -1,9 +1,22 @@
-import { FindConditions, getRepository, ObjectID } from 'typeorm';
+import {
+  FindConditions,
+  getConnection,
+  getRepository,
+  ObjectID,
+} from 'typeorm';
+import { camelCase } from 'typeorm/util/StringUtils';
+import { maybe } from '../../utils/object';
 import { paginate } from '../../utils/pagination';
 import updateRowTimestamp from '../../utils/updateRowTimestamp';
 import { Bill } from '../bill/entity';
-import { Receipt, UserSplitsMap } from './entity';
-import { CreateReceiptInput, ReceiptsArgs } from './types.d';
+import { Receipt } from './entity';
+import {
+  CreateReceiptInput,
+  ReceiptsArgs,
+  UpdateReceiptInput,
+} from './types.d';
+import { getUserSplitsMap } from './utils';
+import mapObject = require('map-obj');
 
 export interface ReceiptModel {
   getById: typeof getById;
@@ -11,6 +24,7 @@ export interface ReceiptModel {
   getAllBillReceipts: typeof getAllBillReceipts;
   createOne: typeof createOne;
   remove: typeof remove;
+  update: typeof update;
 }
 
 // TODO: Figure out a way how to only allow "userId"
@@ -52,19 +66,35 @@ async function remove(
   return getRepository(Receipt).delete(criteria);
 }
 
+async function update(id: string, input: UpdateReceiptInput) {
+  const { splits, ...rest } = input;
+
+  const { raw } = await getConnection()
+    .createQueryBuilder()
+    .update(Receipt)
+    .set({
+      ...rest,
+      ...maybe('splits', splits && getUserSplitsMap(splits)),
+    })
+    .where('id = :id', { id })
+    .updateEntity(true)
+    .output('*')
+    .execute();
+
+  const [res] = raw;
+
+  if (!res) {
+    throw new Error('No such receipt found');
+  }
+
+  return mapObject(res, (key, val) => [camelCase(key as string), val]);
+}
+
 async function createOne(input: CreateReceiptInput, createdById: string) {
   const { splits, ...rest } = input;
 
-  const userSplitsMap: UserSplitsMap = splits.reduce(
-    (acc: UserSplitsMap, split) => {
-      acc[split.userId] = split.value;
-      return acc;
-    },
-    {}
-  );
-
   const receipt = await getRepository(Receipt)
-    .create({ ...rest, splits: userSplitsMap, createdById })
+    .create({ ...rest, splits: getUserSplitsMap(splits), createdById })
     .save();
 
   await updateRowTimestamp(Bill, input.billId);
@@ -78,4 +108,5 @@ export default {
   getAllBillReceipts,
   createOne,
   remove,
+  update,
 };
