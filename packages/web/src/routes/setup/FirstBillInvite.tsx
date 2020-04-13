@@ -4,17 +4,17 @@ import React from 'react';
 import styled from 'styled-components';
 import tryToCatch from 'try-to-catch';
 import AvatarUser from '../../components/AvatarUser';
+import ErrorMessage from '../../components/ErrorMessage';
 import { useQueryBill } from '../../graphql/bill/queryBill';
 import {
   MutationCreateBillInviteResponse,
   useMutationCreateBillInvite,
 } from '../../graphql/invite/mutationCreateBillInvite';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
-import Button from '../../ui/Button';
-import ErrorMessage from '../../ui/ErrorMessage';
-import Fieldset from '../../ui/Fieldset';
-import TextField from '../../ui/TextField';
-import Typography from '../../ui/Typography';
+import TextField from '../../ui/components/TextField';
+import Typography from '../../ui/components/Typography';
+import Button from '../../ui/theme/Button';
+import Fieldset from '../../ui/theme/Fieldset';
 import { firstLetter } from '../../utils/string';
 
 type Props = RouteComponentProps & {
@@ -66,6 +66,7 @@ function FirstBillInvite({ id, ...rest }: Props) {
         <form onSubmit={handleSubmit}>
           <Fieldset disabled={loading}>
             <TextField
+              name="email"
               value={email}
               onChange={(ev: any) => {
                 setEmail(ev.target.value);

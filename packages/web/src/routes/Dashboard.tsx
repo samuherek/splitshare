@@ -1,14 +1,14 @@
 import { Link, RouteComponentProps } from '@reach/router';
 import React from 'react';
 import { useAuth0 } from '../Auth0/Auth0Provider';
+import ErrorMessage from '../components/ErrorMessage';
 import { useQueryBills } from '../graphql/bill/queryBills';
 import { BillStatus } from '../graphql/types';
 import { useDateUtils } from '../libs/date-utils';
 import { getBillPath } from '../paths';
-import Button from '../ui/Button';
-import { useDialogState } from '../ui/Dialog';
-import ErrorMessage from '../ui/ErrorMessage';
-import Typography from '../ui/Typography';
+import { useDialogState } from '../ui/components/Dialog';
+import Typography from '../ui/components/Typography';
+import Button from '../ui/theme/Button';
 import { timeAgo } from '../utils/date';
 import { mergeQueryState } from '../utils/graphql';
 import CreateBillDialog from './dashboard/CreateBillDialog';

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PaperPlaneDuotone } from '../components/icons';
 import { useQueryMe } from '../graphql/user/queryMe';
-import Typography from '../ui/Typography';
+import Typography from '../ui/components/Typography';
 
 const WrapStyled = styled.div`
   display: flex;

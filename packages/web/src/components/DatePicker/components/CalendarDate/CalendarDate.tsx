@@ -1,8 +1,8 @@
 import capitalize from 'capitalize';
 import React from 'react';
 import styled from 'styled-components';
-import ButtonBase from '../../../../ui/ButtonBase';
-import Typography from '../../../../ui/Typography';
+import ButtonBase from '../../../../ui/components/ButtonBase';
+import Typography from '../../../../ui/components/Typography';
 import {
   PickerDate,
   useDateUtils,

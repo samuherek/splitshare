@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
-:root {
+/* :root { */
   /* --primary: white;
   --primary-hover:white;
   --primary-active:white;
@@ -11,6 +11,9 @@ const GlobalStyles = createGlobalStyle`
   --tertiary-active:white;
   --tertiary-disabled:white;
   /* --white: white; */
+/* } */
+:root {
+  --black: black;
 }
 
 * {

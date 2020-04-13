@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DialogTitle /> should match snpashot 1`] = `
+.c0 {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 16px 24px 8px;
+}
+
+.c0 h1,
+.c0 h2,
+.c0 h3,
+.c0 h4,
+.c0 h5,
+.c0 h6,
+.c0 p,
+.c0 span {
+  line-height: 1.2;
+}
+
+<div
+  class="c0 DialogTitle"
+>
+  Content
+</div>
+`;

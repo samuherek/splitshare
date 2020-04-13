@@ -3,13 +3,13 @@ import React from 'react';
 import ApolloProviderWrap from '../Apollo/ApolloProviderWrap';
 import { Auth0Provider } from '../Auth0/Auth0Provider';
 import { DateUtilsProvider, DayjsUtils } from '../components/DatePicker';
+import ErrorMessage from '../components/ErrorMessage';
 import { UserState } from '../graphql/types';
 import { useQueryMe } from '../graphql/user/queryMe';
 import {
   DateUtilsProvider as GlobalDateUtilsProvider,
   DayjsDateUtils,
 } from '../libs/date-utils';
-import ErrorMessage from '../ui/ErrorMessage';
 
 interface Props {
   children: React.ReactNode;

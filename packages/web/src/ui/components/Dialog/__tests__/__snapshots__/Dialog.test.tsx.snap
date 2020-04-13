@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dialog /> should match snapshot 1`] = `
+.c1 {
+  background-color: rgba(50,50,50,0.65);
+}
+
+.c2 {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: -1;
+  position: fixed;
+  touch-action: none;
+}
+
+.c0 {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1300;
+  position: fixed;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  overflow-y: auto;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  box-shadow: none;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 48px;
+  position: relative;
+  overflow-y: auto;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  max-height: calc(100% - 96px);
+  max-width: 600px;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100%;
+  outline: none;
+}
+
+@media print {
+  .c5 {
+    overflow-y: visible;
+    box-shadow: none;
+  }
+}
+
+<div
+  class="c0 Dialog"
+  role="dialog"
+>
+  <div
+    aria-hidden="true"
+    class="c1 c2 Backdrop"
+    style="opacity: 0;"
+  />
+  <div
+    tabindex="0"
+  />
+  <div
+    class="c3"
+    role="document"
+    style="align-items: center; opacity: 0;"
+    tabindex="0"
+  >
+    <div
+      class="c4 c5 SSPaper elevation-0"
+      elevation="0"
+    >
+      button
+    </div>
+  </div>
+  <div
+    tabindex="0"
+  />
+</div>
+`;

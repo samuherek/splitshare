@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import tryToCatch from 'try-to-catch';
 import AvatarUser from '../../components/AvatarUser';
+import ErrorMessage from '../../components/ErrorMessage';
 import useUserNameController from '../../controllers/user/useUserNameController';
 import {
   MutationSetupAccountResponse,
@@ -11,11 +12,10 @@ import {
 } from '../../graphql/user/mutationSetupAccount';
 import { useQueryMe } from '../../graphql/user/queryMe';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
-import Button from '../../ui/Button';
-import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage';
-import Fieldset from '../../ui/Fieldset';
-import TextField from '../../ui/TextField/TextField';
-import Typography from '../../ui/Typography';
+import TextField from '../../ui/components/TextField/TextField';
+import Typography from '../../ui/components/Typography';
+import Button from '../../ui/theme/Button';
+import Fieldset from '../../ui/theme/Fieldset';
 import { initials } from '../../utils/user';
 
 const WrapStyled = styled.div`

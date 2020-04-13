@@ -2,6 +2,7 @@ import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
 import DatePicker from '../../../components/DatePicker/components/DatePicker/DatePicker';
+import ErrorMessage from '../../../components/ErrorMessage';
 import UserSplit from '../../../components/UserSplit';
 import useReceiptNewController from '../../../controllers/receipt/useReceiptNewController';
 import {
@@ -10,15 +11,14 @@ import {
 } from '../../../graphql/receipt/mutationCreateReceipt';
 import { Bill } from '../../../graphql/types';
 import useDateNow from '../../../hooks/useDateNow';
-import Button from '../../../ui/Button';
-import Dialog, { useDialogState } from '../../../ui/Dialog';
-import DialogActions from '../../../ui/DialogActions';
-import DialogContent from '../../../ui/DialogContent';
-import DialogTitle from '../../../ui/DialogTitle';
-import ErrorMessage from '../../../ui/ErrorMessage';
-import Fieldset from '../../../ui/Fieldset';
-import TextField from '../../../ui/TextField';
-import Typography from '../../../ui/Typography';
+import Dialog, { useDialogState } from '../../../ui/components/Dialog';
+import DialogActions from '../../../ui/components/DialogActions';
+import DialogContent from '../../../ui/components/DialogContent';
+import DialogTitle from '../../../ui/components/DialogTitle';
+import TextField from '../../../ui/components/TextField';
+import Typography from '../../../ui/components/Typography';
+import Button from '../../../ui/theme/Button';
+import Fieldset from '../../../ui/theme/Fieldset';
 
 type Props = {
   bill: Bill;
@@ -82,6 +82,7 @@ function AddReceiptDialog({ bill, callback }: Props) {
           <form onSubmit={handleSubmit}>
             <Fieldset disabled={loading}>
               <TextField
+                name="receipt-title"
                 label="Title"
                 required
                 value={title.value}
@@ -99,6 +100,7 @@ function AddReceiptDialog({ bill, callback }: Props) {
                 required={true}
               />
               <TextField
+                name="receipt-total"
                 value={total.value}
                 onChange={total.onChange}
                 required={true}

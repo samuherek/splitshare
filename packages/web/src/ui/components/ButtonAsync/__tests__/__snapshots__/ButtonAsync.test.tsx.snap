@@ -1,0 +1,1524 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshots 1`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: #b7bac7;
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  color: #a0a2ad;
+}
+
+.c1:active,
+.c1.active {
+  color: #888a94;
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1:disabled:active {
+  opacity: 0.66;
+  color: #b7bac7;
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #0ec76a;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxheI c1 c2 ButtonAsync Button tertiary-text ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span />
+    <span
+      class="c4 c5 ButtonLoader primary"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should match snapshots 2`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: #b7bac7;
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  color: #a0a2ad;
+}
+
+.c1:active,
+.c1.active {
+  color: #888a94;
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1:disabled:active {
+  opacity: 0.66;
+  color: #b7bac7;
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #0ec76a;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxheI c1 c2 ButtonAsync Button tertiary-text ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span>
+      Button
+    </span>
+    <span
+      class="c4 c5 ButtonLoader primary"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should match snapshots 3`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: #0ec76a;
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  color: #0ebf66;
+}
+
+.c1:active,
+.c1.active {
+  color: #0db862;
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1:disabled:active {
+  opacity: 0.33;
+  color: #0ec76a;
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #0ec76a;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxheI c1 c2 ButtonAsync Button primary-text ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span>
+      Primary text
+    </span>
+    <span
+      class="c4 c5 ButtonLoader primary"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should match snapshots 4`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: #a0a2ad;
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  color: #0dba63;
+}
+
+.c1:active,
+.c1.active {
+  color: #0dba63;
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1.disabled:active {
+  opacity: 0.5;
+  color: #888a94;
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #a0a2ad;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxheI c1 c2 ButtonAsync Button secondary-text ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span>
+      Secondary text
+    </span>
+    <span
+      class="c4 c5 ButtonLoader"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should match snapshots 5`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: #b7bac7;
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  color: #a0a2ad;
+}
+
+.c1:active,
+.c1.active {
+  color: #888a94;
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1:disabled:active {
+  opacity: 0.66;
+  color: #b7bac7;
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #b7bac7;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxheI c1 c2 ButtonAsync Button tertiary-text ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span>
+      Tertiary text
+    </span>
+    <span
+      class="c4 c5 ButtonLoader"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should match snapshots 6`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: var(--white);
+  background-color: var(--greenTeal);
+  box-shadow: 0 0 0 1px var(--greenTeal),0 2px 4px -1px var(--greenTealShadow);
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  box-shadow: 0 0 0 1px var(--greenTeal2);
+  background-color: var(--greenTeal2);
+}
+
+.c1:active,
+.c1.active {
+  box-shadow: 0 0 0 1px var(--greenTeal2);
+  background-color: var(--greenTeal2);
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1:disabled:active {
+  opacity: 0.33;
+  box-shadow: 0 0 0 1px var(--greenTeal);
+  background-color: var(--greenTeal);
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #ffffff;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxirZ c1 c2 ButtonAsync Button primary-contained ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span>
+      Primary contained
+    </span>
+    <span
+      class="c4 c5 ButtonLoader primary"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should match snapshots 7`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: var(--blueGrey);
+  background-color: var(--white);
+  box-shadow: 0 0 0 1px var(--paleLilac66);
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  color: var(--greenTeal4);
+  box-shadow: 0 0 0 1px var(--paleLilac);
+}
+
+.c1:active,
+.c1.active {
+  box-shadow: 0 0 0 2px var(--greenTeal);
+  color: var(--greenTeal4);
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1.disabled:active {
+  opacity: 0.5;
+  color: var(--blueGrey);
+  box-shadow: 0 0 0 1px var(--paleLilac66);
+  background-color: var(--white);
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #a0a2ad;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxirZ c1 c2 ButtonAsync Button secondary-contained ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span>
+      &gt;Secondary contained
+    </span>
+    <span
+      class="c4 c5 ButtonLoader"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;
+
+exports[`should match snapshots 8`] = `
+.c0 {
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  border: 0;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 0;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  font: inherit;
+  padding: 0;
+  outline: none;
+}
+
+.c0:disabled,
+.c0:disabled:hover,
+.c0:disabled:active,
+.c0.disabled,
+.c0.disabled:hover,
+.c0.disabled:active {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  position: relative;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.8px;
+  -moz-letter-spacing: 0.8px;
+  -ms-letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
+  color: var(--cloudyBlue);
+  background-color: var(--paleLilac25);
+}
+
+.c1:disabled,
+.c1.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1:hover,
+.c1.hover {
+  color: var(--blueGrey);
+  background-color: var(--paleLilac40);
+}
+
+.c1:active,
+.c1.active {
+  color: var(--blueGrey);
+  background-color: var(--paleLilac50);
+}
+
+.c1:disabled,
+.c1.disabled,
+.c1:disabled:hover,
+.c1:disabled:active,
+.c1.disabled:hover,
+.c1:disabled:active {
+  opacity: 0.66;
+  color: var(--cloudyBlue);
+  background-color: var(--paleLilac25);
+}
+
+.c3 {
+  min-width: 0;
+}
+
+.c4 i {
+  background: #b7bac7;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.c5 i {
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: lfUrxy;
+  animation-name: lfUrxy;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 6px;
+  width: 6px;
+  margin: 0 3px;
+}
+
+.c5 i:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.c5 i:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.c5 i:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2 > span span:first-child {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 > span span:first-child svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.c2 > span span:nth-child(2) {
+  display: none;
+}
+
+<button
+  class="c0 sc-AxirZ c1 c2 ButtonAsync Button tertiary-contained ButtonBase"
+  tabindex="0"
+>
+  <span
+    class="c3 ButtonLabel"
+  >
+    <span>
+      &gt;Tertiary contained
+    </span>
+    <span
+      class="c4 c5 ButtonLoader"
+    >
+      <i />
+      <i />
+      <i />
+    </span>
+  </span>
+</button>
+`;

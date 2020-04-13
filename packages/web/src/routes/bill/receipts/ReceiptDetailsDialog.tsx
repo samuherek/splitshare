@@ -1,12 +1,12 @@
 import React from 'react';
+import ErrorMessage from '../../../components/ErrorMessage';
 import { useQueryReceipt } from '../../../graphql/receipt/queryReceipt';
 import { useDateUtils } from '../../../libs/date-utils';
-import Button from '../../../ui/Button';
-import Dialog, { useDialogState } from '../../../ui/Dialog';
-import DialogActions from '../../../ui/DialogActions';
-import DialogContent from '../../../ui/DialogContent';
-import ErrorMessage from '../../../ui/ErrorMessage';
-import Typography from '../../../ui/Typography';
+import Dialog, { useDialogState } from '../../../ui/components/Dialog';
+import DialogActions from '../../../ui/components/DialogActions';
+import DialogContent from '../../../ui/components/DialogContent';
+import Typography from '../../../ui/components/Typography';
+import Button from '../../../ui/theme/Button';
 import { getSplitKey } from '../../../utils/split';
 import { getDisplayName } from '../../../utils/user';
 

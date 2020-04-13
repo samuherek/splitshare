@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import styled from 'styled-components';
-import Typography from '../../ui/Typography';
+import Typography from '../../ui/components/Typography';
 
 type Props = {
   children: any;

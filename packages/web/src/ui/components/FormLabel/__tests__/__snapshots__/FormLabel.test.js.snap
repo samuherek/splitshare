@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormLabel /> should render snapshot 1`] = `
+.c0 {
+  line-height: 1;
+  padding: 0;
+  font-size: 1em;
+  color: rgba(0,0,0,0.54);
+}
+
+<label
+  class="c0"
+>
+  Label
+</label>
+`;

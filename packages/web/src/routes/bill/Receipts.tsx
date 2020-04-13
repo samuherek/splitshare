@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import ButtonIcon from '../..//ui/components/ButtonIcon';
+import ErrorMessage from '../../components/ErrorMessage';
 import SvgPencilAltRegular from '../../components/icons/PencilAltRegular';
 import SvgTrashRegular from '../../components/icons/TrashRegular';
 import { useQueryReceipts } from '../../graphql/receipt/queryReceipts';
 import { Bill, Receipt } from '../../graphql/types';
-import ButtonIcon from '../../ui/ButtonIcon';
-import ErrorMessage from '../../ui/ErrorMessage';
-import Typography from '../../ui/Typography';
+import Typography from '../../ui/components/Typography';
 import { getDisplayName } from '../../utils/user';
 import AddReceiptDialog from './receipts/AddReceiptDialog';
 import DeleteReceiptDialog from './receipts/DeleteReceiptDialog';

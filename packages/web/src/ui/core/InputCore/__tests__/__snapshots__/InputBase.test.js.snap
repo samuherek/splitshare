@@ -1,0 +1,375 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prop: startAdornment and endAdornment should match snapshots 1`] = `
+.c0 {
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.c0.full-width {
+  width: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c0.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c2 {
+  background: none;
+  border: 0;
+  box-sizing: content-box;
+  color: currentColor;
+  display: block;
+  font: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.c2:disabled,
+.c2:disabled:hover,
+.c2.disabled,
+.c2.disabled:hover {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c2::-webkit-search-decoration: {
+  -webkit-appearance: none;
+}
+
+.c2[type='search'] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 2em;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #b7bac7;
+}
+
+.c1.start {
+  margin-right: 8px;
+}
+
+.c1.end {
+  margin-left: 8px;
+}
+
+<div
+  class="SSInputWrap input-prefix c0"
+>
+  <div
+    class="SSInputAdornment start c1"
+  >
+    <span>
+      Kg
+    </span>
+  </div>
+  <input
+    aria-invalid="false"
+    class="SSInputBase input-prefix c2"
+    placeholder="Start"
+    type="text"
+    value=""
+  />
+</div>
+`;
+
+exports[`prop: startAdornment and endAdornment should match snapshots 2`] = `
+.c0 {
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.c0.full-width {
+  width: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c0.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  background: none;
+  border: 0;
+  box-sizing: content-box;
+  color: currentColor;
+  display: block;
+  font: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.c1:disabled,
+.c1:disabled:hover,
+.c1.disabled,
+.c1.disabled:hover {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1::-webkit-search-decoration: {
+  -webkit-appearance: none;
+}
+
+.c1[type='search'] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 2em;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #b7bac7;
+}
+
+.c2.start {
+  margin-right: 8px;
+}
+
+.c2.end {
+  margin-left: 8px;
+}
+
+<div
+  class="SSInputWrap input-suffix c0"
+>
+  <input
+    aria-invalid="false"
+    class="SSInputBase input-suffix c1"
+    placeholder="End"
+    type="text"
+    value=""
+  />
+  <div
+    class="SSInputAdornment end c2"
+  >
+    <span>
+      Kg
+    </span>
+  </div>
+</div>
+`;
+
+exports[`prop: startAdornment and endAdornment should match snapshots 3`] = `
+.c0 {
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.c0.full-width {
+  width: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c0.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c2 {
+  background: none;
+  border: 0;
+  box-sizing: content-box;
+  color: currentColor;
+  display: block;
+  font: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.c2:disabled,
+.c2:disabled:hover,
+.c2.disabled,
+.c2.disabled:hover {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c2::-webkit-search-decoration: {
+  -webkit-appearance: none;
+}
+
+.c2[type='search'] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 2em;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #b7bac7;
+}
+
+.c1.start {
+  margin-right: 8px;
+}
+
+.c1.end {
+  margin-left: 8px;
+}
+
+<div
+  class="SSInputWrap input-prefix input-suffix c0"
+>
+  <div
+    class="SSInputAdornment start c1"
+  >
+    <span>
+      Kg
+    </span>
+  </div>
+  <input
+    aria-invalid="false"
+    class="SSInputBase input-prefix input-suffix c2"
+    placeholder="Start and End"
+    type="text"
+    value=""
+  />
+  <div
+    class="SSInputAdornment end c1"
+  >
+    <span>
+      Kg
+    </span>
+  </div>
+</div>
+`;
+
+exports[`should match snapshots 1`] = `
+.c0 {
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.c0.full-width {
+  width: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c0.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1 {
+  background: none;
+  border: 0;
+  box-sizing: content-box;
+  color: currentColor;
+  display: block;
+  font: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.c1:disabled,
+.c1:disabled:hover,
+.c1.disabled,
+.c1.disabled:hover {
+  cursor: default;
+  pointer-events: none;
+}
+
+.c1::-webkit-search-decoration: {
+  -webkit-appearance: none;
+}
+
+.c1[type='search'] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+<div
+  class="SSInputWrap c0"
+>
+  <input
+    aria-invalid="false"
+    class="SSInputBase c1"
+    type="text"
+    value=""
+  />
+</div>
+`;

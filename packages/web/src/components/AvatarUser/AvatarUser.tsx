@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import Gravatar from 'react-gravatar';
 import styled from 'styled-components';
-import Avatar from '../../ui/Avatar';
+import Avatar from '../../ui/components/Avatar';
 
 type Props = {
   className?: string;

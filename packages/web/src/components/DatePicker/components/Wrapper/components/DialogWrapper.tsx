@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '../../../../../ui/Button';
-import Dialog from '../../../../../ui/Dialog';
-import DialogActions from '../../../../../ui/DialogActions';
-import DialogContent from '../../../../../ui/DialogContent';
+import Dialog from '../../../../../ui/components/Dialog';
+import DialogActions from '../../../../../ui/components/DialogActions';
+import DialogContent from '../../../../../ui/components/DialogContent';
+import Button from '../../../../../ui/theme/Button';
 import DateInput, { DateInputProps } from '../../DateInput/DateInput';
 
 type DialogWrapperProps = {

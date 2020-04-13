@@ -1,16 +1,16 @@
 import { ExecutionResult } from 'graphql';
 import React, { SyntheticEvent } from 'react';
 import tryToCatch from 'try-to-catch';
+import ErrorMessage from '../../components/ErrorMessage';
 import useEmailController from '../../controllers/field/useEmailController';
 import {
   MutationCreateBillInviteResponse,
   useMutationCreateBillInvite,
 } from '../../graphql/invite/mutationCreateBillInvite';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
-import Button from '../../ui/Button';
-import ErrorMessage from '../../ui/ErrorMessage';
-import Fieldset from '../../ui/Fieldset';
-import TextField from '../../ui/TextField';
+import TextField from '../../ui/components/TextField';
+import Button from '../../ui/theme/Button';
+import Fieldset from '../../ui/theme/Fieldset';
 
 type Props = {
   billId: string;
@@ -52,6 +52,7 @@ function AddBillUserAction({ billId }: Props) {
         <form onSubmit={handleSubmit}>
           <Fieldset disabled={loading}>
             <TextField
+              name="bill-user"
               value={email.value}
               onChange={email.onChange}
               placeholder="email"

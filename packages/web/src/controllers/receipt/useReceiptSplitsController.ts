@@ -12,6 +12,7 @@ interface Options {
 }
 
 function useReceiptSplitsController({ total, splits }: Options) {
+  const [hasCustomSplits, setHasCustomSplits] = React.useState(false);
   const [splitValues, setSplitValues] = React.useState(splits);
 
   const handleSplitChange = React.useCallback(
@@ -23,7 +24,6 @@ function useReceiptSplitsController({ total, splits }: Options) {
       if (parsedVal >= total) {
         nextSplits = getMaxValueDistribution(splitValues, total, userId);
       } else {
-        console.log('goes to equal remainder');
         nextSplits = getEqualRemainderDistribution(
           splitValues,
           parsedVal,

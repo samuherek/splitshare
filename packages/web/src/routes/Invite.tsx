@@ -2,8 +2,8 @@ import { RouteComponentProps } from '@reach/router';
 import React from 'react';
 import styled from 'styled-components';
 import { StringParam, useQueryParams } from 'use-query-params';
-import Button from '../ui/Button';
-import Typography from '../ui/Typography';
+import Typography from '../ui/components/Typography';
+import Button from '../ui/theme/Button';
 
 const WrapStyled = styled.div`
   display: flex;

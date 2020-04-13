@@ -2,6 +2,7 @@ import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
 import DatePicker from '../../../components/DatePicker/components/DatePicker/DatePicker';
+import ErrorMessage from '../../../components/ErrorMessage';
 import UserSplit from '../../../components/UserSplit';
 import useReceiptEditController from '../../../controllers/receipt/useReceiptEditController';
 import {
@@ -13,15 +14,14 @@ import { Receipt } from '../../../graphql/types';
 import useDateNow from '../../../hooks/useDateNow';
 import { useDateUtils } from '../../../libs/date-utils';
 import { getInputSplitsFromSplits } from '../../../libs/splits';
-import Button from '../../../ui/Button';
-import Dialog, { useDialogState } from '../../../ui/Dialog';
-import DialogActions from '../../../ui/DialogActions';
-import DialogContent from '../../../ui/DialogContent';
-import DialogTitle from '../../../ui/DialogTitle';
-import ErrorMessage from '../../../ui/ErrorMessage';
-import Fieldset from '../../../ui/Fieldset';
-import TextField from '../../../ui/TextField';
-import Typography from '../../../ui/Typography';
+import Dialog, { useDialogState } from '../../../ui/components/Dialog';
+import DialogActions from '../../../ui/components/DialogActions';
+import DialogContent from '../../../ui/components/DialogContent';
+import DialogTitle from '../../../ui/components/DialogTitle';
+import TextField from '../../../ui/components/TextField';
+import Typography from '../../../ui/components/Typography';
+import Button from '../../../ui/theme/Button';
+import Fieldset from '../../../ui/theme/Fieldset';
 import { maybe } from '../../../utils/object';
 import {
   hasArrayLength,
@@ -137,6 +137,7 @@ function EditReceiptDialog({ receipt: receiptProp, callback }: Props) {
               <form onSubmit={handleSubmit}>
                 <Fieldset disabled={loading}>
                   <TextField
+                    name="receipt-title"
                     label="Title"
                     required
                     value={title.value}
@@ -154,6 +155,7 @@ function EditReceiptDialog({ receipt: receiptProp, callback }: Props) {
                     required={true}
                   />
                   <TextField
+                    name="receipt-total"
                     value={total.value}
                     onChange={total.onChange}
                     required={true}

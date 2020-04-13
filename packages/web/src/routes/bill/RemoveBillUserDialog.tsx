@@ -1,18 +1,18 @@
 import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
+import ErrorMessage from '../../components/ErrorMessage';
 import {
   MutationRemoveBillUserResponse,
   useMutationRemoveBillUser,
 } from '../../graphql/bill/mutationRemoveBillUser';
 import { BillUser } from '../../graphql/types';
-import Button from '../../ui/Button';
-import Dialog, { useDialogState } from '../../ui/Dialog';
-import DialogActions from '../../ui/DialogActions';
-import DialogContent from '../../ui/DialogContent';
-import DialogTitle from '../../ui/DialogTitle';
-import ErrorMessage from '../../ui/ErrorMessage';
-import Typography from '../../ui/Typography';
+import Dialog, { useDialogState } from '../../ui/components/Dialog';
+import DialogActions from '../../ui/components/DialogActions';
+import DialogContent from '../../ui/components/DialogContent';
+import DialogTitle from '../../ui/components/DialogTitle';
+import Typography from '../../ui/components/Typography';
+import Button from '../../ui/theme/Button';
 
 type Props = {
   billUser: BillUser | null;

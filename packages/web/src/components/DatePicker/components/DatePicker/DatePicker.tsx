@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextFieldProps } from '../../../../ui/TextField/TextField';
+import { TextFieldProps } from '../../../../ui/components/TextField/TextField';
 import { datePickerDefaultProps } from '../../config/default';
 import { useDateUtils } from '../../context/DateUtilsProvider';
 import useDatePickerController from '../../hooks/useDatePickerController';
@@ -63,6 +63,7 @@ function DatePicker(props: DatePickerProps) {
 
   return (
     <Wrapper
+      // @ts-ignore
       inputProps={{ ...inputProps, ...restPropsForTextField }}
       wrapperProps={wrapperProps}
       variant={variant}

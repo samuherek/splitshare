@@ -2,6 +2,7 @@ import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
 import CurrencyPicker from '../../components/CurrencyPicker';
+import ErrorMessage from '../../components/ErrorMessage';
 import useBillNameController from '../../controllers/bill/useBillNameController';
 import useCurrencyController from '../../controllers/currency/useCurrencyController';
 import {
@@ -9,15 +10,14 @@ import {
   useMutationCreateBill,
 } from '../../graphql/bill/mutationCreateBill';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
-import Button from '../../ui/Button';
-import Dialog from '../../ui/Dialog';
-import DialogActions from '../../ui/DialogActions';
-import DialogContent from '../../ui/DialogContent';
-import DialogTitle from '../../ui/DialogTitle';
-import ErrorMessage from '../../ui/ErrorMessage';
-import Fieldset from '../../ui/Fieldset';
-import TextField from '../../ui/TextField';
-import Typography from '../../ui/Typography';
+import Dialog from '../../ui/components/Dialog';
+import DialogActions from '../../ui/components/DialogActions';
+import DialogContent from '../../ui/components/DialogContent';
+import DialogTitle from '../../ui/components/DialogTitle';
+import TextField from '../../ui/components/TextField';
+import Typography from '../../ui/components/Typography';
+import Button from '../../ui/theme/Button';
+import Fieldset from '../../ui/theme/Fieldset';
 
 type Props = {
   isOpen: boolean;

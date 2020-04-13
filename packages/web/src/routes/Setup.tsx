@@ -1,10 +1,10 @@
 import { RouteComponentProps, Router } from '@reach/router';
 import React from 'react';
 import styled from 'styled-components';
+import ButtonIcon from '..//ui/components/ButtonIcon';
 import SvgLongArrowLeftLight from '../components/icons/LongArrowLeftLight';
 import Stepper from '../components/Stepper';
-import Button from '../ui/Button';
-import ButtonIcon from '../ui/ButtonIcon';
+import Button from '../ui/theme/Button';
 import FirstBill from './setup/FirstBill';
 import FirstBillInvite from './setup/FirstBillInvite';
 import FirstProfile from './setup/Profile';

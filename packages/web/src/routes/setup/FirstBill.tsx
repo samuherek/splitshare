@@ -3,6 +3,7 @@ import { ExecutionResult } from 'graphql';
 import React from 'react';
 import styled from 'styled-components';
 import tryToCatch from 'try-to-catch';
+import ErrorMessage from '../../components/ErrorMessage';
 import useBillNameController from '../../controllers/bill/useBillNameController';
 import useCurrencyController from '../../controllers/currency/useCurrencyController';
 import {
@@ -11,11 +12,10 @@ import {
 } from '../../graphql/bill/mutationCreateBill';
 import useAllowSubmit from '../../hooks/useAllowSubmit';
 import currencies from '../../libs/currencies.json';
-import Button from '../../ui/Button';
-import ErrorMessage from '../../ui/ErrorMessage';
-import Fieldset from '../../ui/Fieldset';
-import TextField from '../../ui/TextField/TextField';
-import Typography from '../../ui/Typography/Typography';
+import TextField from '../../ui/components/TextField/TextField';
+import Typography from '../../ui/components/Typography/Typography';
+import Button from '../../ui/theme/Button';
+import Fieldset from '../../ui/theme/Fieldset';
 
 const WrapStyled = styled.div`
   padding: 92px 0 48px;

@@ -1,6 +1,6 @@
 import React from 'react';
-import TextField from '../../../../ui/TextField';
-import { TextFieldProps } from '../../../../ui/TextField/TextField';
+import TextField from '../../../../ui/components/TextField';
+import { TextFieldProps } from '../../../../ui/components/TextField/TextField';
 import { PickerDate } from '../../context/DateUtilsProvider';
 import { ParsableDate } from '../../hooks/useDateController';
 import useInputValueController from '../../hooks/useInputValueController';
@@ -31,6 +31,7 @@ function DateInput({
   });
 
   return (
+    // @ts-ignore
     <TextField
       value={inputValue}
       onClick={openPicker}

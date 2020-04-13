@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import ButtonIcon from '../..//ui/components/ButtonIcon';
 import AvatarUser from '../../components/AvatarUser';
 import SvgTrashRegular from '../../components/icons/TrashRegular';
 import { BillUser } from '../../graphql/types';
 import { useQueryMe } from '../../graphql/user/queryMe';
-import ButtonIcon from '../../ui/ButtonIcon';
 import { initials } from '../../utils/user';
 
 type Props = {

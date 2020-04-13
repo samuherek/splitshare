@@ -1,11 +1,11 @@
 import { Redirect, RouteComponentProps } from '@reach/router';
 import React from 'react';
 import styled from 'styled-components';
+import ErrorMessage from '../components/ErrorMessage';
 import { useQueryBill } from '../graphql/bill/queryBill';
 import { BillUser } from '../graphql/types';
-import ButtonBase from '../ui/ButtonBase';
-import ErrorMessage from '../ui/ErrorMessage';
-import Typography from '../ui/Typography';
+import ButtonBase from '../ui/components/ButtonBase';
+import Typography from '../ui/components/Typography';
 import { getUUIDFromUrl } from '../utils/url';
 import AddBillUserAction from './bill/AddBillUserAction';
 import BillSettingsDialog from './bill/BillSettingsDialog';

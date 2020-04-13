@@ -3,9 +3,9 @@ import React from 'react';
 import { useRifm } from 'rifm';
 import styled from 'styled-components';
 import { BillUser, User } from '../../graphql/types';
-import ButtonBase from '../../ui/ButtonBase';
-import TextField from '../../ui/TextField';
-import Typography from '../../ui/Typography';
+import ButtonBase from '../../ui/components/ButtonBase';
+import TextField from '../../ui/components/TextField';
+import Typography from '../../ui/components/Typography';
 import { float, formatFloatingPointNumber } from '../../utils/rifm';
 import { getDisplayName, initials } from '../../utils/user';
 import AvatarUser from '../AvatarUser';
@@ -77,7 +77,12 @@ function UserSplit({
         {isPayer ? <PaidBadgeStyled>Paid</PaidBadgeStyled> : null}
       </ButtonBase>
 
-      <TextField required={true} value={value} onChange={onChange} />
+      <TextField
+        name={`${user.id}-split`}
+        required={true}
+        value={value}
+        onChange={onChange}
+      />
     </WrapStyled>
   );
 }

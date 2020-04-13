@@ -1,12 +1,12 @@
 import { ExecutionResult } from 'graphql';
 import React from 'react';
 import tryToCatch from 'try-to-catch';
+import ErrorMessage from '../../../components/ErrorMessage';
 import {
   MutationUpdateBillResponse,
   useMutationUpdateBill,
 } from '../../../graphql/bill/mutationUpdateBill';
-import Button from '../../../ui/Button';
-import ErrorMessage from '../../../ui/ErrorMessage';
+import Button from '../../../ui/theme/Button';
 
 type Props = {
   billId: string;
