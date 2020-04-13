@@ -92,12 +92,12 @@ export function useTrapFocus(props: TrapFocusProps, ref?: React.Ref<any>) {
     //
     // The whatwg spec defines how the browser should behave but does not explicitly mention any events:
     // https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule.
-    const interval = setInterval(() => {
-      contain();
-    }, 50);
+    // const interval = setInterval(() => {
+    //   contain();
+    // }, 50);
 
     return () => {
-      clearInterval(interval);
+      // clearInterval(interval);
 
       doc.removeEventListener('focus', contain, true);
       doc.removeEventListener('keydown', loopFocus, true);

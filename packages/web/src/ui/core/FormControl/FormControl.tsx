@@ -26,6 +26,7 @@ export function useFormControl(props: FormControlProps, ref: React.Ref<any>) {
     focused: visuallyFocused,
     required,
     children,
+    ...rest
   } = props;
 
   const [_focused, setFocused] = React.useState(false);
@@ -87,7 +88,8 @@ export function useFormControl(props: FormControlProps, ref: React.Ref<any>) {
 
   return {
     props: {
-      ...props,
+      ...rest,
+      children,
       className: cx(className, classes.root),
     },
     ref,

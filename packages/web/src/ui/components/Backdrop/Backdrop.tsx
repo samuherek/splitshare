@@ -30,16 +30,10 @@ export const BackdropDark = styled.div<{ invisible?: boolean }>`
 `;
 
 const Backdrop = React.forwardRef<any, BackdropProps>((props, ref) => {
-  const {
-    open,
-    transitionDuration,
-    invisible = false,
-    className,
-    ...rest
-  } = props;
+  const { open, timeout, invisible = false, className, ...rest } = props;
 
   return (
-    <Fade in={open} timeout={transitionDuration} {...rest}>
+    <Fade in={open} timeout={timeout} {...rest}>
       <BackdropStyled
         as={BackdropDark}
         className={clsx(className, classes.root)}

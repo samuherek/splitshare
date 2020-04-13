@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Fade from '../../transitions/Fade';
 import Modal from '../Modal';
 import Paper from '../Paper';
+import Backdrop from '../Backdrop';
 
 export type OnCloseFn = (ev: SyntheticEvent<any>, type: string) => void;
 
@@ -82,11 +83,12 @@ const Dialog = React.forwardRef<Props, any>((props, ref) => {
 
   return (
     <Modal
-      isOpen={isOpen}
+      open={isOpen}
       onClose={onClose}
       role="dialog"
       ref={ref}
-      backdropProps={backdropProps}
+      BackdropComponent={Backdrop}
+      backdropProps={{ ...backdropProps, timeout: duration }}
       className={clsx(className, classes.root)}
       {...rest}
     >

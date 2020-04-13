@@ -17,5 +17,5 @@ export interface BackdropProps
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    */
-  transitionDuration?: TransitionProps['timeout'];
+  timeout?: TransitionProps['timeout'];
 }

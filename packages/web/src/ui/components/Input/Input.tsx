@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import InputBase from '../../core/InputCore';
+import InputBase from '../InputBase';
 import { Outlined } from './styles';
 
 interface Props {

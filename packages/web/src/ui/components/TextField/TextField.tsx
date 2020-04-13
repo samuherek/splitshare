@@ -98,7 +98,7 @@ const TextField = React.forwardRef<any, TextFieldProps>(function TextField(
       disabled={disabled}
       className={className}
       required={required}
-      {...rest}
+      // {...rest}
     >
       {!label ? null : <InputLabel htmlFor={id || name}>{label}</InputLabel>}
       {select ? null : (

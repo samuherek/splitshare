@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { createChainedFunction, getHasTransition } from '../../utils/helpers';
-import TrapFocus from '../../core/TrapFocus';
+// import TrapFocus from "../../core/TrapFocus";
 import Portal from '../../core/Portal';
 import { useForkRef } from '../../utils/ref';
 import { SimpleBackdrop } from '../Backdrop';
@@ -330,16 +330,16 @@ const Modal = React.forwardRef<unknown, ModalProps>((props, ref) => {
             {...BackdropProps}
           />
         )}
-        <TrapFocus
+        {/* <TrapFocus
           // disableEnforceFocus={disableEnforceFocus}
           // disableAutoFocus={disableAutoFocus}
           // disableRestoreFocus={disableRestoreFocus}
           getDoc={getDoc}
           // isEnabled={true}
           open={open}
-        >
-          {React.cloneElement(children, childProps)}
-        </TrapFocus>
+        > */}
+        {React.cloneElement(children, childProps)}
+        {/* </TrapFocus> */}
       </DivStyled>
     </Portal>
   );
