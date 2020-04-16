@@ -31,7 +31,8 @@ async function getUserBills({ pagination, filter }: BillsArgs, userId: string) {
   const query = getRepository(Bill)
     .createQueryBuilder('bill')
     .innerJoin('bill.billUsers', 'billUser', 'billUser.billId = bill.id')
-    .where('billUser.userId = :userId', { userId });
+    .where('billUser.userId = :userId', { userId })
+    .andWhere('billUser.state = :state', { state: InviteState.ACCEPTED });
 
   if (filter?.status) {
     query.andWhere(
@@ -72,6 +73,7 @@ async function update(id: string, input: UpdateBillModelInput) {
   const { raw } = await getConnection()
     .createQueryBuilder()
     .update(Bill)
+    // @ts-ignore
     .set(input)
     .where('id = :id', { id })
     .updateEntity(true)

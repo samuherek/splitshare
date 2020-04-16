@@ -4,8 +4,8 @@ import { BillUser } from './entity';
 export type CreateBillUserInput = {
   billId: string;
   userId: string;
+  addedById?: string;
   state?: InviteState;
-  invitedById?: string;
 };
 
 export type BillUserJoin = BillUser & {

@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 import { Bill } from '../bill/entity';
 import { BillUser } from '../billUser/entity';
+import { Notification } from '../notification/entity/Notification';
+import { NotificationObject } from '../notification/entity/NotificationObject';
 import { Receipt } from '../receipt/entity';
 import { UserState } from './config';
 
@@ -45,6 +47,12 @@ export class User extends BaseEntity {
   billUsers: Promise<BillUser[]>;
 
   @OneToMany(
+    () => BillUser,
+    billUser => billUser.addedBy
+  )
+  addedInvites: Promise<BillUser[]>;
+
+  @OneToMany(
     () => Bill,
     bill => bill.createdById
   )
@@ -61,4 +69,16 @@ export class User extends BaseEntity {
     receipt => receipt.createdBy
   )
   receiptsCreated: Promise<Receipt[]>;
+
+  @OneToMany(
+    () => NotificationObject,
+    notificationObject => notificationObject.actor
+  )
+  notificationsActor: Promise<NotificationObject[]>;
+
+  @OneToMany(
+    () => Notification,
+    notification => notification.recipient
+  )
+  notifications: Promise<Notification[]>;
 }

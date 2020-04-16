@@ -1,12 +1,18 @@
-import { getRepository } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
+import { camelCase } from 'typeorm/util/StringUtils';
+import { remap } from '../../utils/entity';
+import { InviteState } from './config';
 import { BillUser } from './entity';
 import { CreateBillUserInput } from './types.d';
-import { remap } from './utils';
+import { getInviteId } from './utils';
+import mapObject = require('map-obj');
 
 export interface BillUserModel {
+  getBillInvite: typeof getBillInvite;
   createOne: typeof createOne;
   getBillUser: typeof getBillUser;
   remove: typeof remove;
+  update: typeof update;
 }
 
 // async function getById(id: string) {
@@ -36,7 +42,52 @@ async function getBillUser(billId: string, userId: string) {
     .andWhere('billUser.userId = :userId', { userId })
     .getOne();
 
-  return !res ? null : remap(res);
+  return !res ? null : remap(res, '__user__');
+}
+
+async function getBillInvite(billId: string, userId: string) {
+  const res = await getRepository(BillUser)
+    .createQueryBuilder('billUser')
+    .where('billUser.userId = :userId', { userId })
+    .andWhere('billUser.billId = :billId', { billId })
+    .getOne();
+
+  return !res
+    ? null
+    : {
+        ...res,
+        id: getInviteId(res),
+      };
+}
+
+async function update(billId: string, state: InviteState, userId: string) {
+  const { raw } = await getConnection()
+    .createQueryBuilder()
+    .update(BillUser)
+    // @ts-ignore
+    .set({ state })
+    .where('billId = :billId', { billId })
+    .andWhere('userId = :userId', { userId })
+    .updateEntity(true)
+    .output('*')
+    .execute();
+
+  const [res] = raw;
+
+  if (!res) {
+    throw new Error('No such bill invite found');
+  }
+
+  const mappedObj = mapObject(res, (key, val) => [
+    camelCase(key as string),
+    val,
+  ]);
+  return {
+    ...mappedObj,
+    // FIXME: figure out typing
+    // @ts-ignore
+    id: getInviteId(mappedObj),
+  };
 }
 
 async function remove(billId: string, userId: string) {
@@ -46,15 +97,15 @@ async function remove(billId: string, userId: string) {
 }
 
 async function createOne(input: CreateBillUserInput) {
-  await getRepository(BillUser)
+  return getRepository(BillUser)
     .create(input)
     .save();
-
-  return getBillUser(input.billId, input.userId);
 }
 
 export default {
   createOne,
   getBillUser,
+  getBillInvite,
   remove,
+  update,
 };

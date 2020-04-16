@@ -5,6 +5,7 @@ import { snakeCase } from 'typeorm/util/StringUtils';
 import Bill from './features/bill/model';
 import BillUser from './features/billUser/model';
 import Email from './features/email/invite';
+import Notification from './features/notification/model';
 import Receipt from './features/receipt/model';
 import User from './features/user/model';
 
@@ -44,7 +45,10 @@ export async function init(): Promise<Connection | null> {
           type: 'postgres',
           // name: 'production',
           namingStrategy: new CustomNamingStrategy(),
-          entities: [__dirname + '/features/**/entity.{ts,js}'],
+          entities: [
+            __dirname + '/features/**/entity.{ts,js}',
+            __dirname + '/features/**/entity/**.{ts,js}',
+          ],
           migrations: [__dirname + '/migration/*{.ts,.js}'],
           logging: true,
           // TODO: move this into migrations instead for production
@@ -63,7 +67,10 @@ export async function init(): Promise<Connection | null> {
           logging: true,
           synchronize: true,
           // dropSchema: true,
-          entities: [__dirname + '/features/**/entity.{ts,js}'],
+          entities: [
+            __dirname + '/features/**/entity.{ts,js}',
+            __dirname + '/features/**/entity/**.{ts,js}',
+          ],
           migrations: [__dirname + '/migration/*{.ts,.js}'],
         });
       }
@@ -85,6 +92,7 @@ export const models = {
   BillUser,
   Receipt,
   User,
+  Notification,
   // TODO: this is weird
   Email,
 };

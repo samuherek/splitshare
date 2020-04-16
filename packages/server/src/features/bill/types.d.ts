@@ -1,3 +1,5 @@
+import { InviteState } from '../billUser/config';
+
 export type BillStatus = 'OPENED' | 'CLOSED';
 
 export type BillsFilter = {
@@ -35,6 +37,15 @@ export type BillInviteInput = {
 
 export type CreateBillInviteArgs = {
   input: BillInviteInput;
+};
+
+export type UpdateBillInviteInput = {
+  billId: string;
+  state: InviteState;
+};
+
+export type UpdateBillInviteArgs = {
+  input: UpdateBillInviteInput;
 };
 
 export type RemoveBillInviteInput = {

@@ -12,3 +12,7 @@ export function remap(billUser: BillUser) {
     ...next,
   };
 }
+
+export function getInviteId(billUser: BillUser) {
+  return `${billUser.billId}-${billUser.userId}`;
+}

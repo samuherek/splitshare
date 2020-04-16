@@ -2,6 +2,7 @@ import { User } from './entity/User';
 import { BillModel } from './features/bill/model';
 import { BillUserModel } from './features/billUser/model';
 import { Email } from './features/email/invite';
+import { NotificationModel } from './features/notification/model';
 import { ReceiptModel } from './features/receipt/model';
 import { UserModel } from './features/user/model';
 
@@ -14,6 +15,7 @@ export interface MyContext {
     Bill: BillModel;
     BillUser: BillUserModel;
     Receipt: ReceiptModel;
+    Notification: NotificationModel;
     Email: Email;
   };
 }

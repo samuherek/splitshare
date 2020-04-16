@@ -62,6 +62,11 @@ export default gql`
     closed: Boolean
   }
 
+  input UpdateBillInviteInput {
+    billId: ID!
+    state: InviteState!
+  }
+
   extend type Query {
     bill(id: ID!): Bill
     bills(pagination: PaginationInput, filter: BillsFilter): BillConnection!
@@ -71,7 +76,8 @@ export default gql`
     createBill(input: CreateBillInput!): Bill!
     updateBill(id: ID!, input: UpdateBillInput!): Bill!
     deleteBill(id: ID!): Bill!
-    createBillInvite(input: CreateBillInviteInput!): BillUser!
+    createBillInvite(input: CreateBillInviteInput!): BillInvite!
     removeBillUser(input: RemoveBillUserInput!): BillUser!
+    updateBillInvite(input: UpdateBillInviteInput!): BillInvite!
   }
 `;

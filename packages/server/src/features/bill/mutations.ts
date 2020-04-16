@@ -1,10 +1,13 @@
 import { MyContext } from '../../types';
+import { ACTION_TYPE, ENTITY_TYPE } from '../notification/config/entity-types';
+// import { notificationTypes } from '../notificationType/config';
 import {
   CreateBillArgs,
   CreateBillInviteArgs,
   DeleteBillArgs,
   RemoveBillInviteArgs,
   UpdateBillArgs,
+  UpdateBillInviteArgs,
   UpdateBillModelInput,
 } from './types.d';
 
@@ -78,13 +81,25 @@ export default {
       const billUser = await models.BillUser.createOne({
         ...input,
         userId: inviteUser.id,
-        invitedById: user.id,
+        addedById: user.id,
+      });
+
+      if (!billUser) {
+        throw new Error('Something went wrong with the invitation.');
+      }
+
+      await models.Notification.createOne({
+        actorId: user.id,
+        entityTypeId: ENTITY_TYPE.BILL_INVITE,
+        actionTypeId: ACTION_TYPE.CREATED,
+        entityId: input.billId,
+        recipientIds: [billUser.userId],
       });
 
       // TODO: Sending emails should be moved outside of this because it can be done later
-      const bill = await models.Bill.getById(input.billId, user.id);
-
       if (process.env.ACTIVATE_EMAILS === 'true') {
+        const bill = await models.Bill.getById(input.billId, user.id);
+
         models.Email.sendBillInvite({
           toEmail: inviteUser.email,
           billName: bill?.name ?? '',
@@ -94,12 +109,25 @@ export default {
 
       return billUser;
     },
-    removeBillUser: (
+    updateBillInvite: (
+      _: any,
+      { input }: UpdateBillInviteArgs,
+      { models, user }: MyContext
+    ) => {
+      return models.BillUser.update(input.billId, input.state, user.id);
+    },
+    removeBillUser: async (
       _: any,
       { input }: RemoveBillInviteArgs,
       { models }: MyContext
     ) => {
-      return models.BillUser.remove(input.billId, input.userId);
+      const res = await models.BillUser.remove(input.billId, input.userId);
+      await models.Notification.removeUserNotification(
+        input.billId,
+        input.userId
+      );
+
+      return res;
     },
   },
 };

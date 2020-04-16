@@ -27,9 +27,6 @@ export class BillUser extends BaseEntity {
   })
   state: InviteState;
 
-  @Column({ nullable: true })
-  invitedById: string;
-
   @PrimaryColumn()
   userId: string;
   @ManyToOne(
@@ -39,6 +36,15 @@ export class BillUser extends BaseEntity {
   )
   @JoinColumn({ name: 'user_id' })
   user: Promise<User>;
+
+  @Column({ nullable: true, type: 'uuid' })
+  addedById: string;
+  @ManyToOne(
+    () => User,
+    user => user.addedInvites
+  )
+  @JoinColumn({ name: 'added_by_id' })
+  addedBy: Promise<User>;
 
   @PrimaryColumn()
   billId: string;

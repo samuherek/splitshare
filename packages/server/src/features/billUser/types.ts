@@ -14,8 +14,14 @@ export default gql`
     lastName: String
     avatarUrl: String
     state: InviteState!
+  }
+
+  type BillInvite {
+    id: ID!
+    state: InviteState!
     createdAt: Date!
-    updatedAt: DateTime!
+    user: User!
+    bill: Bill!
     invitedBy: User!
   }
 `;

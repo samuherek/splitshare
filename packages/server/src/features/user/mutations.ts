@@ -1,5 +1,5 @@
 import { MyContext } from '../../types.d';
-import { userState } from './config';
+import { UserState } from './config';
 import { SetupAccountArgs } from './types.d';
 
 export default {
@@ -14,7 +14,7 @@ export default {
           ...input,
           // TODO: learn how to type this
           // @ts-ignore
-          state: userState.ACTIVE,
+          state: UserState.ACTIVE,
         },
         user.id
       );
