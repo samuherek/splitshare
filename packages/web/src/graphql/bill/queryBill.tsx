@@ -16,14 +16,14 @@ const QUERY_BILL = gql`
       users {
         ...billUserMeta
       }
-      # myBalance {
-      #   value
-      #   currency
-      #   user {
-      #     id
-      #     email
-      #   }
-      # }
+      myBalance {
+        value
+        currency
+        user {
+          id
+          email
+        }
+      }
     }
   }
   ${FRAGMENT_BILL_META}

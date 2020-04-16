@@ -1,14 +1,14 @@
 import React from 'react';
-import Modal from '../Modal';
-import Roll from '../../transitions/Roll';
 import styled from 'styled-components';
-import { StandardProps } from '../types';
-import { ModalProps } from '../Modal/Modal';
 import {
   TransitionHandlerProps,
   TransitionProps,
 } from '../../core/utils/transitions';
+import Roll from '../../transitions/Roll';
+import Modal from '../Modal';
+import { ModalProps } from '../Modal/Modal';
 import { PaperProps } from '../Paper';
+import { StandardProps } from '../types';
 
 export interface PopoverOrigin {
   vertical: 'top' | 'center' | 'bottom' | number;
@@ -29,6 +29,7 @@ export interface PopoverActions {
 export interface PopoverProps
   extends StandardProps<ModalProps & Partial<TransitionHandlerProps>> {
   action?: React.Ref<PopoverActions>;
+  open: boolean; // should come from modal props
   anchorEl?: null | Element | ((element: Element) => Element);
   anchorOrigin?: PopoverOrigin;
   anchorPosition?: PopoverPosition;
@@ -38,6 +39,7 @@ export interface PopoverProps
   getContentAnchorEl?: null | ((element: Element) => Element);
   marginThreshold?: number;
   modal?: boolean;
+  onClose?: () => void; // Should come from modal props
   PaperProps?: Partial<PaperProps>;
   role?: string;
   transformOrigin?: PopoverOrigin;

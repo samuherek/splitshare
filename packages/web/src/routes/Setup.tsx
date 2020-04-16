@@ -61,7 +61,7 @@ function Setup({ navigate, ...props }: Props) {
           </ButtonIcon>
         ) : null}
         <Stepper steps={3} active={activeIndex} />
-        {activeIndex > 1 ? <Button>Skip</Button> : null}
+        {activeIndex > 1 ? <Button to="/">Skip</Button> : null}
       </HeaderStyled>
       <Router primary={false}>
         <FirstProfile path="/" />

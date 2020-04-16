@@ -5,7 +5,9 @@ export type MergedQueryState = {
   error: Error | { message: string } | null;
 };
 
-export function mergeQueryState(...queries: QueryResult[]): MergedQueryState {
+export function mergeQueryState(
+  ...queries: Pick<QueryResult, 'loading' | 'error'>[]
+): MergedQueryState {
   let loading = false;
   let error = null;
 

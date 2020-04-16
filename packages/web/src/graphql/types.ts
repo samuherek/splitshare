@@ -6,7 +6,17 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /**
+   * A date string, such as 2007-12-03, compliant with the `full-date` format
+   * outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for
+   * representation of dates and times using the Gregorian calendar.
+   */
   Date: any;
+  /**
+   * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+   * `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
+   * 8601 standard for representation of dates and times using the Gregorian calendar.
+   */
   DateTime: any;
 };
 
@@ -35,6 +45,16 @@ export type BillEdges = {
   cursor: Scalars['String'];
 };
 
+export type BillInvite = {
+  __typename?: 'BillInvite';
+  id: Scalars['ID'];
+  state: InviteState;
+  createdAt: Scalars['Date'];
+  user: User;
+  bill: Bill;
+  invitedBy: User;
+};
+
 export type BillsFilter = {
   status?: Maybe<BillStatus>;
 };
@@ -52,10 +72,16 @@ export type BillUser = {
   lastName?: Maybe<Scalars['String']>;
   avatarUrl?: Maybe<Scalars['String']>;
   state: InviteState;
-  createdAt: Scalars['Date'];
-  updatedAt: Scalars['DateTime'];
-  invitedBy: User;
 };
+
+export type ClearNotificationsInput = {
+  type: ClearType;
+};
+
+export enum ClearType {
+  Seen = 'SEEN',
+  Read = 'READ',
+}
 
 export type CreateBillInput = {
   name: Scalars['String'];
@@ -97,8 +123,11 @@ export type Mutation = {
   createBill: Bill;
   updateBill: Bill;
   deleteBill: Bill;
-  createBillInvite: BillUser;
+  createBillInvite: BillInvite;
   removeBillUser: BillUser;
+  updateBillInvite: BillInvite;
+  updateNotification: Notification;
+  clearNotifications: Scalars['Boolean'];
   createReceipt: Receipt;
   deleteReceipt: Receipt;
   updateReceipt: Receipt;
@@ -127,6 +156,19 @@ export type MutationRemoveBillUserArgs = {
   input: RemoveBillUserInput;
 };
 
+export type MutationUpdateBillInviteArgs = {
+  input: UpdateBillInviteInput;
+};
+
+export type MutationUpdateNotificationArgs = {
+  id: Scalars['ID'];
+  input: UpdateNotificationInput;
+};
+
+export type MutationClearNotificationsArgs = {
+  input: ClearNotificationsInput;
+};
+
 export type MutationCreateReceiptArgs = {
   input: CreateReceiptInput;
 };
@@ -148,6 +190,49 @@ export type MutationSetupAccountArgs = {
   input: SetupInput;
 };
 
+export type Notification = {
+  __typename?: 'Notification';
+  id: Scalars['ID'];
+  isRead: Scalars['Boolean'];
+  createdAt: Scalars['DateTime'];
+  action: NotificationAction;
+  entityType: NotificationType;
+  actor: User;
+  entity: NotificationEntity;
+};
+
+export enum NotificationAction {
+  Created = 'CREATED',
+  Updated = 'UPDATED',
+  Deleted = 'DELETED',
+  Archived = 'ARCHIVED',
+}
+
+export type NotificationConnection = {
+  __typename?: 'NotificationConnection';
+  edges: Array<NotificationEdges>;
+  pageInfo: PageInfo;
+};
+
+export type NotificationEdges = {
+  __typename?: 'NotificationEdges';
+  node: Notification;
+  cursor: Scalars['String'];
+};
+
+export type NotificationEntity = BillInvite;
+
+export type NotificationsFilter = {
+  isRead?: Maybe<Scalars['Boolean']>;
+  isSeen?: Maybe<Scalars['Boolean']>;
+};
+
+export enum NotificationType {
+  Bill = 'BILL',
+  BillInvite = 'BILL_INVITE',
+  Receipt = 'RECEIPT',
+}
+
 export type PageInfo = {
   __typename?: 'PageInfo';
   hasNextPage: Scalars['Boolean'];
@@ -166,6 +251,8 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>;
   bill?: Maybe<Bill>;
   bills: BillConnection;
+  notifications: NotificationConnection;
+  notificationsCount: Scalars['Int'];
   receipt?: Maybe<Receipt>;
   receipts: ReceiptConnection;
   me?: Maybe<User>;
@@ -178,6 +265,14 @@ export type QueryBillArgs = {
 export type QueryBillsArgs = {
   pagination?: Maybe<PaginationInput>;
   filter?: Maybe<BillsFilter>;
+};
+
+export type QueryNotificationsArgs = {
+  pagination?: Maybe<PaginationInput>;
+};
+
+export type QueryNotificationsCountArgs = {
+  filter?: Maybe<NotificationsFilter>;
 };
 
 export type QueryReceiptArgs = {
@@ -242,6 +337,16 @@ export type UpdateBillInput = {
   name?: Maybe<Scalars['String']>;
   currency?: Maybe<Scalars['String']>;
   closed?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateBillInviteInput = {
+  billId: Scalars['ID'];
+  state: InviteState;
+};
+
+export type UpdateNotificationInput = {
+  isRead?: Maybe<Scalars['Boolean']>;
+  isSeen?: Maybe<Scalars['Boolean']>;
 };
 
 export type UpdateReceiptInput = {

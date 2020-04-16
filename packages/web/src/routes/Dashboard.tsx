@@ -12,6 +12,7 @@ import Button from '../ui/theme/Button';
 import { timeAgo } from '../utils/date';
 import { mergeQueryState } from '../utils/graphql';
 import CreateBillDialog from './dashboard/CreateBillDialog';
+import Notifications from './dashboard/Notifcations';
 
 const Dashboard = (props: RouteComponentProps) => {
   const { logout } = useAuth0();
@@ -31,6 +32,7 @@ const Dashboard = (props: RouteComponentProps) => {
 
   return (
     <>
+      <Notifications />
       <Button onClick={logout}>Log out</Button>
       <Button onClick={openDialog}>Start a bill</Button>
       <h2 style={{ marginRight: 24 }}>Opened bills </h2>
@@ -70,7 +72,7 @@ const Dashboard = (props: RouteComponentProps) => {
       <CreateBillDialog
         isOpen={isOpen}
         onClose={() => {
-          opened.refetch();
+          // opened.refetch();
           closeDialog();
         }}
       />

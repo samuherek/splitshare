@@ -21,7 +21,7 @@ const WrapStyled = styled.div`
   padding: 92px 0 48px;
 `;
 
-function FirstBill(props: RouteComponentProps) {
+function FirstBill({ navigate }: RouteComponentProps) {
   const { name } = useBillNameController();
   const { currency } = useCurrencyController();
 
@@ -43,7 +43,7 @@ function FirstBill(props: RouteComponentProps) {
       ] = await tryToCatch(createBill);
 
       if (!err && res.data?.createBill) {
-        console.log('success', res);
+        navigate && navigate(`${res.data.createBill.id}`);
       }
     }
   }
