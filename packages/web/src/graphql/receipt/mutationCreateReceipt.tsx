@@ -1,4 +1,5 @@
 import { gql, MutationHookOptions, useMutation } from '@apollo/client';
+import { QUERY_BILL } from '../bill/queryBill';
 import { MutationCreateReceiptArgs, Receipt, SplitInput } from '../types';
 import { FRAGMENT_RECEIPT_META } from './fragments';
 
@@ -58,6 +59,17 @@ function useMutationCreateReceipt({
         splits,
       },
     },
+    refetchQueries: [
+      {
+        query: QUERY_BILL,
+        variables: {
+          id: billId,
+          withMeta: false,
+          withUsers: false,
+          withBalance: true,
+        },
+      },
+    ],
   });
 
   return mutation;

@@ -75,6 +75,7 @@ function EditReceiptDialog({ receipt: receiptProp, callback }: Props) {
     splits: receipt.splits,
   });
 
+  // TODO: make the balance update when the receipt total gets updated as well.
   const [updateReceipt, { loading, error }] = useMutationUpdateReceipt({
     receiptId: receipt.id,
     ...maybe('title', title.value, notEqual(receipt.title), hasStringLength),

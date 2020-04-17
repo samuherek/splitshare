@@ -35,6 +35,7 @@ const Dashboard = (props: RouteComponentProps) => {
       <Notifications />
       <Button onClick={logout}>Log out</Button>
       <Button onClick={openDialog}>Start a bill</Button>
+      <Button to="settings">Profile</Button>
       <h2 style={{ marginRight: 24 }}>Opened bills </h2>
       {loading ? (
         <span>Loading...</span>

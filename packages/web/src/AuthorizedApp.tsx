@@ -4,6 +4,7 @@ import { QueryParamProvider } from 'use-query-params';
 import Bill from './routes/Bill';
 import Dashboard from './routes/Dashboard';
 import Invite from './routes/Invite';
+import Settings from './routes/Settings';
 import Setup from './routes/Setup';
 import Verify from './routes/Verify';
 
@@ -17,6 +18,7 @@ function AuthorizedApp() {
           <Verify path="/verify" />
           <Setup path="/setup/*" />
           <Invite path="/invite/*" />
+          <Settings path="/settings" />
           {/* <NotFound default={true} /> */}
         </Router>
       </QueryParamProvider>

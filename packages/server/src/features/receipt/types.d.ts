@@ -32,6 +32,7 @@ export type CreateReceiptInput = {
   comment?: string;
   category?: string;
   paidAt: Date;
+  paidById: string;
   total: number;
   currency: string;
   splits: SplitInput[];
@@ -50,6 +51,7 @@ export type UpdateReceiptInput = {
   comment?: string;
   category?: string;
   paidAt?: Date;
+  paidById?: string;
   total?: number;
   currency?: string;
   splits?: SplitInput[];

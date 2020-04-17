@@ -7,16 +7,28 @@ export type QueryBillResponse = {
   bill: Bill;
 };
 
+export type QueryBillArgsExtended = QueryBillArgs & {
+  withMeta: boolean;
+  withUsers: boolean;
+  withBalance: boolean;
+};
+
 const QUERY_BILL = gql`
-  query QueryBill($id: ID!) {
+  query QueryBill(
+    $id: ID!
+    $withMeta: Boolean!
+    $withUsers: Boolean!
+    $withBalance: Boolean!
+  ) {
     bill(id: $id) {
-      ...billMeta
-      updatedAt
-      closedAt
-      users {
+      id
+      ...billMeta @include(if: $withMeta)
+      updatedAt @include(if: $withMeta)
+      closedAt @include(if: $withMeta)
+      users @include(if: $withUsers) {
         ...billUserMeta
       }
-      myBalance {
+      myBalance @include(if: $withBalance) {
         value
         currency
         user {
@@ -32,14 +44,26 @@ const QUERY_BILL = gql`
 
 type Options = {
   id: string;
+  withBalance?: boolean;
+  withMeta?: boolean;
+  withUsers?: boolean;
   queryOpts?: QueryHookOptions;
 };
 
-function useQueryBill({ id, queryOpts }: Options) {
-  const query = useQuery<QueryBillResponse, QueryBillArgs>(QUERY_BILL, {
+function useQueryBill({
+  id,
+  withBalance = false,
+  withMeta = true,
+  withUsers = true,
+  queryOpts,
+}: Options) {
+  const query = useQuery<QueryBillResponse, QueryBillArgsExtended>(QUERY_BILL, {
     ...queryOpts,
     variables: {
       id,
+      withBalance,
+      withMeta,
+      withUsers,
     },
   });
 

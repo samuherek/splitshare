@@ -10,6 +10,7 @@ export type MutationDeleteBillResponse = {
 const MUTATION_DELETE_BILL = gql`
   mutation MutationDeleteBill($id: ID!) {
     deleteBill(id: $id) {
+      id
       ...billMeta
     }
   }

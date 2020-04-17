@@ -13,6 +13,7 @@ const QUERY_BILLS = gql`
     bills(pagination: $pagination, filter: $filter) {
       edges {
         node {
+          id
           ...billMeta
           updatedAt
           closedAt

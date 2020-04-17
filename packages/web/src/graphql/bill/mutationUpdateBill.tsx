@@ -16,6 +16,7 @@ export type MutationUpdateBillResponse = {
 const MUTATION_UPDATE_BILL = gql`
   mutation MutationUpdateBill($id: ID!, $input: UpdateBillInput!) {
     updateBill(id: $id, input: $input) {
+      id
       ...billMeta
       closedAt
     }

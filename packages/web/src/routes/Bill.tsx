@@ -1,17 +1,16 @@
 import { RouteComponentProps } from '@reach/router';
 import React from 'react';
 import styled from 'styled-components';
-import AvatarUser from '../components/AvatarUser';
 import ErrorMessage from '../components/ErrorMessage';
 import { useQueryBill } from '../graphql/bill/queryBill';
 import { BillUser } from '../graphql/types';
 import ButtonBase from '../ui/components/ButtonBase';
 import Typography from '../ui/components/Typography';
 import { getUUIDFromUrl } from '../utils/url';
-import { initials } from '../utils/user';
 import AddBillUserAction from './bill/AddBillUserAction';
 import BillSettingsDialog from './bill/BillSettingsDialog';
 import BillUserItem from './bill/BillUserItem';
+import MyBalance from './bill/MyBalance';
 import Receipts from './bill/Receipts';
 import RemoveBillUserDialog from './bill/RemoveBillUserDialog';
 
@@ -67,18 +66,7 @@ function Bill({ billParam, navigate }: Props) {
               <Receipts bill={bill} />
             </div>
             <div>
-              <Typography component="h4" variant="h4">
-                My Balance
-              </Typography>
-              <div>
-                <AvatarUser
-                  email={bill.myBalance.user.email}
-                  fallback={initials(bill.myBalance.user)}
-                />
-                <span>
-                  {bill.myBalance.value} {bill.myBalance.currency}
-                </span>
-              </div>
+              <MyBalance billId={bill.id} />
               <br />
               <Typography component="h4" variant="h4">
                 Participants

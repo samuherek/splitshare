@@ -1,4 +1,5 @@
 import { gql, MutationHookOptions, useMutation } from '@apollo/client';
+import { QUERY_BILL } from '../bill/queryBill';
 import {
   MutationDeleteReceiptArgs,
   QueryReceiptsArgs,
@@ -69,25 +70,17 @@ function useMutationDeleteReceipt({
         },
       });
     },
-    // // Dashboard
-    //   refetchQueries: [
-    //     {
-    //       query: QUERY_BILLS,
-    //       variables: {
-    //         filter: {
-    //           status: BillStatus.Opened,
-    //         },
-    //       },
-    //     },
-    //     {
-    //       query: QUERY_BILLS,
-    //       variables: {
-    //         filter: {
-    //           status: BillStatus.Closed,
-    //         },
-    //       },
-    //     },
-    // ],
+    refetchQueries: [
+      {
+        query: QUERY_BILL,
+        variables: {
+          id: billId,
+          withMeta: false,
+          withUsers: false,
+          withBalance: true,
+        },
+      },
+    ],
   });
 
   return mutation;

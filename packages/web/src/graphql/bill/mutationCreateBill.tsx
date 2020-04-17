@@ -9,6 +9,7 @@ export type MutationCreateBillResponse = {
 const MUTATION_CREATE_BILL = gql`
   mutation mutationCreateBill($input: CreateBillInput!) {
     createBill(input: $input) {
+      id
       ...billMeta
     }
   }

@@ -10,6 +10,7 @@ export type MutationRemoveBillUserResponse = {
 const MUTATION_REMOVE_BILL_USER = gql`
   mutation MutationRemoveBillUser($input: RemoveBillUserInput!) {
     removeBillUser(input: $input) {
+      id
       ...billUserMeta
     }
   }
