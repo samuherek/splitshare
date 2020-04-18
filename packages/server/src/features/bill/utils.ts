@@ -1,4 +1,4 @@
-import { Receipt } from '../receipt/entity';
+import { Receipt } from '../../entity/Receipt';
 
 type Balance = { [userId: string]: number };
 

@@ -1,5 +1,5 @@
+import { Receipt } from '../../entity/Receipt';
 import { MyContext } from '../../types.d';
-import { Receipt } from './entity';
 import { ReceiptArgs, ReceiptsArgs, UserSplitRaw } from './types.d';
 
 export default {
@@ -13,7 +13,7 @@ export default {
   },
   Receipt: {
     splits: (root: Receipt): UserSplitRaw[] => {
-      return Object.keys(root.splits).map(key => ({
+      return Object.keys(root.splits).map((key) => ({
         userId: key,
         value: root.splits[key],
         currency: root.currency,

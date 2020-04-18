@@ -1,5 +1,5 @@
+import { Bill } from '../../entity/Bill';
 import { MyContext } from '../../types.d';
-import { Bill } from '../bill/entity';
 import { ENTITY_TYPE, NotificationUtils } from './config/entity-types';
 import { NotificationObjectRaw } from './model';
 import { NotificationsArgs, NotificationsCountInput } from './types.d';

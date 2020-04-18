@@ -6,8 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../../user/entity';
-import { NotificationObject } from '../entity/NotificationObject';
+import { NotificationObject } from './NotificationObject';
+import { User } from './User';
 
 @Entity()
 export class Notification extends BaseEntity {
@@ -24,17 +24,14 @@ export class Notification extends BaseEntity {
   notificationObjectId: string;
   @ManyToOne(
     () => NotificationObject,
-    notificationObject => notificationObject.notification
+    (notificationObject) => notificationObject.notification
   )
   @JoinColumn({ name: 'notification_object_id' })
   notificationObject: Promise<NotificationObject>;
 
   @Column({ type: 'uuid' })
   recipientId: string;
-  @ManyToOne(
-    () => User,
-    user => user.notifications
-  )
+  @ManyToOne(() => User, (user) => user.notifications)
   @JoinColumn({ name: 'recipient_id' })
   recipient: Promise<User>;
 }

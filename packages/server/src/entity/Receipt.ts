@@ -8,9 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Bill } from '../bill/entity';
-import { User } from '../user/entity';
-import console = require('console');
+import { Bill } from './Bill';
+import { User } from './User';
 
 export type UserSplitsMap = {
   [userId: string]: number;
@@ -55,28 +54,19 @@ export class Receipt extends BaseEntity {
 
   @Column()
   billId: string;
-  @ManyToOne(
-    () => Bill,
-    bill => bill.receipts
-  )
+  @ManyToOne(() => Bill, (bill) => bill.receipts)
   @JoinColumn({ name: 'bill_id' })
   bill: Promise<Bill>;
 
   @Column()
   paidById: string;
-  @ManyToOne(
-    () => User,
-    user => user.receiptsPaid
-  )
+  @ManyToOne(() => User, (user) => user.receiptsPaid)
   @JoinColumn({ name: 'paid_by_id' })
   paidBy: Promise<User>;
 
   @Column()
   createdById: string;
-  @ManyToOne(
-    () => User,
-    user => user.receiptsCreated
-  )
+  @ManyToOne(() => User, (user) => user.receiptsCreated)
   @JoinColumn({ name: 'created_by_id' })
   createdBy: Promise<User>;
 

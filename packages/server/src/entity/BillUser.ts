@@ -8,9 +8,9 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Bill } from '../bill/entity';
-import { User } from '../user/entity';
-import { InviteState } from './config';
+import { InviteState } from '../features/billUser/config';
+import { Bill } from './Bill';
+import { User } from './User';
 
 @Entity()
 export class BillUser extends BaseEntity {
@@ -29,33 +29,22 @@ export class BillUser extends BaseEntity {
 
   @PrimaryColumn()
   userId: string;
-  @ManyToOne(
-    () => User,
-    user => user.billUsers,
-    { primary: true }
-  )
+  @ManyToOne(() => User, (user) => user.billUsers, { primary: true })
   @JoinColumn({ name: 'user_id' })
   user: Promise<User>;
 
   @Column({ nullable: true, type: 'uuid' })
   addedById: string;
-  @ManyToOne(
-    () => User,
-    user => user.addedInvites
-  )
+  @ManyToOne(() => User, (user) => user.addedInvites)
   @JoinColumn({ name: 'added_by_id' })
   addedBy: Promise<User>;
 
   @PrimaryColumn()
   billId: string;
-  @ManyToOne(
-    () => Bill,
-    bill => bill.billUsers,
-    {
-      primary: true,
-      onDelete: 'CASCADE',
-    }
-  )
+  @ManyToOne(() => Bill, (bill) => bill.billUsers, {
+    primary: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'bill_id' })
   bill: Promise<Bill>;
 }

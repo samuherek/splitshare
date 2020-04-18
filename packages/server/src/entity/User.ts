@@ -6,12 +6,12 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Bill } from '../bill/entity';
-import { BillUser } from '../billUser/entity';
-import { Notification } from '../notification/entity/Notification';
-import { NotificationObject } from '../notification/entity/NotificationObject';
-import { Receipt } from '../receipt/entity';
-import { UserState } from './config';
+import { UserState } from '../features/user/config';
+import { Bill } from './Bill';
+import { BillUser } from './BillUser';
+import { Notification } from './Notification';
+import { NotificationObject } from './NotificationObject';
+import { Receipt } from './Receipt';
 
 @Entity()
 export class User extends BaseEntity {
@@ -40,45 +40,27 @@ export class User extends BaseEntity {
   })
   state: UserState;
 
-  @OneToMany(
-    () => BillUser,
-    billUser => billUser.user
-  )
+  @OneToMany(() => BillUser, (billUser) => billUser.user)
   billUsers: Promise<BillUser[]>;
 
-  @OneToMany(
-    () => BillUser,
-    billUser => billUser.addedBy
-  )
+  @OneToMany(() => BillUser, (billUser) => billUser.addedBy)
   addedInvites: Promise<BillUser[]>;
 
-  @OneToMany(
-    () => Bill,
-    bill => bill.createdById
-  )
+  @OneToMany(() => Bill, (bill) => bill.createdById)
   billsCreated: Promise<Bill[]>;
 
-  @OneToMany(
-    () => Receipt,
-    receipt => receipt.paidBy
-  )
+  @OneToMany(() => Receipt, (receipt) => receipt.paidBy)
   receiptsPaid: Promise<Receipt[]>;
 
-  @OneToMany(
-    () => Receipt,
-    receipt => receipt.createdBy
-  )
+  @OneToMany(() => Receipt, (receipt) => receipt.createdBy)
   receiptsCreated: Promise<Receipt[]>;
 
   @OneToMany(
     () => NotificationObject,
-    notificationObject => notificationObject.actor
+    (notificationObject) => notificationObject.actor
   )
   notificationsActor: Promise<NotificationObject[]>;
 
-  @OneToMany(
-    () => Notification,
-    notification => notification.recipient
-  )
+  @OneToMany(() => Notification, (notification) => notification.recipient)
   notifications: Promise<Notification[]>;
 }

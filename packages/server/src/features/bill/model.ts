@@ -1,11 +1,11 @@
 import * as mapObject from 'map-obj';
 import { getConnection, getRepository } from 'typeorm';
 import { camelCase } from 'typeorm/util/StringUtils';
+import { Bill } from '../../entity/Bill';
+import { BillUser } from '../../entity/BillUser';
 import { paginate } from '../../utils/pagination';
 import { InviteState } from '../billUser/config';
-import { BillUser } from '../billUser/entity';
 import { remap } from '../billUser/utils';
-import { Bill } from './entity';
 import { BillsArgs, CreateBillInput, UpdateBillModelInput } from './types.d';
 
 export interface BillModel {

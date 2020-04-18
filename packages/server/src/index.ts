@@ -5,15 +5,22 @@ import * as jwt from 'express-jwt';
 import { GraphQLError } from 'graphql';
 import * as jwks from 'jwks-rsa';
 import * as morgan from 'morgan';
+import * as path from 'path';
 import 'reflect-metadata';
 import { getRepository } from 'typeorm';
 import * as db from './db';
+import { User } from './entity/User';
 import { UserState } from './features/user/config';
-import { User } from './features/user/entity';
 import { getSchema } from './schema';
 
-require('dotenv-safe').config({
-  allowEmptyValues: true,
+// We can not use ".env" because it collides with the way typeorm works
+// Also, because of this, have to have dedicated ".env" files per environment like this
+// ".env.development" or ".env.production"
+// Otherwise working with typeorm cli.js is impossible since we have
+// CustomNamingStrategy
+// https://github.com/typeorm/typeorm/issues/3420
+require('dotenv').config({
+  path: path.resolve(__dirname, '..', `.env.${process.env.NODE_ENV}`),
 });
 
 const emailKey = 'https://splitshare.me/email';
@@ -137,7 +144,7 @@ async function startServer(): Promise<any> {
 }
 
 // Show unhandled rejections
-process.on('unhandledRejection', function(reason, promise) {
+process.on('unhandledRejection', function (reason, promise) {
   console.log(reason, promise);
 });
 

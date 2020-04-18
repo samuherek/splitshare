@@ -1,5 +1,5 @@
-import { User } from '../user/entity';
-import { BillUser } from './entity';
+import { BillUser } from '../../entity/BillUser';
+import { User } from '../../entity/User';
 
 type BillUserJoin = BillUser & {
   __user__: User;

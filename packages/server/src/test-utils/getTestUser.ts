@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { User } from '../features/user/entity';
+import { User } from '../entity/User';
 
 export const testUser = {
   email: 'user@email.com',

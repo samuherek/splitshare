@@ -5,11 +5,11 @@ import {
   ObjectID,
 } from 'typeorm';
 import { camelCase } from 'typeorm/util/StringUtils';
+import { Bill } from '../../entity/Bill';
+import { Receipt } from '../../entity/Receipt';
 import { maybe } from '../../utils/object';
 import { paginate } from '../../utils/pagination';
 import updateRowTimestamp from '../../utils/updateRowTimestamp';
-import { Bill } from '../bill/entity';
-import { Receipt } from './entity';
 import {
   CreateReceiptInput,
   ReceiptsArgs,

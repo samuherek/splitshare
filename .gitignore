@@ -9,10 +9,7 @@ dump.rdb
 notes.md
 
 **/.env
-**/.env.prod
-**/.env.production
-**/.env.dev
-**/.env.development
+**/.env.*
 
 **/coverage
 

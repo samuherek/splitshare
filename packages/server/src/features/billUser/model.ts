@@ -1,8 +1,8 @@
 import { getConnection, getRepository } from 'typeorm';
 import { camelCase } from 'typeorm/util/StringUtils';
+import { BillUser } from '../../entity/BillUser';
 import { remap } from '../../utils/entity';
 import { InviteState } from './config';
-import { BillUser } from './entity';
 import { CreateBillUserInput } from './types.d';
 import { getInviteId } from './utils';
 import mapObject = require('map-obj');
@@ -97,9 +97,7 @@ async function remove(billId: string, userId: string) {
 }
 
 async function createOne(input: CreateBillUserInput) {
-  return getRepository(BillUser)
-    .create(input)
-    .save();
+  return getRepository(BillUser).create(input).save();
 }
 
 export default {

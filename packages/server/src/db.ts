@@ -1,4 +1,4 @@
-import { Connection, createConnection } from 'typeorm';
+import { Connection, createConnection, getConnectionOptions } from 'typeorm';
 import { DefaultNamingStrategy } from 'typeorm/naming-strategy/DefaultNamingStrategy';
 import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyInterface';
 import { snakeCase } from 'typeorm/util/StringUtils';
@@ -33,54 +33,37 @@ export class CustomNamingStrategy extends DefaultNamingStrategy
 }
 
 export async function init(): Promise<Connection | null> {
-  // const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
-  // console.log(process.env.NODE_ENV, connectionOptions);
+  const connectionOptions = await getConnectionOptions();
+
   let retries = 5;
   while (retries) {
     try {
-      if (process.env.NODE_ENV === 'production') {
-        // @ts-ignore
-        return createConnection({
-          url: process.env.DATABASE_URL || '',
-          type: 'postgres',
-          // name: 'production',
-          namingStrategy: new CustomNamingStrategy(),
-          entities: [
-            __dirname + '/features/**/entity.{ts,js}',
-            __dirname + '/features/**/entity/**.{ts,js}',
-          ],
-          migrations: [__dirname + '/migration/*{.ts,.js}'],
-          logging: true,
-          // TODO: move this into migrations instead for production
-          synchronize: true,
-        });
-      } else {
-        return createConnection({
-          name: 'default',
-          namingStrategy: new CustomNamingStrategy(),
-          type: 'postgres',
-          host: 'localhost',
-          port: 5432,
-          username: 'samuherek',
-          password: '',
-          database: 'splitshare2',
-          logging: true,
-          synchronize: true,
-          // dropSchema: true,
-          entities: [
-            __dirname + '/features/**/entity.{ts,js}',
-            __dirname + '/features/**/entity/**.{ts,js}',
-          ],
-          migrations: [__dirname + '/migration/*{.ts,.js}'],
-        });
-      }
+      return createConnection({
+        ...connectionOptions,
+        namingStrategy: new CustomNamingStrategy(),
+      });
+      //   // @ts-ignore
+      //   return createConnection({
+      //     url: process.env.DATABASE_URL || '',
+      //     type: 'postgres',
+      //     // name: 'production',
+      //     namingStrategy: new CustomNamingStrategy(),
+      //     entities: [
+      //       'src/entity/*.{ts,js}',
+      //       // __dirname + '/features/**/entity.{ts,js}',
+      //       // __dirname + '/features/**/entity/**.{ts,js}',
+      //     ],
+      //     migrations: ['src/migrations/*{.ts,.js}'],
+      //     logging: true,
+      //     // TODO: move this into migrations instead for production
+      //     // synchronize: true,
+      //   });
     } catch (err) {
-      console.log('are we in this error????');
       console.log(err);
       retries -= 1;
       console.log(`retries left: ${retries}`);
       // wait 5 seconds
-      await new Promise(res => setTimeout(res, 5000));
+      await new Promise((res) => setTimeout(res, 5000));
     }
   }
 

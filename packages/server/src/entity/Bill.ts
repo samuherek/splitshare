@@ -9,14 +9,17 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { BillUser } from '../billUser/entity';
-import { Receipt } from '../receipt/entity';
-import { User } from '../user/entity';
+import { BillUser } from './BillUser';
+import { Receipt } from './Receipt';
+import { User } from './User';
 
 @Entity()
 export class Bill extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
+
+  @Column()
+  awesome: string;
 
   @Column()
   name: string;
@@ -39,25 +42,15 @@ export class Bill extends BaseEntity {
   // TODO: fix this
   @Column({ nullable: true })
   createdById: string;
-  @ManyToOne(
-    () => User,
-    user => user.billsCreated
-  )
+  @ManyToOne(() => User, (user) => user.billsCreated)
   @JoinColumn({ name: 'created_by_id' })
   createdBy: Promise<User>;
 
-  @OneToMany(
-    () => BillUser,
-    billUser => billUser.bill,
-    {
-      cascade: true,
-    }
-  )
+  @OneToMany(() => BillUser, (billUser) => billUser.bill, {
+    cascade: true,
+  })
   billUsers: Promise<BillUser[]>;
 
-  @OneToMany(
-    () => Receipt,
-    receipt => receipt.bill
-  )
+  @OneToMany(() => Receipt, (receipt) => receipt.bill)
   receipts: Promise<Receipt[]>;
 }

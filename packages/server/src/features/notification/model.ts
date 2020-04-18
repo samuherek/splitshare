@@ -1,9 +1,9 @@
 import { getConnection, getRepository } from 'typeorm';
 import { camelCase } from 'typeorm/util/StringUtils';
+import { Notification } from '../../entity/Notification';
+import { NotificationObject } from '../../entity/NotificationObject';
 import { remapJoin } from '../../utils/entity';
 import { paginate } from '../../utils/pagination';
-import { Notification } from './entity/Notification';
-import { NotificationObject } from './entity/NotificationObject';
 import {
   CreateNotificationInput,
   NotificationsArgs,
@@ -143,7 +143,7 @@ async function createOne({
     .save();
 
   await Promise.all(
-    recipientIds.map(id =>
+    recipientIds.map((id) =>
       getRepository(Notification)
         .create({
           recipientId: id,

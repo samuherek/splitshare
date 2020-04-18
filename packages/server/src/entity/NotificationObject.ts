@@ -8,8 +8,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../../user/entity';
 import { Notification } from './Notification';
+import { User } from './User';
 
 @Entity()
 export class NotificationObject extends BaseEntity {
@@ -30,16 +30,13 @@ export class NotificationObject extends BaseEntity {
 
   @Column({ type: 'uuid' })
   actorId: string;
-  @ManyToOne(
-    () => User,
-    user => user.notificationsActor
-  )
+  @ManyToOne(() => User, (user) => user.notificationsActor)
   @JoinColumn({ name: 'actor_id' })
   actor: Promise<User>;
 
   @OneToMany(
     () => Notification,
-    notification => notification.notificationObject
+    (notification) => notification.notificationObject
   )
   notification: Promise<Notification[]>;
 }

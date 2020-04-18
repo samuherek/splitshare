@@ -1,5 +1,5 @@
+import { BillUser } from '../../entity/BillUser';
 import { MyContext } from '../../types';
-import { BillUser } from './entity';
 
 export default {
   Query: {},

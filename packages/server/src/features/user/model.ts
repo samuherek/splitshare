@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { User } from './entity';
+import { User } from '../../entity/User';
 import { SetupAccountInput, UserFilter, UserInput } from './types.d';
 
 export interface UserModel {
@@ -32,9 +32,7 @@ async function remove(criteria: string | string[]) {
 }
 
 async function createOne(input: UserInput) {
-  return getRepository(User)
-    .create(input)
-    .save();
+  return getRepository(User).create(input).save();
 }
 
 export default {

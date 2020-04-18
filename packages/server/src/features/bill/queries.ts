@@ -1,5 +1,5 @@
+import { Bill } from '../../entity/Bill';
 import { MyContext } from '../../types.d';
-import { Bill } from './entity';
 import { BillArgs, BillsArgs, UserBalanceRaw } from './types.d';
 import { receiptIntoBalance, reduceIntoBalance } from './utils';
 

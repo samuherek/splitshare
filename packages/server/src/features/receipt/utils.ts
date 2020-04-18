@@ -1,4 +1,4 @@
-import { UserSplitsMap } from './entity';
+import { UserSplitsMap } from '../../entity/Receipt';
 import { SplitInput } from './types.d';
 
 export function getUserSplitsMap(splits: SplitInput[]) {
