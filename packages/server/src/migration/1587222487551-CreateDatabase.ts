@@ -12,6 +12,12 @@ export class CreateDatabase1587222487551 implements MigrationInterface {
       `CREATE TABLE "receipt" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "comment" character varying, "category" character varying, "title" character varying, "total" numeric NOT NULL, "currency" character varying NOT NULL DEFAULT 'EUR', "paid_at" date NOT NULL, "created_at" date NOT NULL DEFAULT now(), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "is_settlement" boolean NOT NULL DEFAULT false, "bill_id" uuid NOT NULL, "paid_by_id" uuid NOT NULL, "created_by_id" uuid NOT NULL, "splits" jsonb NOT NULL, CONSTRAINT "PK_b4b9ec7d164235fbba023da9832" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
+      `CREATE TYPE "public"."user_state_enum" AS ENUM('ONBOARDING_VERIFY_EMAIL', 'ONBOARDING_PROFILE', 'ACTIVE')`
+    );
+    await queryRunner.query(
+      `CREATE TYPE "public"."bill_user_state_enum" AS ENUM('PENDING', 'REJECTED', 'ACCEPTED')`
+    );
+    await queryRunner.query(
       `CREATE TABLE "user" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "email" text NOT NULL, "first_name" character varying, "last_name" character varying, "avatar_url" character varying, "created_at" date NOT NULL DEFAULT now(), "state" "user_state_enum" NOT NULL DEFAULT 'ONBOARDING_VERIFY_EMAIL', CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
@@ -83,6 +89,8 @@ export class CreateDatabase1587222487551 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "notification_object" DROP CONSTRAINT "FK_655697bcfe514ac5e130407127b"`
     );
+    await queryRunner.query(`DROP TYPE "public"."bill_user_state_enum"`);
+    await queryRunner.query(`DROP TYPE "public"."user_state_enum"`);
     await queryRunner.query(`DROP TABLE "bill"`);
     await queryRunner.query(`DROP TABLE "bill_user"`);
     await queryRunner.query(`DROP TABLE "user"`);

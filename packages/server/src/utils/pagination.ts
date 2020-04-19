@@ -23,7 +23,7 @@ export async function paginate<T>(
   const [results, count] = await query.getManyAndCount();
 
   return {
-    edges: results.map(r => ({
+    edges: results.map((r) => ({
       node: entityTransformFn ? entityTransformFn(r) : r,
       cursor: 'nodeCursor',
     })),

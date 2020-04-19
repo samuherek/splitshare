@@ -41,17 +41,17 @@ const baseResolver = {
 
 async function getTypes() {
   const res = await globPromise(__dirname + '/features/**/types{.ts,.js}');
-  return res.map(file => require(file).default);
+  return res.map((file) => require(file).default);
 }
 
 async function getQueries() {
   const res = await globPromise(__dirname + '/features/**/queries{.ts,.js}');
-  return res.map(file => require(file).default);
+  return res.map((file) => require(file).default);
 }
 
 async function getMutations() {
   const res = await globPromise(__dirname + '/features/**/mutations{.ts,.js}');
-  return res.map(file => require(file).default);
+  return res.map((file) => require(file).default);
 }
 
 export async function getSchema() {

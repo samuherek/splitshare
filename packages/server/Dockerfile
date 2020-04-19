@@ -7,8 +7,7 @@ COPY /package.json .
 RUN yarn install --production
 
 COPY /dist ./dist
-COPY /.env.example  ./.
-COPY /.env.prod ./.env
+COPY /.env.production ./.env.production
 
 ENV NODE_ENV production
 

@@ -99,8 +99,9 @@ function handleContainer(
     // Use computed style, here to get the real padding to add our scrollbar width.
     // FIXME: not idea how to type this
     // @ts-ignore
-    container.style['padding-right'] = `${getPaddingRight(container) +
-      scrollbarSize}px`;
+    container.style['padding-right'] = `${
+      getPaddingRight(container) + scrollbarSize
+    }px`;
 
     // .mui-fixed is a global helper.
     // TODO: change the class to something ours
@@ -228,7 +229,7 @@ const Modal = React.forwardRef<unknown, ModalProps>((props, ref) => {
     setExited(false);
   }, [setExited]);
 
-  const handlePortalRef = React.useCallback(node => {
+  const handlePortalRef = React.useCallback((node) => {
     mountNodeRef.current = node;
 
     if (!node) {
@@ -265,7 +266,7 @@ const Modal = React.forwardRef<unknown, ModalProps>((props, ref) => {
   };
 
   // @ts-ignore
-  const handleKeyDown = ev => {
+  const handleKeyDown = (ev) => {
     // The handler doesn't take event.defaultPrevented into account:
     //
     // event.preventDefault() is meant to stop default behaviours like

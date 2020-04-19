@@ -77,7 +77,7 @@ function FirstBillInvite({ id, ...rest }: Props) {
             </Button>
           </Fieldset>
         </form>
-        {emailList.map(e => (
+        {emailList.map((e) => (
           <div key={e}>
             <AvatarUser email={e} fallback={firstLetter(e)} />
             <span>{e}</span>

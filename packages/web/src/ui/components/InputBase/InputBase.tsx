@@ -179,7 +179,7 @@ const InputBase = React.forwardRef<Props, any>(function InputBase(props, ref) {
   }, [ctxFormControl, disabled, focused, onBlur]);
 
   const checkDirty = React.useCallback(
-    obj => {
+    (obj) => {
       if (isFilled(obj)) {
         if (ctxFormControl && ctxFormControl.onFilled) {
           ctxFormControl.onFilled();

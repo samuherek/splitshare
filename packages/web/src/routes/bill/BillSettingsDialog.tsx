@@ -40,8 +40,8 @@ function BillSettingsDialog({ bill }: Props) {
 
   const [createBill, { loading, error }] = useMutationUpdateBill({
     billId: bill.id,
-    ...maybe('name', name.value, val => val !== bill.name),
-    ...maybe('currency', currency.value, val => val !== bill.currency),
+    ...maybe('name', name.value, (val) => val !== bill.name),
+    ...maybe('currency', currency.value, (val) => val !== bill.currency),
   });
 
   const allowSubmit = useAllowSubmit(

@@ -116,7 +116,7 @@ function CalendarDate({
         ))}
       </HeaderWeekStyled>
       <div>
-        {utils.getWeekArray(currentMonth.value).map(week => (
+        {utils.getWeekArray(currentMonth.value).map((week) => (
           <div
             key={`week-${week[0].toString()}`}
             style={{
@@ -125,7 +125,7 @@ function CalendarDate({
               justifyContent: 'space-around',
             }}
           >
-            {week.map(weekDay => {
+            {week.map((weekDay) => {
               const disabled = isDayDisabled(weekDay);
               const isDayInCurrentMonth =
                 utils.getMonth(weekDay) === currentMonthNumber;

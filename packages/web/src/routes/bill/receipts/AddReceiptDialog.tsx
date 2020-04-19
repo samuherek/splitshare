@@ -106,7 +106,7 @@ function AddReceiptDialog({ bill, callback }: Props) {
                 required={true}
                 label="Total"
               />
-              {bill.users.map(user => (
+              {bill.users.map((user) => (
                 <UserSplit
                   key={user.id}
                   user={user}

@@ -141,7 +141,7 @@ function getTransformOriginValue(transformOrigin: {
   horizontal: number;
 }) {
   return [transformOrigin.horizontal, transformOrigin.vertical]
-    .map(n => (typeof n === 'number' ? `${n}px` : n))
+    .map((n) => (typeof n === 'number' ? `${n}px` : n))
     .join(' ');
 }
 
@@ -258,7 +258,7 @@ const Popover = React.forwardRef<unknown, PopoverProps>((props, ref) => {
   // Returns the top/left offset of the position
   // to attach to on the anchor element (or body if none is provided)
   const getAnchorOffset = React.useCallback(
-    contentAnchorOffset => {
+    (contentAnchorOffset) => {
       if (anchorReference === 'anchorPosition') {
         if (process.env.NODE_ENV !== 'production') {
           if (!anchorPosition) {
@@ -382,8 +382,9 @@ const Popover = React.forwardRef<unknown, PopoverProps>((props, ref) => {
           console.error(
             [
               'Material-UI: the popover component is too tall.',
-              `Some part of it can not be seen on the screen (${elemRect.height -
-                heightThreshold}px).`,
+              `Some part of it can not be seen on the screen (${
+                elemRect.height - heightThreshold
+              }px).`,
               'Please consider adding a `max-height` to improve the user-experience.',
             ].join('\n')
           );

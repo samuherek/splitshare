@@ -54,9 +54,9 @@ function UserSplit({
 }: Props) {
   const { value, onChange } = useRifm({
     value: valueProp,
-    onChange: str => onValueChange(user.id, str),
+    onChange: (str) => onValueChange(user.id, str),
     accept: float,
-    format: str => formatFloatingPointNumber(str, 2),
+    format: (str) => formatFloatingPointNumber(str, 2),
   });
 
   function handlePaidBySelect(ev: React.SyntheticEvent) {

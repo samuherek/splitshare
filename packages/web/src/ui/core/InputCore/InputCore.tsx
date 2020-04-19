@@ -123,7 +123,7 @@ export function useInputCore(props: InputCoreProps, ref: React.Ref<any>) {
   const onEmpty = uiFormControlCtx?.onEmpty;
 
   const checkDirty = React.useCallback(
-    obj => {
+    (obj) => {
       if (isFilled(obj)) {
         if (onFilled) {
           onFilled();

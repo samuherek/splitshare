@@ -14,7 +14,7 @@ export const Async = () => {
         color="primary"
         variant="contained"
         loading={loading}
-        onClick={() => setLoading(s => !s)}
+        onClick={() => setLoading((s) => !s)}
       >
         Button
       </ButtonAsync>

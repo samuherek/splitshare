@@ -10,7 +10,9 @@ export default function useDialogState({ initialState = false }: Props = {}) {
 
   const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen]);
   const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen]);
-  const toggleDialog = React.useCallback(() => setIsOpen(s => !s), [setIsOpen]);
+  const toggleDialog = React.useCallback(() => setIsOpen((s) => !s), [
+    setIsOpen,
+  ]);
 
   return {
     isOpen,

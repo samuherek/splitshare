@@ -59,7 +59,7 @@ const Snackbar = React.forwardRef<Props, any>(function Snackbar(props, ref) {
   const [exited, setExited] = React.useState(true);
 
   const setAutoHideTimer = React.useCallback(
-    autoHideDurationParam => {
+    (autoHideDurationParam) => {
       const autoHideDurationBefore =
         autoHideDurationParam != null
           ? autoHideDurationParam

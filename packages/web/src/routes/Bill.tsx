@@ -71,7 +71,7 @@ function Bill({ billParam, navigate }: Props) {
               <Typography component="h4" variant="h4">
                 Participants
               </Typography>
-              {bill.users?.map(user => (
+              {bill.users?.map((user) => (
                 <BillUserItem
                   key={user.id}
                   billUser={user}

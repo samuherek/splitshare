@@ -157,7 +157,7 @@ export function getSplitsFromUserSplits(splits: UserSplit[]) {
 export function getInputSplitsFromSplits(splits: {
   [userId: string]: SplitItem;
 }) {
-  return Object.keys(splits).map(userId => ({
+  return Object.keys(splits).map((userId) => ({
     userId,
     value: splits[userId].parsedValue,
   }));
@@ -171,5 +171,5 @@ export function sameSplitKeys(splits: SplitsMap, compareSplits: SplitsMap) {
     return false;
   }
 
-  return !leftKeys.some(key => !compareSplits[key]);
+  return !leftKeys.some((key) => !compareSplits[key]);
 }

@@ -73,7 +73,7 @@ export default class DayjsUtils implements IDateUtils<defaultDayjs.Dayjs> {
 
   public getWeekdays() {
     const start = this.dayjs().startOf('week');
-    return [0, 1, 2, 3, 4, 5, 6].map(diff => {
+    return [0, 1, 2, 3, 4, 5, 6].map((diff) => {
       return this.formatByString(start.add(diff, 'day'), 'dd');
     });
   }
@@ -147,15 +147,9 @@ export default class DayjsUtils implements IDateUtils<defaultDayjs.Dayjs> {
   }
 
   public getWeekArray(date: Dayjs) {
-    const start = this.dayjs(date)
-      .clone()
-      .startOf('month')
-      .startOf('week');
+    const start = this.dayjs(date).clone().startOf('month').startOf('week');
 
-    const end = this.dayjs(date)
-      .clone()
-      .endOf('month')
-      .endOf('week');
+    const end = this.dayjs(date).clone().endOf('month').endOf('week');
 
     let count = 0;
     let current = start;

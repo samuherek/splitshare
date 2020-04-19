@@ -162,7 +162,7 @@ function EditReceiptDialog({ receipt: receiptProp, callback }: Props) {
                     required={true}
                     label="Total"
                   />
-                  {receipt.splits.map(split => (
+                  {receipt.splits.map((split) => (
                     <UserSplit
                       key={split.user.id}
                       user={split.user}

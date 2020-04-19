@@ -46,7 +46,7 @@ const Fade = React.forwardRef<Props, any>((props, ref) => {
   } = props;
 
   const handleEnter = React.useCallback(
-    node => {
+    (node) => {
       fadeIn(node, duration);
       if (onEnter) {
         onEnter(node);
@@ -56,7 +56,7 @@ const Fade = React.forwardRef<Props, any>((props, ref) => {
   );
 
   const handleExit = React.useCallback(
-    node => {
+    (node) => {
       fadeOut(node, duration);
       if (onExit) {
         onExit(node);

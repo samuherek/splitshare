@@ -58,7 +58,7 @@ function ReceiptDetailsDialog({ receiptId, callback }: Props) {
               {receipt.total} {receipt.currency}
             </Typography>
 
-            {receipt.splits.map(split => (
+            {receipt.splits.map((split) => (
               <div key={getSplitKey(split)}>
                 <Typography>
                   {getDisplayName(split.user)} owes to{' '}

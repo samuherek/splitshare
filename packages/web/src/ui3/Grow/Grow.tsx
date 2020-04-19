@@ -45,7 +45,7 @@ const Grow = React.forwardRef<Props, any>(function Grow(props, ref) {
   } = props;
 
   const handleEnter = React.useCallback(
-    node => {
+    (node) => {
       growIn(node, duration);
       if (onEnter) {
         onEnter(node);
@@ -55,7 +55,7 @@ const Grow = React.forwardRef<Props, any>(function Grow(props, ref) {
   );
 
   const handleExit = React.useCallback(
-    node => {
+    (node) => {
       growOut(node, duration);
       if (onExit) {
         onExit(node);

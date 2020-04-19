@@ -78,7 +78,7 @@ const ButtonBase = React.forwardRef<any, ButtonBaseProps>(function ButtonBase(
   const buttonProps: any = {};
 
   // Sometimes it's helpful to use dataset props. Thus we need to make sure we apply them to the button
-  Object.keys(other).forEach(key => {
+  Object.keys(other).forEach((key) => {
     if (key.startsWith('data-')) {
       // @ts-ignore
       buttonProps[key] = other[key];

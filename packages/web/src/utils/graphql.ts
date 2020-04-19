@@ -11,7 +11,7 @@ export function mergeQueryState(
   let loading = false;
   let error = null;
 
-  queries.forEach(q => {
+  queries.forEach((q) => {
     if (q.loading) {
       loading = q.loading;
     }

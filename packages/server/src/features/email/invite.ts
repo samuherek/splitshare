@@ -30,8 +30,9 @@ async function sendBillInvite({ toEmail, billName, fromName }: Options) {
     dynamicTemplateData: {
       billName,
       fromName,
-      acceptUrl: `${process.env.FRONTEND_URL || ''}${process.env.INVITE_URL ||
-        ''}?bill_name=${billName}&from_name=${fromName}&to_email=${toEmail}`,
+      acceptUrl: `${process.env.FRONTEND_URL || ''}${
+        process.env.INVITE_URL || ''
+      }?bill_name=${billName}&from_name=${fromName}&to_email=${toEmail}`,
     },
   };
 

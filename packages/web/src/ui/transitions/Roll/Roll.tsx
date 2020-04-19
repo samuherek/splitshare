@@ -17,10 +17,10 @@ const rollIn = (node: any, duration: number) =>
     height: [0, node.offsetHeight],
     easing: 'easeOutQuad',
     // scale: [0.5, 1],
-    begin: function(anim) {
+    begin: function (anim) {
       node.style.overflowY = 'hidden';
     },
-    complete: function(anim) {
+    complete: function (anim) {
       node.style.overflowY = undefined;
     },
     duration,
@@ -32,7 +32,7 @@ const rollOut = (node: any, duration: number) =>
     opacity: [node.style.opacity, 0],
     height: [node.style.height, 0],
     easing: 'easeInQuad',
-    begin: function(anim) {
+    begin: function (anim) {
       node.style.overflowY = 'hidden';
     },
     // scale: [1, 0.5],
@@ -56,7 +56,7 @@ const Roll = React.forwardRef<unknown, GrowProps>((props, ref) => {
   const handleRef = useForkRef(children?.ref, ref);
 
   const handleEnter = React.useCallback(
-    node => {
+    (node) => {
       const duration = typeof timeout === 'number' ? timeout : 300;
       rollIn(node, duration);
       if (onEnter) {
@@ -67,7 +67,7 @@ const Roll = React.forwardRef<unknown, GrowProps>((props, ref) => {
   );
 
   const handleExit = React.useCallback(
-    node => {
+    (node) => {
       const duration = typeof timeout === 'number' ? timeout : 300;
       rollOut(node, duration);
       if (onExit) {

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const AvatarBase = styled.div<{ size: number }>`
-  width: ${props => `${props.size}px`};
-  height: ${props => `${props.size}px`};
+  width: ${(props) => `${props.size}px`};
+  height: ${(props) => `${props.size}px`};
   display: flex;
   overflow: hidden;
   position: relative;

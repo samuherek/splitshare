@@ -47,7 +47,7 @@ const Fade = React.forwardRef<unknown, FadeProps>((props, ref) => {
   const handleRef = useForkRef(children?.ref, ref);
 
   const handleEnter = React.useCallback(
-    node => {
+    (node) => {
       const duration = typeof timeout === 'number' ? timeout : 300;
       fadeIn(node, duration);
       if (onEnter) {
@@ -58,7 +58,7 @@ const Fade = React.forwardRef<unknown, FadeProps>((props, ref) => {
   );
 
   const handleExit = React.useCallback(
-    node => {
+    (node) => {
       const duration = typeof timeout === 'number' ? timeout : 300;
       fadeOut(node, duration);
       if (onExit) {

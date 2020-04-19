@@ -57,7 +57,7 @@ function CalendarYear({
 
   return (
     <WrapStyled className={clsx(className, classes.root)}>
-      {utils.getYearRange(minYear, maxYear).map(year => {
+      {utils.getYearRange(minYear, maxYear).map((year) => {
         const yearNumber = utils.getYear(year);
         const selected = yearNumber === currentYear;
         const yearText = utils.format(year, 'year');

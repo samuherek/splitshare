@@ -7,7 +7,7 @@ type ValueMap = {
 
 function hasMissingRequired(fields: string[], valueMap: ValueMap): boolean {
   return (
-    fields.filter(f => {
+    fields.filter((f) => {
       const val = valueMap[f].value;
       return val === '' || val === null || val === undefined;
     }).length > 0

@@ -37,7 +37,7 @@ export function useFormControl(props: FormControlProps, ref: React.Ref<any>) {
     let initialFilled = false;
 
     if (children) {
-      React.Children.forEach(children, child => {
+      React.Children.forEach(children, (child) => {
         if (!isUiElement(child, ['Input', 'Select'])) {
           return;
         }

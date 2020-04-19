@@ -50,7 +50,7 @@ function CalendarMonth({
 
   return (
     <WrapStyled>
-      {utils.getMonthArray(day).map(month => {
+      {utils.getMonthArray(day).map((month) => {
         const monthNumber = utils.getMonth(month);
         const selected = monthNumber === currentMonth;
         const disabled = isMonthDisabled(month);

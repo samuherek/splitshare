@@ -56,7 +56,7 @@ function useMutationRemoveBillUser({ billId, userId, mutationOpts }: Options) {
           bill: {
             ...data.bill,
             users: data.bill.users.filter(
-              u => u.id !== res.data?.removeBillUser.id
+              (u) => u.id !== res.data?.removeBillUser.id
             ),
           },
         },

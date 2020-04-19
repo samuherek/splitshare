@@ -90,15 +90,15 @@ function useReceiptSplitsController({ total, splits }: Options) {
 
   const getInputSplits = React.useCallback((): SplitInput[] => {
     return Object.keys(splitValues)
-      .map(key => ({
+      .map((key) => ({
         userId: key,
         value: splitValues[key].parsedValue,
       }))
-      .filter(input => input.value !== 0);
+      .filter((input) => input.value !== 0);
   }, [splitValues]);
 
   const isAnyValueChanged = React.useCallback(() => {
-    return Object.keys(splits).some(userId => {
+    return Object.keys(splits).some((userId) => {
       const originalValue = splits[userId].parsedValue;
       // When we render it first time, the splits might not be set yet.
       // In such case we need to make sure we check for a non existent
