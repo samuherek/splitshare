@@ -4,6 +4,8 @@ const FRAGMENT_BILL_META = gql`
   fragment billMeta on Bill {
     name
     currency
+    updatedAt
+    closedAt
   }
 `;
 

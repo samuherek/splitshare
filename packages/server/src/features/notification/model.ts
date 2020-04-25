@@ -52,7 +52,7 @@ async function getUserNotifications(
       'notificationObject.id = notification.notificationObjectId'
     )
     .where('notification.recipientId = :userId', { userId })
-    .orderBy('notificationObject.createdAt');
+    .orderBy('notificationObject.createdAt', 'DESC');
 
   return paginate<NotificationObjectRaw>(
     // FIXME: typing

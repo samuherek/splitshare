@@ -88,6 +88,7 @@ export default {
         throw new Error('Something went wrong with the invitation.');
       }
 
+      // TODO: this should be extracted into a messaging system ?
       await models.Notification.createOne({
         actorId: user.id,
         entityTypeId: ENTITY_TYPE.BILL_INVITE,
@@ -97,6 +98,7 @@ export default {
       });
 
       // TODO: Sending emails should be moved outside of this because it can be done later
+      // TODO: this should be extracted into a messaging system ?
       if (process.env.ACTIVATE_EMAILS === 'true') {
         const bill = await models.Bill.getById(input.billId, user.id);
 

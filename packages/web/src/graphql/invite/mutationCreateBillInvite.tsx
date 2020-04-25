@@ -1,10 +1,10 @@
 import { gql, MutationHookOptions, useMutation } from '@apollo/client';
-import { QueryBillResponse, QUERY_BILL } from '../bill/queryBill';
 import {
-  BillInvite,
-  MutationCreateBillInviteArgs,
-  QueryBillArgs,
-} from '../types';
+  QueryBillArgsExtended,
+  QueryBillResponse,
+  QUERY_BILL,
+} from '../bill/queryBill';
+import { BillInvite, MutationCreateBillInviteArgs } from '../types';
 import { FRAGMENT_USER_META } from '../user/fragments';
 
 export type MutationCreateBillInviteResponse = {
@@ -42,11 +42,16 @@ function useMutationCreateBillInvite({ billId, email, mutationOpts }: Options) {
       },
     },
     update: (cache, res) => {
-      const data = cache.readQuery<QueryBillResponse, QueryBillArgs>({
+      const variables = {
+        id: billId,
+        withBalance: false,
+        withUsers: true,
+        withMeta: true,
+      };
+
+      const data = cache.readQuery<QueryBillResponse, QueryBillArgsExtended>({
         query: QUERY_BILL,
-        variables: {
-          id: billId,
-        },
+        variables,
       });
 
       if (!data?.bill || !data.bill.users) {
@@ -73,11 +78,9 @@ function useMutationCreateBillInvite({ billId, email, mutationOpts }: Options) {
         });
       }
 
-      cache.writeQuery<QueryBillResponse, QueryBillArgs>({
+      cache.writeQuery<QueryBillResponse, QueryBillArgsExtended>({
         query: QUERY_BILL,
-        variables: {
-          id: billId,
-        },
+        variables,
         data: {
           bill: {
             ...data.bill,

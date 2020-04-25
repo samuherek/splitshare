@@ -23,8 +23,6 @@ const QUERY_BILL = gql`
     bill(id: $id) {
       id
       ...billMeta @include(if: $withMeta)
-      updatedAt @include(if: $withMeta)
-      closedAt @include(if: $withMeta)
       users @include(if: $withUsers) {
         ...billUserMeta
       }

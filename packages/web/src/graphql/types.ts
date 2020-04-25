@@ -18,6 +18,7 @@ export type Scalars = {
    * 8601 standard for representation of dates and times using the Gregorian calendar.
    */
   DateTime: any;
+  Upload: any;
 };
 
 export type Bill = {
@@ -105,6 +106,18 @@ export type CreateReceiptInput = {
   splits: Array<SplitInput>;
 };
 
+export type CreateUserInput = {
+  email: Scalars['String'];
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  avatarUrl?: Maybe<Scalars['String']>;
+  state?: Maybe<UserState>;
+};
+
+export type ImportBillInput = {
+  data: Scalars['String'];
+};
+
 export enum InviteState {
   Pending = 'PENDING',
   Rejected = 'REJECTED',
@@ -126,6 +139,7 @@ export type Mutation = {
   createBillInvite: BillInvite;
   removeBillUser: BillUser;
   updateBillInvite: BillInvite;
+  importBill: Bill;
   updateNotification: Notification;
   clearNotifications: Scalars['Boolean'];
   createReceipt: Receipt;
@@ -133,6 +147,7 @@ export type Mutation = {
   updateReceipt: Receipt;
   updateMe: User;
   setupAccount: Scalars['Boolean'];
+  createUser: User;
 };
 
 export type MutationCreateBillArgs = {
@@ -158,6 +173,10 @@ export type MutationRemoveBillUserArgs = {
 
 export type MutationUpdateBillInviteArgs = {
   input: UpdateBillInviteInput;
+};
+
+export type MutationImportBillArgs = {
+  input: ImportBillInput;
 };
 
 export type MutationUpdateNotificationArgs = {
@@ -190,10 +209,15 @@ export type MutationSetupAccountArgs = {
   input: SetupInput;
 };
 
+export type MutationCreateUserArgs = {
+  input: CreateUserInput;
+};
+
 export type Notification = {
   __typename?: 'Notification';
   id: Scalars['ID'];
   isRead: Scalars['Boolean'];
+  isSeen: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   action: NotificationAction;
   entityType: NotificationType;
@@ -256,6 +280,7 @@ export type Query = {
   receipt?: Maybe<Receipt>;
   receipts: ReceiptConnection;
   me?: Maybe<User>;
+  myUsers: Array<User>;
 };
 
 export type QueryBillArgs = {

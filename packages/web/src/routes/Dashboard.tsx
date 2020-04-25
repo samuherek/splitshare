@@ -22,10 +22,12 @@ const Dashboard = (props: RouteComponentProps) => {
 
   const opened = useQueryBills({
     status: BillStatus.Opened,
+    withUsers: true,
   });
 
   const archived = useQueryBills({
     status: BillStatus.Closed,
+    withUsers: true,
   });
 
   const { error, loading } = mergeQueryState(opened, archived);
@@ -36,6 +38,7 @@ const Dashboard = (props: RouteComponentProps) => {
       <Button onClick={logout}>Log out</Button>
       <Button onClick={openDialog}>Start a bill</Button>
       <Button to="settings">Profile</Button>
+      <Button to="import-bill">Import bill</Button>
       <h2 style={{ marginRight: 24 }}>Opened bills </h2>
       {loading ? (
         <span>Loading...</span>

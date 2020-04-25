@@ -1,12 +1,13 @@
-import { userState } from './config';
+import { UserState } from './config';
 
 export type UserFilter = {
-  email: string;
+  id?: string;
+  email?: string;
 };
 
 export type UserInput = {
   email: string;
-  status?: keyof typeof userState;
+  status?: keyof typeof UserState;
   avatarUrl?: string;
   firstName?: string;
   lastName?: string;

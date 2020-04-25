@@ -41,7 +41,8 @@
     "reflect-metadata": "0.1.13",
     "try-to-catch": "^3.0.0",
     "typeorm": "0.2.18",
-    "uuid": "3.3.2"
+    "uuid": "3.3.2",
+    "uuid-validate": "^0.0.3"
   },
   "devDependencies": {
     "@types/cors": "2.8.5",
@@ -56,6 +57,7 @@
     "@types/morgan": "^1.7.37",
     "@types/node": "12.0.10",
     "@types/uuid": "3.4.4",
+    "@types/uuid-validate": "^0.0.1",
     "@typescript-eslint/eslint-plugin": "1.10.2",
     "@typescript-eslint/parser": "1.10.2",
     "apollo-server": "^2.9.16",

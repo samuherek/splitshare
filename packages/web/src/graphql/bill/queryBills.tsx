@@ -1,23 +1,34 @@
 import { gql, QueryHookOptions, useQuery } from '@apollo/client';
 import { FRAGMENT_PG_PAGE_INFO } from '../fragments';
 import { FRAGMENT_BILL_USER_META } from '../invite/fragments';
-import { BillConnection, BillStatus, QueryBillsArgs } from '../types';
+import {
+  BillConnection,
+  BillStatus,
+  PaginationInput,
+  QueryBillsArgs,
+} from '../types';
 import { FRAGMENT_BILL_META } from './fragments';
 
 type QueryBillsData = {
   bills: BillConnection;
 };
 
+export type QueryBillsArgsExtended = QueryBillsArgs & {
+  withUsers: boolean;
+};
+
 const QUERY_BILLS = gql`
-  query QueryBills($pagination: PaginationInput, $filter: BillsFilter) {
+  query QueryBills(
+    $withUsers: Boolean!
+    $pagination: PaginationInput
+    $filter: BillsFilter
+  ) {
     bills(pagination: $pagination, filter: $filter) {
       edges {
         node {
           id
           ...billMeta
-          updatedAt
-          closedAt
-          users {
+          users @include(if: $withUsers) {
             ...billUserMeta
           }
         }
@@ -33,15 +44,29 @@ const QUERY_BILLS = gql`
   ${FRAGMENT_BILL_USER_META}
 `;
 
-type Options = {
+type Options = PaginationInput & {
   status?: BillStatus;
+  withUsers?: boolean;
   queryOpts?: QueryHookOptions;
 };
 
-function useQueryBills({ status, queryOpts }: Options = {}) {
-  const query = useQuery<QueryBillsData, QueryBillsArgs>(QUERY_BILLS, {
+function useQueryBills({
+  status,
+  limit,
+  after,
+  offset,
+  withUsers = false,
+  queryOpts,
+}: Options = {}) {
+  const query = useQuery<QueryBillsData, QueryBillsArgsExtended>(QUERY_BILLS, {
     ...queryOpts,
     variables: {
+      withUsers,
+      pagination: {
+        limit,
+        after,
+        offset,
+      },
       filter: {
         status,
       },

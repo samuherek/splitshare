@@ -34,6 +34,7 @@ const CountBadgeStyled = styled.span`
 const WrapStyled = styled.div`
   width: 300px;
   height: 200px;
+  overflow-y: auto;
 `;
 
 function Notifications() {

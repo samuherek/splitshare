@@ -19,9 +19,6 @@ export class Bill extends BaseEntity {
   readonly id: string;
 
   @Column()
-  awesome: string;
-
-  @Column()
   name: string;
 
   @Column({ nullable: true })

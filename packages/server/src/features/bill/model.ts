@@ -12,6 +12,7 @@ export interface BillModel {
   getById: typeof getById;
   getUserBills: typeof getUserBills;
   getBillUsers: typeof getBillUsers;
+  getByIds: typeof getByIds;
   // getBillInvites: typeof getBillInvites;
   update: typeof update;
   createOne: typeof createOne;
@@ -25,6 +26,13 @@ async function getById(billId: string, userId: string) {
     .where('billUser.userId = :userId', { userId })
     .andWhere('bill.id = :billId', { billId })
     .getOne();
+}
+
+async function getByIds(ids: string[]) {
+  return getRepository(Bill)
+    .createQueryBuilder('bill')
+    .where('bill.id IN (:...ids)', { ids })
+    .getMany();
 }
 
 async function getUserBills({ pagination, filter }: BillsArgs, userId: string) {
@@ -142,6 +150,7 @@ export default {
   getById,
   getUserBills,
   getBillUsers,
+  getByIds,
   // getBillInvites,
   update,
   createOne,

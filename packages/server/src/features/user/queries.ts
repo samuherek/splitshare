@@ -5,5 +5,8 @@ export default {
     me: (_: any, __: any, { models, user }: MyContext) => {
       return models.User.getById(user.id);
     },
+    myUsers: (_: any, __: any, { models, user }: MyContext) => {
+      return models.User.getBillUsersByUserId(user.id);
+    },
   },
 };

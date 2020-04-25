@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
+import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as jwt from 'express-jwt';
@@ -32,9 +33,17 @@ async function context({ req, res }: any) {
   //     ? req
   //     : { user: { [emailKey]: 'samuherekbiz@gmail.com' } };
 
-  const { user } = req;
+  let { user } = req;
+
+  if (process.env.ACTIVATE_AUTH === 'false') {
+    user = {
+      [emailKey]: process.env.TEST_USER,
+      [verifyKey]: true,
+    };
+  }
 
   const userEmail = user ? user[emailKey] : null;
+
   let dbUser = null;
 
   if (userEmail) {
@@ -48,9 +57,7 @@ async function context({ req, res }: any) {
 
     if (user[verifyKey] && dbUser.state === UserState.ONBOARDING_VERIFY_EMAIL) {
       dbUser = await getRepository(User).update(dbUser.id, {
-        // TODO: figure out the typing here???
-        // @ts-ignore
-        state: userState.ONBOARDING_PROFILE,
+        state: UserState.ONBOARDING_PROFILE,
       });
     }
   }
@@ -105,22 +112,26 @@ async function startServer(): Promise<any> {
     formatError: formatError,
   });
 
-  // if (process.env.NODE_ENV === 'production') {
-  const jwtCheck = jwt({
-    secret: jwks.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `${process.env.AUTH0_AUTH_URL || ''}.well-known/jwks.json`,
-    }),
-    credentialsRequired: true,
-    audience: process.env.AUTH0_AUDIENCE || '',
-    issuer: process.env.AUTH0_AUTH_URL || '',
-    algorithms: ['RS256'],
-  });
+  if (process.env.ACTIVATE_AUTH === 'true') {
+    const jwtCheck = jwt({
+      secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: `${process.env.AUTH0_AUTH_URL || ''}.well-known/jwks.json`,
+      }),
+      credentialsRequired: true,
+      audience: process.env.AUTH0_AUDIENCE || '',
+      issuer: process.env.AUTH0_AUTH_URL || '',
+      algorithms: ['RS256'],
+    });
 
-  app.use(jwtCheck);
-  // }
+    app.use(jwtCheck);
+  }
+
+  // Increased the size for the "Import BILL" feature which is
+  // a big stringified JSON
+  app.use(bodyParser.json({ limit: '1mb' }));
 
   app.use(
     cors({

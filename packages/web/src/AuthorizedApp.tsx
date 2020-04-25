@@ -3,6 +3,7 @@ import React from 'react';
 import { QueryParamProvider } from 'use-query-params';
 import Bill from './routes/Bill';
 import Dashboard from './routes/Dashboard';
+import ImportBill from './routes/ImportBill';
 import Invite from './routes/Invite';
 import Settings from './routes/Settings';
 import Setup from './routes/Setup';
@@ -19,6 +20,7 @@ function AuthorizedApp() {
           <Setup path="/setup/*" />
           <Invite path="/invite/*" />
           <Settings path="/settings" />
+          <ImportBill path="/import-bill" />
           {/* <NotFound default={true} /> */}
         </Router>
       </QueryParamProvider>

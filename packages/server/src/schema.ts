@@ -13,6 +13,7 @@ const globPromise = util.promisify(glob);
 const Query = gql`
   scalar Date
   scalar DateTime
+  scalar Upload
 
   type PageInfo {
     hasNextPage: Boolean!

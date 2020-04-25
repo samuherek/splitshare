@@ -3489,6 +3489,16 @@
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
 
+"@types/apollo-upload-client@^8.1.3":
+  version "8.1.3"
+  resolved "https://registry.yarnpkg.com/@types/apollo-upload-client/-/apollo-upload-client-8.1.3.tgz#717df21070d7f12a8ccf9ff986e66ca91f0a5ee8"
+  integrity sha512-E0bmMnkXBIiHY5Tl+U1Yum70loe93AOV7K+/3E/oGcdpH4izX4owwu+Cz1hRDkkYacHahKJCHz0xSLiL/ENRmA==
+  dependencies:
+    "@types/extract-files" "*"
+    apollo-link "^1.2.12"
+    apollo-link-http-common "^0.2.4"
+    graphql "^14.5.3"
+
 "@types/babel__core@^7.1.0", "@types/babel__core@^7.1.7":
   version "7.1.7"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.7.tgz#1dacad8840364a57c98d0dd4855c6dd3752c6b89"
@@ -3537,6 +3547,11 @@
   dependencies:
     "@types/connect" "*"
     "@types/node" "*"
+
+"@types/capitalize@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/capitalize/-/capitalize-1.0.1.tgz#8d4cc32df8d916f6897530c01cda0c5207ef5184"
+  integrity sha512-GpKm6eL8EhNtlDdNDM/r8dAz8kdoYWjU4GFZGc4NARYNJgsoBjaVSo5tDAUebTr/uDioWULKpk44KgmFyFBlPw==
 
 "@types/caseless@*":
   version "0.12.2"
@@ -3652,6 +3667,11 @@
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
+
+"@types/extract-files@*":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@types/extract-files/-/extract-files-3.1.0.tgz#a93ce5b82b81a9b420f3a6d14b9bfc043779fd2b"
+  integrity sha512-tLNI7qpktX1NYqE4yXSp9sHgBJOH4kO03WAgeZYDC+xhi005ZDEHkHVdy+/zoNEHasu5kJIU0yqECgT7xxANdg==
 
 "@types/faker@^4.1.9":
   version "4.1.11"
@@ -4059,6 +4079,11 @@
   integrity sha512-L7EbSkhSaWBpkl+PZAEAqZTqtTeIsq7s/oX/q0LNnxxJoRVKQE0T81XDVyaxjiiKQwiV2vhVeYRqxdRNqGOGJw==
   dependencies:
     source-map "^0.6.1"
+
+"@types/uuid-validate@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@types/uuid-validate/-/uuid-validate-0.0.1.tgz#b4eedecbd9db25851490d65a58f13feaa89dd509"
+  integrity sha512-RbX9q0U00SLoV+l7loYX0Wrtv4QTClBC0QcdNts6x2b5G1HJN8NI9YlS1HNA6THrI9EH3OXSgya6eMQIlDjKFA==
 
 "@types/uuid@3.4.4":
   version "3.4.4"
@@ -4950,7 +4975,7 @@ apollo-link-error@^1.1.1:
     apollo-link-http-common "^0.2.16"
     tslib "^1.9.3"
 
-apollo-link-http-common@^0.2.15, apollo-link-http-common@^0.2.16:
+apollo-link-http-common@^0.2.14, apollo-link-http-common@^0.2.15, apollo-link-http-common@^0.2.16, apollo-link-http-common@^0.2.4:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/apollo-link-http-common/-/apollo-link-http-common-0.2.16.tgz#756749dafc732792c8ca0923f9a40564b7c59ecc"
   integrity sha512-2tIhOIrnaF4UbQHf7kjeQA/EmSorB7+HyJIIrUjJOKBgnXwuexi8aMecRlqTIDWcyVXCeqLhUnztMa6bOH/jTg==
@@ -4968,7 +4993,7 @@ apollo-link-http@^1.5.5:
     apollo-link-http-common "^0.2.16"
     tslib "^1.9.3"
 
-apollo-link@^1.2.13, apollo-link@^1.2.14, apollo-link@^1.2.3:
+apollo-link@^1.2.12, apollo-link@^1.2.13, apollo-link@^1.2.14, apollo-link@^1.2.3:
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.14.tgz#3feda4b47f9ebba7f4160bef8b977ba725b684d9"
   integrity sha512-p67CMEFP7kOG1JZ0ZkYZwRDa369w5PIjtMjvrQd/HnIV8FRsHRqLqK+oAZQnFa1DDdZtOtHTi+aMIW6EatC2jg==
@@ -5166,6 +5191,16 @@ apollo-tracing@^0.9.1:
   dependencies:
     apollo-server-env "^2.4.3"
     graphql-extensions "^0.11.1"
+
+apollo-upload-client@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/apollo-upload-client/-/apollo-upload-client-13.0.0.tgz#146d1ddd85d711fcac8ca97a72d3ca6787f2b71b"
+  integrity sha512-lJ9/bk1BH1lD15WhWRha2J3+LrXrPIX5LP5EwiOUHv8PCORp4EUrcujrA3rI5hZeZygrTX8bshcuMdpqpSrvtA==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    apollo-link "^1.2.12"
+    apollo-link-http-common "^0.2.14"
+    extract-files "^8.0.0"
 
 apollo-utilities@^1.0.1, apollo-utilities@^1.3.0:
   version "1.3.3"
@@ -6551,6 +6586,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30000989, can
   version "1.0.30001041"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001041.tgz#c2ea138dafc6fe03877921ddcddd4a02a14daf76"
   integrity sha512-fqDtRCApddNrQuBxBS7kEiSGdBsgO4wiVw4G/IClfqzfhW45MbTumfN4cuUJGTM0YGFNn97DCXPJ683PS6zwvA==
+
+capitalize@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/capitalize/-/capitalize-2.0.3.tgz#ccfeb1046d2a054eb30f34af907a70c3e90f3b73"
+  integrity sha512-Qc5ksT1/zEJBbFYD05h99hCNEW0cgyD0zzE5WvkgisNnppJ+16zfaSk34evF0j6pGW8hejkRUeygJ5uN5k22SQ==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -9118,6 +9158,11 @@ extract-files@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/extract-files/-/extract-files-7.0.0.tgz#3dc7853320ff7876ec62d6e98f2f4e6f3e6282f6"
   integrity sha512-3AUlT7TD+DbQXNe3t70QrgJU6Wgcp7rk1Zm0vqWz8OYnw4vxihgG0TgZ2SIGrVqScc4WfOu7B4a0BezGJ0YqvQ==
+
+extract-files@^8.0.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/extract-files/-/extract-files-8.1.0.tgz#46a0690d0fe77411a2e3804852adeaa65cd59288"
+  integrity sha512-PTGtfthZK79WUMk+avLmwx3NGdU8+iVFXC2NMGxKsn0MnihOG2lvumj+AZo8CTwTrwjXDgZ5tztbRlEdRjBonQ==
 
 extsprintf@1.3.0:
   version "1.3.0"
@@ -18575,6 +18620,11 @@ trim-off-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
+try-catch@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/try-catch/-/try-catch-3.0.0.tgz#7996d8b89895e2e8ae62cbdbeb4fe17470f8131b"
+  integrity sha512-3uAqUnoemzca1ENvZ72EVimR+E8lqBbzwZ9v4CEbLjkaV3Q+FtdmPUt7jRtoSoTiYjyIMxEkf6YgUpe/voJ1ng==
+
 try-to-catch@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/try-to-catch/-/try-to-catch-3.0.0.tgz#a1903b44d13d5124c54d14a461d22ec1f52ea14b"
@@ -19097,6 +19147,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid-validate@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/uuid-validate/-/uuid-validate-0.0.3.tgz#e30617f75dc742a0e4f95012a11540faf9d39ab4"
+  integrity sha512-Fykw5U4eZESbq739BeLvEBFRuJODfrlmjx5eJux7W817LjRaq4b7/i4t2zxQmhcX+fAj4nMfRdTzO4tmwLKn0w==
 
 uuid@3.3.2:
   version "3.3.2"

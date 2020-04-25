@@ -11,6 +11,7 @@ export interface BillUserModel {
   getBillInvite: typeof getBillInvite;
   createOne: typeof createOne;
   getBillUser: typeof getBillUser;
+  getBillUsersById: typeof getBillUsersById;
   remove: typeof remove;
   update: typeof update;
 }
@@ -43,6 +44,14 @@ async function getBillUser(billId: string, userId: string) {
     .getOne();
 
   return !res ? null : remap(res, '__user__');
+}
+
+async function getBillUsersById(billId: string, userIds: string[]) {
+  return getRepository(BillUser)
+    .createQueryBuilder('billUser')
+    .where('billUser.billId = :billId', { billId })
+    .andWhere('billUser.userId IN (:...userIds)', { userIds })
+    .getMany();
 }
 
 async function getBillInvite(billId: string, userId: string) {
@@ -103,6 +112,7 @@ async function createOne(input: CreateBillUserInput) {
 export default {
   createOne,
   getBillUser,
+  getBillUsersById,
   getBillInvite,
   remove,
   update,
