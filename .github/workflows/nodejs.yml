@@ -19,9 +19,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v1.4.2
       - name: Install dependencies
-        run: |
-          ls
-          npm ci
+        run: yarn install --frozen-lockfile
 #         with:
 #           working-directory: ./packages/server
     
