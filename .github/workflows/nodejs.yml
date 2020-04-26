@@ -28,10 +28,15 @@ jobs:
             ${{ runner.OS }}-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+    
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps: 
       - name: Build server
         working-directory: ./packages/server
         run: yarn build
-    
+        
 #   build:
 #     name: Build
 #     runs-on: ubuntu-latest
