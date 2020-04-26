@@ -10,8 +10,8 @@ on:
     branches: [ master ]
 
 jobs:
-  install_dependencies:
-    name: Instal dependencies
+  test_and_build:
+    name: Test and build server
     runs-on: ubuntu-latest
     
     steps:
@@ -31,8 +31,25 @@ jobs:
       - name: Build server
         working-directory: ./packages/server
         run: yarn build
-        
-      
+      - name: Upload server files
+        uses: actions/upload-artifact@v1
+        with: 
+          name: server
+          path: ./packages/server/dist        
+    
+  deploy:
+    name: deploy server
+    runs-on: ubuntu-latest
+    
+    steps: 
+      - name: Download compiled server files
+        uses: actions/download-artifact@v1
+        with: 
+          name: server
+          path: ./dist
+      - name: something
+        run: ls
+    
     
 #   build:
 #     name: Build
