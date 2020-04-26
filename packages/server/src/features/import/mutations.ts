@@ -36,7 +36,7 @@ const requiredFields = [
   'paid_by_id',
   'total',
   'splits',
-];
+] as const;
 
 export default {
   Mutation: {
@@ -70,7 +70,6 @@ export default {
       const dataMap = data.reduce<ImportDataMap>(
         (acc, next) => {
           if (
-            // @ts-ignore
             requiredFields.some(
               (f) => next[f] === undefined || next[f] === null
             )
