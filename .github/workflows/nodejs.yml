@@ -51,6 +51,7 @@ jobs:
           path: ./packages/server/dist
       - name: Change directory
         working-directory: ./packages/server
+        run: ls
       - name: Docker Build & Push to Docker Hub
         uses: opspresso/action-docker@master
         with:
