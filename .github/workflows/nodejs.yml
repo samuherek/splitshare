@@ -48,8 +48,13 @@ jobs:
         with: 
           name: server
           path: ./dist
-      - name: something
-        run: ls
+      - name: Setup SSH to splitshare server
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-host: api.splitshare.me
+      - name: Connect to the server
+        run: ssh sam@api.splitshare.me && ls && ~.
     
     
 #   build:
