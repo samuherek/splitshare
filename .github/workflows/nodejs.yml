@@ -35,19 +35,39 @@ jobs:
         uses: actions/upload-artifact@v1
         with: 
           name: server
-          path: ./packages/server/dist        
+          path: ./packages/server/dist
     
-  deploy:
-    name: deploy server
-    runs-on: ubuntu-latest
+  dockerize: 
+    name: Build and publish docker image
+    runs-on: ubunut-latest
     needs: [test_and_build]
     
     steps: 
+      - uses: actions/checkout@v2
       - name: Download compiled server files
         uses: actions/download-artifact@v1
         with: 
           name: server
-          path: ./dist
+          path: ./packages/server/dist
+      - name: Docker Build & Push to Docker Hub
+        uses: opspresso/action-docker@master
+        with:
+          args: --docker
+        env:
+          USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKERFILE: "Dockerfile"
+          IMAGE_NAME: "samuherek/splitshare"
+          TAG_NAME: "latest"
+          LATEST: "true"
+    
+    
+  deploy:
+    name: deploy server
+    runs-on: ubuntu-latest
+    needs: [test_and_build, dockerize]
+    
+    steps: 
       - name: Setup SSH to splitshare server
         uses: kielabokkie/ssh-key-and-known-hosts-action@v1
         with:
