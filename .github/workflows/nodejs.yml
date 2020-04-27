@@ -39,7 +39,7 @@ jobs:
     
   dockerize: 
     name: Build and publish docker image
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
     needs: [test_and_build]
     
     steps: 
