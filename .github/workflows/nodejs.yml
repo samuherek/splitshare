@@ -10,8 +10,8 @@ on:
     branches: [master]
 
 jobs:
-  install_dependencies:
-    name: Instal dependencies
+  test_and_build:
+    name: Test and build server
     runs-on: ubuntu-latest
 
     steps:
@@ -28,14 +28,64 @@ jobs:
             ${{ runner.OS }}-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
       - name: Build server
         working-directory: ./packages/server
         run: yarn build
+      - name: Upload server files
+        uses: actions/upload-artifact@v1
+        with:
+          name: server
+          path: ./packages/server/dist
+
+  dockerize:
+    name: Build and publish docker image
+    runs-on: ubuntu-latest
+    needs: [test_and_build]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download compiled server files
+        uses: actions/download-artifact@v1
+        with:
+          name: server
+          path: ./packages/server/dist
+      - name: Check docker
+        working-directory: ./packages/server
+        run: docker --version && yarn docker:build
+  #       - name: Docker Build & Push to Docker Hub
+  #         uses: opspresso/action-docker@master
+  #         with:
+  #           args: --docker
+  #         env:
+  #           USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  #           PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  #           BUILD_PATH: ./packages/server
+  #           DOCKERFILE: "Dockerfile"
+  #           IMAGE_NAME: "samuherek/splitshare"
+  #           TAG_NAME: "latest"
+
+  deploy:
+    name: deploy server
+    runs-on: ubuntu-latest
+    needs: [test_and_build, dockerize]
+
+    steps:
+      - name: Setup SSH to splitshare server
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-host: api.splitshare.me
+      - name: Connect to the server
+        run: ssh sam@api.splitshare.me && ls && ~.
+#   build:
+#     name: Build
+#     runs-on: ubuntu-latest
+#     needs: [install_dependencies]
+#     steps:
+#       - name: Build server
+#         working-directory: ./packages/server
+#         run: yarn build
+
 #   build:
 #     name: Build
 #     runs-on: ubuntu-latest
