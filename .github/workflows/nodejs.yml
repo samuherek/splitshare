@@ -72,8 +72,9 @@ jobs:
       - name: Connect to the server
         run: |
           ssh sam@api.splitshare.me
-          sudo docker pull samuherek/splitshare:latest
+          sudo docker login
           ${{ secrets.SERVER_PASSWORD }}
+          sudo docker pull samuherek/splitshare:latest
           docker tag samuherek/splitshare:latest dokku/splitshare:latest
           dokku tags:deploy splitshare latest
       - name: Exit server
