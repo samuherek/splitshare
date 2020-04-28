@@ -5,11 +5,10 @@ temp/
 dist
 .docz
 dump.rdb
-**/.env.*
 notes.md
 
 **/.env
-**/.env.*
+**/.env.development
 
 **/coverage
 
