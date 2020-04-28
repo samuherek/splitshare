@@ -56,11 +56,10 @@ jobs:
         env:
           USERNAME: ${{ secrets.DOCKER_USERNAME }}
           PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          BUILD_PATH: ./packages/server/dist
+          BUILD_PATH: ./packages/server
           DOCKERFILE: "Dockerfile"
           IMAGE_NAME: "samuherek/splitshare"
           TAG_NAME: "latest"
-          LATEST: "true"
     
     
   deploy:
