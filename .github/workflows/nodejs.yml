@@ -51,7 +51,7 @@ jobs:
           path: ./packages/server/dist
       - name: Check docker
         working-directory: ./packages/server
-        run: docker --version && yarn build
+        run: docker --version && yarn docker:build
 #       - name: Docker Build & Push to Docker Hub
 #         uses: opspresso/action-docker@master
 #         with:
