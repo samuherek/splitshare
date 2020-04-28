@@ -49,17 +49,20 @@ jobs:
         with: 
           name: server
           path: ./packages/server/dist
-      - name: Docker Build & Push to Docker Hub
-        uses: opspresso/action-docker@master
-        with:
-          args: --docker
-        env:
-          USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          BUILD_PATH: ./packages/server
-          DOCKERFILE: "Dockerfile"
-          IMAGE_NAME: "samuherek/splitshare"
-          TAG_NAME: "latest"
+      - name: Check docker
+        working-directory: ./packages/server
+        run: docker --version && yarn build
+#       - name: Docker Build & Push to Docker Hub
+#         uses: opspresso/action-docker@master
+#         with:
+#           args: --docker
+#         env:
+#           USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#           PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#           BUILD_PATH: ./packages/server
+#           DOCKERFILE: "Dockerfile"
+#           IMAGE_NAME: "samuherek/splitshare"
+#           TAG_NAME: "latest"
     
     
   deploy:
