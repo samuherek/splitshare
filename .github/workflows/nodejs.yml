@@ -70,4 +70,11 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-host: api.splitshare.me
       - name: Connect to the server
-        run: ssh sam@api.splitshare.me && ls && ~.
+        run: |
+          ssh sam@api.splitshare.me
+          sudo docker pull samuherek/splitshare:latest
+          ${{ secrets.SERVER_PASSWORD }}
+          docker tag samuherek/splitshare:latest dokku/splitshare:latest
+          dokku tags:deploy splitshare latest
+      - name: Exit server
+        run: exit
