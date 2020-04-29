@@ -49,7 +49,14 @@ function BillInviteNotification({
   });
 
   async function handleUpdateInvite(state: InviteState) {
-    const [err, res] = await tryToCatch(updateBillInvite, { variables: state });
+    const [err, res] = await tryToCatch(updateBillInvite, {
+      variables: {
+        input: {
+          billId: invite.bill.id,
+          state,
+        },
+      },
+    });
     if (!err && res) {
       await tryToCatch(updateNotification);
     }

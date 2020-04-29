@@ -25,6 +25,12 @@ interface Props {
 // TODO: look if this is the only way to do it with
 // current implementation.
 function WaitForUserCreation({ children }: any) {
+  // We need this flag to see if we already did redirect. If not,
+  // we want to prevent rendering the routes. Otherwise, the logic
+  // inside of the URL route will fire without the render happens
+  // This will trigger GQL calls to the server and produce stale
+  // data + unnecessary calls to the server.
+  const [redirectChecked, setRedirectChecked] = React.useState(false);
   const { data, loading, error } = useQueryMe();
 
   console.log('logged in user:', data?.me);
@@ -36,13 +42,17 @@ function WaitForUserCreation({ children }: any) {
     } else if (userState === UserState.OnboardingProfile) {
       navigate('/setup', { replace: true });
     }
+    if (!redirectChecked) {
+      setRedirectChecked(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState]);
 
   if (error) {
     return <ErrorMessage error={error} />;
   }
 
-  if (loading || !data) {
+  if (loading || !redirectChecked || !data) {
     return null;
   }
 
