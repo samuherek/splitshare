@@ -28,6 +28,15 @@ jobs:
             ${{ runner.OS }}-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Setup env varialbes
+        working-directory: ./packages/web
+        run: |
+          touch .env
+          echo 'REACT_APP_API_BASE_URL=https://api.splitshare.me' >> ./.env
+          echo 'REACT_APP_AUTH0_CLIENT_ID=7A42PzX6beUckMoH60ieIsY2S8MlhOPV' >> ./.env
+          echo 'REACT_APP_AUTH0_DOMAIN=splitshare.eu.auth0.com' >> ./.env
+          echo 'REACT_APP_AUTH0_AUDIENCE=graphql' >> ./.env
+          echo 'REACT_APP_AUTH0_LOGOUT_URL=https://splitshare.me' >> ./.env
       - name: Build web
         working-directory: ./packages/web
         run: yarn build --production
@@ -43,9 +52,15 @@ jobs:
     needs: [test_and_build]
 
     steps:
-      - name: Setup credentials
-        run: |
-          export NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID }}
-          export NETLIFY_AUTH_TOKEN=${{ secrets.NETLIFY_AUTH_TOKEN }}
+      - name: Download compiled web files
+        uses: actions/download-artifact@v1
+        with:
+          name: web
+          path: ./build
+      - name: Install netlify CLI
+        run: sudo npm i -g netlify-cli
       - name: Deploy to netlify
-        run: netlify deploy --dir=./packages/web/build
+        run: netlify deploy --dir=./build --prod
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
