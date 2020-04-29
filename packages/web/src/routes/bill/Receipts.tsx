@@ -27,7 +27,7 @@ const RowStyled = styled.div`
 `;
 
 function Receipts({ bill }: Props) {
-  const { data, loading, error, refetch } = useQueryReceipts({
+  const { data, error, refetch } = useQueryReceipts({
     billId: bill.id,
   });
 

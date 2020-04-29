@@ -10,7 +10,7 @@ import { initials } from '../utils/user';
 const WrapStyled = styled.div``;
 
 function Settings(props: RouteComponentProps) {
-  const { data, loading, error } = useQueryMe();
+  const { data, error } = useQueryMe();
 
   return (
     <>

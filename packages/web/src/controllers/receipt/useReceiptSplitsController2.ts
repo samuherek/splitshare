@@ -29,6 +29,7 @@ function useReceiptSplitsController({ total, splits }: Options) {
       editingExistingRef.current = true;
       setSplitValues(splits);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [splits]);
 
   React.useEffect(() => {
@@ -39,6 +40,7 @@ function useReceiptSplitsController({ total, splits }: Options) {
     }
     // TODO: fix this awkward flag
     editingExistingRef.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total]);
 
   React.useEffect(() => {
@@ -54,6 +56,7 @@ function useReceiptSplitsController({ total, splits }: Options) {
       setErrors(null);
     }
     // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [splitValues, errors, setErrors]);
 
   const handleSplitChange = React.useCallback(

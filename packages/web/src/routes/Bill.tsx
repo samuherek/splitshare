@@ -28,7 +28,7 @@ function Bill({ billParam, navigate }: Props) {
   const billParamId = billParam ? getUUIDFromUrl(billParam) : null;
   const billId = billParamId || '';
 
-  const { data, loading, error } = useQueryBill({
+  const { data, error } = useQueryBill({
     id: billId,
     queryOpts: { skip: !billId },
   });
