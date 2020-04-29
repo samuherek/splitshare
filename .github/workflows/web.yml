@@ -43,10 +43,15 @@ jobs:
     needs: [test_and_build]
     
     steps: 
+      - name: Download compiled web files
+        uses: actions/download-artifact@v1
+        with:
+          name: web
+          path: ./build
       - name: Install netlify CLI
         run: sudo npm i -g netlify-cli
       - name: Deploy to netlify
-        run: netlify deploy --dir=./packages/web/build --prod
+        run: netlify deploy --dir=./build --prod
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
