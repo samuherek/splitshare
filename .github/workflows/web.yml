@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: web
-          path: ./packages/web/public
+          path: ./packages/web/build
 
   notlify:
     name: Publish web to netlify
@@ -48,4 +48,4 @@ jobs:
           export NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID }}
           export NETLIFY_AUTH_TOKEN=${{ secrets.NETLIFY_AUTH_TOKEN }}
       - name: Deploy to netlify
-        run: netlify deploy --dir=./packages/web/public
+        run: netlify deploy --dir=./packages/web/build
