@@ -43,6 +43,8 @@ jobs:
     needs: [test_and_build]
     
     steps: 
+      - name: Install netlify CLI
+        run: npm i -g netlify-cli
       - name: Setup credentials
         run: |
           export NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID }}
