@@ -35,6 +35,6 @@ export default gql`
 
   extend type Mutation {
     updateMe(meInput: MeInput!): User!
-    setupAccount(input: SetupInput!): Boolean!
+    setupAccount(input: SetupInput!): User!
   }
 `;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user mutation setupAccount should match snapshot 1`] = `
+Object {
+  "data": Object {
+    "setupAccount": Object {
+      "avatarUrl": null,
+      "email": "email@email.com",
+      "firstName": null,
+      "id": "1",
+      "lastName": null,
+      "state": "ACTIVE",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

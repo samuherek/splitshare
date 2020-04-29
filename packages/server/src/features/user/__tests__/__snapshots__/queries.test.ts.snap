@@ -1,14 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`user queries me: query should return a user with appropriate fields 1`] = `
+exports[`user queries me should match snapshot 1`] = `
 Object {
   "data": Object {
     "me": Object {
-      "displayName": null,
+      "avatarUrl": null,
       "email": "email@email.com",
+      "firstName": null,
       "id": "1",
-      "photoUrl": null,
+      "lastName": null,
+      "state": "ACTIVE",
     },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`user queries myUsers should match snapshot 1`] = `
+Object {
+  "data": Object {
+    "myUsers": Array [
+      Object {
+        "avatarUrl": null,
+        "email": "email@email.com",
+        "firstName": null,
+        "id": "1",
+        "lastName": null,
+        "state": "ACTIVE",
+      },
+      Object {
+        "avatarUrl": null,
+        "email": "email@email.com",
+        "firstName": null,
+        "id": "2",
+        "lastName": null,
+        "state": "ACTIVE",
+      },
+    ],
   },
   "errors": undefined,
   "extensions": undefined,

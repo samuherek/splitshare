@@ -7,7 +7,6 @@
   "scripts": {
     "start:old": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
     "start": "ts-node-dev --respawn --ignore-watch node_modules src/index.ts",
-    "test:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "jest --watch-all",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --ignore-pattern=*.test.ts --ext=.ts",
@@ -75,5 +74,10 @@
     "ts-node": "8.3.0",
     "ts-node-dev": "1.0.0-pre.42",
     "typescript": "3.8.2"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/"
+    ]
   }
 }

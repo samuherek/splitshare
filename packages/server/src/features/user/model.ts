@@ -1,7 +1,9 @@
-import { getRepository } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
+import { camelCase } from 'typeorm/util/StringUtils';
 import { BillUser } from '../../entity/BillUser';
 import { User } from '../../entity/User';
 import { SetupAccountInput, UserFilter, UserInput } from './types.d';
+import mapObject = require('map-obj');
 
 export interface UserModel {
   createOne: typeof createOne;
@@ -62,12 +64,22 @@ async function getBillUsersByUserId(userId: string) {
 }
 
 async function update(input: SetupAccountInput, userId: string) {
-  try {
-    await getRepository(User).update(userId, input);
-    return true;
-  } catch (e) {
-    throw new Error(e);
+  const { raw } = await getConnection()
+    .createQueryBuilder()
+    .update(User)
+    .set({ ...input })
+    .where('id = :userId', { userId })
+    .updateEntity(true)
+    .output('*')
+    .execute();
+
+  const [res] = raw;
+
+  if (!res) {
+    throw new Error('No such user found');
   }
+
+  return mapObject(res, (key, val) => [camelCase(key as string), val]);
 }
 
 async function remove(criteria: string | string[]) {
