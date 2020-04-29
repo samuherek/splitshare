@@ -29,12 +29,14 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Setup env varialbes
+        working-directory: ./packages/web
         run: |
-          echo 'REACT_APP_API_BASE_URL=https://api.splitshare.me' > .packages/web/.env
-          echo 'REACT_APP_AUTH0_CLIENT_ID=7A42PzX6beUckMoH60ieIsY2S8MlhOPV' >> .packages/web/.env
-          echo 'REACT_APP_AUTH0_DOMAIN=https://splitshare.eu.auth0.com' >> .packages/web/.env
-          echo 'REACT_APP_AUTH0_AUDIENCE=graphql' >> .packages/web/.env
-          echo 'REACT_APP_AUTH0_LOGOUT_URL=https://splitshare.me' >> .packages/web/.env
+          touch .env
+          echo 'REACT_APP_API_BASE_URL=https://api.splitshare.me' >> ./.env
+          echo 'REACT_APP_AUTH0_CLIENT_ID=7A42PzX6beUckMoH60ieIsY2S8MlhOPV' >> ./.env
+          echo 'REACT_APP_AUTH0_DOMAIN=https://splitshare.eu.auth0.com' >> ./.env
+          echo 'REACT_APP_AUTH0_AUDIENCE=graphql' >> ./.env
+          echo 'REACT_APP_AUTH0_LOGOUT_URL=https://splitshare.me' >> ./.env
       - name: Build web
         working-directory: ./packages/web
         run: yarn build --production
