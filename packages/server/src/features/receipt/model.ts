@@ -1,9 +1,4 @@
-import {
-  FindConditions,
-  getConnection,
-  getRepository,
-  ObjectID,
-} from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 import { camelCase } from 'typeorm/util/StringUtils';
 import { Bill } from '../../entity/Bill';
 import { Receipt } from '../../entity/Receipt';
@@ -29,7 +24,7 @@ export interface ReceiptModel {
 
 // TODO: Figure out a way how to only allow "userId"
 async function getBillReceipts({ billId, pagination }: ReceiptsArgs) {
-  const query = await getRepository(Receipt)
+  const query = getRepository(Receipt)
     .createQueryBuilder('receipt')
     .where('receipt.billId = :billId', { billId })
     .orderBy({
@@ -51,19 +46,15 @@ async function getById(id: string) {
   return getRepository(Receipt).findOne(id);
 }
 
-async function remove(
-  criteria:
-    | string
-    | number
-    | string[]
-    | number[]
-    | Date
-    | Date[]
-    | ObjectID
-    | ObjectID[]
-    | FindConditions<Receipt>
-) {
-  return getRepository(Receipt).delete(criteria);
+async function remove(receiptId: string) {
+  const res = await getById(receiptId);
+
+  if (!res) {
+    throw new Error('There is no such receipt');
+  }
+
+  await getRepository(Receipt).delete(receiptId);
+  return res;
 }
 
 async function update(id: string, input: UpdateReceiptInput) {

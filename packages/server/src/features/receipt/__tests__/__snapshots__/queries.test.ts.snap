@@ -1,6 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`receipt queries receipts: query should return an arry of receipts with appropriate fields 1`] = `
+exports[`receipt queries receipt should match snapshot 1`] = `
+Object {
+  "data": Object {
+    "receipt": Object {
+      "category": null,
+      "comment": null,
+      "createdAt": "2000-01-01",
+      "currency": "EUR",
+      "id": "1",
+      "isSettlement": false,
+      "paidAt": "2000-01-01",
+      "paidBy": Object {
+        "avatarUrl": "http://..",
+        "email": "email@email.com",
+        "firstName": "first",
+        "id": "2",
+        "lastName": "last",
+        "state": "ACTIVE",
+      },
+      "splits": Array [
+        Object {
+          "currency": "EUR",
+          "owingTo": Object {
+            "avatarUrl": "http://..",
+            "email": "email@email.com",
+            "firstName": "first",
+            "id": "2",
+            "lastName": "last",
+            "state": "ACTIVE",
+          },
+          "user": Object {
+            "avatarUrl": "http://..",
+            "email": "email@email.com",
+            "firstName": "first",
+            "id": "2",
+            "lastName": "last",
+            "state": "ACTIVE",
+          },
+          "value": 11.5,
+        },
+        Object {
+          "currency": "EUR",
+          "owingTo": Object {
+            "avatarUrl": "http://..",
+            "email": "email@email.com",
+            "firstName": "first",
+            "id": "2",
+            "lastName": "last",
+            "state": "ACTIVE",
+          },
+          "user": Object {
+            "avatarUrl": "http://..",
+            "email": "email@email.com",
+            "firstName": "first",
+            "id": "2",
+            "lastName": "last",
+            "state": "ACTIVE",
+          },
+          "value": 11.5,
+        },
+      ],
+      "title": "title",
+      "total": 23,
+      "updatedAt": "2000-01-01T00:00:00.000Z",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`receipt queries receipts should match snapshot 1`] = `
 Object {
   "data": Object {
     "receipts": Object {
@@ -15,6 +91,56 @@ Object {
             "id": "1",
             "isSettlement": false,
             "paidAt": "2000-01-01",
+            "paidBy": Object {
+              "avatarUrl": "http://..",
+              "email": "email@email.com",
+              "firstName": "first",
+              "id": "2",
+              "lastName": "last",
+              "state": "ACTIVE",
+            },
+            "splits": Array [
+              Object {
+                "currency": "EUR",
+                "owingTo": Object {
+                  "avatarUrl": "http://..",
+                  "email": "email@email.com",
+                  "firstName": "first",
+                  "id": "2",
+                  "lastName": "last",
+                  "state": "ACTIVE",
+                },
+                "user": Object {
+                  "avatarUrl": "http://..",
+                  "email": "email@email.com",
+                  "firstName": "first",
+                  "id": "2",
+                  "lastName": "last",
+                  "state": "ACTIVE",
+                },
+                "value": 11.5,
+              },
+              Object {
+                "currency": "EUR",
+                "owingTo": Object {
+                  "avatarUrl": "http://..",
+                  "email": "email@email.com",
+                  "firstName": "first",
+                  "id": "2",
+                  "lastName": "last",
+                  "state": "ACTIVE",
+                },
+                "user": Object {
+                  "avatarUrl": "http://..",
+                  "email": "email@email.com",
+                  "firstName": "first",
+                  "id": "2",
+                  "lastName": "last",
+                  "state": "ACTIVE",
+                },
+                "value": 11.5,
+              },
+            ],
             "title": "title",
             "total": 23,
             "updatedAt": "2000-01-01T00:00:00.000Z",
@@ -24,6 +150,7 @@ Object {
       "pageInfo": Object {
         "endCursor": "endCursor",
         "hasNextPage": false,
+        "itemsCount": 1,
       },
     },
   },

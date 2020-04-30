@@ -1,110 +1,465 @@
-// import * as faker from 'faker';
-// import { Connection } from 'typeorm';
-// import cleanupDb from '../../../test-utils/cleanupDb';
-// import { connectTestDatabase } from '../../../test-utils/testConnection';
-// import bill from '../../bill/model';
-// import user from '../../user/model';
-// import receipt from '../model';
+import * as faker from 'faker';
+import { createConnection, getConnection } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
+import { CustomNamingStrategy } from '../../../db';
+import { Bill as BillEntity } from '../../../entity/bill';
+import { Receipt as ReceiptEntity } from '../../../entity/Receipt';
+import { User as UserEntity } from '../../../entity/user';
+import Bill from '../../bill/model';
+import User from '../../user/model';
+import Receipt from '../model';
 
-// let conn: Connection;
+describe('receipt model', () => {
+  let user1: UserEntity;
+  let user2: UserEntity;
+  let bill: BillEntity;
 
-// beforeAll(async () => {
-//   conn = await connectTestDatabase({ drop: false });
-// });
+  const receiptType = {
+    title: expect.any(String),
+    total: expect.any(Number),
+    currency: expect.any(String),
+    paidAt: expect.any(Date),
+    billId: expect.any(String),
+    paidById: expect.any(String),
+    createdById: expect.any(String),
+    splits: expect.any(Object),
+    comment: expect.any(String),
+    category: expect.any(String),
+    id: expect.any(String),
+    createdAt: expect.any(String),
+    updatedAt: expect.any(Date),
+    isSettlement: expect.any(Boolean),
+  };
 
-// afterAll(async () => {
-//   conn.close();
-// });
+  beforeEach(async () => {
+    const conn = await createConnection({
+      database: 'splitshare-test2',
+      dropSchema: true,
+      host: 'localhost',
+      name: 'default',
+      password: '',
+      namingStrategy: new CustomNamingStrategy(),
+      port: 5432,
+      entities: ['src/entity/**/*.*'],
+      migrations: ['src/migration/**/*.*'],
+      synchronize: true,
+      type: 'postgres',
+      username: 'samuherek',
+    });
 
-// describe('receipt model', () => {
-//   beforeEach(() => cleanupDb());
+    user1 = await User.createOne({ email: faker.internet.email() });
+    user2 = await User.createOne({ email: faker.internet.email() });
+    bill = await Bill.createOne(
+      { name: 'bill', currency: faker.finance.currencyCode() },
+      user1.id
+    );
 
-//   test('createOne: should create a receipt in database', async () => {
-//     const user1 = await user.createOne({ email: faker.internet.email() });
-//     const bill1 = await bill.createOne({ name: 'name' }, user1.id);
-//     const receipt1 = await receipt.createOne(
-//       {
-//         billId: bill1.id,
-//         title: 'receipt',
-//         paidAt: new Date('2000-01-01'),
-//         total: 5,
-//         currency: 'EUR',
-//         splits: [],
-//       },
-//       user1.id
-//     );
+    return conn;
+  });
 
-//     const result1 = await receipt.getById(receipt1.id);
+  afterEach(async () => {
+    let conn = getConnection();
+    return conn.close();
+  });
 
-//     // TODO: I have no clue why it again doesn't return all the keys
-//     delete receipt1.billId;
-//     delete receipt1.createdById;
+  describe('createOne', () => {
+    test('returns type of receipt after creation', async () => {
+      const receipt = await Receipt.createOne(
+        {
+          title: 'bill',
+          billId: bill.id,
+          paidById: user1.id,
+          paidAt: new Date('2000-01-01'),
+          total: 10,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 5 },
+            { userId: user2.id, value: 5 },
+          ],
+        },
+        user1.id
+      );
 
-//     expect(result1).toEqual({
-//       ...receipt1,
-//       paidAt: '2000-01-01',
-//       total: '5',
-//     });
-//   });
+      expect(receipt).toEqual(receiptType);
+    });
 
-//   test('getBillReceipts: should return paginated list of receipts', async () => {
-//     const user1 = await user.createOne({ email: faker.internet.email() });
-//     const bill1 = await bill.createOne({ name: 'name' }, user1.id);
-//     const receipt1 = await receipt.createOne(
-//       {
-//         billId: bill1.id,
-//         title: 'receipt',
-//         paidAt: new Date('2000-01-01'),
-//         total: 5,
-//         currency: 'EUR',
-//         splits: [],
-//       },
-//       user1.id
-//     );
+    test('creates the receipt in the database', async () => {
+      const receipt = await Receipt.createOne(
+        {
+          title: 'bill',
+          billId: bill.id,
+          paidById: user1.id,
+          paidAt: new Date('2000-01-01'),
+          total: 10,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 5 },
+            { userId: user2.id, value: 5 },
+          ],
+        },
+        user1.id
+      );
 
-//     // TODO: I have no clue why it again doesn't return all the keys
-//     delete receipt1.billId;
-//     delete receipt1.createdById;
+      const result = await Receipt.getById(receipt.id);
 
-//     const result1 = await receipt.getBillReceipts({ billId: bill1.id });
+      expect(result).toBeDefined();
+      expect(result?.id).toEqual(receipt.id);
+    });
+  });
 
-//     expect(result1).toEqual({
-//       edges: [
-//         {
-//           cursor: expect.any(String),
-//           node: {
-//             ...receipt1,
-//             paidAt: '2000-01-01',
-//             total: '5',
-//           },
-//         },
-//       ],
-//       pageInfo: {
-//         endCursor: expect.any(String),
-//         hasNextPage: expect.any(Boolean),
-//       },
-//     });
-//   });
+  describe('update', () => {
+    let receipt: ReceiptEntity;
 
-//   test('remove: should remove receipt from the database', async () => {
-//     const user1 = await user.createOne({ email: faker.internet.email() });
-//     const bill1 = await bill.createOne({ name: 'name' }, user1.id);
-//     const receipt1 = await receipt.createOne(
-//       {
-//         billId: bill1.id,
-//         title: 'receipt',
-//         paidAt: new Date('2000-01-01'),
-//         total: 5,
-//         currency: 'EUR',
-//         splits: [],
-//       },
-//       user1.id
-//     );
+    beforeEach(async () => {
+      receipt = await Receipt.createOne(
+        {
+          title: 'bill',
+          billId: bill.id,
+          paidById: user1.id,
+          paidAt: new Date('2000-01-01'),
+          total: 10,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 5 },
+            { userId: user2.id, value: 5 },
+          ],
+        },
+        user1.id
+      );
+      return receipt;
+    });
 
-//     await receipt.remove(receipt1.id);
+    test('should return type of Receipt', async () => {
+      const result = await Receipt.update(receipt.id, { title: 'bill2' });
 
-//     const result1 = await receipt.getById(receipt1.id);
+      expect(result).toEqual({
+        ...receiptType,
+        createdAt: expect.any(Date),
+        total: expect.any(String),
+      });
+    });
 
-//     expect(result1).toBeUndefined();
-//   });
-// });
+    test('should update receipt fields', async () => {
+      const nextTitle = 'next title';
+      const update = await Receipt.update(receipt.id, { title: nextTitle });
+      const result = await Receipt.getById(update.id);
+
+      expect(result?.title).toEqual(nextTitle);
+    });
+
+    test('throws an error when no such receipt exist in database', async () => {
+      await expect(Receipt.update(uuidv4(), { title: '' })).rejects.toThrow();
+    });
+  });
+
+  describe('remove', () => {
+    let receipt: ReceiptEntity;
+
+    beforeEach(async () => {
+      receipt = await Receipt.createOne(
+        {
+          title: 'bill',
+          billId: bill.id,
+          paidById: user1.id,
+          paidAt: new Date('2000-01-01'),
+          total: 10,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 5 },
+            { userId: user2.id, value: 5 },
+          ],
+        },
+        user1.id
+      );
+      return receipt;
+    });
+
+    test('returns type of receipt', async () => {
+      const result = await Receipt.remove(receipt.id);
+
+      expect(result).toEqual({
+        ...receiptType,
+        paidAt: expect.any(String),
+        total: expect.any(String),
+      });
+    });
+
+    test('removes receipt from the database', async () => {
+      await Receipt.remove(receipt.id);
+      const result = await Receipt.getById(receipt.id);
+
+      expect(result).toEqual(undefined);
+    });
+  });
+
+  describe('getById', () => {
+    let receipt: ReceiptEntity;
+
+    beforeEach(async () => {
+      receipt = await Receipt.createOne(
+        {
+          title: 'bill',
+          billId: bill.id,
+          paidById: user1.id,
+          paidAt: new Date('2000-01-01'),
+          total: 10,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 5 },
+            { userId: user2.id, value: 5 },
+          ],
+        },
+        user1.id
+      );
+      return receipt;
+    });
+
+    test('returns type of receipt', async () => {
+      const result = await Receipt.getById(receipt.id);
+
+      expect(result).toEqual({
+        ...receiptType,
+        paidAt: expect.any(String),
+        total: expect.any(String),
+      });
+    });
+
+    test('returns the correct receipt', async () => {
+      const result = await Receipt.getById(receipt.id);
+
+      expect(result?.id).toEqual(receipt.id);
+    });
+
+    test('returns undefined if there is no such receipt', async () => {
+      const result = await Receipt.getById(uuidv4());
+
+      expect(result).toEqual(undefined);
+    });
+  });
+
+  describe('getAllBillReceipts', () => {
+    let receipt: ReceiptEntity;
+    let receipt2: ReceiptEntity;
+    let bill2: BillEntity;
+
+    beforeEach(async () => {
+      bill2 = await Bill.createOne(
+        { name: 'bill2', currency: faker.finance.currencyCode() },
+        user1.id
+      );
+      receipt = await Receipt.createOne(
+        {
+          title: 'bill',
+          billId: bill.id,
+          paidById: user1.id,
+          paidAt: new Date('2000-01-01'),
+          total: 10,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 5 },
+            { userId: user2.id, value: 5 },
+          ],
+        },
+        user1.id
+      );
+      receipt2 = await Receipt.createOne(
+        {
+          title: 'receipt2',
+          billId: bill.id,
+          paidById: user2.id,
+          paidAt: new Date('2000-01-01'),
+          total: 30,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 20 },
+            { userId: user2.id, value: 10 },
+          ],
+        },
+        user1.id
+      );
+      await Receipt.createOne(
+        {
+          title: 'receipt3',
+          billId: bill2.id,
+          paidById: user2.id,
+          paidAt: new Date('2000-01-01'),
+          total: 20,
+          comment: 'comment',
+          category: 'car',
+          currency: bill2.currency,
+          splits: [
+            { userId: user1.id, value: 10 },
+            { userId: user2.id, value: 10 },
+          ],
+        },
+        user2.id
+      );
+      return receipt;
+    });
+
+    test('returns type of array', async () => {
+      const result = await Receipt.getAllBillReceipts(bill.id);
+
+      expect(result).toEqual(expect.any(Array));
+    });
+
+    test('returns only receipts assigned to the bill', async () => {
+      const result = await Receipt.getAllBillReceipts(bill.id);
+
+      expect(result).toEqual([
+        {
+          ...receipt,
+          total: String(receipt.total),
+          paidAt: '2000-01-01',
+        },
+        {
+          ...receipt2,
+          total: String(receipt2.total),
+          paidAt: '2000-01-01',
+        },
+      ]);
+    });
+
+    test('returns empty array if bill has no receipts', async () => {
+      const result = await Receipt.getAllBillReceipts(uuidv4());
+
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe('getBillReceipts', () => {
+    let receipt: ReceiptEntity;
+    let receipt2: ReceiptEntity;
+    let bill2: BillEntity;
+
+    beforeEach(async () => {
+      bill2 = await Bill.createOne(
+        { name: 'bill2', currency: faker.finance.currencyCode() },
+        user1.id
+      );
+      receipt = await Receipt.createOne(
+        {
+          title: 'bill',
+          billId: bill.id,
+          paidById: user1.id,
+          paidAt: new Date('2000-01-01'),
+          total: 10,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 5 },
+            { userId: user2.id, value: 5 },
+          ],
+        },
+        user1.id
+      );
+      receipt2 = await Receipt.createOne(
+        {
+          title: 'receipt2',
+          billId: bill.id,
+          paidById: user2.id,
+          paidAt: new Date('2000-01-01'),
+          total: 30,
+          comment: 'comment',
+          category: 'car',
+          currency: bill.currency,
+          splits: [
+            { userId: user1.id, value: 20 },
+            { userId: user2.id, value: 10 },
+          ],
+        },
+        user1.id
+      );
+      await Receipt.createOne(
+        {
+          title: 'receipt3',
+          billId: bill2.id,
+          paidById: user2.id,
+          paidAt: new Date('2000-01-01'),
+          total: 20,
+          comment: 'comment',
+          category: 'car',
+          currency: bill2.currency,
+          splits: [
+            { userId: user1.id, value: 10 },
+            { userId: user2.id, value: 10 },
+          ],
+        },
+        user2.id
+      );
+      return receipt;
+    });
+
+    test('should return paginated type', async () => {
+      const result = await Receipt.getBillReceipts({ billId: bill.id });
+
+      // TODO: turn this into a pagination helper to check the shape
+      expect(result).toEqual({
+        edges: expect.any(Array),
+        pageInfo: {
+          endCursor: expect.any(String),
+          hasNextPage: expect.any(Boolean),
+          itemsCount: expect.any(Number),
+        },
+      });
+    });
+
+    test('returns only receipts assigned to the bill', async () => {
+      const result = await Receipt.getBillReceipts({ billId: bill.id });
+
+      expect(result).toEqual({
+        edges: [
+          {
+            node: {
+              ...receipt,
+              total: String(receipt.total),
+              paidAt: '2000-01-01',
+            },
+            cursor: 'nodeCursor',
+          },
+          {
+            node: {
+              ...receipt2,
+              total: String(receipt2.total),
+              paidAt: '2000-01-01',
+            },
+            cursor: 'nodeCursor',
+          },
+        ],
+        pageInfo: {
+          endCursor: 'cursorEnd',
+          hasNextPage: false,
+          itemsCount: 2,
+        },
+      });
+    });
+
+    test('returns empty paginated result if bll has no receipts', async () => {
+      const result = await Receipt.getBillReceipts({ billId: uuidv4() });
+
+      expect(result).toEqual({
+        edges: [],
+        pageInfo: {
+          endCursor: 'cursorEnd',
+          hasNextPage: false,
+          itemsCount: 0,
+        },
+      });
+    });
+  });
+});

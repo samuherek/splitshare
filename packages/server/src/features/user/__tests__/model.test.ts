@@ -13,7 +13,7 @@ import User from '../model';
 // getUsersByIds,
 // getByEmails
 
-describe.only('user model', () => {
+describe('user model', () => {
   beforeEach(async () => {
     return createConnection({
       database: 'splitshare-test2',
@@ -44,6 +44,7 @@ describe.only('user model', () => {
       expect(result).not.toEqual(undefined);
     });
 
+    // TODO: change this into a type
     test('returns the created user after creation', async () => {
       const user = await User.createOne({ email: faker.internet.email() });
       const result = await User.getById(user.id);

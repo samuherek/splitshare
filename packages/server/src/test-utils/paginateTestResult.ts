@@ -8,7 +8,7 @@ export default function paginateTestResult(
     pageInfo: {
       hasNextPage: false,
       endCursor: 'endCursor',
-      itemsCount: 0,
+      itemsCount: resArray.length,
     },
   };
 }
