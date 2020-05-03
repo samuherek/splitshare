@@ -48,6 +48,8 @@ export class Bill extends BaseEntity {
   })
   billUsers: Promise<BillUser[]>;
 
-  @OneToMany(() => Receipt, (receipt) => receipt.bill)
+  @OneToMany(() => Receipt, (receipt) => receipt.bill, {
+    cascade: true,
+  })
   receipts: Promise<Receipt[]>;
 }

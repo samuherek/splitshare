@@ -36,6 +36,7 @@ function useMutationDeleteBill({ billId, mutationOpts }: Options) {
       {
         query: QUERY_BILLS,
         variables: {
+          withUsers: true,
           filter: {
             status: BillStatus.Opened,
           },
@@ -44,6 +45,7 @@ function useMutationDeleteBill({ billId, mutationOpts }: Options) {
       {
         query: QUERY_BILLS,
         variables: {
+          withUsers: true,
           filter: {
             status: BillStatus.Closed,
           },

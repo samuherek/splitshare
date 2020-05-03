@@ -24,7 +24,8 @@ export class Notification extends BaseEntity {
   notificationObjectId: string;
   @ManyToOne(
     () => NotificationObject,
-    (notificationObject) => notificationObject.notification
+    (notificationObject) => notificationObject.notification,
+    { onDelete: 'CASCADE' }
   )
   @JoinColumn({ name: 'notification_object_id' })
   notificationObject: Promise<NotificationObject>;

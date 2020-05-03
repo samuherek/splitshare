@@ -36,7 +36,10 @@ export class NotificationObject extends BaseEntity {
 
   @OneToMany(
     () => Notification,
-    (notification) => notification.notificationObject
+    (notification) => notification.notificationObject,
+    {
+      cascade: true,
+    }
   )
   notification: Promise<Notification[]>;
 }

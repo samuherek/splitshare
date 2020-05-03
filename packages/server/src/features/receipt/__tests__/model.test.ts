@@ -183,17 +183,13 @@ describe('receipt model', () => {
     });
 
     test('returns type of receipt', async () => {
-      const result = await Receipt.remove(receipt.id);
+      const result = await Receipt.remove({ id: receipt.id });
 
-      expect(result).toEqual({
-        ...receiptType,
-        paidAt: expect.any(String),
-        total: expect.any(String),
-      });
+      expect(result).toEqual(expect.any(Boolean));
     });
 
     test('removes receipt from the database', async () => {
-      await Receipt.remove(receipt.id);
+      await Receipt.remove({ id: receipt.id });
       const result = await Receipt.getById(receipt.id);
 
       expect(result).toEqual(undefined);

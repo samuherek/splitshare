@@ -8,6 +8,7 @@ import updateRowTimestamp from '../../utils/updateRowTimestamp';
 import {
   CreateReceiptInput,
   ReceiptsArgs,
+  RemoveReceiptFilter,
   UpdateReceiptInput,
 } from './types.d';
 import { getUserSplitsMap } from './utils';
@@ -46,15 +47,9 @@ async function getById(id: string) {
   return getRepository(Receipt).findOne(id);
 }
 
-async function remove(receiptId: string) {
-  const res = await getById(receiptId);
-
-  if (!res) {
-    throw new Error('There is no such receipt');
-  }
-
-  await getRepository(Receipt).delete(receiptId);
-  return res;
+async function remove(filter: RemoveReceiptFilter) {
+  await getRepository(Receipt).delete(filter);
+  return true;
 }
 
 async function update(id: string, input: UpdateReceiptInput) {

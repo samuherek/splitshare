@@ -23,7 +23,8 @@ const QUERY_BILLS = gql`
     $pagination: PaginationInput
     $filter: BillsFilter
   ) {
-    bills(pagination: $pagination, filter: $filter) {
+    bills(pagination: $pagination, filter: $filter)
+      @connection(key: "dashboard", filter: ["filter"]) {
       edges {
         node {
           id

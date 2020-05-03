@@ -75,6 +75,9 @@ const Dashboard = (props: RouteComponentProps) => {
       )}
       <CreateBillDialog
         isOpen={isOpen}
+        onRefetch={() => {
+          opened.refetch();
+        }}
         onClose={() => {
           // opened.refetch();
           closeDialog();

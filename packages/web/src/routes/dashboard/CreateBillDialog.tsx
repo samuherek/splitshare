@@ -22,9 +22,10 @@ import Fieldset from '../../ui/theme/Fieldset';
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  onRefetch: () => void;
 };
 
-function CreateBillDialog({ isOpen, onClose }: Props) {
+function CreateBillDialog({ isOpen, onClose, onRefetch }: Props) {
   const { name } = useBillNameController();
   const { currency } = useCurrencyController();
 
@@ -46,6 +47,7 @@ function CreateBillDialog({ isOpen, onClose }: Props) {
       ] = await tryToCatch(createBill);
 
       if (!err && res.data?.createBill) {
+        onRefetch();
         onClose();
       }
     }

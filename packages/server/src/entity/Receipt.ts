@@ -54,7 +54,9 @@ export class Receipt extends BaseEntity {
 
   @Column()
   billId: string;
-  @ManyToOne(() => Bill, (bill) => bill.receipts)
+  @ManyToOne(() => Bill, (bill) => bill.receipts, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'bill_id' })
   bill: Promise<Bill>;
 

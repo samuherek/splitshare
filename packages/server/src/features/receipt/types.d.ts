@@ -61,3 +61,8 @@ export type UpdateReceiptArgs = {
   id: string;
   input: UpdateReceiptInput;
 };
+
+export type RemoveReceiptFilter = {
+  id?: string;
+  billId?: string;
+};

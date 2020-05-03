@@ -84,7 +84,9 @@ function Bill({ billParam, navigate }: Props) {
           <RemoveBillUserDialog
             billUser={billUserToDelete}
             billId={billId}
-            callback={() => setBillUserToDelete(null)}
+            callback={() => {
+              setBillUserToDelete(null);
+            }}
           />
         </>
       ) : null}

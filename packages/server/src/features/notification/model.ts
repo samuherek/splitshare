@@ -8,6 +8,7 @@ import {
   CreateNotificationInput,
   NotificationsArgs,
   NotificationsFilter,
+  RemoveFilter,
   UpdateNotificationInput,
 } from './types.d';
 import mapObject = require('map-obj');
@@ -23,11 +24,11 @@ export enum ClearType {
 export interface NotificationModel {
   getUserNotifications: typeof getUserNotifications;
   createOne: typeof createOne;
-  remove: typeof remove;
   removeUserNotification: typeof removeUserNotification;
   getCount: typeof getCount;
   clearCount: typeof clearCount;
   update: typeof update;
+  remove: typeof remove;
 }
 
 export interface NotificationObjectRaw
@@ -122,10 +123,6 @@ async function update(id: string, input: UpdateNotificationInput) {
   return mapObject(res, (key, val) => [camelCase(key as string), val]);
 }
 
-async function remove(criteria: string | string[]) {
-  return getRepository(Notification).delete(criteria);
-}
-
 async function createOne({
   actorId,
   entityTypeId,
@@ -142,7 +139,7 @@ async function createOne({
     })
     .save();
 
-  await Promise.all(
+  const notifications = await Promise.all(
     recipientIds.map((id) =>
       getRepository(Notification)
         .create({
@@ -153,7 +150,10 @@ async function createOne({
     )
   );
 
-  return;
+  return {
+    notificationObject,
+    notifications,
+  };
 }
 
 async function removeUserNotification(entityId: string, userId: string) {
@@ -170,7 +170,7 @@ async function removeUserNotification(entityId: string, userId: string) {
 
   // If we don't find it then let's return right away
   if (!res) {
-    return res;
+    throw new Error('We could not find such notification.');
   }
 
   await getRepository(Notification).delete(res.id);
@@ -178,12 +178,16 @@ async function removeUserNotification(entityId: string, userId: string) {
   return res;
 }
 
+async function remove(filter: RemoveFilter) {
+  return getRepository(NotificationObject).delete(filter);
+}
+
 export default {
   getUserNotifications,
   getCount,
   createOne,
-  remove,
   removeUserNotification,
   clearCount,
   update,
+  remove,
 };

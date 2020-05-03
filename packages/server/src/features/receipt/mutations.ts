@@ -26,7 +26,7 @@ export default {
         throw new Error('No such a receipt exists');
       }
 
-      await models.Receipt.remove(id);
+      await models.Receipt.remove({ id });
 
       return res;
     },

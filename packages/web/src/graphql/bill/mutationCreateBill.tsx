@@ -34,6 +34,8 @@ function useMutationCreateBill({ name, currency, mutationOpts }: Options) {
         currency,
       },
     },
+    // TODO: figure out an update for the bills query manually without
+    // refetching the query. Bot not too high priority right now.
   });
 
   return mutation;

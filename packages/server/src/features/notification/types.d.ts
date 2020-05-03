@@ -40,3 +40,8 @@ export type UpdateNotificationArgs = {
   id: string;
   input: UpdateNotificationInput;
 };
+
+export type RemoveFilter = {
+  entityId?: string;
+  actorId?: string;
+};
